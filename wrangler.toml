@@ -1,0 +1,21 @@
+name = "maya-fourteen-astro"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# account_id intentionally left blank in this scaffold — copy it over from
+# the reference project's wrangler.toml only when you are ready to actually
+# deploy. Nothing in this project is deployed by creating these files.
+# account_id = ""
+
+# This Worker mirrors the reference project's role: a thin proxy layer in
+# front of the Cloudflare Pages deployment that serves this Astro build's
+# static output (dist/). It injects JSON-LD schema into HTML responses and
+# serves /press and /sitemap.xml. Astro's build output does not change this
+# relationship — Pages serves dist/, this Worker still fronts it.
+
+# [routes]
+# pattern = "example.com/*"
+# zone_name = "example.com"
+
+[vars]
+# Add any environment variables your worker.js expects here.

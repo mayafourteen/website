@@ -1,0 +1,25 @@
+---
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a href={href} class="contact-link fade-item">{label}</a>
+
+<style>
+  .contact-link {
+    font-family: 'Cormorant Garamond', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 25px;
+    transition: all 0.6s ease;
+    animation-delay: 2s;
+  }
+</style>

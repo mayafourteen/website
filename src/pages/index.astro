@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroBackground from '../components/HeroBackground.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+---
+
+<BaseLayout title="MAYA FOURTEEN" bodyClass="page-landing">
+  <Fragment slot="head">
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3NGTH9664P');
+    </script>
+  </Fragment>
+
+  <div class="container">
+    <HeroBackground src="/images/maya-landing.jpg" alt="Maya Fourteen" />
+    <LanguageSwitcher />
+  </div>
+</BaseLayout>
+
+<style>
+  :global(.page-landing) {
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+</style>

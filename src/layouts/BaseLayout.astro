@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  lang?: string;
+  bodyClass?: string;
+}
+
+const { title, lang = 'en', bodyClass } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <script is:inline src="/page-transitions.js"></script>
+  <title>{title}</title>
+  <slot name="head" />
+</head>
+<body class={bodyClass}>
+  <slot />
+</body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+
+  html.js-page-transitions body {
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  html.js-page-transitions.is-ready body {
+    opacity: 1;
+  }
+</style>
