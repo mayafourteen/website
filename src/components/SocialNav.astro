@@ -4,11 +4,17 @@ import EpkIcon from './icons/EpkIcon.astro';
 import BeatportIcon from './icons/BeatportIcon.astro';
 import BeepdIcon from './icons/BeepdIcon.astro';
 import { socialLinks } from '../data/socialLinks.js';
+
+interface Props {
+  epkHref?: string;
+}
+
+const { epkHref } = Astro.props;
 ---
 
 <div class="nav-links fade-item">
   {socialLinks.map((link) => (
-    <NavLink href={link.href} title={link.title}>
+    <NavLink href={link.name === 'epk' && epkHref ? epkHref : link.href} title={link.title}>
       {link.name === 'epk' && <EpkIcon />}
       {link.name === 'beatport' && <BeatportIcon />}
       {link.name === 'beepd' && <BeepdIcon />}
