@@ -9,6 +9,15 @@ interface Props {
 
 const { title, description, canonical, lang = 'en', bodyClass } = Astro.props;
 
+// Auto-generate the canonical URL from the current route unless a page
+// explicitly overrides it, so every page gets a correct canonical without
+// having to pass one manually. build.format: 'file' makes Astro.url.pathname
+// report the on-disk ".html" filename (e.g. /page-en.html) for every route
+// except the homepage; strip that suffix so canonicals stay clean and match
+// the sitemap's URLs and Cloudflare Pages' actual clean-URL serving.
+const cleanPathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const canonicalURL = canonical ?? new URL(cleanPathname, Astro.site).href;
+
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -47,7 +56,7 @@ const personSchema = {
   <script is:inline src="/page-transitions.js"></script>
   <title>{title}</title>
   {description && <meta name="description" content={description} />}
-  {canonical && <link rel="canonical" href={canonical} />}
+  <link rel="canonical" href={canonicalURL} />
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <slot name="head" />
 </head>
