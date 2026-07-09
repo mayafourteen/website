@@ -9,17 +9,6 @@ import LanguageSwitcher from '../components/LanguageSwitcher.astro';
   description="Official website of award-winning electronic music artist Maya Fourteen. Choose your preferred language to explore her world."
   bodyClass="page-landing"
 >
-  <Fragment slot="head">
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3NGTH9664P');
-    </script>
-  </Fragment>
-
   <div class="container">
     <HeroBackground src="/images/maya-landing.jpg" alt="Maya Fourteen" />
     <LanguageSwitcher />

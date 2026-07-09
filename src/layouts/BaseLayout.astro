@@ -58,6 +58,16 @@ const personSchema = {
   {description && <meta name="description" content={description} />}
   <link rel="canonical" href={canonicalURL} />
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+  <!-- Google tag (gtag.js) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NGTH9664P');
+  </script>
+
   <slot name="head" />
 </head>
 <body class={bodyClass}>
