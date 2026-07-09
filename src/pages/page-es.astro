@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroBackground from '../components/HeroBackground.astro';
+import SocialNav from '../components/SocialNav.astro';
+import ContactLink from '../components/ContactLink.astro';
+---
+
+<BaseLayout title="MAYA FOURTEEN | Portal Oficial" bodyClass="page-portal">
+  <Fragment slot="head">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  </Fragment>
+
+  <div class="background-container">
+    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
+  </div>
+
+  <div class="content-wrapper">
+    <h1 class="logo-text fade-item">Maya Fourteen</h1>
+    <div class="slogan fade-item">'Construyo sets que crecen en ti'</div>
+
+    <p class="bio fade-item">
+      Artista de música electrónica galardonada, Maya Fourteen se mueve con fluidez entre géneros electrónicos, dando forma al sonido a través de la interpretación, la producción y la curación. Con una audiencia internacional en constante crecimiento y actuaciones en escenarios de prestigio en todo el mundo, ha construido una reputación de profundidad, autenticidad y un gusto musical inconfundible.
+    </p>
+
+    <SocialNav />
+
+    <ContactLink href="mailto:hello@mayafourteen.com" label="Contacto" />
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .fade-item {
+    opacity: 0;
+    animation: smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+
+  @keyframes smoothReveal {
+    from { opacity: 0; filter: blur(15px); transform: translateY(30px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+</style>
+
+<style>
+  :global(.page-portal) {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 0 10%;
+  }
+
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 5.8rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 0 0 8px 0;
+    animation-delay: 0.4s;
+  }
+
+  .slogan {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-style: italic;
+    letter-spacing: 0.15em;
+    font-weight: 300;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.85);
+    animation-delay: 0.8s;
+  }
+
+  .bio {
+    max-width: 720px;
+    font-weight: 200;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    font-size: clamp(1rem, 1.15vw, 1.2rem);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 50px;
+    animation-delay: 1s;
+  }
+</style>
