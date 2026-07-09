@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroBackground from '../components/HeroBackground.astro';
+
+const pressItems = [
+  {
+    outlet: 'DJ Mag LATAM',
+    href: 'https://djmagla.com/conoce-a-maya-fourteen-la-artista-brasilena-que-esta-llevando-su-talento-a-nuevos-lugares-del-mundo',
+    label: 'Read article',
+  },
+  {
+    outlet: 'Mixmag Brazil',
+    href: 'https://mixmag.com.br/feature/conheca-maya-fourteen-artista-brasileira-reconhecida-por-nicole-moudaber-e-pete-tong',
+    label: 'Read article',
+  },
+  {
+    outlet: 'Alataj',
+    href: 'https://alataj.com.br/15-to-understand/maya',
+    label: 'Read article',
+  },
+  {
+    outlet: 'Play BPM',
+    href: 'https://playbpm.com.br/colunas/play-bpm-indica/maya/',
+    label: 'Read article',
+  },
+  {
+    outlet: 'Clubbing TV',
+    href: 'https://clubbingtv.com/shows/view/5593/lds-with-maya-fourteen-ade-2023-spaces/',
+    label: 'Watch feature',
+  },
+  {
+    outlet: 'Sync Beat Magazine',
+    href: 'https://issuu.com/syncbeatmagazine/docs/maya_-_english',
+    label: 'View publication',
+  },
+  {
+    outlet: 'Sync Beat Magazine Cover',
+    href: 'https://issuu.com/syncbeatmagazine/docs/portada_bebbo',
+    label: 'View cover feature',
+  },
+  {
+    outlet: 'EKM',
+    href: 'https://ekm.co/maya-fourteen-uniqueness/',
+    label: 'Read review',
+  },
+];
+---
+
+<BaseLayout
+  title="MAYA FOURTEEN | Press & Media"
+  description="Maya Fourteen is an international electronic music artist and DJ known for emotionally driven, story-telling sets blending deep tech, organic house, and progressive sounds."
+  canonical="https://mayafourteen.com/press"
+  bodyClass="page-press"
+>
+  <div class="background-container">
+    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
+  </div>
+
+  <div class="press-wrapper">
+    <h1 class="press-title fade-item">Press &amp; Media</h1>
+    <p class="press-intro fade-item">
+      Maya Fourteen has been featured across international electronic music media platforms.
+    </p>
+
+    <div class="press-list fade-item">
+      {pressItems.map((item) => (
+        <div class="press-item">
+          <strong class="press-outlet">{item.outlet}</strong>
+          <a href={item.href} target="_blank" class="press-link">{item.label}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .fade-item {
+    opacity: 0;
+    animation: smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+
+  @keyframes smoothReveal {
+    from { opacity: 0; filter: blur(15px); transform: translateY(30px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+</style>
+
+<style>
+  :global(.page-press) {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .press-wrapper {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 140px 10% 100px;
+  }
+
+  .press-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+    animation-delay: 0.4s;
+  }
+
+  .press-intro {
+    font-weight: 200;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    font-size: clamp(1rem, 1.15vw, 1.2rem);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 50px;
+    animation-delay: 0.8s;
+  }
+
+  .press-list {
+    animation-delay: 1.2s;
+  }
+
+  .press-item {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .press-item:last-child {
+    border-bottom: none;
+  }
+
+  .press-outlet {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .press-link {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+    transition: all 0.4s ease;
+  }
+
+  .press-link:hover {
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .press-wrapper {
+      padding: 110px 8% 70px;
+    }
+  }
+</style>

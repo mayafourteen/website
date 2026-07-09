@@ -1,11 +1,41 @@
 ---
 interface Props {
   title: string;
+  description?: string;
+  canonical?: string;
   lang?: string;
   bodyClass?: string;
 }
 
-const { title, lang = 'en', bodyClass } = Astro.props;
+const { title, description, canonical, lang = 'en', bodyClass } = Astro.props;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Maya Fourteen',
+  alternateName: 'MAYA FOURTEEN',
+  url: 'https://mayafourteen.com',
+  image: 'https://mayafourteen.com/images/maya-landing.jpg',
+  jobTitle: 'International Electronic Music Artist and DJ',
+  description: 'International electronic music artist and DJ from the Amazon Basin (Brazil). Winner of the 2025 Nicole Moudaber Award.',
+  foundingLocation: {
+    '@type': 'Place',
+    name: 'Mato Grosso, Brazil',
+  },
+  genre: ['Melodic Techno', 'Deep House', 'Progressive House', 'Electronic Music'],
+  award: [
+    'Nicole Moudaber Future Talent Award (IMS Ibiza 2025)',
+    'Pete Tong Future Talent Program (IMS Ibiza 2025)',
+  ],
+  sameAs: [
+    'https://www.instagram.com/mayafourteen',
+    'https://www.linkedin.com/in/mayafourteen',
+    'https://www.youtube.com/@mayafourteen',
+    'https://soundcloud.com/mayafourteen',
+    'https://www.beatport.com/artist/maya-fourteen/1090623',
+    'https://open.spotify.com/artist/6vCjW095i7Y8D7P2Uf6H0K',
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -16,6 +46,9 @@ const { title, lang = 'en', bodyClass } = Astro.props;
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <script is:inline src="/page-transitions.js"></script>
   <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  {canonical && <link rel="canonical" href={canonical} />}
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <slot name="head" />
 </head>
 <body class={bodyClass}>
