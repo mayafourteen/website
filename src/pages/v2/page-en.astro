@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroBackground from '../../components/HeroBackground.astro';
+import NavMenu from '../../components/NavMenu.astro';
+import ConnectNav from '../../components/ConnectNav.astro';
+
+const navItems = [
+  { label: 'About Me', href: '#' },
+  { label: 'Video Sets', href: '#' },
+  { label: 'Music', href: '#' },
+  { label: 'Press', href: '#' },
+  { label: 'Bookings', href: '#' },
+];
+---
+
+<BaseLayout title="MAYA FOURTEEN | V2 Preview" bodyClass="page-v2">
+  <Fragment slot="head">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <div class="background-container">
+    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
+  </div>
+
+  <div class="content-wrapper">
+    <h1 class="logo-text fade-item">Maya Fourteen</h1>
+    <div class="slogan fade-item">'I build sets that grow on you'</div>
+
+    <NavMenu items={navItems} />
+
+    <h2 class="connect-title fade-item">Connect</h2>
+    <ConnectNav />
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .fade-item {
+    opacity: 0;
+    animation: smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+
+  @keyframes smoothReveal {
+    from { opacity: 0; filter: blur(15px); transform: translateY(30px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+</style>
+
+<style>
+  :global(.page-v2) {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 140px 10% 100px;
+  }
+
+  .logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 5.8rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 0 0 8px 0;
+    animation-delay: 0.4s;
+  }
+
+  .slogan {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-style: italic;
+    letter-spacing: 0.15em;
+    font-weight: 300;
+    margin-bottom: 50px;
+    color: rgba(255, 255, 255, 0.85);
+    animation-delay: 0.8s;
+  }
+
+  .connect-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 0 0 30px 0;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 110px 8% 70px;
+    }
+  }
+</style>
