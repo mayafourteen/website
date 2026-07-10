@@ -1,0 +1,48 @@
+---
+import NavLink from './NavLink.astro';
+import EpkIcon from './icons/EpkIcon.astro';
+import BeatportIcon from './icons/BeatportIcon.astro';
+import { connectLinksV2 } from '../data/connectLinksV2.js';
+---
+
+<div class="connect-links fade-item">
+  {connectLinksV2.map((link) => (
+    <NavLink href={link.href} title={link.title}>
+      {link.name === 'epk' && <EpkIcon />}
+      {link.name === 'beatport' && <BeatportIcon />}
+      {link.type === 'fa' && <i class={`fa-brands fa-${link.name} fa-icon`}></i>}
+    </NavLink>
+  ))}
+</div>
+
+<style>
+  .connect-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+  }
+
+  .fa-icon {
+    font-size: 1.8rem;
+    display: block;
+    line-height: 1;
+  }
+
+  @media (max-width: 1024px) {
+    .connect-links {
+      gap: 28px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .connect-links {
+      gap: 20px;
+    }
+
+    .fa-icon {
+      font-size: 1.6rem;
+    }
+  }
+</style>

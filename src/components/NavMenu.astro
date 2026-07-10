@@ -1,0 +1,72 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: NavItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="nav-menu fade-item">
+  {items.map((item) => (
+    <a href={item.href} class="nav-menu-item">{item.label}</a>
+  ))}
+</nav>
+
+<style>
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto 60px;
+  }
+
+  .nav-menu-item {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #fff;
+    text-decoration: none;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    opacity: 0.85;
+    transition: all 0.4s ease;
+  }
+
+  .nav-menu-item:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-menu-item:hover {
+    opacity: 1;
+    letter-spacing: 0.2em;
+  }
+
+  @media (max-width: 1024px) {
+    .nav-menu-item {
+      font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-menu {
+      max-width: 100%;
+    }
+
+    .nav-menu-item {
+      font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+      padding: 14px 0;
+    }
+  }
+</style>
