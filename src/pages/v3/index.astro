@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroBackground from '../../components/HeroBackground.astro';
+---
+
+<BaseLayout
+  title="MAYA FOURTEEN | V3 Preview"
+  description="Official website of award-winning electronic music artist Maya Fourteen."
+  bodyClass="page-landing"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- Automatic language routing, mirrored from the production landing page. -->
+    <script is:inline>
+      (function () {
+        var STORAGE_KEY = 'maya-lang-pref';
+        var SUPPORTED = ['en', 'pt', 'es'];
+
+        function detectFromBrowser() {
+          var langs = (navigator.languages && navigator.languages.length)
+            ? navigator.languages
+            : [navigator.language || 'en'];
+
+          for (var i = 0; i < langs.length; i++) {
+            var code = String(langs[i]).toLowerCase();
+            if (code.indexOf('pt') === 0) return 'pt';
+            if (code.indexOf('es') === 0) return 'es';
+            if (code.indexOf('en') === 0) return 'en';
+          }
+          return 'en';
+        }
+
+        var target = 'en';
+        try {
+          var stored = localStorage.getItem(STORAGE_KEY);
+          target = (stored && SUPPORTED.indexOf(stored) !== -1) ? stored : detectFromBrowser();
+        } catch (e) {
+          target = detectFromBrowser();
+        }
+
+        window.location.replace('/v3/page-' + target);
+      })();
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url=/v3/page-en" />
+    </noscript>
+  </Fragment>
+
+  <div class="container">
+    <HeroBackground src="/images/maya-landing.jpg" alt="Maya Fourteen" />
+    <noscript>
+      <div class="noscript-fallback">
+        <a href="/v3/page-en">English</a>
+        <span class="dot">•</span>
+        <a href="/v3/page-pt">Português</a>
+        <span class="dot">•</span>
+        <a href="/v3/page-es">Español</a>
+      </div>
+    </noscript>
+  </div>
+</BaseLayout>
+
+<style>
+  :global(.page-landing) {
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .noscript-fallback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 2.5vw;
+    color: white;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    font-size: 2.2vw;
+    white-space: nowrap;
+  }
+
+  .noscript-fallback a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .dot {
+    font-size: 1.2em;
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    .noscript-fallback {
+      font-size: 5.5vw;
+      gap: 6vw;
+    }
+  }
+</style>
