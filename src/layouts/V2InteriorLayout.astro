@@ -1,5 +1,5 @@
 ---
-// Shared shell for every V3 menu destination (About, Video Sets, Audio
+// Shared shell for every V2 menu destination (About, Video Sets, Audio
 // Sets, Press, Book Maya). One layout so each page only supplies its own
 // content — keeps the five pages visually consistent by construction
 // rather than by copy-pasted CSS.
@@ -16,7 +16,7 @@ interface Props {
 const { title, description, eyebrow } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} bodyClass="page-v3-interior" lang="en">
+<BaseLayout title={title} description={description} bodyClass="page-v2-interior" lang="en">
   <Fragment slot="head">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -51,7 +51,7 @@ const { title, description, eyebrow } = Astro.props;
 </style>
 
 <style>
-  :global(.page-v3-interior) {
+  :global(.page-v2-interior) {
     color: #fff;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;

@@ -1,6 +1,6 @@
 // Shared with src/pages/press.astro's own inline copy intentionally kept
-// separate — this file is only consumed by the v3/ preview so the current
-// production press page is never touched before V3 is approved.
+// separate — this file is only consumed by the v2/ preview so the current
+// production press page is never touched before V2 is approved.
 export const pressItems = [
   {
     outlet: 'DJ Mag LATAM',
