@@ -14,9 +14,20 @@ interface Props {
 }
 
 const { title, description, eyebrow } = Astro.props;
+
+// These pages only exist in English so far — without this, LanguageMenu's
+// default hrefs (page-en/pt/es) would bounce the visitor to the V2
+// homepage in the chosen language instead of keeping them here.
+const currentPath = Astro.url.pathname.replace(/\.html$/, '') || '/';
 ---
 
-<BaseLayout title={title} description={description} bodyClass="page-v2-interior" lang="en">
+<BaseLayout
+  title={title}
+  description={description}
+  bodyClass="page-v2-interior"
+  lang="en"
+  languageHrefOverride={currentPath}
+>
   <Fragment slot="head">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -55,6 +66,16 @@ const { title, description, eyebrow } = Astro.props;
     color: #fff;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+  }
+
+  /* Same language-selector weight bump as the V2 homepage, for consistency
+     wherever it's paired with the hamburger. LanguageMenu's own default
+     styling (used by every other page) is untouched. */
+  :global(.page-v2-interior) :global(.language-menu-trigger) {
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    padding: 10px 14px;
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .background-container {
