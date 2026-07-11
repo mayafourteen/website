@@ -35,8 +35,10 @@ const { title, description, lang, epkHref } = Astro.props;
   <HamburgerMenu />
 
   <div class="content-wrapper">
-    <h1 class="logo-text fade-item">Maya Fourteen</h1>
-    <div class="slogan fade-item">'I build sets that grow on you'</div>
+    <div class="title-group">
+      <h1 class="logo-text fade-item">Maya Fourteen</h1>
+      <div class="slogan fade-item">'I build sets that grow on you'</div>
+    </div>
 
     <SocialNav links={primarySocialLinks} epkHref={epkHref} />
   </div>
@@ -80,6 +82,14 @@ const { title, description, lang, epkHref } = Astro.props;
     color: rgba(255, 255, 255, 0.9);
   }
 
+  /* Transparent on desktop — grouping the title+tagline for layout
+     purposes only shouldn't change desktop's existing flex-column
+     behavior at all. Only the mobile media query below turns this into
+     a real flex item. */
+  .title-group {
+    display: contents;
+  }
+
   .background-container {
     position: fixed;
     top: 0;
@@ -108,13 +118,21 @@ const { title, description, lang, epkHref } = Astro.props;
     pointer-events: none;
   }
 
+  /* height (not min-height) + border-box is deliberate: Chrome has a real
+     flexbox bug where min-height combined with justify-content and
+     padding on a column flex container mis-resolves the free space to
+     distribute, silently pushing later items far below the viewport
+     (confirmed by isolating the exact CSS in a minimal standalone test —
+     it reproduced with plain colored boxes, no fonts or Astro involved).
+     A definite `height` avoids that code path entirely. */
   .content-wrapper {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    min-height: 100vh;
+    height: 100vh;
+    box-sizing: border-box;
     text-align: center;
     padding: 100px 10% 9vh;
   }
@@ -141,15 +159,48 @@ const { title, description, lang, epkHref } = Astro.props;
     animation-delay: 0.32s;
   }
 
-  /* On mobile, the bottom-weighted composition put the title too close to
-     the icon row with little room to breathe. Bringing it back toward
-     center keeps it off the subject's face (the scrim still helps there)
-     without crowding the bottom of the frame. Desktop composition (the
-     lower-third placement) is unaffected. */
+  /* Mobile-only vertical composition. justify-content:space-between with
+     exactly two flex items (title-group, icon row) gives a hard guarantee
+     against overflow: the title-group's top edge is pinned by padding-top
+     and the icon row's bottom edge is pinned by padding-bottom, whatever
+     free space is left goes into the single gap between them. Tuning the
+     padding values directly controls where the title sits (~torso height)
+     and keeps the icon row anchored at the bottom, always visible without
+     scrolling — this doesn't depend on guessing exact font metrics the
+     way splitting space across two independent auto-margins did. Desktop's
+     lower-third composition is untouched — .title-group is
+     `display:contents` there, so it isn't a flex item at all. */
   @media (max-width: 768px) {
     .content-wrapper {
-      justify-content: center;
-      padding: 90px 8% 8vh;
+      justify-content: space-between;
+      padding: 36vh 8% 6vh;
+    }
+
+    .title-group {
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .content-wrapper :global(.nav-links) {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    /* Align the language selector's box with the hamburger's 44px box at
+       the same fixed top offset, so their visual centers coincide exactly
+       instead of the language selector sitting a few pixels higher.
+       LanguageMenu's own mobile rule sets top/left with the same
+       specificity (a class + an attribute selector) — matching that
+       exactly via a doubled class keeps this a guaranteed win rather than
+       an accidental one that depends on stylesheet ordering. */
+    :global(.page-v2-home) :global(.language-menu.language-menu) {
+      top: calc(20px + env(safe-area-inset-top, 0px));
+      left: calc(22px + env(safe-area-inset-left, 0px));
+    }
+
+    :global(.language-menu-trigger) {
+      box-sizing: border-box;
+      height: 44px;
     }
   }
 </style>
