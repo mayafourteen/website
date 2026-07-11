@@ -1,13 +1,24 @@
 ---
+import LanguageMenu from '../components/LanguageMenu.astro';
+import { languages } from '../data/languages.js';
+
 interface Props {
   title: string;
   description?: string;
   canonical?: string;
   lang?: string;
   bodyClass?: string;
+  showLanguageAlternates?: boolean;
 }
 
-const { title, description, canonical, lang = 'en', bodyClass } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  lang = 'en',
+  bodyClass,
+  showLanguageAlternates = false,
+} = Astro.props;
 
 // Auto-generate the canonical URL from the current route unless a page
 // explicitly overrides it, so every page gets a correct canonical without
@@ -17,6 +28,11 @@ const { title, description, canonical, lang = 'en', bodyClass } = Astro.props;
 // the sitemap's URLs and Cloudflare Pages' actual clean-URL serving.
 const cleanPathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
 const canonicalURL = canonical ?? new URL(cleanPathname, Astro.site).href;
+
+// hreflang alternates: only meaningful on pages that actually have translated
+// siblings (the page-en/pt/es trio). x-default points at English, the
+// international fallback.
+const defaultLangEntry = languages.find((l) => l.code === 'EN');
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -57,6 +73,12 @@ const personSchema = {
   <title>{title}</title>
   {description && <meta name="description" content={description} />}
   <link rel="canonical" href={canonicalURL} />
+  {showLanguageAlternates && languages.map((l) => (
+    <link rel="alternate" hreflang={l.hreflang} href={new URL(l.href.replace(/\.html$/, ''), Astro.site).href} />
+  ))}
+  {showLanguageAlternates && defaultLangEntry && (
+    <link rel="alternate" hreflang="x-default" href={new URL(defaultLangEntry.href.replace(/\.html$/, ''), Astro.site).href} />
+  )}
   <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
   <!-- Google tag (gtag.js) -->
@@ -71,6 +93,7 @@ const personSchema = {
   <slot name="head" />
 </head>
 <body class={bodyClass}>
+  <LanguageMenu currentLang={lang} />
   <slot />
 </body>
 </html>
