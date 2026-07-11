@@ -30,6 +30,8 @@ const { title, description, lang, epkHref } = Astro.props;
     <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
   </div>
 
+  <div class="scrim" aria-hidden="true"></div>
+
   <HamburgerMenu />
 
   <div class="content-wrapper">
@@ -76,20 +78,41 @@ const { title, description, lang, epkHref } = Astro.props;
     height: 100%;
   }
 
+  /* Composes the text against the lower third of the frame rather than
+     dead-center — keeps the title/tagline off the subject's face and
+     gives the page a deliberate, cinematic bottom-weighted read instead
+     of sitting flush on top of the busiest part of the photo. */
+  .scrim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0.1) 40%,
+      rgba(0, 0, 0, 0.45) 70%,
+      rgba(0, 0, 0, 0.68) 100%
+    );
+    pointer-events: none;
+  }
+
   .content-wrapper {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     min-height: 100vh;
     text-align: center;
-    padding: 0 10%;
+    padding: 100px 10% 9vh;
   }
 
   .logo-text {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(3.2rem, 8vw, 5.8rem);
+    line-height: 1.15;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     font-weight: 300;
