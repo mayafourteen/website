@@ -17,6 +17,15 @@ interface Props {
 }
 
 const { title, description, lang, epkHref } = Astro.props;
+
+// "[ enter ]" hero CTA — links to this language's About page. ES has no
+// About page yet (interior pages are deferred for ES per the project
+// brief), so it falls back to the EN About page rather than omitting the
+// element from the ES homepage entirely.
+const enterHrefByLang: Record<string, string> = { en: '/v3/about', pt: '/v3/about-pt', es: '/v3/about' };
+const enterLabelByLang: Record<string, string> = { en: 'enter', pt: 'entrar', es: 'entrar' };
+const enterHref = enterHrefByLang[lang] ?? '/v3/about';
+const enterLabel = enterLabelByLang[lang] ?? 'enter';
 ---
 
 <V3BaseLayout title={title} description={description} bodyClass="page-v2-home" lang={lang}>
@@ -45,6 +54,7 @@ const { title, description, lang, epkHref } = Astro.props;
     <div class="title-group">
       <h1 class="logo-text fade-item">Maya <br class="logo-break" />Fourteen</h1>
       <div class="slogan fade-item">'I build sets that grow on you'</div>
+      <a class="hero-cta fade-item" href={enterHref}>[&thinsp;{enterLabel}&thinsp;]</a>
     </div>
 
     <SocialNav links={primarySocialLinks} epkHref={epkHref} />
@@ -65,6 +75,11 @@ const { title, description, lang, epkHref } = Astro.props;
 
 <style>
   :global(.page-v2-home) {
+    /* Single source of truth for the header chrome's edge offset — both
+       HamburgerMenu (top-right) and LanguageMenu (top-left) read this
+       instead of hardcoding their own numbers, so they can't drift out
+       of sync again. */
+    --v3-header-inset: 20px;
     color: #fff;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
@@ -89,12 +104,39 @@ const { title, description, lang, epkHref } = Astro.props;
     color: rgba(255, 255, 255, 0.9);
   }
 
-  /* Transparent on desktop — grouping the title+tagline for layout
-     purposes only shouldn't change desktop's existing flex-column
-     behavior at all. Only the mobile media query below turns this into
-     a real flex item. */
+  /* Desktop only: independently positions the name+slogan block near the
+     viewport's optical center (~46vh) without moving the icon row. Under
+     the flex-end-anchored .content-wrapper below, adding margin/padding
+     above a flex-flow title-group does NOT shift it — the bottom-anchored
+     stack's positions are computed backward from the last item, so
+     leading space just eats into existing blank space instead of moving
+     anything (confirmed by measuring rendered position before/after a
+     margin-based attempt). Taking title-group out of that flow entirely
+     via position:absolute sidesteps it: SocialNav becomes the sole flex
+     child of .content-wrapper, still pinned to the bottom exactly as
+     before. --name-half-line mirrors .logo-text's own font-size clamp
+     scaled by (line-height / 2), so translateY cancels out exactly half
+     the name's own rendered height regardless of viewport width — landing
+     the name's true vertical center (not the group's) at `top`, with the
+     slogan and CTA flowing below it at their own unchanged spacing. Reset
+     to a normal flow item for mobile/tablet-portrait, which use their own
+     space-between composition instead. */
   .title-group {
-    display: contents;
+    --name-half-line: clamp(1.84rem, 4.6vw, 3.335rem);
+    position: absolute;
+    top: 46vh;
+    left: 50%;
+    transform: translate(-50%, calc(-1 * var(--name-half-line)));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Absolutely-positioned flex containers don't reliably shrink-to-fit
+       their content's natural width (measured ~720px here — exactly half
+       the 1440px viewport — instead of "MAYA FOURTEEN"'s true ~1000px
+       single-line width), which wrapped the name onto two lines on
+       desktop. width:max-content forces sizing from content instead. */
+    width: max-content;
+    max-width: 90vw;
   }
 
   .background-container {
@@ -102,7 +144,8 @@ const { title, description, lang, epkHref } = Astro.props;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: 100dvh;
   }
 
   /* Composes the text against the lower third of the frame rather than
@@ -114,7 +157,8 @@ const { title, description, lang, epkHref } = Astro.props;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: 100dvh;
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0.05) 0%,
@@ -131,7 +175,14 @@ const { title, description, lang, epkHref } = Astro.props;
      distribute, silently pushing later items far below the viewport
      (confirmed by isolating the exact CSS in a minimal standalone test —
      it reproduced with plain colored boxes, no fonts or Astro involved).
-     A definite `height` avoids that code path entirely. */
+     A definite `height` avoids that code path entirely. 100vh declared
+     first as a fallback for browsers without dvh support; 100dvh (mobile
+     Chrome/Safari's dynamic viewport height) overrides it where
+     supported, so the icon row's bottom padding tracks the real visible
+     viewport instead of the tallest possible one (URL bar collapsed) —
+     otherwise the row sits clipped until the user scrolls. Bottom padding
+     also adds the iOS home-indicator safe area so the icon row never
+     sits flush against it. */
   .content-wrapper {
     position: relative;
     display: flex;
@@ -139,9 +190,10 @@ const { title, description, lang, epkHref } = Astro.props;
     align-items: center;
     justify-content: flex-end;
     height: 100vh;
+    height: 100dvh;
     box-sizing: border-box;
     text-align: center;
-    padding: 100px 10% 9vh;
+    padding: 100px 10% calc(9vh + env(safe-area-inset-bottom, 0px));
   }
 
   .logo-text {
@@ -171,9 +223,33 @@ const { title, description, lang, epkHref } = Astro.props;
     font-style: italic;
     letter-spacing: 0.15em;
     font-weight: 300;
-    margin-bottom: 50px;
+    margin-bottom: 28px;
     color: rgba(255, 255, 255, 0.85);
     animation-delay: 0.32s;
+  }
+
+  /* Quiet aside, not a button: same italic serif voice as the slogan but
+     hushed — smaller, tighter letter-spacing, resting well under full
+     opacity — so it reads as a soft invitation rather than a CTA competing
+     with the name/slogan for attention. */
+  .hero-cta {
+    display: inline-block;
+    margin-bottom: 46px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(0.8rem, 1.6vw, 1.15rem);
+    letter-spacing: 0.04em;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.68;
+    transition: opacity 0.3s ease;
+    animation-delay: 0.42s;
+  }
+
+  .hero-cta:hover,
+  .hero-cta:focus-visible {
+    opacity: 1;
   }
 
   /* Mobile-only vertical composition. justify-content:space-between with
@@ -190,7 +266,7 @@ const { title, description, lang, epkHref } = Astro.props;
   @media (max-width: 768px) {
     .content-wrapper {
       justify-content: space-between;
-      padding: 36vh 8% 6vh;
+      padding: 36vh 8% calc(6vh + env(safe-area-inset-bottom, 0px));
     }
 
     .logo-break {
@@ -208,31 +284,49 @@ const { title, description, lang, epkHref } = Astro.props;
       letter-spacing: 0.12em;
     }
 
+    /* Cancels the desktop absolute-positioning treatment above — back to
+       a normal in-flow block so space-between (not the optical-center
+       math) governs where the whole title+slogan+CTA group sits. */
     .title-group {
+      position: static;
+      transform: none;
       display: block;
       flex-shrink: 0;
+      width: auto;
+      max-width: none;
     }
 
     .content-wrapper :global(.nav-links) {
       margin-bottom: 0;
       flex-shrink: 0;
     }
+  }
 
-    /* Align the language selector's box with the hamburger's 44px box at
-       the same fixed top offset, so their visual centers coincide exactly
-       instead of the language selector sitting a few pixels higher.
-       LanguageMenu's own mobile rule sets top/left with the same
-       specificity (a class + an attribute selector) — matching that
-       exactly via a doubled class keeps this a guaranteed win rather than
-       an accidental one that depends on stylesheet ordering. */
-    :global(.page-v2-home) :global(.language-menu.language-menu) {
-      top: calc(20px + env(safe-area-inset-top, 0px));
-      left: calc(22px + env(safe-area-inset-left, 0px));
+  /* Tablets in portrait (iPad-class widths, e.g. 768-1024px) fall outside
+     the phone breakpoint above but are too narrow/tall-aspect for the
+     desktop optical-center composition to read well — same reasoning as
+     the mobile block, just at a wider min-width. Reuses only the
+     positioning mechanics (space-between + block title-group), not the
+     phone-specific font-size/letter-spacing/line-break fixes, since
+     those exist purely for 390px-wide overflow and don't apply here. */
+  @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+    .content-wrapper {
+      justify-content: space-between;
+      padding: 36vh 8% calc(6vh + env(safe-area-inset-bottom, 0px));
     }
 
-    :global(.language-menu-trigger) {
-      box-sizing: border-box;
-      height: 44px;
+    .title-group {
+      position: static;
+      transform: none;
+      display: block;
+      flex-shrink: 0;
+      width: auto;
+      max-width: none;
+    }
+
+    .content-wrapper :global(.nav-links) {
+      margin-bottom: 0;
+      flex-shrink: 0;
     }
   }
 </style>

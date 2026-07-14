@@ -55,24 +55,39 @@ const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
 </script>
 
 <style>
+  /* --v3-header-inset is defined once per page shell (V3HomeLayout /
+     V3InteriorLayout) so this and HamburgerMenu's edge offset can never
+     drift out of sync; falls back to 20px for pages that don't define it
+     (e.g. the EPK pages, which use neither layout directly). Matching
+     env(safe-area-inset-*) support to HamburgerMenu too — this was
+     previously missing here, so notched devices pushed the hamburger
+     in from the right but let this sit under the notch on the left. */
   .language-menu {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: calc(var(--v3-header-inset, 20px) + env(safe-area-inset-top, 0px));
+    left: calc(var(--v3-header-inset, 20px) + env(safe-area-inset-left, 0px));
     z-index: 50;
     font-family: 'Inter', sans-serif;
   }
 
+  /* Fixed 44px height (matching HamburgerMenu's 44px box) with flex
+     vertical-centering, rather than relying on padding to imply a height
+     — guarantees the two triggers' visual centers coincide exactly at
+     any font-size, not just at the specific padding value this default
+     happens to use (pages that override padding, e.g. the EPK/interior
+     layouts, stay aligned too since the height is fixed independently). */
   .language-menu-trigger {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    height: 44px;
+    box-sizing: border-box;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.75);
     font-size: 0.75rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    padding: 8px 10px;
+    padding: 0 10px;
     transition: color 0.3s ease;
   }
 
@@ -121,12 +136,5 @@ const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
   .language-menu-option.active {
     color: #fff;
     font-weight: 400;
-  }
-
-  @media (max-width: 768px) {
-    .language-menu {
-      top: 14px;
-      left: 14px;
-    }
   }
 </style>
