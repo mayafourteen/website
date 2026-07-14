@@ -1,0 +1,91 @@
+---
+import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
+import { pressItems } from '../../data/v3/pressItems.js';
+
+// SoundCloud "best set" embed is pending a specific track URL — see
+// DEPLOY.md / project notes. Nothing is embedded here in the meantime
+// rather than substituting the generic profile widget, since this section
+// is meant to spotlight one chosen set, not the whole catalogue.
+---
+
+<V3InteriorLayout
+  title="EPK"
+  eyebrow="Press & Promoter Kit"
+  description="Maya Fourteen electronic press kit — bio, credentials, key performances and booking contact."
+>
+  <p>
+    Maya Fourteen is an award-winning electronic music artist and DJ from the Amazon Basin in
+    Mato Grosso, Brazil. She moves fluidly across electronic genres, shaping sound through
+    performance, production and curation, with a growing international audience and performances
+    across respected stages worldwide. Her sets are emotionally driven and story-telling, blending
+    deep tech, organic house and progressive sounds into journeys built to grow on the listener
+    over time.
+  </p>
+
+  <p class="section-title">Credentials</p>
+  <ul class="fact-list">
+    <li>IMS Ibiza 2025 Future Talent Award, selected by Pete Tong</li>
+    <li>Nicole Moudaber Talent Highlight Prize</li>
+    <li>atic Recordings debut "Uniqueness" — 20th anniversary album, Top 8 Beatport Deep House</li>
+    <li>VIVa MUSiC</li>
+    <li>Dioscuri Records</li>
+  </ul>
+
+  <p class="section-title">Key Performances</p>
+  <ul class="fact-list">
+    <li>Green Valley — 17th anniversary</li>
+    <li>World Club Dome, Frankfurt</li>
+    <li>Terra Solis, Dubai</li>
+    <li>F1 afterparties — Abu Dhabi &amp; Monaco</li>
+    <li>FENDI private soirée</li>
+  </ul>
+
+  <p class="section-title">Press</p>
+  <ul class="link-list">
+    {pressItems.map((item) => (
+      <li>
+        <strong>{item.outlet}</strong>
+        <a href={item.href} target="_blank">{item.label}</a>
+      </li>
+    ))}
+  </ul>
+
+  <p class="section-title">Press Photos</p>
+  <ul class="link-list">
+    <li>
+      <strong>Hero — colour</strong>
+      <a href="/images/maya-landing.jpg" download>Download JPG</a>
+    </li>
+    <li>
+      <strong>Hero — black &amp; white</strong>
+      <a href="/images/maya-landing-bw.jpg" download>Download JPG</a>
+    </li>
+  </ul>
+
+  <p class="section-title">Booking</p>
+  <p>
+    For bookings, festival slots, agency representation or press inquiries, get in touch directly.
+  </p>
+  <a class="cta-button" href="mailto:hello@mayafourteen.com">Email hello@mayafourteen.com</a>
+</V3InteriorLayout>
+
+<style>
+  .fact-list {
+    list-style: none;
+    margin: 0 0 24px 0;
+    padding: 0;
+  }
+
+  .fact-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 200;
+    letter-spacing: 0.04em;
+    font-size: clamp(1rem, 1.15vw, 1.2rem);
+  }
+
+  .fact-list li:last-child {
+    border-bottom: none;
+  }
+</style>

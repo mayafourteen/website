@@ -6,5 +6,6 @@ export const navItems = [
   { label: 'Video Sets', href: '/v3/video-sets' },
   { label: 'Audio Sets', href: '/v3/audio-sets' },
   { label: 'Press', href: '/v3/press' },
+  { label: 'EPK', href: '/v3/epk' },
   { label: 'Book Maya', href: '/v3/book' },
 ];
