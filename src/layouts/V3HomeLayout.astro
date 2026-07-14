@@ -109,11 +109,27 @@ const enterLabel = enterLabelByLang[lang] ?? 'enter';
 
   /* Balance the language selector against the hamburger icon's visual
      weight — scoped to the V3 homepage only, LanguageMenu's own default
-     styling (used by every other page) is untouched. */
+     styling (used by every other page) is untouched.
+
+     Optical alignment: measured via Range.getBoundingClientRect on this
+     trigger's text node vs. getBoundingClientRect on .hamburger-line
+     (HamburgerMenu.astro), across every /v3/ page (home, interior, EPK)
+     and both desktop/mobile viewports. With the symmetric 14px this rule
+     used to set on both sides, the label's ink started a flat 34px from
+     the left viewport edge while the hamburger lines' ink ended 30px from
+     the right edge — a 4px gap from the "E"/"P"/"S" glyphs' own
+     left-side bearing sitting outside the padding box (the hamburger's
+     lines are drawn rectangles with no such bearing, so their ink matches
+     their layout box exactly). Trimming padding-left by that measured 4px
+     (14px -> 10px) brings both ink distances to 30px, equal to the pixel,
+     identically on every page and both viewports. Right padding (caret
+     spacing) and the hamburger are untouched. This same fix is mirrored
+     in V3InteriorLayout.astro and the three epk*.astro pages, which each
+     have their own copy of this rule. */
   :global(.page-v2-home) :global(.language-menu-trigger) {
     font-size: 0.95rem;
     letter-spacing: 0.12em;
-    padding: 10px 14px;
+    padding: 10px 14px 10px 10px;
     color: rgba(255, 255, 255, 0.9);
   }
 

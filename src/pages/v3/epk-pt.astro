@@ -310,10 +310,13 @@ const discoverLinks = socialLinks.filter((l) =>
     background: #0a0a0a;
   }
 
+  /* padding-left trimmed to 10px (from a symmetric 14px) for optical
+     alignment against the hamburger's ink — see the full measurement
+     writeup on the matching rule in V3HomeLayout.astro. */
   :global(.page-epk) :global(.language-menu-trigger) {
     font-size: 0.95rem;
     letter-spacing: 0.12em;
-    padding: 10px 14px;
+    padding: 10px 14px 10px 10px;
     color: rgba(255, 255, 255, 0.9);
   }
 
