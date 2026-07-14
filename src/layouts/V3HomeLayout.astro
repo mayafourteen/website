@@ -22,9 +22,19 @@ const { title, description, lang, epkHref } = Astro.props;
 // (see the forwarding script below), not a navigation link.
 const enterLabelByLang: Record<string, string> = { en: 'enter', pt: 'entrar', es: 'entrar' };
 const enterLabel = enterLabelByLang[lang] ?? 'enter';
+
+// All 3 homepages are genuine translations of each other (unlike interior
+// pages, which stay EN/PT only) — real hreflang alternates, not a fallback.
+const homeHreflangAlternates = { en: '/v3/page-en', pt: '/v3/page-pt', es: '/v3/page-es' };
 ---
 
-<V3BaseLayout title={title} description={description} bodyClass="page-v2-home" lang={lang}>
+<V3BaseLayout
+  title={title}
+  description={description}
+  bodyClass="page-v2-home"
+  lang={lang}
+  hreflangAlternates={homeHreflangAlternates}
+>
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -37,6 +37,19 @@ const lang = isPt ? 'pt' : 'en';
 // Brand-prefixed for the <title>/OG tags; the on-page <h1> below uses the
 // plain `title` prop so the visible heading doesn't carry the prefix too.
 const documentTitle = `MAYA FOURTEEN | ${title}`;
+
+// No `es` key here (unlike V3HomeLayout's): ES interior pages don't exist,
+// so there is no genuine ES translation of this specific page to declare —
+// the language switcher above still offers an ES link, but hreflang must
+// not (see the prop's own doc in V3BaseLayout.astro).
+const interiorHreflangAlternates = { en: enPath, pt: ptPath };
+
+const homeLabelByLang: Record<string, string> = { en: 'Home', pt: 'Início' };
+const homePathByLang: Record<string, string> = { en: '/v3/page-en', pt: '/v3/page-pt' };
+const breadcrumbs = [
+  { name: homeLabelByLang[lang], path: homePathByLang[lang] },
+  { name: title, path: currentPath },
+];
 ---
 
 <V3BaseLayout
@@ -45,6 +58,8 @@ const documentTitle = `MAYA FOURTEEN | ${title}`;
   bodyClass="page-v2-interior"
   lang={lang}
   languageHrefOverrides={{ en: enPath, pt: ptPath, es: '/v3/page-es' }}
+  hreflangAlternates={interiorHreflangAlternates}
+  breadcrumbs={breadcrumbs}
 >
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com">
