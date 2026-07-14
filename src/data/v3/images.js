@@ -65,6 +65,12 @@ export const images = {
     height: 675,
     srcset: '/images/epk/epk-editorial-540w.jpg 540w, /images/epk/epk-editorial.jpg 1080w',
   },
+  epkFendi: {
+    src: '/images/epk/epk-fendi.jpg',
+    width: 1080,
+    height: 720,
+    srcset: '/images/epk/epk-fendi-540w.jpg 540w, /images/epk/epk-fendi.jpg 1080w',
+  },
   epkWorldStages: {
     src: '/images/epk/epk-world-stages.jpg',
     width: 1066,
