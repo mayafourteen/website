@@ -43,7 +43,7 @@ const { title, description, lang, epkHref } = Astro.props;
 
   <div class="content-wrapper">
     <div class="title-group">
-      <h1 class="logo-text fade-item">Maya Fourteen</h1>
+      <h1 class="logo-text fade-item">Maya <br class="logo-break" />Fourteen</h1>
       <div class="slogan fade-item">'I build sets that grow on you'</div>
     </div>
 
@@ -155,6 +155,16 @@ const { title, description, lang, epkHref } = Astro.props;
     animation-delay: 0.15s;
   }
 
+  /* Hidden on desktop, where "Maya Fourteen" reads as one line. Shown
+     (as a real line break) only in the mobile query below, where it
+     replaces relying on the browser to wrap at the word space — natural
+     wrapping put "Fourteen" alone on its own line already, but its
+     trailing letter-spacing still overflowed past the padded edge on a
+     390px phone (see that rule for the actual size fix). */
+  .logo-break {
+    display: none;
+  }
+
   .slogan {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.1rem, 2.2vw, 1.6rem);
@@ -181,6 +191,21 @@ const { title, description, lang, epkHref } = Astro.props;
     .content-wrapper {
       justify-content: space-between;
       padding: 36vh 8% 6vh;
+    }
+
+    .logo-break {
+      display: block;
+    }
+
+    /* The desktop clamp's 3.2rem floor plus 0.22em letter-spacing made
+       "FOURTEEN" — now guaranteed its own line by .logo-break above —
+       wider than the padded content area on a 390px phone, overflowing
+       past the right edge. Trimming both brings it back inside with
+       margin to spare (verified via getClientRects, not just visually),
+       without touching the desktop values. */
+    .logo-text {
+      font-size: clamp(2.8rem, 8vw, 5.8rem);
+      letter-spacing: 0.12em;
     }
 
     .title-group {
