@@ -1,0 +1,132 @@
+---
+import { languages } from '../../data/v3/languages.js';
+
+interface Props {
+  currentLang: string;
+  // When the current page has no per-language equivalent (e.g. a V3
+  // interior page that only exists in one language), pass its own path here
+  // so every option stays on this page instead of jumping to that
+  // language's homepage. Default behavior (per-page hrefs from `languages`)
+  // is unchanged for every caller that doesn't pass this.
+  hrefOverride?: string;
+}
+
+const { currentLang, hrefOverride } = Astro.props;
+const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
+---
+
+<details class="language-menu">
+  <summary class="language-menu-trigger">{current.code}</summary>
+  <ul class="language-menu-list">
+    {languages.map((lang) => (
+      <li>
+        <a
+          href={hrefOverride ?? lang.href}
+          class:list={['language-menu-option', { active: lang.lang === currentLang }]}
+          data-lang-pref={lang.lang}
+        >
+          {lang.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</details>
+
+<script>
+  document.querySelectorAll('.language-menu-option').forEach((link) => {
+    link.addEventListener('click', () => {
+      const pref = link.getAttribute('data-lang-pref');
+      if (pref) {
+        try {
+          localStorage.setItem('maya-lang-pref', pref);
+        } catch (e) {
+          // localStorage unavailable (private mode, etc.) — navigation still works.
+        }
+      }
+    });
+  });
+
+  // Close the menu when clicking outside it.
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.language-menu[open]').forEach((menu) => {
+      if (!menu.contains(event.target as Node)) menu.removeAttribute('open');
+    });
+  });
+</script>
+
+<style>
+  .language-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 50;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .language-menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 10px;
+    transition: color 0.3s ease;
+  }
+
+  summary.language-menu-trigger {
+    list-style: none;
+  }
+
+  .language-menu-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .language-menu-trigger::after {
+    content: '▾';
+    font-size: 0.7em;
+  }
+
+  .language-menu:hover .language-menu-trigger,
+  .language-menu[open] .language-menu-trigger {
+    color: #fff;
+  }
+
+  .language-menu-list {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 8px 0;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    min-width: 130px;
+  }
+
+  .language-menu-option {
+    display: block;
+    padding: 8px 16px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+
+  .language-menu-option:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .language-menu-option.active {
+    color: #fff;
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .language-menu {
+      top: 14px;
+      left: 14px;
+    }
+  }
+</style>

@@ -1,0 +1,191 @@
+---
+import { navItems } from '../../data/v3/navItems.js';
+---
+
+<button
+  type="button"
+  class="hamburger-trigger"
+  id="hamburger-trigger"
+  aria-expanded="false"
+  aria-controls="hamburger-overlay"
+  aria-label="Open menu"
+>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+</button>
+
+<nav id="hamburger-overlay" class="menu-overlay" aria-hidden="true" aria-label="Primary">
+  <button type="button" class="menu-close" id="hamburger-close" aria-label="Close menu">&times;</button>
+  <ul class="menu-list">
+    {navItems.map((item) => (
+      <li><a href={item.href} class="menu-list-item">{item.label}</a></li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+  const trigger = document.getElementById('hamburger-trigger');
+  const overlay = document.getElementById('hamburger-overlay');
+  const closeBtn = document.getElementById('hamburger-close');
+
+  function openMenu() {
+    overlay?.classList.add('is-open');
+    overlay?.setAttribute('aria-hidden', 'false');
+    trigger?.setAttribute('aria-expanded', 'true');
+    trigger?.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    overlay?.classList.remove('is-open');
+    overlay?.setAttribute('aria-hidden', 'true');
+    trigger?.setAttribute('aria-expanded', 'false');
+    trigger?.classList.remove('is-active');
+    document.body.style.overflow = '';
+  }
+
+  trigger?.addEventListener('click', () => {
+    if (overlay?.classList.contains('is-open')) closeMenu();
+    else openMenu();
+  });
+
+  closeBtn?.addEventListener('click', closeMenu);
+
+  overlay?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+</script>
+
+<style>
+  .hamburger-trigger {
+    position: fixed;
+    top: calc(20px + env(safe-area-inset-top, 0px));
+    right: calc(20px + env(safe-area-inset-right, 0px));
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.35);
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  .hamburger-trigger.is-active .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger-trigger.is-active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-trigger.is-active .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.97);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .menu-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu-close {
+    position: absolute;
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    right: calc(20px + env(safe-area-inset-right, 0px));
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .menu-list-item {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 24px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, letter-spacing 0.3s ease;
+  }
+
+  .menu-list-item:hover {
+    opacity: 1;
+    letter-spacing: 0.18em;
+  }
+
+  /* Staggered entrance: each item settles in slightly after the last,
+     reinforcing the menu as a deliberate sequence of destinations rather
+     than a static list. Reset to invisible whenever the overlay closes so
+     it replays on the next open. */
+  .menu-list li {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .menu-overlay.is-open .menu-list li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .menu-list li:nth-child(1) { transition-delay: 0.05s; }
+  .menu-list li:nth-child(2) { transition-delay: 0.1s; }
+  .menu-list li:nth-child(3) { transition-delay: 0.15s; }
+  .menu-list li:nth-child(4) { transition-delay: 0.2s; }
+  .menu-list li:nth-child(5) { transition-delay: 0.25s; }
+
+  @media (max-width: 768px) {
+    .hamburger-trigger {
+      top: calc(20px + env(safe-area-inset-top, 0px));
+      right: calc(22px + env(safe-area-inset-right, 0px));
+    }
+  }
+</style>

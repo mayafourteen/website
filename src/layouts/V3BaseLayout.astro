@@ -1,0 +1,123 @@
+---
+import LanguageMenu from '../components/v3/LanguageMenu.astro';
+import { languages } from '../data/v3/languages.js';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  lang?: string;
+  bodyClass?: string;
+  showLanguageAlternates?: boolean;
+  // Forwarded to LanguageMenu — see its own prop doc. Only pages without a
+  // per-language equivalent (e.g. V3 interior pages) need to pass this.
+  languageHrefOverride?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  lang = 'en',
+  bodyClass,
+  showLanguageAlternates = false,
+  languageHrefOverride,
+} = Astro.props;
+
+// Auto-generate the canonical URL from the current route unless a page
+// explicitly overrides it, so every page gets a correct canonical without
+// having to pass one manually. build.format: 'file' makes Astro.url.pathname
+// report the on-disk ".html" filename (e.g. /page-en.html) for every route
+// except the homepage; strip that suffix so canonicals stay clean and match
+// the sitemap's URLs and Cloudflare Pages' actual clean-URL serving.
+const cleanPathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const canonicalURL = canonical ?? new URL(cleanPathname, Astro.site).href;
+
+// hreflang alternates: only meaningful on pages that actually have translated
+// siblings (the page-en/pt/es trio). x-default points at English, the
+// international fallback.
+const defaultLangEntry = languages.find((l) => l.code === 'EN');
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Maya Fourteen',
+  alternateName: 'MAYA FOURTEEN',
+  url: 'https://mayafourteen.com',
+  image: 'https://mayafourteen.com/images/maya-landing.jpg',
+  jobTitle: 'International Electronic Music Artist and DJ',
+  description: 'International electronic music artist and DJ from the Amazon Basin (Brazil). Winner of the 2025 Nicole Moudaber Award.',
+  foundingLocation: {
+    '@type': 'Place',
+    name: 'Mato Grosso, Brazil',
+  },
+  genre: ['Melodic Techno', 'Deep House', 'Progressive House', 'Electronic Music'],
+  award: [
+    'Nicole Moudaber Future Talent Award (IMS Ibiza 2025)',
+    'Pete Tong Future Talent Program (IMS Ibiza 2025)',
+  ],
+  sameAs: [
+    'https://www.instagram.com/mayafourteen',
+    'https://www.linkedin.com/in/mayafourteen',
+    'https://www.youtube.com/@mayafourteen',
+    'https://soundcloud.com/mayafourteen',
+    'https://www.beatport.com/artist/maya-fourteen/1090623',
+    'https://open.spotify.com/artist/6vCjW095i7Y8D7P2Uf6H0K',
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <script is:inline src="/page-transitions.js"></script>
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="canonical" href={canonicalURL} />
+  {showLanguageAlternates && languages.map((l) => (
+    <link rel="alternate" hreflang={l.hreflang} href={new URL(l.href.replace(/\.html$/, ''), Astro.site).href} />
+  ))}
+  {showLanguageAlternates && defaultLangEntry && (
+    <link rel="alternate" hreflang="x-default" href={new URL(defaultLangEntry.href.replace(/\.html$/, ''), Astro.site).href} />
+  )}
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+  <!-- Google tag (gtag.js) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NGTH9664P');
+  </script>
+
+  <slot name="head" />
+</head>
+<body class={bodyClass}>
+  <LanguageMenu currentLang={lang} hrefOverride={languageHrefOverride} />
+  <slot />
+</body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+
+  html.js-page-transitions body {
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  html.js-page-transitions.is-ready body {
+    opacity: 1;
+  }
+</style>

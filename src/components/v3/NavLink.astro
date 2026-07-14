@@ -1,0 +1,30 @@
+---
+interface Props {
+  href: string;
+  title: string;
+}
+
+const { href, title } = Astro.props;
+---
+
+<a href={href} target="_blank" title={title}>
+  <slot />
+</a>
+
+<style>
+  a {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    opacity: 0.75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+  }
+
+  a:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+</style>
