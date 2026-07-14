@@ -1,11 +1,6 @@
 ---
 import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
 import { pressItems } from '../../data/v3/pressItems.js';
-
-// SoundCloud "best set" embed is pending a specific track URL — see
-// DEPLOY.md / project notes. Nothing is embedded here in the meantime
-// rather than substituting the generic profile widget, since this section
-// is meant to spotlight one chosen set, not the whole catalogue.
 ---
 
 <V3InteriorLayout
@@ -21,6 +16,16 @@ import { pressItems } from '../../data/v3/pressItems.js';
     deep tech, organic house and progressive sounds into journeys built to grow on the listener
     over time.
   </p>
+
+  <p class="section-title">Featured Set</p>
+  <iframe
+    class="embed-frame"
+    height="166"
+    scrolling="no"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"
+    title="Maya Fourteen — Ancestral (Mato Grosso, Brazil)"
+    loading="lazy"
+  ></iframe>
 
   <p class="section-title">Credentials</p>
   <ul class="fact-list">
