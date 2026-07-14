@@ -6,11 +6,8 @@ import V3BaseLayout from '../../layouts/V3BaseLayout.astro';
 import HamburgerMenu from '../../components/v3/HamburgerMenu.astro';
 import SocialNav from '../../components/v3/SocialNav.astro';
 import { pressItems } from '../../data/v3/pressItems.js';
-import { socialLinks } from '../../data/v3/socialLinks.js';
-
-const discoverLinks = socialLinks.filter((l) =>
-  ['instagram', 'youtube', 'soundcloud', 'spotify'].includes(l.name)
-);
+import { discoverSocialLinks } from '../../data/v3/discoverSocialLinks.js';
+import { images } from '../../data/v3/images.js';
 ---
 
 <V3BaseLayout
@@ -35,7 +32,17 @@ const discoverLinks = socialLinks.filter((l) =>
   <main class="epk">
     <!-- HERO -->
     <section class="epk-hero">
-      <img class="epk-hero-image" src="/images/epk/epk-hero.jpg" alt="Maya Fourteen" />
+      <img
+        class="epk-hero-image"
+        src={images.epkHero.src}
+        srcset={images.epkHero.srcset}
+        sizes="100vw"
+        width={images.epkHero.width}
+        height={images.epkHero.height}
+        alt="Maya Fourteen, foto de capa do mídia kit"
+        loading="eager"
+        fetchpriority="high"
+      />
       <div class="epk-hero-text">
         <p class="epk-eyebrow">Mídia Kit</p>
         <h1 class="epk-name">MAYA FOURTEEN</h1>
@@ -46,7 +53,16 @@ const discoverLinks = socialLinks.filter((l) =>
 
     <!-- DNA ARTÍSTICO -->
     <section class="epk-section epk-media">
-      <img class="epk-media-image" src="/images/epk/epk-overview.jpg" alt="Maya Fourteen se apresentando" />
+      <img
+        class="epk-media-image"
+        src={images.epkOverview.src}
+        srcset={images.epkOverview.srcset}
+        sizes="(max-width: 768px) 92vw, 340px"
+        width={images.epkOverview.width}
+        height={images.epkOverview.height}
+        alt="Maya Fourteen atrás dos equipamentos"
+        loading="lazy"
+      />
       <div class="epk-media-text">
         <h2>DNA Artístico</h2>
         <p>
@@ -60,7 +76,16 @@ const discoverLinks = socialLinks.filter((l) =>
 
     <!-- PERFORMANCES GLOBAIS -->
     <section class="epk-section epk-media">
-      <img class="epk-media-image" src="/images/epk/epk-global-performances.jpg" alt="Maya Fourteen na Terra Solis Dubai" />
+      <img
+        class="epk-media-image"
+        src={images.epkGlobalPerformances.src}
+        srcset={images.epkGlobalPerformances.srcset}
+        sizes="(max-width: 768px) 92vw, 340px"
+        width={images.epkGlobalPerformances.width}
+        height={images.epkGlobalPerformances.height}
+        alt="Maya Fourteen se apresentando na Terra Solis Dubai"
+        loading="lazy"
+      />
       <div class="epk-media-text">
         <h2>Performances Globais</h2>
         <p>
@@ -76,7 +101,16 @@ const discoverLinks = socialLinks.filter((l) =>
     <section class="epk-section">
       <h2>Palcos Mundiais</h2>
       <div class="epk-stages-layout">
-        <img class="epk-stages-image" src="/images/epk/epk-world-stages.jpg" alt="Maya Fourteen na Greenvalley Brasil" />
+        <img
+          class="epk-stages-image"
+          src={images.epkWorldStages.src}
+          srcset={images.epkWorldStages.srcset}
+          sizes="(max-width: 768px) 92vw, 340px"
+          width={images.epkWorldStages.width}
+          height={images.epkWorldStages.height}
+          alt="Maya Fourteen se apresentando na Greenvalley, Brasil"
+          loading="lazy"
+        />
         <div class="epk-stage-cards">
           <div class="epk-stage-card epk-stage-green">
             <span class="epk-stage-icon">🦋</span>
@@ -109,7 +143,16 @@ const discoverLinks = socialLinks.filter((l) =>
 
     <!-- ARTISTA MULTIPREMIADA -->
     <section class="epk-section epk-media">
-      <img class="epk-media-image" src="/images/epk/epk-award.jpg" alt="Maya Fourteen no IMS Ibiza 2025" />
+      <img
+        class="epk-media-image"
+        src={images.epkAward.src}
+        srcset={images.epkAward.srcset}
+        sizes="(max-width: 768px) 92vw, 340px"
+        width={images.epkAward.width}
+        height={images.epkAward.height}
+        alt="Maya Fourteen recebendo seu prêmio no IMS Ibiza 2025"
+        loading="lazy"
+      />
       <div class="epk-media-text">
         <h2>Artista Multipremiada</h2>
         <p>
@@ -124,7 +167,16 @@ const discoverLinks = socialLinks.filter((l) =>
 
     <!-- VOZES DO MERCADO -->
     <section class="epk-section epk-media epk-media-reverse">
-      <img class="epk-media-image" src="/images/epk/epk-industry-voices.jpg" alt="Maya Fourteen com a Clubbing TV na ADE" />
+      <img
+        class="epk-media-image"
+        src={images.epkIndustryVoices.src}
+        srcset={images.epkIndustryVoices.srcset}
+        sizes="(max-width: 768px) 92vw, 340px"
+        width={images.epkIndustryVoices.width}
+        height={images.epkIndustryVoices.height}
+        alt="Maya Fourteen com a Clubbing TV na ADE"
+        loading="lazy"
+      />
       <div class="epk-media-text">
         <h2>Vozes do Mercado</h2>
         <blockquote class="epk-quote">
@@ -144,7 +196,16 @@ const discoverLinks = socialLinks.filter((l) =>
 
     <!-- MÍDIA EM DESTAQUE -->
     <section class="epk-section epk-media">
-      <img class="epk-media-image" src="/images/epk/epk-media-spotlight.jpg" alt="Maya Fourteen na capa da Sync Beat Magazine" />
+      <img
+        class="epk-media-image"
+        src={images.epkMediaSpotlight.src}
+        srcset={images.epkMediaSpotlight.srcset}
+        sizes="(max-width: 768px) 92vw, 340px"
+        width={images.epkMediaSpotlight.width}
+        height={images.epkMediaSpotlight.height}
+        alt="Maya Fourteen na capa da Sync Beat Magazine"
+        loading="lazy"
+      />
       <div class="epk-media-text">
         <h2>Mídia em Destaque</h2>
         <p>
@@ -166,7 +227,16 @@ const discoverLinks = socialLinks.filter((l) =>
 
     <!-- RECONHECIMENTO EDITORIAL -->
     <section class="epk-section epk-media epk-media-reverse">
-      <img class="epk-media-image" src="/images/epk/epk-editorial.jpg" alt="Gray Area: Brazilian DJs You Must Know For 2026" />
+      <img
+        class="epk-media-image"
+        src={images.epkEditorial.src}
+        srcset={images.epkEditorial.srcset}
+        sizes="(max-width: 768px) 92vw, 340px"
+        width={images.epkEditorial.width}
+        height={images.epkEditorial.height}
+        alt="Reportagem da Gray Area: Brazilian DJs You Must Know For 2026"
+        loading="lazy"
+      />
       <div class="epk-media-text">
         <h2>Reconhecimento Editorial</h2>
         <p>
@@ -182,7 +252,16 @@ const discoverLinks = socialLinks.filter((l) =>
     <!-- DISCOGRAFIA -->
     <section class="epk-section">
       <div class="epk-stages-layout">
-        <img class="epk-stages-image" src="/images/epk/epk-discography.jpg" alt="Maya Fourteen no estúdio" />
+        <img
+          class="epk-stages-image"
+          src={images.epkDiscography.src}
+          srcset={images.epkDiscography.srcset}
+          sizes="(max-width: 768px) 92vw, 340px"
+          width={images.epkDiscography.width}
+          height={images.epkDiscography.height}
+          alt="Maya Fourteen no estúdio"
+          loading="lazy"
+        />
         <div class="epk-stage-cards">
           <h2 class="epk-discography-title">Discografia</h2>
           <div class="epk-label-card">
@@ -241,9 +320,9 @@ const discoverLinks = socialLinks.filter((l) =>
         apresentações.
       </p>
       <div class="epk-audience-grid">
-        <img src="/images/epk/epk-audience-map.jpg" alt="Alcance global de ouvintes de Maya Fourteen" />
-        <img src="/images/epk/epk-audience-radio.jpg" alt="Maya Fourteen em destaque na Gray Area / Diplo's Revolution / SiriusXM" />
-        <img src="/images/epk/epk-audience-greenvalley.jpg" alt="Maya Fourteen na Greenvalley" />
+        <img src={images.epkAudienceMap.src} width={images.epkAudienceMap.width} height={images.epkAudienceMap.height} alt="Mapa do alcance global de ouvintes de Maya Fourteen" loading="lazy" />
+        <img src={images.epkAudienceRadio.src} width={images.epkAudienceRadio.width} height={images.epkAudienceRadio.height} alt="Maya Fourteen em destaque na Gray Area / Diplo's Revolution / SiriusXM" loading="lazy" />
+        <img src={images.epkAudienceGreenvalley.src} width={images.epkAudienceGreenvalley.width} height={images.epkAudienceGreenvalley.height} alt="Maya Fourteen se apresentando na Greenvalley" loading="lazy" />
       </div>
       <p class="epk-audience-caption">
         Explore os sets da MAYA nas principais plataformas.
@@ -255,12 +334,12 @@ const discoverLinks = socialLinks.filter((l) =>
       <h2>Press Photos</h2>
       <p>Imagens em alta resolução disponíveis para uso promocional. Todas as fotos são protegidas por direitos autorais.</p>
       <div class="epk-photo-grid">
-        <a href="/images/epk/epk-press-1.jpg" download><img src="/images/epk/epk-press-1.jpg" alt="Foto de imprensa de Maya Fourteen" /></a>
-        <a href="/images/epk/epk-press-2.jpg" download><img src="/images/epk/epk-press-2.jpg" alt="Foto de imprensa de Maya Fourteen" /></a>
-        <a href="/images/epk/epk-press-3.jpg" download><img src="/images/epk/epk-press-3.jpg" alt="Foto de imprensa de Maya Fourteen" /></a>
-        <a href="/images/epk/epk-press-4.jpg" download><img src="/images/epk/epk-press-4.jpg" alt="Foto de imprensa de Maya Fourteen" /></a>
-        <a href="/images/maya-landing.jpg" download><img src="/images/maya-landing.jpg" alt="Foto de imprensa de Maya Fourteen" /></a>
-        <a href="/images/maya-landing-bw.jpg" download><img src="/images/maya-landing-bw.jpg" alt="Foto de imprensa de Maya Fourteen, preto e branco" /></a>
+        <a href="/images/epk/epk-press-1.jpg" download><img src={images.epkPress1.src} width={images.epkPress1.width} height={images.epkPress1.height} alt="Foto de imprensa de Maya Fourteen 1" loading="lazy" /></a>
+        <a href="/images/epk/epk-press-2.jpg" download><img src={images.epkPress2.src} width={images.epkPress2.width} height={images.epkPress2.height} alt="Foto de imprensa de Maya Fourteen 2" loading="lazy" /></a>
+        <a href="/images/epk/epk-press-3.jpg" download><img src={images.epkPress3.src} width={images.epkPress3.width} height={images.epkPress3.height} alt="Foto de imprensa de Maya Fourteen 3" loading="lazy" /></a>
+        <a href="/images/epk/epk-press-4.jpg" download><img src={images.epkPress4.src} width={images.epkPress4.width} height={images.epkPress4.height} alt="Foto de imprensa de Maya Fourteen 4" loading="lazy" /></a>
+        <a href="/images/maya-landing.jpg" download><img src={images.landingColor.src} srcset={images.landingColor.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.landingColor.width} height={images.landingColor.height} alt="Foto de imprensa de Maya Fourteen, colorida" loading="lazy" /></a>
+        <a href="/images/maya-landing-bw.jpg" download><img src={images.heroDefault.src} srcset={images.heroDefault.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.heroDefault.width} height={images.heroDefault.height} alt="Foto de imprensa de Maya Fourteen, preto e branco" loading="lazy" /></a>
       </div>
       <p class="epk-photo-credit">Fotografia: <a href="https://www.instagram.com/diegofotografias/" target="_blank" rel="noopener noreferrer">Diego Jarschel</a></p>
     </section>
@@ -268,7 +347,7 @@ const discoverLinks = socialLinks.filter((l) =>
     <!-- CONHEÇA MAYA -->
     <section class="epk-section epk-discover">
       <h2>Conheça MAYA</h2>
-      <SocialNav links={discoverLinks} />
+      <SocialNav links={discoverSocialLinks} />
     </section>
 
     <!-- BOOKING & MANAGEMENT -->

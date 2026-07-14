@@ -3,6 +3,7 @@ import NavLink from './NavLink.astro';
 import EpkIcon from './icons/EpkIcon.astro';
 import BeatportIcon from './icons/BeatportIcon.astro';
 import BeepdIcon from './icons/BeepdIcon.astro';
+import ResidentAdvisorIcon from './icons/ResidentAdvisorIcon.astro';
 import { socialLinks } from '../../data/v3/socialLinks.js';
 
 interface Props {
@@ -19,6 +20,7 @@ const { epkHref, links = socialLinks } = Astro.props;
       {link.name === 'epk' && <EpkIcon />}
       {link.name === 'beatport' && <BeatportIcon />}
       {link.name === 'beepd' && <BeepdIcon />}
+      {link.name === 'residentadvisor' && <ResidentAdvisorIcon />}
       {link.type === 'fa' && <i class={`fa-brands fa-${link.name} fa-icon`}></i>}
     </NavLink>
   ))}

@@ -1,0 +1,26 @@
+---
+// RA has no Font Awesome brand glyph and no public simple/monochrome SVG
+// mark the way Beatport does — following EpkIcon.astro's precedent (a
+// custom-drawn mark for platforms without one) rather than tracing a
+// vector approximation of their real logo, this is a plain text lettermark
+// sized and weighted to sit at the same visual weight as the other custom
+// icons in this row.
+---
+
+<svg class="ra-svg" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg">
+  <text x="22" y="21" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="1" fill="white" text-anchor="middle">RA</text>
+</svg>
+
+<style>
+  .ra-svg {
+    height: 22px;
+    width: auto;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .ra-svg {
+      height: 18px;
+    }
+  }
+</style>
