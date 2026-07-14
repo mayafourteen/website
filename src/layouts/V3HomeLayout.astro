@@ -345,6 +345,27 @@ const enterLabel = enterLabelByLang[lang] ?? 'enter';
       margin-bottom: 0;
       flex-shrink: 0;
     }
+
+    /* Desktop's clamp() floors out at 0.8rem for any viewport this narrow
+       (the 1.6vw preferred value only overtakes that floor past ~800px),
+       so mobile was rendering the CTA at a flat 12.8px — legible but a
+       cramped tap target. 1.05rem is a flat +31% over that floor (within
+       the requested 25-35% range); brackets aren't touched here, so they
+       stay proportioned to the word exactly as fix #1 set them, just
+       scaling up together. Padding expands the actual hit area to a
+       44px-tall box without shifting surrounding layout: matching
+       negative margins on top/left/right cancel the padding's own space,
+       and margin-bottom drops by the same amount added as padding-bottom
+       so the gap to the icon row below is unchanged from the pre-padding
+       46px. */
+    .hero-cta {
+      font-size: 1.05rem;
+      padding: 14px 10px;
+      margin-top: -14px;
+      margin-right: -10px;
+      margin-bottom: 32px;
+      margin-left: -10px;
+    }
   }
 
   /* Tablets in portrait (iPad-class widths, e.g. 768-1024px) fall outside
