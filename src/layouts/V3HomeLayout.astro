@@ -21,8 +21,15 @@ const { title, description, lang, epkHref } = Astro.props;
 
 <V3BaseLayout title={title} description={description} bodyClass="page-v2-home" lang={lang}>
   <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Only the brand icons SocialNav actually renders (YouTube, SoundCloud,
+         Instagram) are used from Font Awesome — the full all.min.css bundle
+         was ~99% unused CSS on this page, so load just the core + brands. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css">
     <meta name="robots" content="noindex, nofollow" />
   </Fragment>
 
