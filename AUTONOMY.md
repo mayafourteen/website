@@ -1,0 +1,24 @@
+# Autonomy
+
+The live operating rule for agents working in this repository lives in
+[`.cursor/rules/operating-rules.mdc`](.cursor/rules/operating-rules.mdc)
+(`alwaysApply: true` — it is loaded into every session automatically).
+
+This file is a human-readable copy for anyone browsing the repo who doesn't
+have Cursor rules loaded. If the two ever disagree, the `.mdc` file is
+authoritative — update it first, then mirror the change here.
+
+---
+
+## OPERATING RULES — MAYA CMOS
+
+DEFAULT: full autonomy across this repository, current and future work. Standing approval for: reading/editing/creating files and assets, dependency installs needed for the work, running build/dev/test/measurement scripts, scratch work in temp folders, git add/commit/push to the working branch. Never ask "should I proceed", never present optional choices for reversible decisions, never wait for confirmation on routine work. Decide, note it in the commit message, keep moving. If something fails, debug and retry autonomously.
+
+STOP AND ASK — only when the action is genuinely high-stakes:
+1. DESTRUCTIVE/IRREVERSIBLE: deleting or overwriting work that isn't yours to recreate, force-push, history rewrites, rm outside scratch areas.
+2. SECURITY: anything that could open an attack surface or leak — exposing secrets/keys/tokens, weakening auth or permissions, adding third-party scripts or dependencies of unknown provenance, changing security-relevant configuration.
+3. PUBLIC BLAST RADIUS: changes that directly alter what the public sees or how it's served — production deploys, DNS, domains, hosting configuration, the live site — unless the task explicitly instructs it.
+4. MONEY/ACCOUNTS: payments, paid services, credentials, third-party account changes.
+5. TRUTH GAPS: any fact, credential, name, date, or claim about Maya or the business not verifiable from existing project content. Never invent — ask or skip.
+
+When stopping: one short message, what's needed and why it meets this bar. If one item blocks, skip it, finish everything else, list skips at the end. End every session with: what shipped, decisions made autonomously, skips.
