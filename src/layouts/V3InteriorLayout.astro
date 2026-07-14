@@ -11,9 +11,13 @@ interface Props {
   title: string;
   description?: string;
   eyebrow: string;
+  // Per-page background photo override — defaults to the shared hero
+  // shot for pages that don't have a more specific real photo to use
+  // (About, Press). Video Sets/Audio Sets/Book pass their own.
+  heroImage?: string;
 }
 
-const { title, description, eyebrow } = Astro.props;
+const { title, description, eyebrow, heroImage = '/images/maya-landing-bw.jpg' } = Astro.props;
 
 // EN and PT-BR versions of each interior page are siblings at the same
 // level (about.astro / about-pt.astro), so the language is derivable
@@ -50,7 +54,7 @@ const documentTitle = `MAYA FOURTEEN | ${title}`;
   </Fragment>
 
   <div class="background-container">
-    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
+    <HeroBackground src={heroImage} alt="Maya Fourteen" filtered />
   </div>
 
   <HamburgerMenu lang={lang} />
