@@ -15,18 +15,25 @@ interface Props {
 
 const { title, description, eyebrow } = Astro.props;
 
-// These pages only exist in English so far — without this, LanguageMenu's
-// default hrefs (page-en/pt/es) would bounce the visitor to the V3
-// homepage in the chosen language instead of keeping them here.
+// EN and PT-BR versions of each interior page are siblings at the same
+// level (about.astro / about-pt.astro), so the language is derivable
+// straight from the URL and each option in the language menu can point at
+// its real counterpart instead of bouncing to the homepage. ES has no
+// interior pages yet (deferred per brief), so it always falls back to the
+// V3 homepage in Spanish.
 const currentPath = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const isPt = currentPath.endsWith('-pt');
+const enPath = isPt ? currentPath.slice(0, -3) : currentPath;
+const ptPath = isPt ? currentPath : `${currentPath}-pt`;
+const lang = isPt ? 'pt' : 'en';
 ---
 
 <V3BaseLayout
   title={title}
   description={description}
   bodyClass="page-v2-interior"
-  lang="en"
-  languageHrefOverride={currentPath}
+  lang={lang}
+  languageHrefOverrides={{ en: enPath, pt: ptPath, es: '/v3/page-es' }}
 >
   <Fragment slot="head">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
@@ -38,7 +45,7 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '') || '/';
     <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
   </div>
 
-  <HamburgerMenu />
+  <HamburgerMenu lang={lang} />
 
   <div class="content-wrapper">
     <p class="eyebrow fade-item">{eyebrow}</p>

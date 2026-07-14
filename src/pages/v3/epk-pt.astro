@@ -1,0 +1,90 @@
+---
+import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
+import { pressItems } from '../../data/v3/pressItems.js';
+
+// SoundCloud "best set" embed is pending a specific track URL — see the
+// English epk.astro for the same note. Kept in sync with that page.
+---
+
+<V3InteriorLayout
+  title="EPK"
+  eyebrow="Kit de Imprensa e Booking"
+  description="EPK de Maya Fourteen — biografia, credenciais, principais apresentações e contato para booking."
+>
+  <p>
+    Maya Fourteen é uma artista e DJ premiada de música eletrônica, natural da Amazônia, em Mato
+    Grosso, Brasil. Ela transita com naturalidade entre diferentes vertentes da música eletrônica,
+    construindo sua identidade sonora por meio da performance, da produção e da curadoria musical,
+    com um público internacional em constante crescimento e apresentações em palcos de destaque ao
+    redor do mundo. Seus sets são emocionantes e narrativos, misturando deep tech, organic house e
+    sons progressivos em jornadas que crescem em quem ouve.
+  </p>
+
+  <p class="section-title">Credenciais</p>
+  <ul class="fact-list">
+    <li>Future Talent Award do IMS Ibiza 2025, selecionada por Pete Tong</li>
+    <li>Nicole Moudaber Talent Highlight Prize</li>
+    <li>Estreia na atic Recordings com "Uniqueness" — álbum de 20º aniversário, Top 8 Beatport Deep House</li>
+    <li>VIVa MUSiC</li>
+    <li>Dioscuri Records</li>
+  </ul>
+
+  <p class="section-title">Principais Apresentações</p>
+  <ul class="fact-list">
+    <li>Green Valley — 17º aniversário</li>
+    <li>World Club Dome, Frankfurt</li>
+    <li>Terra Solis, Dubai</li>
+    <li>Festas oficiais da F1 — Abu Dhabi e Mônaco</li>
+    <li>Soirée privada da FENDI</li>
+  </ul>
+
+  <p class="section-title">Imprensa</p>
+  <ul class="link-list">
+    {pressItems.map((item) => (
+      <li>
+        <strong>{item.outlet}</strong>
+        <a href={item.href} target="_blank">{item.label}</a>
+      </li>
+    ))}
+  </ul>
+
+  <p class="section-title">Fotos para Imprensa</p>
+  <ul class="link-list">
+    <li>
+      <strong>Foto principal — colorida</strong>
+      <a href="/images/maya-landing.jpg" download>Baixar JPG</a>
+    </li>
+    <li>
+      <strong>Foto principal — preto e branco</strong>
+      <a href="/images/maya-landing-bw.jpg" download>Baixar JPG</a>
+    </li>
+  </ul>
+
+  <p class="section-title">Booking</p>
+  <p>
+    Para bookings, line-ups de festivais, representação de agência ou contato com a imprensa,
+    fale diretamente com a equipe.
+  </p>
+  <a class="cta-button" href="mailto:hello@mayafourteen.com">Enviar e-mail para hello@mayafourteen.com</a>
+</V3InteriorLayout>
+
+<style>
+  .fact-list {
+    list-style: none;
+    margin: 0 0 24px 0;
+    padding: 0;
+  }
+
+  .fact-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 200;
+    letter-spacing: 0.04em;
+    font-size: clamp(1rem, 1.15vw, 1.2rem);
+  }
+
+  .fact-list li:last-child {
+    border-bottom: none;
+  }
+</style>

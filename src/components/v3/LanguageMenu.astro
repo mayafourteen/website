@@ -3,15 +3,15 @@ import { languages } from '../../data/v3/languages.js';
 
 interface Props {
   currentLang: string;
-  // When the current page has no per-language equivalent (e.g. a V3
-  // interior page that only exists in one language), pass its own path here
-  // so every option stays on this page instead of jumping to that
-  // language's homepage. Default behavior (per-page hrefs from `languages`)
-  // is unchanged for every caller that doesn't pass this.
-  hrefOverride?: string;
+  // Per-language destination overrides, keyed by lang code (e.g. { en:
+  // '/v3/about', pt: '/v3/about-pt' }). Falls back to `languages`' own
+  // per-page href (the homepage in that language) for any code not present
+  // in the map — used when a page has no equivalent in that language yet
+  // (e.g. ES on V3 interior pages, which stay deferred).
+  hrefOverrides?: Partial<Record<string, string>>;
 }
 
-const { currentLang, hrefOverride } = Astro.props;
+const { currentLang, hrefOverrides } = Astro.props;
 const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
 ---
 
@@ -21,7 +21,7 @@ const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
     {languages.map((lang) => (
       <li>
         <a
-          href={hrefOverride ?? lang.href}
+          href={hrefOverrides?.[lang.lang] ?? lang.href}
           class:list={['language-menu-option', { active: lang.lang === currentLang }]}
           data-lang-pref={lang.lang}
         >

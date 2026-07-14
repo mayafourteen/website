@@ -11,7 +11,7 @@ interface Props {
   showLanguageAlternates?: boolean;
   // Forwarded to LanguageMenu — see its own prop doc. Only pages without a
   // per-language equivalent (e.g. V3 interior pages) need to pass this.
-  languageHrefOverride?: string;
+  languageHrefOverrides?: Partial<Record<string, string>>;
 }
 
 const {
@@ -21,7 +21,7 @@ const {
   lang = 'en',
   bodyClass,
   showLanguageAlternates = false,
-  languageHrefOverride,
+  languageHrefOverrides,
 } = Astro.props;
 
 // Auto-generate the canonical URL from the current route unless a page
@@ -97,7 +97,7 @@ const personSchema = {
   <slot name="head" />
 </head>
 <body class={bodyClass}>
-  <LanguageMenu currentLang={lang} hrefOverride={languageHrefOverride} />
+  <LanguageMenu currentLang={lang} hrefOverrides={languageHrefOverrides} />
   <slot />
 </body>
 </html>

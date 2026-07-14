@@ -1,5 +1,12 @@
 ---
 import { navItems } from '../../data/v3/navItems.js';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const items = navItems[lang] ?? navItems.en;
 ---
 
 <button
@@ -18,7 +25,7 @@ import { navItems } from '../../data/v3/navItems.js';
 <nav id="hamburger-overlay" class="menu-overlay" aria-hidden="true" aria-label="Primary">
   <button type="button" class="menu-close" id="hamburger-close" aria-label="Close menu">&times;</button>
   <ul class="menu-list">
-    {navItems.map((item) => (
+    {items.map((item) => (
       <li><a href={item.href} class="menu-list-item">{item.label}</a></li>
     ))}
   </ul>
