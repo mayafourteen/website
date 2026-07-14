@@ -15,9 +15,12 @@ interface Props {
   // shot for pages that don't have a more specific real photo to use
   // (About, Press). Video Sets/Audio Sets/Book pass their own.
   heroImage?: string;
+  // Set when heroImage is one of Diego Jarschel's Green Valley shots, so
+  // the page background carries his credit.
+  heroImageCredit?: boolean;
 }
 
-const { title, description, eyebrow, heroImage = '/images/maya-landing-bw.jpg' } = Astro.props;
+const { title, description, eyebrow, heroImage = '/images/maya-landing-bw.jpg', heroImageCredit = false } = Astro.props;
 
 // EN and PT-BR versions of each interior page are siblings at the same
 // level (about.astro / about-pt.astro), so the language is derivable
@@ -55,6 +58,9 @@ const documentTitle = `MAYA FOURTEEN | ${title}`;
 
   <div class="background-container">
     <HeroBackground src={heroImage} alt="Maya Fourteen" filtered />
+    {heroImageCredit && (
+      <p class="hero-photo-credit">Photography: <a href="https://www.instagram.com/diegofotografias/" target="_blank" rel="noopener noreferrer">Diego Jarschel</a></p>
+    )}
   </div>
 
   <HamburgerMenu lang={lang} />
@@ -103,6 +109,26 @@ const documentTitle = `MAYA FOURTEEN | ${title}`;
     left: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .hero-photo-credit {
+    position: absolute;
+    bottom: 14px;
+    right: 18px;
+    margin: 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .hero-photo-credit a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .hero-photo-credit a:hover {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: underline;
   }
 
   .content-wrapper {

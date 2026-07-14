@@ -3,11 +3,8 @@
 // gamma EPK page (https://maya-fourteen-m50qvvw.gamma.site/) rather than
 // V3InteriorLayout's single-column text format, which can't carry a
 // full-bleed hero photo or card grids. Copy is sourced from that gamma
-// page's real text, with two deliberate overrides: the two award names
-// (corrected per project brief) and the Beatport chart claim for
-// "Uniqueness" (the EN/ES gamma pages say "TOP 10", the PT page says
-// "Top 8" — genuinely inconsistent at the source; using TOP 10 here as
-// the majority reading until confirmed, see project notes).
+// page's real text, with a deliberate override: the two award names
+// (corrected per project brief).
 import V3BaseLayout from '../../layouts/V3BaseLayout.astro';
 import HamburgerMenu from '../../components/v3/HamburgerMenu.astro';
 import SocialNav from '../../components/v3/SocialNav.astro';
@@ -192,14 +189,14 @@ const discoverLinks = socialLinks.filter((l) =>
         <div class="epk-stage-cards">
           <h2 class="epk-discography-title">Discography</h2>
           <div class="epk-label-card">
-            <h3>Systematic Records 🇩🇪</h3>
+            <h3>Systematic Recordings 🇩🇪</h3>
             <p class="epk-label-sub">Marc Romboy's 20YRS label</p>
             <p>
               'Uniqueness' feat. Francesca Posgai — &ldquo;(&hellip;) A throwback to the
               golden era of House timeless vibes in the spirit of Mood II Swing
               (&hellip;)&rdquo; — Marc Romboy on Maya Fourteen's "Uniqueness".
             </p>
-            <p class="epk-label-tag">TOP 10 Beatport</p>
+            <p class="epk-label-tag">TOP 10 Beatport — peaked at #8</p>
           </div>
           <div class="epk-label-card">
             <h3>VIVa MUSiC 🇬🇧</h3>
@@ -267,6 +264,7 @@ const discoverLinks = socialLinks.filter((l) =>
         <a href="/images/maya-landing.jpg" download><img src="/images/maya-landing.jpg" alt="Maya Fourteen press photo" /></a>
         <a href="/images/maya-landing-bw.jpg" download><img src="/images/maya-landing-bw.jpg" alt="Maya Fourteen press photo, black and white" /></a>
       </div>
+      <p class="epk-photo-credit">Photography: <a href="https://www.instagram.com/diegofotografias/" target="_blank" rel="noopener noreferrer">Diego Jarschel</a></p>
     </section>
 
     <!-- DISCOVER MAYA -->
@@ -629,6 +627,24 @@ const discoverLinks = socialLinks.filter((l) =>
   }
 
   /* PRESS PHOTOS */
+  .epk-photo-credit {
+    margin: 10px 0 0 0 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.04em;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.35) !important;
+  }
+
+  .epk-photo-credit a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .epk-photo-credit a:hover {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: underline;
+  }
+
   .epk-photo-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
