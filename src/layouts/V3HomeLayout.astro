@@ -18,13 +18,9 @@ interface Props {
 
 const { title, description, lang, epkHref } = Astro.props;
 
-// "[ enter ]" hero CTA — links to this language's About page. ES has no
-// About page yet (interior pages are deferred for ES per the project
-// brief), so it falls back to the EN About page rather than omitting the
-// element from the ES homepage entirely.
-const enterHrefByLang: Record<string, string> = { en: '/v3/about', pt: '/v3/about-pt', es: '/v3/about' };
+// "[ enter ]" hero CTA — opens the same nav menu as the hamburger icon
+// (see the forwarding script below), not a navigation link.
 const enterLabelByLang: Record<string, string> = { en: 'enter', pt: 'entrar', es: 'entrar' };
-const enterHref = enterHrefByLang[lang] ?? '/v3/about';
 const enterLabel = enterLabelByLang[lang] ?? 'enter';
 ---
 
@@ -54,12 +50,29 @@ const enterLabel = enterLabelByLang[lang] ?? 'enter';
     <div class="title-group">
       <h1 class="logo-text fade-item">Maya <br class="logo-break" />Fourteen</h1>
       <div class="slogan fade-item">'I build sets that grow on you'</div>
-      <a class="hero-cta fade-item" href={enterHref}>[&thinsp;{enterLabel}&thinsp;]</a>
+      <button
+        type="button"
+        class="hero-cta fade-item"
+        id="hero-enter-cta"
+        aria-label="Open menu"
+        aria-controls="hamburger-overlay"
+      >[&thinsp;{enterLabel}&thinsp;]</button>
     </div>
 
     <SocialNav links={primarySocialLinks} epkHref={epkHref} />
   </div>
 </V3BaseLayout>
+
+<script>
+  // "[ enter ]" opens the exact same nav overlay as the hamburger icon —
+  // forwards a real click to the hamburger's own button so its existing
+  // handler (open/close state, focus, escape-to-close, aria-expanded) is
+  // the single source of truth. Not a reimplementation: if that handler
+  // changes, this stays in sync automatically.
+  document.getElementById('hero-enter-cta')?.addEventListener('click', () => {
+    document.getElementById('hamburger-trigger')?.click();
+  });
+</script>
 
 <style is:global>
   .fade-item {
@@ -228,28 +241,37 @@ const enterLabel = enterLabelByLang[lang] ?? 'enter';
     animation-delay: 0.32s;
   }
 
-  /* Quiet aside, not a button: same italic serif voice as the slogan but
-     hushed — smaller, tighter letter-spacing, resting well under full
-     opacity — so it reads as a soft invitation rather than a CTA competing
-     with the name/slogan for attention. */
+  /* Quiet aside, not a button (functionally it's one — see the forwarding
+     script above — but should never read as one): the name's own display
+     serif, not the slogan's italic voice, so it reads as a soft
+     typographic echo of "MAYA FOURTEEN" rather than a continuation of the
+     tagline. Lowercase and only slightly tracked (vs. the name's heavy
+     0.22em uppercase spacing) keeps it hushed. Real <button> means native
+     focus/keyboard behavior — no custom handling needed to match the
+     hamburger's. */
   .hero-cta {
     display: inline-block;
     margin-bottom: 46px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 300;
     font-size: clamp(0.8rem, 1.6vw, 1.15rem);
-    letter-spacing: 0.04em;
-    color: #fff;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    color: rgba(255, 255, 255, 0.58);
     text-decoration: none;
-    opacity: 0.68;
-    transition: opacity 0.3s ease;
+    transition: color 0.3s ease;
     animation-delay: 0.42s;
   }
 
   .hero-cta:hover,
-  .hero-cta:focus-visible {
-    opacity: 1;
+  .hero-cta:focus-visible,
+  .hero-cta:active {
+    color: #fff;
   }
 
   /* Mobile-only vertical composition. justify-content:space-between with
