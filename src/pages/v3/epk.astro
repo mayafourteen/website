@@ -593,10 +593,17 @@ import { images } from '../../data/v3/images.js';
     margin-bottom: 10px !important;
   }
 
+  /* !important on color: the more general .epk-section p rule below (a
+     class+tag selector, higher specificity than this single class) was
+     winning the cascade and overriding the intended black-on-gold text
+     with its own near-white color — on that yellow background the two
+     blended to a 1.35:1 contrast ratio, functionally invisible. Confirmed
+     via Lighthouse's accessibility audit, not a design change: this
+     restores the badge's originally-intended readable black text. */
   .epk-label-tag {
     display: inline-block;
     background: #f4d03f;
-    color: #000;
+    color: #000 !important;
     font-weight: 500;
     font-size: 0.78rem;
     letter-spacing: 0.05em;
@@ -698,12 +705,15 @@ import { images } from '../../data/v3/images.js';
   }
 
   /* PRESS PHOTOS */
+  /* 0.35 opacity measured at 3.2:1 contrast against this section's
+     #141414 background (WCAG AA needs 4.5:1) — bumped to 0.5, still
+     reads as the page's quietest text, just legible. */
   .epk-photo-credit {
     margin: 10px 0 0 0 !important;
     font-size: 0.72rem !important;
     letter-spacing: 0.04em;
     text-align: right;
-    color: rgba(255, 255, 255, 0.35) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
   }
 
   .epk-photo-credit a {

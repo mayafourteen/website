@@ -8,6 +8,9 @@ import HeroBackground from '../components/v3/HeroBackground.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import SocialNav from '../components/v3/SocialNav.astro';
 import { primarySocialLinks } from '../data/v3/primarySocialLinks.js';
+import { images } from '../data/v3/images.js';
+
+const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap';
 
 interface Props {
   title: string;
@@ -39,7 +42,26 @@ const homeHreflangAlternates = { en: '/v3/page-en', pt: '/v3/page-pt', es: '/v3/
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <!-- Preload the two render-blocking resources that actually gate this
+         page's LCP: the hero background photo (see HeroBackground.astro —
+         it already renders eager + fetchpriority="high", this just lets
+         the browser discover it from the raw HTML instead of waiting on
+         CSS/JS to insert the <img>) and the font stylesheet (an external
+         CSS request the browser wouldn't otherwise prioritize this early,
+         which otherwise delays first paint of "MAYA FOURTEEN" in its real
+         typeface). imagesrcset/imagesizes mirror HeroBackground's own
+         srcset/sizes so the preload can't fetch a different candidate
+         than the one actually rendered. -->
+    <link
+      rel="preload"
+      as="image"
+      href={images.heroDefault.src}
+      imagesrcset={images.heroDefault.srcset}
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+    <link rel="preload" as="style" href={fontsHref} />
+    <link href={fontsHref} rel="stylesheet">
     <!-- Only the brand icons SocialNav actually renders (YouTube, SoundCloud,
          Instagram) are used from Font Awesome — the full all.min.css bundle
          was ~99% unused CSS on this page, so load just the core + brands. -->
