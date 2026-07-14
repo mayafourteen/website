@@ -56,7 +56,7 @@ const enterLabel = enterLabelByLang[lang] ?? 'enter';
         id="hero-enter-cta"
         aria-label="Open menu"
         aria-controls="hamburger-overlay"
-      >[&thinsp;{enterLabel}&thinsp;]</button>
+      ><span class="hero-cta-bracket hero-cta-bracket-open">[</span>{enterLabel}<span class="hero-cta-bracket hero-cta-bracket-close">]</span></button>
     </div>
 
     <SocialNav links={primarySocialLinks} epkHref={epkHref} />
@@ -272,6 +272,29 @@ const enterLabel = enterLabelByLang[lang] ?? 'enter';
   .hero-cta:focus-visible,
   .hero-cta:active {
     color: #fff;
+  }
+
+  /* Brackets at full glyph size dwarfed the lowercase word and read as a
+     frame around it rather than a hug. Shrinking to ~72% and nudging up
+     with vertical-align (glyphs default-align to the baseline, which for
+     a bracket sits well below the lowercase x-height's optical center)
+     brings them level with the word instead of hanging above/below it.
+     Tight explicit margins (not a Unicode thin/hair space in the text
+     itself, which varies by font) give consistent ~0.15em gaps. Color
+     inherits from .hero-cta so hover/focus/active brightens both
+     identically. */
+  .hero-cta-bracket {
+    display: inline-block;
+    font-size: 0.72em;
+    vertical-align: 0.09em;
+  }
+
+  .hero-cta-bracket-open {
+    margin-right: 0.15em;
+  }
+
+  .hero-cta-bracket-close {
+    margin-left: 0.15em;
   }
 
   /* Mobile-only vertical composition. justify-content:space-between with
