@@ -47,11 +47,11 @@ None of this is done yet. This file is the checklist for when it happens.
 | `/v3/press-pt` | `/press-pt` | **new root path** — production has no PT press page today |
 | `/v3/audio-sets` | `/audio-sets` | **new root path** |
 | `/v3/audio-sets-pt` | `/audio-sets-pt` | **new root path** |
-| `/v3/video-sets` | `/video-sets` | **new root path** — ships with only a YouTube channel link; embeds are blocked, see §5 |
-| `/v3/video-sets-pt` | `/video-sets-pt` | same caveat |
+| `/v3/video-sets` | `/video-sets` | **new root path** — 4 embedded curated sets |
+| `/v3/video-sets-pt` | `/video-sets-pt` | same |
 | `/v3/book` | `/book` | **new root path** |
 | `/v3/book-pt` | `/book-pt` | **new root path** |
-| `/v3/epk` | `/epk` | **new root path**, replaces the gamma.site EPK link on the English homepage; SoundCloud embed blocked, see §5 |
+| `/v3/epk` | `/epk` | **new root path**, replaces the gamma.site EPK link on the English homepage; includes a featured SoundCloud track |
 | `/v3/epk-pt` | `/epk-pt` | same |
 
 `/v3/press` colliding with the existing `/press` is the one genuinely
@@ -121,14 +121,6 @@ new root paths per §2, so no redirect is needed for those — the file move
 
 ## 5. Known gaps — not blockers for this deploy-prep commit, but blockers for launch
 
-- **EPK SoundCloud embed**: `/v3/epk` and `/v3/epk-pt` have a full
-  credentials/press/photos/booking section but no featured "best set"
-  player — the specific SoundCloud track URL was never provided. Nothing
-  was substituted in its place (no generic embed, no placeholder).
-- **Video Sets embeds**: `/v3/video-sets` and `/v3/video-sets-pt` still only
-  link out to the YouTube channel rather than embedding the 2–4 curated
-  sets the brief asked for — those specific YouTube URLs were never
-  provided.
 - **Spanish**: interior pages (About, Press, Audio Sets, Video Sets, Book,
   EPK) exist only in EN/PT. ES stays on the homepage-only experience,
   matching the explicit deferral — its language-menu links on every interior
