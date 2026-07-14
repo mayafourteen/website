@@ -26,10 +26,14 @@ const isPt = currentPath.endsWith('-pt');
 const enPath = isPt ? currentPath.slice(0, -3) : currentPath;
 const ptPath = isPt ? currentPath : `${currentPath}-pt`;
 const lang = isPt ? 'pt' : 'en';
+
+// Brand-prefixed for the <title>/OG tags; the on-page <h1> below uses the
+// plain `title` prop so the visible heading doesn't carry the prefix too.
+const documentTitle = `MAYA FOURTEEN | ${title}`;
 ---
 
 <V3BaseLayout
-  title={title}
+  title={documentTitle}
   description={description}
   bodyClass="page-v2-interior"
   lang={lang}

@@ -12,6 +12,10 @@ interface Props {
   // Forwarded to LanguageMenu — see its own prop doc. Only pages without a
   // per-language equivalent (e.g. V3 interior pages) need to pass this.
   languageHrefOverrides?: Partial<Record<string, string>>;
+  // Path (site-relative) to the real image used for og:image. Defaults to
+  // the site's one hero photo — every V3 page shares it since there is no
+  // other real photography yet.
+  ogImage?: string;
 }
 
 const {
@@ -22,6 +26,7 @@ const {
   bodyClass,
   showLanguageAlternates = false,
   languageHrefOverrides,
+  ogImage = '/images/maya-landing.jpg',
 } = Astro.props;
 
 // Auto-generate the canonical URL from the current route unless a page
@@ -77,6 +82,13 @@ const personSchema = {
   <title>{title}</title>
   {description && <meta name="description" content={description} />}
   <link rel="canonical" href={canonicalURL} />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Maya Fourteen" />
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+  <meta name="twitter:card" content="summary_large_image" />
   {showLanguageAlternates && languages.map((l) => (
     <link rel="alternate" hreflang={l.hreflang} href={new URL(l.href.replace(/\.html$/, ''), Astro.site).href} />
   ))}
