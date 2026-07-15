@@ -3,9 +3,9 @@
 // rationale (Home / About / Video Sets / Sets & Tracks / Press Area / EPK /
 // Info). Keyed by language: PT-BR interior pages exist alongside the
 // English originals (see the *-pt.astro siblings). ES has its own array too
-// now, and picked up a real ES Info page (book-es.astro) alongside the
-// homepage and EPK — every other ES nav item still points at the English
-// page since there's no ES equivalent yet.
+// now, and picked up real ES pages for Info (book-es.astro), EPK, and About
+// (about-es.astro) alongside the homepage — Video/Audio/Press still point
+// at the English page since there's no ES equivalent for those yet.
 export const navItems = {
   en: [
     { label: 'Home', href: '/page-en' },
@@ -30,7 +30,7 @@ export const navItems = {
   ],
   es: [
     { label: 'Inicio', href: '/page-es' },
-    { label: 'Sobre', href: '/about' },
+    { label: 'Sobre', href: '/about-es' },
     { label: 'Vídeo', href: '/video-sets' },
     { label: 'Audio', href: '/audio-sets' },
     { label: 'Prensa', href: '/press' },

@@ -177,11 +177,10 @@ single, deliberate step at cutover instead of needing new code written then.
 
 ## 6. Known gaps — not blockers for this deploy-prep commit, but blockers for launch
 
-- **Spanish**: interior pages (About, Press, Audio Sets, Video Sets, Book)
-  exist only in EN/PT — EPK is the one exception, it has a real ES version.
-  ES otherwise stays on the homepage-only experience, matching the explicit
-  deferral — its language-menu links on every EN/PT-only interior page fall
-  back to `/v3/page-es` (soon `/page-es`).
+- **Spanish**: Press, Audio Sets and Video Sets still exist only in EN/PT —
+  their language-menu links fall back to the English page. EPK, Book
+  (`book-es.astro`) and About (`about-es.astro`, added 2026-07-15) each
+  have a real ES version.
 - **Cloudflare account/domain wiring**: `wrangler.toml`'s `account_id` is
   still intentionally blank. Nothing in this repo has touched Cloudflare
   Pages project settings, DNS, or the domain. That's a manual step outside
