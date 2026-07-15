@@ -18,19 +18,28 @@ const { src, alt, filtered = false } = Astro.props;
 const meta = findImageBySrc(src);
 ---
 
-<img
-  src={src}
-  srcset={meta?.srcset}
-  sizes={meta?.srcset ? '100vw' : undefined}
-  width={meta?.width}
-  height={meta?.height}
-  alt={alt}
-  loading="eager"
-  fetchpriority="high"
-  class:list={['hero-image', { filtered }]}
-/>
+<picture>
+  {meta?.webpSrcset && (
+    <source type="image/webp" srcset={meta.webpSrcset} sizes="100vw" />
+  )}
+  <img
+    src={src}
+    srcset={meta?.srcset}
+    sizes={meta?.srcset ? '100vw' : undefined}
+    width={meta?.width}
+    height={meta?.height}
+    alt={alt}
+    loading="eager"
+    fetchpriority="high"
+    class:list={['hero-image', { filtered }]}
+  />
+</picture>
 
 <style>
+  picture {
+    display: contents;
+  }
+
   .hero-image {
     width: 100%;
     height: 100%;

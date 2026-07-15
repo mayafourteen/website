@@ -11,17 +11,34 @@
 // wouldn't meaningfully reduce bytes transferred, so they just get their
 // real width/height for CLS purposes.
 export const images = {
+  // Full 2732x1536 real grayscale (converted from the color master, not a
+  // CSS filter standing in for resolution) — fixes the previous file being
+  // a half-resolution 1366x768 original with no larger candidate to grow
+  // into on big screens. webpSrcset/webpSrc are ~45-50% lighter than the
+  // matching jpg at the same width; HeroBackground.astro serves them via
+  // <picture> with the jpg set as the universal fallback.
   heroDefault: {
     src: '/images/maya-landing-bw.jpg',
-    width: 1366,
-    height: 768,
-    srcset: '/images/maya-landing-bw-640w.jpg 640w, /images/maya-landing-bw-960w.jpg 960w, /images/maya-landing-bw.jpg 1366w',
+    width: 2732,
+    height: 1536,
+    srcset: '/images/maya-landing-bw-640w.jpg 640w, /images/maya-landing-bw-960w.jpg 960w, /images/maya-landing-bw-1366w.jpg 1366w, /images/maya-landing-bw-2048w.jpg 2048w, /images/maya-landing-bw.jpg 2732w',
+    webpSrc: '/images/maya-landing-bw.webp',
+    webpSrcset: '/images/maya-landing-bw-640w.webp 640w, /images/maya-landing-bw-960w.webp 960w, /images/maya-landing-bw-1366w.webp 1366w, /images/maya-landing-bw-2048w.webp 2048w, /images/maya-landing-bw.webp 2732w',
   },
   landingColor: {
     src: '/images/maya-landing.jpg',
     width: 2732,
     height: 1536,
-    srcset: '/images/maya-landing-640w.jpg 640w, /images/maya-landing-1024w.jpg 1024w, /images/maya-landing-1536w.jpg 1536w, /images/maya-landing.jpg 2732w',
+    srcset: '/images/maya-landing-640w.jpg 640w, /images/maya-landing-1024w.jpg 1024w, /images/maya-landing-1536w.jpg 1536w, /images/maya-landing-2048w.jpg 2048w, /images/maya-landing.jpg 2732w',
+    webpSrc: '/images/maya-landing.webp',
+    webpSrcset: '/images/maya-landing-640w.webp 640w, /images/maya-landing-1024w.webp 1024w, /images/maya-landing-1536w.webp 1536w, /images/maya-landing-2048w.webp 2048w, /images/maya-landing.webp 2732w',
+  },
+  // 1200x630, color, cropped from the same master — for og:image /
+  // JSON-LD image only, never rendered as an on-page <img>.
+  landingOg: {
+    src: '/images/maya-landing-og.jpg',
+    width: 1200,
+    height: 630,
   },
   epkHero: {
     src: '/images/epk/epk-hero.jpg',

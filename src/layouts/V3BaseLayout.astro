@@ -2,6 +2,7 @@
 import LanguageMenu from '../components/v3/LanguageMenu.astro';
 import { SITE_URL } from '../data/v3/siteConfig.js';
 import { socialLinks } from '../data/v3/socialLinks.js';
+import { findImageBySrc } from '../data/v3/images.js';
 
 interface Props {
   title: string;
@@ -41,7 +42,7 @@ const {
   bodyClass,
   languageHrefOverrides,
   hreflangAlternates,
-  ogImage = '/images/maya-landing.jpg',
+  ogImage = '/images/maya-landing-og.jpg',
   breadcrumbs,
 } = Astro.props;
 
@@ -54,13 +55,18 @@ const {
 const cleanPathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
 const canonicalURL = canonical ?? `${SITE_URL}${cleanPathname}`;
 
+// og:image:width/height straight from the registry (see images.js) so they
+// can't drift from the actual file dimensions — omitted if ogImage isn't a
+// registered image (none expected, but this fails soft rather than lying).
+const ogImageMeta = findImageBySrc(ogImage);
+
 const musicGroupSchema = {
   '@context': 'https://schema.org',
   '@type': 'MusicGroup',
   name: 'Maya Fourteen',
   alternateName: 'MAYA FOURTEEN',
   url: 'https://mayafourteen.com',
-  image: 'https://mayafourteen.com/images/maya-landing.jpg',
+  image: 'https://mayafourteen.com/images/maya-landing-og.jpg',
   // Verbatim from the About page's first paragraph (src/pages/v3/about.astro)
   // rather than authored fresh here, so this schema can't drift from the
   // on-page bio it's describing.
@@ -124,6 +130,8 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
   {description && <meta property="og:description" content={description} />}
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+  {ogImageMeta && <meta property="og:image:width" content={String(ogImageMeta.width)} />}
+  {ogImageMeta && <meta property="og:image:height" content={String(ogImageMeta.height)} />}
   <meta name="twitter:card" content="summary_large_image" />
   {hreflangEntries.map((code) => (
     <link rel="alternate" hreflang={LANG_CODES[code]} href={`${SITE_URL}${hreflangAlternates![code]}`} />
