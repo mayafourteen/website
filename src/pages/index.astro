@@ -1,25 +1,15 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroBackground from '../components/HeroBackground.astro';
+import BaseLayout from '../layouts/V3BaseLayout.astro';
+import HeroBackground from '../components/v3/HeroBackground.astro';
 ---
 
 <BaseLayout
-  title="MAYA FOURTEEN"
-  description="Official website of award-winning electronic music artist Maya Fourteen."
+  title="MAYA FOURTEEN | Official Website"
+  description="Maya Fourteen is an award-winning electronic music artist known for deep, tech, organic and progressive sets that grow on you."
   bodyClass="page-landing"
 >
   <Fragment slot="head">
-    <!--
-      Automatic language routing. Runs as early/blocking as page-transitions.js
-      so there's no flash of this page before redirecting — this page itself
-      is not meant to be seen, only its background during the brief redirect.
-      1. A saved preference (set when a visitor picks a language manually via
-         LanguageMenu) always wins.
-      2. Otherwise, detect from navigator.language / navigator.languages.
-      3. Anything that isn't pt/es defaults to English, the international
-         fallback, per the routing rules.
-      No-JS visitors get a <noscript> meta-refresh to /page-en instead.
-    -->
+    <!-- Automatic language routing, mirrored from the production landing page. -->
     <script is:inline>
       (function () {
         var STORAGE_KEY = 'maya-lang-pref';
@@ -56,14 +46,14 @@ import HeroBackground from '../components/HeroBackground.astro';
   </Fragment>
 
   <div class="container">
-    <HeroBackground src="/images/maya-landing.jpg" alt="Maya Fourteen" />
+    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
     <noscript>
       <div class="noscript-fallback">
-        <a href="page-en.html">English</a>
+        <a href="/page-en">English</a>
         <span class="dot">•</span>
-        <a href="page-pt.html">Português</a>
+        <a href="/page-pt">Português</a>
         <span class="dot">•</span>
-        <a href="page-es.html">Español</a>
+        <a href="/page-es">Español</a>
       </div>
     </noscript>
   </div>
@@ -79,6 +69,7 @@ import HeroBackground from '../components/HeroBackground.astro';
     position: relative;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
   }
 
   .noscript-fallback {

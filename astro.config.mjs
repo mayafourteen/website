@@ -13,7 +13,15 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://mayafourteen.com',
   trailingSlash: 'never',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // /legacy/, /v2/ and /v2-legacy/ are archived, noindex prototypes kept
+      // in the build for reference (see DEPLOY.md) — the sitemap has no
+      // awareness of per-page <meta name="robots"> tags, so they'd otherwise
+      // be listed as indexable production URLs despite carrying noindex.
+      filter: (page) => !/^https?:\/\/[^/]+\/(legacy|v2-legacy|v2)(\/|$)/.test(page),
+    }),
+  ],
   build: {
     // Emit page-en.html / index.html instead of pretty-URL directories,
     // so routes match the reference project's file names exactly and

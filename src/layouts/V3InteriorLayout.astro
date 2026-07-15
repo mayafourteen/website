@@ -1,0 +1,297 @@
+---
+// Shared shell for every V3 menu destination (About, Video Sets, Audio
+// Sets, Press, Book Maya). One layout so each page only supplies its own
+// content — keeps the five pages visually consistent by construction
+// rather than by copy-pasted CSS.
+import V3BaseLayout from './V3BaseLayout.astro';
+import HeroBackground from '../components/v3/HeroBackground.astro';
+import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  eyebrow: string;
+  // Per-page background photo override — defaults to the shared hero
+  // shot for pages that don't have a more specific real photo to use
+  // (About, Press). Video Sets/Audio Sets/Book pass their own.
+  heroImage?: string;
+  // Set when heroImage is one of Diego Jarschel's Greenvalley shots, so
+  // the page background carries his credit.
+  heroImageCredit?: boolean;
+  // Set by pages that have a real ES sibling (e.g. book.astro /
+  // book-pt.astro / book-es.astro) so the language switcher and hreflang
+  // both point at it instead of falling back to the ES homepage. Most
+  // interior pages don't have one yet (deferred per brief) and omit this.
+  hasEsSibling?: boolean;
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  heroImage = '/images/maya-landing-bw.jpg',
+  heroImageCredit = false,
+  hasEsSibling = false,
+} = Astro.props;
+
+// EN/PT/ES versions of an interior page are siblings at the same level
+// (book.astro / book-pt.astro / book-es.astro), so the language is
+// derivable straight from the URL and each option in the language menu
+// can point at its real counterpart instead of bouncing to the homepage.
+// Most interior pages still only have EN/PT (ES deferred per brief) —
+// hasEsSibling above is what tells this layout whether the computed
+// `-es` path is real or would be a 404.
+const currentPath = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const isPt = currentPath.endsWith('-pt');
+const isEs = currentPath.endsWith('-es');
+const basePath = isPt || isEs ? currentPath.slice(0, -3) : currentPath;
+const enPath = basePath;
+const ptPath = `${basePath}-pt`;
+const esPath = `${basePath}-es`;
+const lang = isPt ? 'pt' : isEs ? 'es' : 'en';
+
+// Brand-prefixed for the <title>/OG tags; the on-page <h1> below uses the
+// plain `title` prop so the visible heading doesn't carry the prefix too.
+const documentTitle = `MAYA FOURTEEN | ${title}`;
+
+// hreflang must only ever list genuine translations of *this* page (see
+// the prop's own doc in V3BaseLayout.astro) — `es` is only included when
+// hasEsSibling says that path is real, not a homepage fallback.
+const interiorHreflangAlternates = hasEsSibling
+  ? { en: enPath, pt: ptPath, es: esPath }
+  : { en: enPath, pt: ptPath };
+
+const homeLabelByLang: Record<string, string> = { en: 'Home', pt: 'Início', es: 'Inicio' };
+const homePathByLang: Record<string, string> = { en: '/page-en', pt: '/page-pt', es: '/page-es' };
+const breadcrumbs = [
+  { name: homeLabelByLang[lang], path: homePathByLang[lang] },
+  { name: title, path: currentPath },
+];
+---
+
+<V3BaseLayout
+  title={documentTitle}
+  description={description}
+  bodyClass="page-v2-interior"
+  lang={lang}
+  languageHrefOverrides={{ en: enPath, pt: ptPath, es: hasEsSibling ? esPath : '/page-es' }}
+  hreflangAlternates={interiorHreflangAlternates}
+  breadcrumbs={breadcrumbs}
+>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <!-- No Font Awesome here: interior pages never render an fa- icon
+         (only the homepage's SocialNav does) — the shared all.min.css link
+         was 100% unused CSS on every one of these pages. -->
+  </Fragment>
+
+  <div class="background-container">
+    <HeroBackground src={heroImage} alt="Maya Fourteen" filtered />
+    {heroImageCredit && (
+      <p class="hero-photo-credit">Photography: <a href="https://www.instagram.com/diegofotografias/" target="_blank" rel="noopener noreferrer">Diego Jarschel</a></p>
+    )}
+  </div>
+
+  <HamburgerMenu lang={lang} />
+
+  <div class="content-wrapper">
+    <p class="eyebrow fade-item">{eyebrow}</p>
+    <h1 class="page-title fade-item">{title}</h1>
+    <div class="page-body fade-item">
+      <slot />
+    </div>
+  </div>
+</V3BaseLayout>
+
+<style is:global>
+  .fade-item {
+    opacity: 0;
+    animation: smoothReveal 1.1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+
+  @keyframes smoothReveal {
+    from { opacity: 0; filter: blur(10px); transform: translateY(18px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+</style>
+
+<style>
+  :global(.page-v2-interior) {
+    /* Single source of truth for the header chrome's edge offset — see
+       the matching comment in V3HomeLayout; both HamburgerMenu and
+       LanguageMenu read this instead of hardcoding their own numbers. */
+    --v3-header-inset: 20px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Same language-selector weight bump as the V3 homepage, for consistency
+     wherever it's paired with the hamburger. LanguageMenu's own default
+     styling (used by every other page) is untouched.
+
+     padding-left trimmed to 10px (from a symmetric 14px) for optical
+     alignment against the hamburger's ink — see the full measurement
+     writeup on the matching rule in V3HomeLayout.astro. */
+  :global(.page-v2-interior) :global(.language-menu-trigger) {
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    padding: 10px 14px 10px 10px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .hero-photo-credit {
+    position: absolute;
+    bottom: 14px;
+    right: 18px;
+    margin: 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .hero-photo-credit a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .hero-photo-credit a:hover {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: underline;
+  }
+
+  .content-wrapper {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 140px 10% calc(100px + env(safe-area-inset-bottom, 0px));
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 16px 0;
+    animation-delay: 0.1s;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 0 0 40px 0;
+    animation-delay: 0.25s;
+  }
+
+  .page-body {
+    animation-delay: 0.45s;
+    text-align: left;
+  }
+
+  .page-body :global(p) {
+    font-weight: 200;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    font-size: clamp(1rem, 1.15vw, 1.2rem);
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 24px 0;
+  }
+
+  .page-body :global(.section-title) {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 40px 0 20px 0;
+  }
+
+  .page-body :global(.link-list) {
+    list-style: none;
+    margin: 0 0 24px 0;
+    padding: 0;
+  }
+
+  .page-body :global(.link-list li) {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .page-body :global(.link-list li:last-child) {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .page-body :global(.link-list strong) {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .page-body :global(.link-list a) {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.78rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .page-body :global(.link-list a:hover) {
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .page-body :global(.cta-button) {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #000;
+    background: #fff;
+    padding: 16px 36px;
+    margin-top: 12px;
+    transition: opacity 0.3s ease;
+  }
+
+  .page-body :global(.cta-button:hover) {
+    opacity: 0.85;
+  }
+
+  .page-body :global(.embed-frame) {
+    width: 100%;
+    border: none;
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 110px 8% calc(70px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": [
+      "Read", "Edit", "Write", "Glob", "Grep",
+      "Bash(npm:*)", "Bash(npx:*)", "Bash(node:*)",
+      "Bash(git status:*)", "Bash(git log:*)", "Bash(git diff:*)", "Bash(git add:*)", "Bash(git commit:*)", "Bash(git push:*)", "Bash(git checkout:*)", "Bash(git stash:*)",
+      "Bash(curl:*)", "Bash(mkdir:*)", "Bash(cp:*)", "Bash(mv:*)", "Bash(cat:*)", "Bash(ls:*)", "Bash(cd:*)", "Bash(echo:*)", "Bash(grep:*)", "Bash(find:*)", "Bash(unzip:*)", "Bash(zip:*)", "Bash(python3:*)", "Bash(pkill:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)", "Bash(sudo:*)", "Bash(git push --force:*)"
+    ]
+  }
+}

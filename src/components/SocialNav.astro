@@ -7,13 +7,14 @@ import { socialLinks } from '../data/socialLinks.js';
 
 interface Props {
   epkHref?: string;
+  links?: typeof socialLinks;
 }
 
-const { epkHref } = Astro.props;
+const { epkHref, links = socialLinks } = Astro.props;
 ---
 
 <div class="nav-links fade-item">
-  {socialLinks.map((link) => (
+  {links.map((link) => (
     <NavLink href={link.name === 'epk' && epkHref ? epkHref : link.href} title={link.title}>
       {link.name === 'epk' && <EpkIcon />}
       {link.name === 'beatport' && <BeatportIcon />}

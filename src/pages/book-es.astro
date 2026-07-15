@@ -1,0 +1,41 @@
+---
+// ES counterpart of book.astro/book-pt.astro — new page. ES's other
+// interior pages stay deferred (see navItems.js's own comment), but this
+// one gets a real ES version so the nav's "Info" item has a genuine
+// language-equivalent target instead of bouncing to the English page.
+import V3InteriorLayout from '../layouts/V3InteriorLayout.astro';
+---
+
+<V3InteriorLayout
+  title="Info & Contacto"
+  eyebrow="Ponte en contacto"
+  description="Ponte en contacto con la artista premiada de música electrónica Maya Fourteen para bookings, representación de agencia y consultas de prensa."
+  heroImage="/images/epk/epk-award.jpg"
+  hasEsSibling
+>
+  <p>
+    Disponible para fechas en clubes, festivales y eventos privados selectos alrededor del mundo.
+    Para bookings, representación de agencia o consultas de prensa, contáctanos por cualquiera de
+    los canales abajo.
+  </p>
+  <p>
+    Para solicitudes de booking, incluye la fecha, el lugar o evento, y la ciudad para confirmar
+    la disponibilidad rápidamente.
+  </p>
+
+  <div class="contact-actions">
+    <a class="cta-button" href="mailto:hello@mayafourteen.com?subject=Solicitud%20de%20booking%20para%20Maya%20Fourteen">Enviar correo a hello@mayafourteen.com</a>
+    <a class="cta-button" href="https://wa.me/5547999353919?text=Solicitud%20de%20booking%20para%20Maya%20Fourteen%3A" target="_blank" rel="noopener">WhatsApp +55 47 99935 3919</a>
+    <a class="cta-button" href="https://www.instagram.com/mayafourteen/" target="_blank" rel="noopener">DM en Instagram</a>
+  </div>
+</V3InteriorLayout>
+
+<style>
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 8px;
+  }
+</style>

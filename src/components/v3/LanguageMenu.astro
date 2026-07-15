@@ -1,0 +1,140 @@
+---
+import { languages } from '../../data/v3/languages.js';
+
+interface Props {
+  currentLang: string;
+  // Per-language destination overrides, keyed by lang code (e.g. { en:
+  // '/about', pt: '/about-pt' }). Falls back to `languages`' own
+  // per-page href (the homepage in that language) for any code not present
+  // in the map — used when a page has no equivalent in that language yet
+  // (e.g. ES on V3 interior pages, which stay deferred).
+  hrefOverrides?: Partial<Record<string, string>>;
+}
+
+const { currentLang, hrefOverrides } = Astro.props;
+const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
+---
+
+<details class="language-menu">
+  <summary class="language-menu-trigger">{current.code}</summary>
+  <ul class="language-menu-list">
+    {languages.map((lang) => (
+      <li>
+        <a
+          href={hrefOverrides?.[lang.lang] ?? lang.href}
+          class:list={['language-menu-option', { active: lang.lang === currentLang }]}
+          data-lang-pref={lang.lang}
+        >
+          {lang.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</details>
+
+<script>
+  document.querySelectorAll('.language-menu-option').forEach((link) => {
+    link.addEventListener('click', () => {
+      const pref = link.getAttribute('data-lang-pref');
+      if (pref) {
+        try {
+          localStorage.setItem('maya-lang-pref', pref);
+        } catch (e) {
+          // localStorage unavailable (private mode, etc.) — navigation still works.
+        }
+      }
+    });
+  });
+
+  // Close the menu when clicking outside it.
+  document.addEventListener('click', (event) => {
+    document.querySelectorAll('details.language-menu[open]').forEach((menu) => {
+      if (!menu.contains(event.target as Node)) menu.removeAttribute('open');
+    });
+  });
+</script>
+
+<style>
+  /* --v3-header-inset is defined once per page shell (V3HomeLayout /
+     V3InteriorLayout) so this and HamburgerMenu's edge offset can never
+     drift out of sync; falls back to 20px for pages that don't define it
+     (e.g. the EPK pages, which use neither layout directly). Matching
+     env(safe-area-inset-*) support to HamburgerMenu too — this was
+     previously missing here, so notched devices pushed the hamburger
+     in from the right but let this sit under the notch on the left. */
+  .language-menu {
+    position: fixed;
+    top: calc(var(--v3-header-inset, 20px) + env(safe-area-inset-top, 0px));
+    left: calc(var(--v3-header-inset, 20px) + env(safe-area-inset-left, 0px));
+    z-index: 50;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Fixed 44px height (matching HamburgerMenu's 44px box) with flex
+     vertical-centering, rather than relying on padding to imply a height
+     — guarantees the two triggers' visual centers coincide exactly at
+     any font-size, not just at the specific padding value this default
+     happens to use (pages that override padding, e.g. the EPK/interior
+     layouts, stay aligned too since the height is fixed independently). */
+  .language-menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 44px;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0 10px;
+    transition: color 0.3s ease;
+  }
+
+  summary.language-menu-trigger {
+    list-style: none;
+  }
+
+  .language-menu-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .language-menu-trigger::after {
+    content: '▾';
+    font-size: 0.7em;
+  }
+
+  .language-menu:hover .language-menu-trigger,
+  .language-menu[open] .language-menu-trigger {
+    color: #fff;
+  }
+
+  .language-menu-list {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 8px 0;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    min-width: 130px;
+  }
+
+  .language-menu-option {
+    display: block;
+    padding: 8px 16px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+
+  .language-menu-option:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .language-menu-option.active {
+    color: #fff;
+    font-weight: 400;
+  }
+</style>

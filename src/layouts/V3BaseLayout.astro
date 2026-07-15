@@ -1,0 +1,182 @@
+---
+import LanguageMenu from '../components/v3/LanguageMenu.astro';
+import { SITE_URL } from '../data/v3/siteConfig.js';
+import { socialLinks } from '../data/v3/socialLinks.js';
+import { findImageBySrc } from '../data/v3/images.js';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  lang?: string;
+  bodyClass?: string;
+  // Forwarded to LanguageMenu — see its own prop doc. Only pages without a
+  // per-language equivalent (e.g. V3 interior pages) need to pass this.
+  languageHrefOverrides?: Partial<Record<string, string>>;
+  // Drives <link rel="alternate" hreflang>, kept deliberately separate from
+  // languageHrefOverrides above: that prop is allowed to point the visible
+  // language switcher at a graceful fallback (e.g. an interior page's ES
+  // link falling back to the ES homepage, since ES interior pages don't
+  // exist yet), but hreflang must only ever list genuine translations of
+  // *this* page — pointing it at a different page would be an incorrect
+  // hreflang claim. Only include the languages that really have this page.
+  // x-default always resolves to the `en` entry.
+  hreflangAlternates?: Partial<Record<'en' | 'pt' | 'es', string>>;
+  // Path (site-relative) to the real image used for og:image. Defaults to
+  // the site's one hero photo — every V3 page shares it since there is no
+  // other real photography yet.
+  ogImage?: string;
+  // BreadcrumbList JSON-LD, only for pages with real hierarchy below the
+  // homepage (interior pages, EPK). Home pages pass nothing — a
+  // single-item breadcrumb trail for the root itself isn't meaningful.
+  // Each path is site-root-relative (e.g. '/about'); resolved through
+  // the same SITE_URL prefix as canonical/hreflang below.
+  breadcrumbs?: Array<{ name: string; path: string }>;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  lang = 'en',
+  bodyClass,
+  languageHrefOverrides,
+  hreflangAlternates,
+  ogImage = '/images/maya-landing-og.jpg',
+  breadcrumbs,
+} = Astro.props;
+
+// Auto-generate the canonical URL from the current route unless a page
+// explicitly overrides it, so every page gets a correct canonical without
+// having to pass one manually. build.format: 'file' makes Astro.url.pathname
+// report the on-disk ".html" filename (e.g. /page-en.html) for every route
+// except the homepage; strip that suffix so canonicals stay clean and match
+// the sitemap's URLs and Cloudflare Pages' actual clean-URL serving.
+const cleanPathname = Astro.url.pathname.replace(/\.html$/, '') || '/';
+const canonicalURL = canonical ?? `${SITE_URL}${cleanPathname}`;
+
+// og:image:width/height straight from the registry (see images.js) so they
+// can't drift from the actual file dimensions — omitted if ogImage isn't a
+// registered image (none expected, but this fails soft rather than lying).
+const ogImageMeta = findImageBySrc(ogImage);
+
+const musicGroupSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicGroup',
+  name: 'Maya Fourteen',
+  alternateName: 'MAYA FOURTEEN',
+  url: 'https://mayafourteen.com',
+  image: 'https://mayafourteen.com/images/maya-landing-og.jpg',
+  // Verbatim from the About page's first paragraph (src/pages/v3/about.astro)
+  // rather than authored fresh here, so this schema can't drift from the
+  // on-page bio it's describing.
+  description: "Award-winning electronic music artist Maya Fourteen moves fluidly across electronic genres, shaping sound through performance, production and curation. With a solid international audience and performances across respected stages worldwide, her presence carries depth and unmistakable taste.",
+  foundingLocation: {
+    '@type': 'Place',
+    name: 'Mato Grosso, Brazil',
+  },
+  // Matches the site's own copy (About page: "deep, tech, organic and
+  // progressive elements"), not a generic/invented genre list.
+  genre: ['Deep Tech', 'Organic House', 'Progressive House'],
+  award: [
+    'Future Talent Award at IMS Ibiza 2025, selected by Pete Tong',
+    'Nicole Moudaber Talent Highlight Prize',
+  ],
+  // Pulled from socialLinks.js (the same data the visible icon rows render
+  // from) rather than hardcoded here, so this can't drift out of sync with
+  // the real profile URLs — it previously listed a stale Beatport URL and
+  // a LinkedIn profile that isn't part of the site's own social set.
+  sameAs: ['instagram', 'youtube', 'soundcloud', 'beatport', 'spotify']
+    .map((name) => socialLinks.find((link) => link.name === name)?.href)
+    .filter(Boolean),
+};
+
+// Shared by <html lang> and hreflang: the PT copy is specifically
+// Brazilian Portuguese (see data/v3/languages.js's own comment), so both
+// should say pt-BR, not the bare "pt" the internal `lang` prop uses
+// everywhere else (nav lookups, LanguageMenu, etc. all key off plain
+// 'en'/'pt'/'es' — only the actual lang="" attributes need the region).
+const LANG_CODES: Record<string, string> = { en: 'en', pt: 'pt-BR', es: 'es' };
+const htmlLang = LANG_CODES[lang] ?? lang;
+const hreflangEntries = hreflangAlternates
+  ? (Object.keys(hreflangAlternates) as Array<keyof typeof hreflangAlternates>)
+  : [];
+
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbs.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: `${SITE_URL}${item.path}`,
+  })),
+} : null;
+---
+
+<!DOCTYPE html>
+<html lang={htmlLang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <script is:inline src="/page-transitions.js"></script>
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="canonical" href={canonicalURL} />
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Maya Fourteen" />
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+  {ogImageMeta && <meta property="og:image:width" content={String(ogImageMeta.width)} />}
+  {ogImageMeta && <meta property="og:image:height" content={String(ogImageMeta.height)} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  {hreflangEntries.map((code) => (
+    <link rel="alternate" hreflang={LANG_CODES[code]} href={`${SITE_URL}${hreflangAlternates![code]}`} />
+  ))}
+  {hreflangAlternates?.en && (
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}${hreflangAlternates.en}`} />
+  )}
+  <script type="application/ld+json" set:html={JSON.stringify(musicGroupSchema)} />
+  {breadcrumbSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  )}
+
+  <!-- Google tag (gtag.js) -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3NGTH9664P');
+  </script>
+
+  <slot name="head" />
+</head>
+<body class={bodyClass}>
+  <LanguageMenu currentLang={lang} hrefOverrides={languageHrefOverrides} />
+  <slot />
+</body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+
+  html.js-page-transitions body {
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+
+  html.js-page-transitions.is-ready body {
+    opacity: 1;
+  }
+</style>

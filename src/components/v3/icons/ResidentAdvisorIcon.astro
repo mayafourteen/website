@@ -1,0 +1,42 @@
+---
+// RA's real official mark (their compact "RA" monogram, cropped from
+// Wikipedia's ResidentAdvisor_logo.png — a black glyph on a transparent
+// background, matching the source used for File:ResidentAdvisor_logo.png
+// on enwiki), not a hand-drawn approximation. Source master lives at
+// assets-src/resident-advisor-logo-master.png (full-res, uncropped);
+// this file is the tightly-cropped, downscaled render actually served.
+// No SVG path data was available (ra.co blocks direct asset access and
+// no official vector source could be found), so it's a raster PNG with
+// its real alpha transparency preserved — filter: brightness(0)
+// invert(1) turns the mark's real black fill white to match every other
+// icon in this row, same technique, same visual result as an SVG
+// fill="white" would give, without altering the mark's actual geometry.
+---
+
+<img
+  class="ra-logo"
+  src="/images/icons/resident-advisor.png"
+  alt="Resident Advisor"
+  width="240"
+  height="114"
+  loading="lazy"
+/>
+
+<style>
+  /* Height (not the row's usual ~29px) chosen so the mark's real ~2.1:1
+     aspect ratio doesn't render it much wider than its siblings — at 29px
+     tall it would be ~61px wide vs. Beatport/EPK's ~23-36px. 18px keeps
+     its rendered width in that same ~36-38px range instead. */
+  .ra-logo {
+    height: 18px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+  }
+
+  @media (max-width: 768px) {
+    .ra-logo {
+      height: 15px;
+    }
+  }
+</style>

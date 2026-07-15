@@ -3,9 +3,15 @@ import { languages } from '../data/languages.js';
 
 interface Props {
   currentLang: string;
+  // When the current page has no per-language equivalent (e.g. a V2
+  // interior page that only exists in English), pass its own path here so
+  // every option stays on this page instead of jumping to that language's
+  // homepage. Default behavior (per-page hrefs from `languages`) is
+  // unchanged for every caller that doesn't pass this.
+  hrefOverride?: string;
 }
 
-const { currentLang } = Astro.props;
+const { currentLang, hrefOverride } = Astro.props;
 const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
 ---
 
@@ -15,7 +21,7 @@ const current = languages.find((l) => l.lang === currentLang) ?? languages[0];
     {languages.map((lang) => (
       <li>
         <a
-          href={lang.href}
+          href={hrefOverride ?? lang.href}
           class:list={['language-menu-option', { active: lang.lang === currentLang }]}
           data-lang-pref={lang.lang}
         >

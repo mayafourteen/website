@@ -1,0 +1,23 @@
+---
+import V2InteriorLayout from '../../layouts/V2InteriorLayout.astro';
+import { pressItems } from '../../data/pressItems.js';
+---
+
+<V2InteriorLayout
+  title="Press"
+  eyebrow="Why the industry is paying attention"
+  description="Maya Fourteen has been featured across international electronic music media platforms."
+>
+  <p>
+    Maya Fourteen has been featured across international electronic music media platforms.
+  </p>
+
+  <ul class="link-list">
+    {pressItems.map((item) => (
+      <li>
+        <strong>{item.outlet}</strong>
+        <a href={item.href} target="_blank">{item.label}</a>
+      </li>
+    ))}
+  </ul>
+</V2InteriorLayout>

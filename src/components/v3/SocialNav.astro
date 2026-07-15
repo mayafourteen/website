@@ -1,0 +1,55 @@
+---
+import NavLink from './NavLink.astro';
+import EpkIcon from './icons/EpkIcon.astro';
+import BeatportIcon from './icons/BeatportIcon.astro';
+import BeepdIcon from './icons/BeepdIcon.astro';
+import ResidentAdvisorIcon from './icons/ResidentAdvisorIcon.astro';
+import { socialLinks } from '../../data/v3/socialLinks.js';
+
+interface Props {
+  epkHref?: string;
+  links?: typeof socialLinks;
+}
+
+const { epkHref, links = socialLinks } = Astro.props;
+---
+
+<div class="nav-links fade-item">
+  {links.map((link) => (
+    <NavLink href={link.name === 'epk' && epkHref ? epkHref : link.href} title={link.title}>
+      {link.name === 'epk' && <EpkIcon />}
+      {link.name === 'beatport' && <BeatportIcon />}
+      {link.name === 'beepd' && <BeepdIcon />}
+      {link.name === 'residentadvisor' && <ResidentAdvisorIcon />}
+      {link.type === 'fa' && <i class={`fa-brands fa-${link.name} fa-icon`}></i>}
+    </NavLink>
+  ))}
+</div>
+
+<style>
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    animation-delay: 1.5s;
+    margin-bottom: 50px;
+  }
+
+  .fa-icon {
+    font-size: 1.8rem;
+    display: block;
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      gap: 20px;
+    }
+
+    .fa-icon {
+      font-size: 1.6rem;
+    }
+  }
+</style>
