@@ -1,12 +1,4 @@
-import { socialLinks } from './socialLinks.js';
-
-// Resident Advisor has no entry in socialLinks.js because that list is
-// also read unfiltered (no `links` prop) by SocialNav on the legacy root
-// pages (src/pages/page-en.astro etc.) and by name-lookup on the V3
-// homepage's five-icon row (primarySocialLinks.js) — adding it there would
-// silently grow both of those unrelated rows. It's only ever shown in the
-// EPK "Discover MAYA" row, so it's defined here instead.
-const residentAdvisor = { href: 'https://ra.co/dj/mayafourteen', title: 'Resident Advisor', type: 'svg', name: 'residentadvisor' };
+import { socialLinks, residentAdvisor } from './socialLinks.js';
 
 // Explicit order (not a .filter() over socialLinks, which would inherit
 // that file's own order instead): Instagram, YouTube, SoundCloud, Spotify,

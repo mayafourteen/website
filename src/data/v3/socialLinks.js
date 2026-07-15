@@ -12,3 +12,10 @@ export const socialLinks = [
   { href: 'https://open.spotify.com/artist/6vCjW095i7Y8D7P2Uf6H0K', title: 'Spotify', type: 'fa', name: 'spotify' },
   { href: 'https://music.beepd.co/card/mayafourteen', title: 'Beepd', type: 'svg', name: 'beepd' },
 ];
+
+// Deliberately not part of the array above: that array is read unfiltered
+// (no `links` prop) by SocialNav on the legacy root pages (src/pages/
+// page-en.astro etc.) — adding a new entry there would silently grow that
+// unrelated row too. Exported separately so primarySocialLinks.js and
+// discoverSocialLinks.js can both opt in explicitly instead.
+export const residentAdvisor = { href: 'https://ra.co/dj/mayafourteen', title: 'Resident Advisor', type: 'svg', name: 'residentadvisor' };
