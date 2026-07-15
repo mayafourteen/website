@@ -29,7 +29,7 @@ interface Props {
   // BreadcrumbList JSON-LD, only for pages with real hierarchy below the
   // homepage (interior pages, EPK). Home pages pass nothing — a
   // single-item breadcrumb trail for the root itself isn't meaningful.
-  // Each path is site-root-relative (e.g. '/v3/about'); resolved through
+  // Each path is site-root-relative (e.g. '/about'); resolved through
   // the same SITE_URL prefix as canonical/hreflang below.
   breadcrumbs?: Array<{ name: string; path: string }>;
 }

@@ -5,12 +5,12 @@
 // full-bleed hero photo or card grids. Copy is sourced from that gamma
 // page's real text, with a deliberate override: the two award names
 // (corrected per project brief).
-import V3BaseLayout from '../../layouts/V3BaseLayout.astro';
-import HamburgerMenu from '../../components/v3/HamburgerMenu.astro';
-import SocialNav from '../../components/v3/SocialNav.astro';
-import { pressItems } from '../../data/v3/pressItems.js';
-import { discoverSocialLinks } from '../../data/v3/discoverSocialLinks.js';
-import { images } from '../../data/v3/images.js';
+import V3BaseLayout from '../layouts/V3BaseLayout.astro';
+import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
+import SocialNav from '../components/v3/SocialNav.astro';
+import { pressItems } from '../data/v3/pressItems.js';
+import { discoverSocialLinks } from '../data/v3/discoverSocialLinks.js';
+import { images } from '../data/v3/images.js';
 ---
 
 <V3BaseLayout
@@ -18,9 +18,9 @@ import { images } from '../../data/v3/images.js';
   description="Download the official electronic press kit for award-winning artist Maya Fourteen, featuring her bio, credentials, world stages and discography."
   bodyClass="page-epk"
   lang="en"
-  languageHrefOverrides={{ en: '/v3/epk', pt: '/v3/epk-pt', es: '/v3/epk-es' }}
-  hreflangAlternates={{ en: '/v3/epk', pt: '/v3/epk-pt', es: '/v3/epk-es' }}
-  breadcrumbs={[{ name: 'Home', path: '/v3/page-en' }, { name: 'EPK', path: '/v3/epk' }]}
+  languageHrefOverrides={{ en: '/epk', pt: '/epk-pt', es: '/epk-es' }}
+  hreflangAlternates={{ en: '/epk', pt: '/epk-pt', es: '/epk-es' }}
+  breadcrumbs={[{ name: 'Home', path: '/page-en' }, { name: 'EPK', path: '/epk' }]}
 >
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +29,6 @@ import { images } from '../../data/v3/images.js';
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css">
-    <meta name="robots" content="noindex, nofollow" />
   </Fragment>
 
   <HamburgerMenu lang="en" />
@@ -306,7 +305,7 @@ import { images } from '../../data/v3/images.js';
         title="Maya Fourteen: Ancestral (Mato Grosso, Brazil)"
         loading="lazy"
       ></iframe>
-      <a class="epk-inline-link epk-video-link" href="/v3/video-sets">Watch full video sets &rarr;</a>
+      <a class="epk-inline-link epk-video-link" href="/video-sets">Watch full video sets &rarr;</a>
     </section>
 
     <!-- GLOBAL AUDIENCE & REACH -->

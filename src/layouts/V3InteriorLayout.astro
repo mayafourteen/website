@@ -62,7 +62,7 @@ const interiorHreflangAlternates = hasEsSibling
   : { en: enPath, pt: ptPath };
 
 const homeLabelByLang: Record<string, string> = { en: 'Home', pt: 'Início', es: 'Inicio' };
-const homePathByLang: Record<string, string> = { en: '/v3/page-en', pt: '/v3/page-pt', es: '/v3/page-es' };
+const homePathByLang: Record<string, string> = { en: '/page-en', pt: '/page-pt', es: '/page-es' };
 const breadcrumbs = [
   { name: homeLabelByLang[lang], path: homePathByLang[lang] },
   { name: title, path: currentPath },
@@ -74,7 +74,7 @@ const breadcrumbs = [
   description={description}
   bodyClass="page-v2-interior"
   lang={lang}
-  languageHrefOverrides={{ en: enPath, pt: ptPath, es: hasEsSibling ? esPath : '/v3/page-es' }}
+  languageHrefOverrides={{ en: enPath, pt: ptPath, es: hasEsSibling ? esPath : '/page-es' }}
   hreflangAlternates={interiorHreflangAlternates}
   breadcrumbs={breadcrumbs}
 >
@@ -85,7 +85,6 @@ const breadcrumbs = [
     <!-- No Font Awesome here: interior pages never render an fa- icon
          (only the homepage's SocialNav does) — the shared all.min.css link
          was 100% unused CSS on every one of these pages. -->
-    <meta name="robots" content="noindex, nofollow" />
   </Fragment>
 
   <div class="background-container">

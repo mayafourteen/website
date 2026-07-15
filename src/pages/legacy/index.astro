@@ -1,16 +1,26 @@
 ---
-import BaseLayout from '../../layouts/V3BaseLayout.astro';
-import HeroBackground from '../../components/v3/HeroBackground.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroBackground from '../../components/HeroBackground.astro';
 ---
 
 <BaseLayout
-  title="MAYA FOURTEEN | Official Website"
-  description="Maya Fourteen is an award-winning electronic music artist known for deep, tech, organic and progressive sets that grow on you."
+  noindex
+  title="MAYA FOURTEEN"
+  description="Official website of award-winning electronic music artist Maya Fourteen."
   bodyClass="page-landing"
 >
   <Fragment slot="head">
-    <meta name="robots" content="noindex, nofollow" />
-    <!-- Automatic language routing, mirrored from the production landing page. -->
+    <!--
+      Automatic language routing. Runs as early/blocking as page-transitions.js
+      so there's no flash of this page before redirecting — this page itself
+      is not meant to be seen, only its background during the brief redirect.
+      1. A saved preference (set when a visitor picks a language manually via
+         LanguageMenu) always wins.
+      2. Otherwise, detect from navigator.language / navigator.languages.
+      3. Anything that isn't pt/es defaults to English, the international
+         fallback, per the routing rules.
+      No-JS visitors get a <noscript> meta-refresh to /page-en instead.
+    -->
     <script is:inline>
       (function () {
         var STORAGE_KEY = 'maya-lang-pref';
@@ -38,23 +48,23 @@ import HeroBackground from '../../components/v3/HeroBackground.astro';
           target = detectFromBrowser();
         }
 
-        window.location.replace('/v3/page-' + target);
+        window.location.replace('/legacy/page-' + target);
       })();
     </script>
     <noscript>
-      <meta http-equiv="refresh" content="0;url=/v3/page-en" />
+      <meta http-equiv="refresh" content="0;url=/legacy/page-en" />
     </noscript>
   </Fragment>
 
   <div class="container">
-    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
+    <HeroBackground src="/images/maya-landing.jpg" alt="Maya Fourteen" />
     <noscript>
       <div class="noscript-fallback">
-        <a href="/v3/page-en">English</a>
+        <a href="page-en.html">English</a>
         <span class="dot">•</span>
-        <a href="/v3/page-pt">Português</a>
+        <a href="page-pt.html">Português</a>
         <span class="dot">•</span>
-        <a href="/v3/page-es">Español</a>
+        <a href="page-es.html">Español</a>
       </div>
     </noscript>
   </div>
@@ -70,7 +80,6 @@ import HeroBackground from '../../components/v3/HeroBackground.astro';
     position: relative;
     width: 100vw;
     height: 100vh;
-    height: 100dvh;
   }
 
   .noscript-fallback {

@@ -1,23 +1,25 @@
 ---
-// PT-BR counterpart of epk.astro — same structure/CSS, copy translated
-// from the real PT gamma EPK page, with the same award-name override.
-// See epk.astro for the full sourcing notes.
-import V3BaseLayout from '../../layouts/V3BaseLayout.astro';
-import HamburgerMenu from '../../components/v3/HamburgerMenu.astro';
-import SocialNav from '../../components/v3/SocialNav.astro';
-import { pressItems } from '../../data/v3/pressItems.js';
-import { discoverSocialLinks } from '../../data/v3/discoverSocialLinks.js';
-import { images } from '../../data/v3/images.js';
+// ES counterpart of epk.astro — same structure/CSS, copy translated
+// from the real ES gamma EPK page. New page: ES has no other interior
+// pages (About/Press/etc stay EN/PT only, per the project's ES
+// deferral), but EPK is an explicit exception per this brief. See
+// epk.astro for the full sourcing notes.
+import V3BaseLayout from '../layouts/V3BaseLayout.astro';
+import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
+import SocialNav from '../components/v3/SocialNav.astro';
+import { pressItems } from '../data/v3/pressItems.js';
+import { discoverSocialLinks } from '../data/v3/discoverSocialLinks.js';
+import { images } from '../data/v3/images.js';
 ---
 
 <V3BaseLayout
-  title="MAYA FOURTEEN | Mídia Kit"
-  description="Baixe o mídia kit oficial da artista premiada Maya Fourteen, com biografia, credenciais, palcos internacionais e discografia."
+  title="MAYA FOURTEEN | EPK"
+  description="Descarga el EPK oficial de la artista premiada Maya Fourteen, con biografía, credenciales, escenarios internacionales y discografía."
   bodyClass="page-epk"
-  lang="pt"
-  languageHrefOverrides={{ en: '/v3/epk', pt: '/v3/epk-pt', es: '/v3/epk-es' }}
-  hreflangAlternates={{ en: '/v3/epk', pt: '/v3/epk-pt', es: '/v3/epk-es' }}
-  breadcrumbs={[{ name: 'Início', path: '/v3/page-pt' }, { name: 'Mídia Kit', path: '/v3/epk-pt' }]}
+  lang="es"
+  languageHrefOverrides={{ en: '/epk', pt: '/epk-pt', es: '/epk-es' }}
+  hreflangAlternates={{ en: '/epk', pt: '/epk-pt', es: '/epk-es' }}
+  breadcrumbs={[{ name: 'Inicio', path: '/page-es' }, { name: 'EPK', path: '/epk-es' }]}
 >
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,10 +28,10 @@ import { images } from '../../data/v3/images.js';
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css">
-    <meta name="robots" content="noindex, nofollow" />
   </Fragment>
 
-  <HamburgerMenu lang="pt" />
+  {/* navItems has no 'es' key (ES has no other interior pages) — falls back to the English nav automatically */}
+  <HamburgerMenu lang="es" />
 
   <main class="epk">
     <!-- HERO -->
@@ -41,19 +43,19 @@ import { images } from '../../data/v3/images.js';
         sizes="100vw"
         width={images.epkHero.width}
         height={images.epkHero.height}
-        alt="Maya Fourteen, foto de capa do mídia kit"
+        alt="Maya Fourteen, foto de portada del EPK"
         loading="eager"
         fetchpriority="high"
       />
       <div class="epk-hero-text">
-        <p class="epk-eyebrow">Mídia Kit</p>
+        <p class="epk-eyebrow">Press Kit Electrónico</p>
         <h1 class="epk-name">MAYA FOURTEEN</h1>
-        <p class="epk-tagline">DJ e Produtora Internacional</p>
-        <p class="epk-subtagline">Artista Eletrônica Premiada</p>
+        <p class="epk-tagline">DJ y Productora Internacional</p>
+        <p class="epk-subtagline">Artista Electrónica Premiada</p>
       </div>
     </section>
 
-    <!-- DNA ARTÍSTICO -->
+    <!-- PERFIL ARTÍSTICO -->
     <section class="epk-section epk-media">
       <img
         class="epk-media-image"
@@ -62,21 +64,21 @@ import { images } from '../../data/v3/images.js';
         sizes="(max-width: 768px) 92vw, 340px"
         width={images.epkOverview.width}
         height={images.epkOverview.height}
-        alt="Maya Fourteen atrás dos equipamentos"
+        alt="Maya Fourteen detrás de los platos"
         loading="lazy"
       />
       <div class="epk-media-text">
-        <h2>DNA Artístico</h2>
+        <h2>Perfil Artístico</h2>
         <p>
-          MAYA é uma artista brasileira de música eletrônica, originária da Bacia
-          Amazônica, com base entre a Europa e a América do Sul. Sua sonoridade
-          percorre grooves deep, orgânicos, progressivos e tech, sustentados por uma
-          forte intuição melódica e uma identidade artística bem definida.
+          Maya Fourteen es una artista brasileña de música electrónica conocida por
+          un enfoque refinado y narrativo del sonido. Fusiona elementos orgánicos,
+          progresivos y de carácter tech con un fuerte instinto melódico, lo que le
+          permite adaptarse con fluidez a distintos estados de ánimo y entornos.
         </p>
       </div>
     </section>
 
-    <!-- PERFORMANCES GLOBAIS -->
+    <!-- TRAYECTORIA INTERNACIONAL -->
     <section class="epk-section epk-media">
       <img
         class="epk-media-image"
@@ -85,23 +87,24 @@ import { images } from '../../data/v3/images.js';
         sizes="(max-width: 768px) 92vw, 340px"
         width={images.epkGlobalPerformances.width}
         height={images.epkGlobalPerformances.height}
-        alt="Maya Fourteen se apresentando na Terra Solis Dubai"
+        alt="Maya Fourteen actuando en Terra Solis Dubai"
         loading="lazy"
       />
       <div class="epk-media-text">
-        <h2>Performances Globais</h2>
+        <h2>Trayectoria Internacional</h2>
         <p>
-          MAYA já se apresentou em mais de dez países, com passagens pela Europa,
-          Oriente Médio, Ásia e América do Sul. Atua em clubes, festivais e eventos
-          especiais, transitando com naturalidade de sunsets e formatos mais
-          intimistas a grandes palcos.
+          MAYA ha actuado en circuitos internacionales clave, construyendo una
+          reputación por actuaciones sólidas y seguras en entornos exigentes. Su
+          presencia global refleja autoridad musical, capacidad de adaptación y la
+          confianza de públicos diversos en clubes, festivales y eventos
+          cuidadosamente curados.
         </p>
       </div>
     </section>
 
-    <!-- PALCOS MUNDIAIS -->
+    <!-- ESCENARIOS INTERNACIONALES -->
     <section class="epk-section">
-      <h2>Palcos Mundiais</h2>
+      <h2>Escenarios Internacionales</h2>
       <div class="epk-stages-layout">
         <img
           class="epk-stages-image"
@@ -110,35 +113,35 @@ import { images } from '../../data/v3/images.js';
           sizes="(max-width: 768px) 92vw, 340px"
           width={images.epkWorldStages.width}
           height={images.epkWorldStages.height}
-          alt="Maya Fourteen se apresentando na Greenvalley, Brasil"
+          alt="Maya Fourteen actuando en Greenvalley, Brasil"
           loading="lazy"
         />
         <div class="epk-stage-cards">
           <div class="epk-stage-card epk-stage-green">
             <h3><a class="epk-inline-link" href="https://www.instagram.com/greenvalleybr/" target="_blank" rel="noopener">Greenvalley Brasil</a> 🇧🇷</h3>
-            <p>5× Club nº1 do Mundo, c/ <a class="epk-inline-link" href="https://www.instagram.com/michael_bibi_/" target="_blank" rel="noopener">Michael Bibi</a> &amp; <a class="epk-inline-link" href="https://www.instagram.com/beltran/" target="_blank" rel="noopener">Beltran</a></p>
+            <p>5× #1 Club del mundo, c/ <a class="epk-inline-link" href="https://www.instagram.com/michael_bibi_/" target="_blank" rel="noopener">Michael Bibi</a> &amp; <a class="epk-inline-link" href="https://www.instagram.com/beltran/" target="_blank" rel="noopener">Beltran</a></p>
           </div>
           <div class="epk-stage-card epk-stage-blue">
             <h3><a class="epk-inline-link" href="https://www.instagram.com/worldclubdome/" target="_blank" rel="noopener">World Club Dome</a> 🇩🇪</h3>
-            <p>Maior festival da Alemanha, c/ <a class="epk-inline-link" href="https://www.instagram.com/realblackcoffee/" target="_blank" rel="noopener">Black Coffee</a> &amp; <a class="epk-inline-link" href="https://www.instagram.com/jamiejonesmusic/" target="_blank" rel="noopener">Jamie Jones</a></p>
+            <p>#1 Alemania, <a class="epk-inline-link" href="https://www.instagram.com/realblackcoffee/" target="_blank" rel="noopener">Black Coffee</a> &amp; <a class="epk-inline-link" href="https://www.instagram.com/jamiejonesmusic/" target="_blank" rel="noopener">Jamie Jones</a> Stage</p>
           </div>
           <div class="epk-stage-card epk-stage-gold">
             <h3><a class="epk-inline-link" href="https://www.instagram.com/terrasolisdubai/" target="_blank" rel="noopener">Terra Solis Dubai</a> 🇦🇪</h3>
-            <p>Club do Tomorrowland no deserto, c/ <a class="epk-inline-link" href="https://www.instagram.com/anahitvardanyanofficial/" target="_blank" rel="noopener">ANNA</a> &amp; <a class="epk-inline-link" href="https://www.instagram.com/brunoantdot/" target="_blank" rel="noopener">Antdot</a></p>
+            <p>El club de Tomorrowland en el desierto, c/ <a class="epk-inline-link" href="https://www.instagram.com/anahitvardanyanofficial/" target="_blank" rel="noopener">ANNA</a> &amp; <a class="epk-inline-link" href="https://www.instagram.com/brunoantdot/" target="_blank" rel="noopener">Antdot</a></p>
           </div>
           <div class="epk-stage-card epk-stage-orange">
             <h3><a class="epk-inline-link" href="https://soundcloud.com/mayafourteen/maya-f1-after-race-recap" target="_blank" rel="noopener">Formula 1</a></h3>
-            <p>Grandes prêmios de Abu Dhabi &amp; Mônaco</p>
+            <p>Grandes Premios de Abu Dhabi &amp; Mónaco</p>
           </div>
           <div class="epk-stage-card epk-stage-tour">
-            <h3>Tour Europa, Oriente Médio e Ásia</h3>
-            <p>Apresentações em cidades-chave como Londres, Amsterdã, Lisboa, Bergen, Frankfurt, Cannes, Mônaco, Ibiza, Dubai, Bali, Budapeste e Tóquio, além de destinos estratégicos na Tailândia, Vietnã e Malásia.</p>
+            <h3>Gira por Europa, Oriente Medio y Asia</h3>
+            <p>Presentaciones en Londres, Ámsterdam, Lisboa, Bergen, Frankfurt, Cannes, Mónaco, Ibiza, Dubai, Bali, Budapest y Tokio, y destinos clave en Tailandia, Vietnam y Malasia.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ARTISTA MULTIPREMIADA -->
+    <!-- ARTISTA PREMIADA -->
     <section class="epk-section epk-media">
       <img
         class="epk-media-image"
@@ -147,22 +150,23 @@ import { images } from '../../data/v3/images.js';
         sizes="(max-width: 768px) 92vw, 340px"
         width={images.epkAward.width}
         height={images.epkAward.height}
-        alt="Maya Fourteen recebendo seu prêmio no IMS Ibiza 2025"
+        alt="Maya Fourteen recibiendo su premio en el IMS Ibiza 2025"
         loading="lazy"
       />
       <div class="epk-media-text">
-        <h2>Artista Multipremiada</h2>
+        <h2>Artista Premiada</h2>
         <p>
-          MAYA é vencedora de <strong>um Future Talent Award no <a class="epk-inline-link" href="https://www.internationalmusicsummit.com/" target="_blank" rel="noopener">IMS</a> Ibiza 2025, selecionada
-          por <a class="epk-inline-link" href="https://www.instagram.com/petetongofficial/" target="_blank" rel="noopener">Pete Tong</a></strong>, e recebeu o <strong><a class="epk-inline-link" href="https://www.instagram.com/nicolemoudaber/" target="_blank" rel="noopener">Nicole Moudaber</a> Talent Highlight Prize</strong>.
-          Também foi selecionada no <a class="epk-inline-link" href="https://www.mixmasters.net/" target="_blank" rel="noopener">MixMasters</a> Ibiza Get Signed Summit 2023, entre
-          milhares de participantes, com envolvimento de selos como Defected, Solid
-          Grooves e Systematic, uma validação precoce da indústria.
+          MAYA es ganadora de <strong>un Future Talent Award en el <a class="epk-inline-link" href="https://www.internationalmusicsummit.com/" target="_blank" rel="noopener">IMS</a> Ibiza 2025,
+          seleccionada por <a class="epk-inline-link" href="https://www.instagram.com/petetongofficial/" target="_blank" rel="noopener">Pete Tong</a></strong>, y recibió el <strong><a class="epk-inline-link" href="https://www.instagram.com/nicolemoudaber/" target="_blank" rel="noopener">Nicole Moudaber</a> Talent
+          Highlight Prize</strong>. También fue seleccionada en el <a class="epk-inline-link" href="https://www.mixmasters.net/" target="_blank" rel="noopener">MixMasters</a> Ibiza Get
+          Signed Summit 2023, entre miles de artistas, con la participación de
+          sellos como Defected, Solid Grooves y Systematic, una validación
+          temprana de la industria.
         </p>
       </div>
     </section>
 
-    <!-- VOZES DO MERCADO -->
+    <!-- VOCES DE LA INDUSTRIA -->
     <section class="epk-section epk-media epk-media-reverse">
       <img
         class="epk-media-image"
@@ -171,27 +175,27 @@ import { images } from '../../data/v3/images.js';
         sizes="(max-width: 768px) 92vw, 340px"
         width={images.epkIndustryVoices.width}
         height={images.epkIndustryVoices.height}
-        alt="Maya Fourteen com a Clubbing TV na ADE"
+        alt="Maya Fourteen con Clubbing TV en ADE"
         loading="lazy"
       />
       <div class="epk-media-text">
-        <h2>Vozes do Mercado</h2>
+        <h2>Voces de la Industria</h2>
         <blockquote class="epk-quote">
-          <p>&ldquo;Eu adoraria dividir a cabine com você um dia!&rdquo;</p>
+          <p>&ldquo;¡Me encantaría tocar contigo algún día!&rdquo;</p>
           <cite>Nicole Moudaber, IMS Ibiza</cite>
         </blockquote>
         <blockquote class="epk-quote">
-          <p>&ldquo;Ela é o próximo grande nome. Fiquem atentos!&rdquo;</p>
+          <p>&ldquo;Es el próximo gran nombre. Hay que seguirla de cerca.&rdquo;</p>
           <cite>Laureline Teste, Clubbing TV, ADE</cite>
         </blockquote>
         <blockquote class="epk-quote">
-          <p>&ldquo;MAYA, esta é a sua casa. As portas da Ibiza Sonica estarão sempre abertas para você.&rdquo;</p>
+          <p>&ldquo;A partir de ahora, esta es tu casa. Las puertas de Ibiza Sonica siempre estarán abiertas para ti.&rdquo;</p>
           <cite>Karlos Sense, Ibiza Sonica</cite>
         </blockquote>
       </div>
     </section>
 
-    <!-- MÍDIA EM DESTAQUE -->
+    <!-- PRESENCIA EN MEDIOS -->
     <section class="epk-section epk-media">
       <img
         class="epk-media-image"
@@ -200,16 +204,17 @@ import { images } from '../../data/v3/images.js';
         sizes="(max-width: 768px) 92vw, 340px"
         width={images.epkMediaSpotlight.width}
         height={images.epkMediaSpotlight.height}
-        alt="Maya Fourteen na capa da Sync Beat Magazine"
+        alt="Maya Fourteen en la portada de Sync Beat Magazine"
         loading="lazy"
       />
       <div class="epk-media-text">
-        <h2>Mídia em Destaque</h2>
+        <h2>Presencia en Medios</h2>
         <p>
-          MAYA foi capa da revista espanhola Sync Beat, em uma edição especial
-          dedicada à nova geração da música eletrônica. A publicação destacou sua
-          presença internacional, performances em palcos relevantes e colaborações
-          recentes, reforçando seu posicionamento no cenário eletrônico global.
+          MAYA fue portada de la revista española Sync Beat Magazine en una
+          edición especial dedicada a la nueva generación de artistas de la
+          música electrónica. En la entrevista, comparte su recorrido artístico,
+          influencias y visión creativa, reflejando su creciente presencia
+          internacional dentro del circuito global de la música electrónica.
         </p>
         <ul class="epk-press-list">
           {pressItems.map((item) => (
@@ -222,7 +227,7 @@ import { images } from '../../data/v3/images.js';
       </div>
     </section>
 
-    <!-- RECONHECIMENTO EDITORIAL -->
+    <!-- RECONOCIMIENTO EDITORIAL -->
     <section class="epk-section epk-media epk-media-reverse">
       <img
         class="epk-media-image"
@@ -231,22 +236,23 @@ import { images } from '../../data/v3/images.js';
         sizes="(max-width: 768px) 92vw, 340px"
         width={images.epkEditorial.width}
         height={images.epkEditorial.height}
-        alt="Reportagem da Gray Area: Brazilian DJs You Must Know For 2026"
+        alt="Reportaje de Gray Area: Brazilian DJs You Must Know For 2026"
         loading="lazy"
       />
       <div class="epk-media-text">
-        <h2>Reconhecimento Editorial</h2>
+        <h2>Reconocimiento Editorial</h2>
         <p>
-          MAYA foi destacada pela plataforma norte-americana <a class="epk-inline-link" href="https://www.instagram.com/p/DTggbNBDb4H/" target="_blank" rel="noopener">Gray Area</a> como uma das
-          artistas brasileiras a acompanhar em 2026, ao lado de <a class="epk-inline-link" href="https://www.instagram.com/mazmusic/" target="_blank" rel="noopener">Maz</a>, <a class="epk-inline-link" href="https://www.instagram.com/beltran/" target="_blank" rel="noopener">Beltran</a>, <a class="epk-inline-link" href="https://www.instagram.com/brunoantdot/" target="_blank" rel="noopener">Antdot</a>
-          e <a class="epk-inline-link" href="https://www.instagram.com/djalinerocha/" target="_blank" rel="noopener">Aline Rocha</a>. A seleção reflete a crescente atenção internacional em torno
-          do seu trabalho e do seu posicionamento no atual cenário global da música
-          eletrônica. Ela também gravou um set exclusivo para o <a class="epk-inline-link" href="https://soundcloud.com/entergrayarea/maya-fourteen-exclusive-set-for-ocho-by-gray-area-225" target="_blank" rel="noopener">OCHO by Gray Area</a>.
+          MAYA fue destacada por la plataforma estadounidense <a class="epk-inline-link" href="https://www.instagram.com/p/DTggbNBDb4H/" target="_blank" rel="noopener">Gray Area</a> como una
+          de las artistas brasileñas a seguir en 2026, junto a <a class="epk-inline-link" href="https://www.instagram.com/mazmusic/" target="_blank" rel="noopener">Maz</a>, <a class="epk-inline-link" href="https://www.instagram.com/beltran/" target="_blank" rel="noopener">Beltran</a>,
+          <a class="epk-inline-link" href="https://www.instagram.com/brunoantdot/" target="_blank" rel="noopener">Antdot</a> y <a class="epk-inline-link" href="https://www.instagram.com/djalinerocha/" target="_blank" rel="noopener">Aline Rocha</a>. La selección refleja la creciente atención
+          internacional en torno a su trabajo y su posicionamiento dentro del
+          panorama global actual de la música electrónica. También grabó un set
+          exclusivo para <a class="epk-inline-link" href="https://soundcloud.com/entergrayarea/maya-fourteen-exclusive-set-for-ocho-by-gray-area-225" target="_blank" rel="noopener">OCHO by Gray Area</a>.
         </p>
       </div>
     </section>
 
-    <!-- DISCOGRAFIA -->
+    <!-- DISCOGRAFÍA -->
     <section class="epk-section">
       <div class="epk-stages-layout">
         <img
@@ -256,46 +262,45 @@ import { images } from '../../data/v3/images.js';
           sizes="(max-width: 768px) 92vw, 340px"
           width={images.epkDiscography.width}
           height={images.epkDiscography.height}
-          alt="Maya Fourteen no estúdio"
+          alt="Maya Fourteen en el estudio"
           loading="lazy"
         />
         <div class="epk-stage-cards">
-          <h2 class="epk-discography-title">Discografia</h2>
+          <h2 class="epk-discography-title">Discografía</h2>
           <div class="epk-label-card">
             <h3><a class="epk-inline-link" href="https://www.systematic-recordings.com/" target="_blank" rel="noopener">Systematic Recordings</a> 🇩🇪</h3>
-            <p class="epk-label-sub">Edição especial de 20 anos da label de <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a></p>
+            <p class="epk-label-sub">Sello de los 20 años de <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a></p>
             <p>
-              <a class="epk-inline-link" href="https://www.beatport.com/track/uniqueness-feat-francesca/19198825" target="_blank" rel="noopener">'Uniqueness'</a> feat. Francesca Posgai: &ldquo;(&hellip;) Um resgate
-              elegante da era dourada do House, com a atemporalidade de Mood II Swing
-              (&hellip;)&rdquo; — <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a> sobre "Uniqueness".
+              <a class="epk-inline-link" href="https://www.beatport.com/track/uniqueness-feat-francesca/19198825" target="_blank" rel="noopener">'Uniqueness'</a> feat. Francesca Posgai: &ldquo;(&hellip;) Un regreso a
+              la era dorada del house, con vibraciones atemporales en el espíritu
+              de Mood II Swing (&hellip;)&rdquo; — <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a> sobre el tema de
+              debut de Maya Fourteen.
             </p>
-            <p class="epk-label-tag">TOP 10 Beatport, pico #8</p>
+            <p class="epk-label-tag">TOP 10 Beatport, máximo #8</p>
           </div>
           <div class="epk-label-card">
             <h3><a class="epk-inline-link" href="https://vivamusicltd.com/" target="_blank" rel="noopener">VIVa MUSiC</a> 🇬🇧</h3>
-            <p class="epk-label-sub">Selo conceituado de <a class="epk-inline-link" href="https://www.instagram.com/djstevelawler/" target="_blank" rel="noopener">Steve Lawler</a></p>
+            <p class="epk-label-sub">Sello prestigioso de <a class="epk-inline-link" href="https://www.instagram.com/djstevelawler/" target="_blank" rel="noopener">Steve Lawler</a></p>
             <p>
-              'Feel Better' EP, colaboração de duas faixas com <a class="epk-inline-link" href="https://www.instagram.com/mario_f_franca/" target="_blank" rel="noopener">Mario Franca</a>
-              (Bedrock | Selador), destacando a versatilidade de MAYA, indo do
-              Organic House mais etéreo a uma identidade Deep Tech, intensa e
-              pulsante.
+              'Feel Better' EP, colaboración junto a <a class="epk-inline-link" href="https://www.instagram.com/mario_f_franca/" target="_blank" rel="noopener">Mario Franca</a> (Bedrock |
+              Selador), que muestra la versatilidad de MAYA, transitando desde un
+              Deep House hacia un Deep Tech más profundo y contundente.
             </p>
           </div>
           <div class="epk-label-card">
             <h3>Dioscuri Records 🇮🇹</h3>
             <p>
-              Primeiro remix oficial de MAYA para 'Stay', faixa original de Costax,
-              lançado junto a outros remixes, incluindo uma versão assinada pelo
-              lendário <a class="epk-inline-link" href="https://www.instagram.com/timo.maas/" target="_blank" rel="noopener">Timo Maas</a>.
+              Remix oficial de MAYA para el tema 'Stay' de Costax, publicado junto
+              a otros remixes, incluido uno del legendario <a class="epk-inline-link" href="https://www.instagram.com/timo.maas/" target="_blank" rel="noopener">Timo Maas</a>.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SET EM DESTAQUE -->
+    <!-- SET DESTACADO -->
     <section class="epk-section">
-      <h2>Set em Destaque</h2>
+      <h2>Set Destacado</h2>
       <iframe
         class="epk-embed"
         height="166"
@@ -304,66 +309,67 @@ import { images } from '../../data/v3/images.js';
         title="Maya Fourteen: Ancestral (Mato Grosso, Brazil)"
         loading="lazy"
       ></iframe>
-      <a class="epk-inline-link epk-video-link" href="/v3/video-sets-pt">Assistir aos sets em vídeo completos &rarr;</a>
+      <a class="epk-inline-link epk-video-link" href="/video-sets">Ver los sets en video completos &rarr;</a>
     </section>
 
-    <!-- ALCANCE GLOBAL E AUDIÊNCIA -->
+    <!-- AUDIENCIA Y ALCANCE GLOBAL -->
     <section class="epk-section">
-      <h2>Alcance Global e Audiência</h2>
+      <h2>Audiencia y Alcance Global</h2>
       <p>
-        O conteúdo da MAYA no <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">SoundCloud</a> e no <a class="epk-inline-link" href="https://www.youtube.com/@MayaFourteen" target="_blank" rel="noopener">YouTube</a> (+300 mil plays) alcança
-        ouvintes em mais de 100 países, com crescimento orgânico e engajamento
-        consistente. Seus sets circulam globalmente entre públicos, plataformas e
-        curadores, ampliando sua presença internacional além do circuito físico de
-        apresentações.
+        El contenido de MAYA en <a class="epk-inline-link" href="https://www.youtube.com/@MayaFourteen" target="_blank" rel="noopener">YouTube</a> y <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">SoundCloud</a> supera las 300.000
+        reproducciones, alcanzando oyentes en más de 100 países gracias a un
+        crecimiento orgánico y sostenido. Sus sets destacan por su precisión
+        técnica, fluidez armónica, gusto refinado y una identidad narrativa
+        clara, reflejando una demanda internacional constante.
       </p>
       <div class="epk-audience-grid">
-        <img src={images.epkAudienceMap.src} width={images.epkAudienceMap.width} height={images.epkAudienceMap.height} alt="Mapa do alcance global de ouvintes de Maya Fourteen" loading="lazy" />
-        <img src={images.epkAudienceRadio.src} width={images.epkAudienceRadio.width} height={images.epkAudienceRadio.height} alt="Maya Fourteen em destaque na Gray Area / Diplo's Revolution / SiriusXM" loading="lazy" />
-        <img src={images.epkAudienceGreenvalley.src} width={images.epkAudienceGreenvalley.width} height={images.epkAudienceGreenvalley.height} alt="Maya Fourteen se apresentando na Greenvalley" loading="lazy" />
+        <img src={images.epkAudienceMap.src} width={images.epkAudienceMap.width} height={images.epkAudienceMap.height} alt="Mapa del alcance global de audiencia de Maya Fourteen" loading="lazy" />
+        <img src={images.epkAudienceRadio.src} width={images.epkAudienceRadio.width} height={images.epkAudienceRadio.height} alt="Maya Fourteen destacada en Gray Area / Diplo's Revolution / SiriusXM" loading="lazy" />
+        <img src={images.epkAudienceGreenvalley.src} width={images.epkAudienceGreenvalley.width} height={images.epkAudienceGreenvalley.height} alt="Maya Fourteen actuando en Greenvalley" loading="lazy" />
       </div>
       <p class="epk-audience-caption">
-        Explore os sets da MAYA nas principais plataformas.
+        Explora el catálogo de MAYA y descubre su lenguaje musical a través de
+        distintos entornos, estados de ánimo y contextos.
       </p>
     </section>
 
     <!-- PRESS PHOTOS -->
     <section class="epk-section">
       <h2>Press Photos</h2>
-      <p>Imagens em alta resolução disponíveis para uso promocional. Todas as fotos são protegidas por direitos autorais.</p>
+      <p>Imágenes en alta resolución disponibles para uso promocional. Todas las fotografías están protegidas por derechos de autor.</p>
       <div class="epk-photo-grid">
-        <a href="/images/epk/epk-press-3.jpg" download><img src={images.epkPress3.src} width={images.epkPress3.width} height={images.epkPress3.height} alt="Maya Fourteen em um retrato editorial de moda" loading="lazy" /></a>
-        <a href="/images/epk/epk-world-stages.jpg" download><img src={images.epkWorldStages.src} srcset={images.epkWorldStages.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.epkWorldStages.width} height={images.epkWorldStages.height} alt="Maya Fourteen se apresentando na Greenvalley, Brasil" loading="lazy" /></a>
-        <a href="/images/epk/epk-overview.jpg" download><img src={images.epkOverview.src} srcset={images.epkOverview.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.epkOverview.width} height={images.epkOverview.height} alt="Maya Fourteen atrás dos equipamentos" loading="lazy" /></a>
-        <a href="/images/epk/epk-fendi.jpg" download><img src={images.epkFendi.src} srcset={images.epkFendi.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.epkFendi.width} height={images.epkFendi.height} alt="Maya Fourteen tocando em um evento da Fendi" loading="lazy" /></a>
+        <a href="/images/epk/epk-press-3.jpg" download><img src={images.epkPress3.src} width={images.epkPress3.width} height={images.epkPress3.height} alt="Maya Fourteen en un retrato editorial de moda" loading="lazy" /></a>
+        <a href="/images/epk/epk-world-stages.jpg" download><img src={images.epkWorldStages.src} srcset={images.epkWorldStages.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.epkWorldStages.width} height={images.epkWorldStages.height} alt="Maya Fourteen actuando en Greenvalley, Brasil" loading="lazy" /></a>
+        <a href="/images/epk/epk-overview.jpg" download><img src={images.epkOverview.src} srcset={images.epkOverview.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.epkOverview.width} height={images.epkOverview.height} alt="Maya Fourteen detrás de los platos" loading="lazy" /></a>
+        <a href="/images/epk/epk-fendi.jpg" download><img src={images.epkFendi.src} srcset={images.epkFendi.srcset} sizes="(max-width: 768px) 45vw, 325px" width={images.epkFendi.width} height={images.epkFendi.height} alt="Maya Fourteen tocando en un evento de Fendi" loading="lazy" /></a>
       </div>
-      <p class="epk-photo-credit">Fotografia: <a href="https://www.instagram.com/diegofotografias/" target="_blank" rel="noopener noreferrer">Diego Jarschel</a></p>
+      <p class="epk-photo-credit">Fotografía: <a href="https://www.instagram.com/diegofotografias/" target="_blank" rel="noopener noreferrer">Diego Jarschel</a></p>
       <div class="epk-download-actions">
-        <a class="cta-button" href="/downloads/MAYA-FOURTEEN-PRESS-PHOTOS.zip" download>Baixar Fotos de Imprensa</a>
-        <a class="cta-button cta-button-outline" href="/downloads/MAYA-FOURTEEN-EPK-PT.pdf" download>Baixar Mídia Kit (PDF)</a>
+        <a class="cta-button" href="/downloads/MAYA-FOURTEEN-PRESS-PHOTOS.zip" download>Descargar Fotos de Prensa</a>
+        <a class="cta-button cta-button-outline" href="/downloads/MAYA-FOURTEEN-EPK-EN.pdf" download>Descargar EPK (PDF)</a>
       </div>
     </section>
 
-    <!-- CONHEÇA MAYA -->
+    <!-- DESCUBRE A MAYA -->
     <section class="epk-section epk-discover">
-      <h2>Conheça MAYA</h2>
+      <h2>Descubre a MAYA</h2>
       <SocialNav links={discoverSocialLinks} />
     </section>
 
     <!-- BOOKING & MANAGEMENT -->
     <section class="epk-section epk-booking">
-      <h2>Booking &amp; Management</h2>
+      <h2>Contratación y Gestión Artística</h2>
       <div class="epk-booking-card">
-        <p class="epk-booking-heading">Para Bookings e Informações</p>
+        <p class="epk-booking-heading">Para Contratación y Otras Consultas</p>
         <p class="epk-booking-name">Antonio Afonso, Management</p>
         <div class="epk-booking-actions">
-          <a class="cta-button" href="mailto:hello@mayafourteen.com">Enviar e-mail para hello@mayafourteen.com</a>
+          <a class="cta-button" href="mailto:hello@mayafourteen.com">Enviar correo a hello@mayafourteen.com</a>
           <a class="cta-button cta-button-outline" href="https://wa.me/5547999353919" target="_blank">WhatsApp +55 47 99935 3919</a>
         </div>
         <p class="epk-booking-note">
-          Disponível para bookings selecionados em clubes, festivais e eventos
-          privados. Tours internacionais mediante solicitação. Rider profissional
-          completo disponível.
+          Disponible para reservas selectas en eventos privados, clubs y
+          festivales a nivel internacional. Giras internacionales bajo
+          solicitud. Rider profesional completo disponible.
         </p>
       </div>
     </section>

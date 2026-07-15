@@ -1,16 +1,16 @@
 ---
-import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
-import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../data/v3/audioSets.js';
+import V3InteriorLayout from '../layouts/V3InteriorLayout.astro';
+import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../data/v3/audioSets.js';
 ---
 
 <V3InteriorLayout
-  title="Áudio"
-  eyebrow="Qual é o som dela"
-  description="Ouça os sets em áudio e lançamentos de Maya Fourteen no SoundCloud."
+  title="Audio"
+  eyebrow="How does she sound"
+  description="Stream Maya Fourteen's sets and tracks on SoundCloud."
   heroImage="/images/epk/epk-discography.jpg"
 >
   <p>
-    Mixes e faixas originais, direto do SoundCloud.
+    Mixes and original tracks, streaming directly from SoundCloud.
   </p>
 
   <p class="section-title">Mixes</p>
@@ -30,7 +30,7 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
     ))}
   </ul>
 
-  <p class="section-title">Faixas Originais</p>
+  <p class="section-title">Original Tracks</p>
   <ul class="audio-list">
     {originalTracks.map((track) => (
       <li>
@@ -47,13 +47,13 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
     ))}
     <li>
       <a class="beatport-fallback" href={feelBetterFallback.href} target="_blank" rel="noopener">
-        <span class="beatport-fallback-title">EP 'Feel Better', com Mario Franca</span>
-        <span class="beatport-fallback-meta">Ouça o lançamento da VIVa MUSiC no Beatport</span>
+        <span class="beatport-fallback-title">'Feel Better' EP, with Mario Franca</span>
+        <span class="beatport-fallback-meta">Listen to the VIVa MUSiC release on Beatport</span>
       </a>
     </li>
   </ul>
 
-  <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank">Ouvir no SoundCloud</a>
+  <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank">Listen on SoundCloud</a>
 </V3InteriorLayout>
 
 <style>

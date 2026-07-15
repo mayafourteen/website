@@ -28,7 +28,7 @@ const enterLabel = enterLabelByLang[lang] ?? 'enter';
 
 // All 3 homepages are genuine translations of each other (unlike interior
 // pages, which stay EN/PT only) — real hreflang alternates, not a fallback.
-const homeHreflangAlternates = { en: '/v3/page-en', pt: '/v3/page-pt', es: '/v3/page-es' };
+const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' };
 ---
 
 <V3BaseLayout
@@ -67,7 +67,6 @@ const homeHreflangAlternates = { en: '/v3/page-en', pt: '/v3/page-pt', es: '/v3/
          was ~99% unused CSS on this page, so load just the core + brands. -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css">
-    <meta name="robots" content="noindex, nofollow" />
   </Fragment>
 
   <div class="background-container">

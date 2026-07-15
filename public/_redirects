@@ -1,0 +1,43 @@
+# V3 cutover redirects — see DEPLOY.md for the full cutover plan.
+# All three prefixes below are archived/retired prototype paths; every
+# route in this file 301s to its root-path equivalent so no external link
+# or bookmark 404s post-cutover.
+
+# /v3/* (promoted prototype) -> root
+/v3                 /                301
+/v3/page-en         /page-en         301
+/v3/page-pt         /page-pt         301
+/v3/page-es         /page-es         301
+/v3/about           /about           301
+/v3/about-pt        /about-pt        301
+/v3/press           /press           301
+/v3/press-pt        /press-pt        301
+/v3/audio-sets      /audio-sets      301
+/v3/audio-sets-pt   /audio-sets-pt   301
+/v3/video-sets      /video-sets      301
+/v3/video-sets-pt   /video-sets-pt   301
+/v3/book            /book            301
+/v3/book-pt         /book-pt         301
+/v3/book-es         /book-es         301
+/v3/epk             /epk             301
+/v3/epk-pt          /epk-pt          301
+/v3/epk-es          /epk-es          301
+/v3/*               /                301
+
+# /v2/* (frozen prototype) -> root
+/v2                 /                301
+/v2/page-en         /page-en         301
+/v2/page-pt         /page-pt         301
+/v2/page-es         /page-es         301
+/v2/about           /about           301
+/v2/press           /press           301
+/v2/audio-sets      /audio-sets      301
+/v2/video-sets      /video-sets      301
+/v2/book            /book            301
+/v2/*               /                301
+
+# /v2-legacy/* (already-archived older prototype) -> root
+/v2-legacy/page-en  /page-en         301
+/v2-legacy/page-pt  /page-pt         301
+/v2-legacy/page-es  /page-es         301
+/v2-legacy/*        /                301

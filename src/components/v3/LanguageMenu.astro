@@ -4,7 +4,7 @@ import { languages } from '../../data/v3/languages.js';
 interface Props {
   currentLang: string;
   // Per-language destination overrides, keyed by lang code (e.g. { en:
-  // '/v3/about', pt: '/v3/about-pt' }). Falls back to `languages`' own
+  // '/about', pt: '/about-pt' }). Falls back to `languages`' own
   // per-page href (the homepage in that language) for any code not present
   // in the map — used when a page has no equivalent in that language yet
   // (e.g. ES on V3 interior pages, which stay deferred).

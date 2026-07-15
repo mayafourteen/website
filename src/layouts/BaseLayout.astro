@@ -12,6 +12,9 @@ interface Props {
   // Forwarded to LanguageMenu — see its own prop doc. Only pages without a
   // per-language equivalent (e.g. V2 interior pages) need to pass this.
   languageHrefOverride?: string;
+  // Set on archived /legacy/* pages so they stay out of search results
+  // without being removed from the build.
+  noindex?: boolean;
 }
 
 const {
@@ -22,6 +25,7 @@ const {
   bodyClass,
   showLanguageAlternates = false,
   languageHrefOverride,
+  noindex = false,
 } = Astro.props;
 
 // Auto-generate the canonical URL from the current route unless a page
@@ -77,6 +81,7 @@ const personSchema = {
   <title>{title}</title>
   {description && <meta name="description" content={description} />}
   <link rel="canonical" href={canonicalURL} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
   {showLanguageAlternates && languages.map((l) => (
     <link rel="alternate" hreflang={l.hreflang} href={new URL(l.href.replace(/\.html$/, ''), Astro.site).href} />
   ))}
