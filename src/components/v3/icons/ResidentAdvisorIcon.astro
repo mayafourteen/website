@@ -1,26 +1,42 @@
 ---
-// RA has no Font Awesome brand glyph and no public simple/monochrome SVG
-// mark the way Beatport does — following EpkIcon.astro's precedent (a
-// custom-drawn mark for platforms without one) rather than tracing a
-// vector approximation of their real logo, this is a plain text lettermark
-// sized and weighted to sit at the same visual weight as the other custom
-// icons in this row.
+// RA's real official mark (their compact "RA" monogram, cropped from
+// Wikipedia's ResidentAdvisor_logo.png — a black glyph on a transparent
+// background, matching the source used for File:ResidentAdvisor_logo.png
+// on enwiki), not a hand-drawn approximation. Source master lives at
+// assets-src/resident-advisor-logo-master.png (full-res, uncropped);
+// this file is the tightly-cropped, downscaled render actually served.
+// No SVG path data was available (ra.co blocks direct asset access and
+// no official vector source could be found), so it's a raster PNG with
+// its real alpha transparency preserved — filter: brightness(0)
+// invert(1) turns the mark's real black fill white to match every other
+// icon in this row, same technique, same visual result as an SVG
+// fill="white" would give, without altering the mark's actual geometry.
 ---
 
-<svg class="ra-svg" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg">
-  <text x="22" y="21" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="1" fill="white" text-anchor="middle">RA</text>
-</svg>
+<img
+  class="ra-logo"
+  src="/images/icons/resident-advisor.png"
+  alt="Resident Advisor"
+  width="240"
+  height="114"
+  loading="lazy"
+/>
 
 <style>
-  .ra-svg {
-    height: 29px;
+  /* Height (not the row's usual ~29px) chosen so the mark's real ~2.1:1
+     aspect ratio doesn't render it much wider than its siblings — at 29px
+     tall it would be ~61px wide vs. Beatport/EPK's ~23-36px. 18px keeps
+     its rendered width in that same ~36-38px range instead. */
+  .ra-logo {
+    height: 18px;
     width: auto;
     display: block;
+    filter: brightness(0) invert(1);
   }
 
   @media (max-width: 768px) {
-    .ra-svg {
-      height: 23px;
+    .ra-logo {
+      height: 15px;
     }
   }
 </style>
