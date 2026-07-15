@@ -1,5 +1,6 @@
 ---
 import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
+import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../data/v3/audioSets.js';
 ---
 
 <V3InteriorLayout
@@ -9,17 +10,104 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
   heroImage="/images/epk/epk-discography.jpg"
 >
   <p>
-    Studio mixes, live recordings and releases, streaming directly from SoundCloud.
+    Mixes and original tracks, streaming directly from SoundCloud.
   </p>
 
-  <iframe
-    class="embed-frame"
-    height="300"
-    scrolling="no"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"
-    title="Maya Fourteen: SoundCloud audio sets"
-    loading="lazy"
-  ></iframe>
+  <p class="section-title">Mixes</p>
+  <ul class="audio-list">
+    {mixes.map((track, index) => (
+      <li>
+        <iframe
+          class="audio-embed"
+          height="300"
+          scrolling="no"
+          src={buildEmbedUrl(track.url)}
+          title={track.title}
+          loading={index === 0 ? 'eager' : 'lazy'}
+        ></iframe>
+        <p class="audio-caption">{track.title}</p>
+      </li>
+    ))}
+  </ul>
+
+  <p class="section-title">Original Tracks</p>
+  <ul class="audio-list">
+    {originalTracks.map((track) => (
+      <li>
+        <iframe
+          class="audio-embed"
+          height="300"
+          scrolling="no"
+          src={buildEmbedUrl(track.url)}
+          title={track.title}
+          loading="lazy"
+        ></iframe>
+        <p class="audio-caption">{track.title}</p>
+      </li>
+    ))}
+    <li>
+      <a class="beatport-fallback" href={feelBetterFallback.href} target="_blank" rel="noopener">
+        <span class="beatport-fallback-title">'Feel Better' EP, with Mario Franca</span>
+        <span class="beatport-fallback-meta">Listen to the VIVa MUSiC release on Beatport</span>
+      </a>
+    </li>
+  </ul>
 
   <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank">Listen on SoundCloud</a>
 </V3InteriorLayout>
+
+<style>
+  .audio-list {
+    list-style: none;
+    margin: 0 0 8px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .audio-embed {
+    width: 100%;
+    border: none;
+    display: block;
+    border-radius: 3px;
+  }
+
+  .audio-caption {
+    margin: 10px 0 0 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .beatport-fallback {
+    display: block;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .beatport-fallback:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .beatport-fallback-title {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .beatport-fallback-meta {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+</style>
