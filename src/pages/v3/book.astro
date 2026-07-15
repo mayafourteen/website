@@ -3,18 +3,34 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
 ---
 
 <V3InteriorLayout
-  title="Book Maya"
-  eyebrow="Start a conversation"
-  description="Get in touch to book award-winning electronic music artist Maya Fourteen for clubs, festivals and agencies."
+  title="Info & Contact"
+  eyebrow="Get in touch"
+  description="Get in touch with award-winning electronic music artist Maya Fourteen for bookings, agency representation and press inquiries."
   heroImage="/images/epk/epk-award.jpg"
+  hasEsSibling
 >
   <p>
     Available for club dates, festival slots and select private events worldwide. For bookings,
-    agency representation or press inquiries, reach out directly.
+    agency representation or press inquiries, reach out through any channel below.
   </p>
   <p>
-    Include the date, venue or event, and city so availability can be confirmed quickly.
+    For booking requests, include the date, venue or event, and city so availability can be
+    confirmed quickly.
   </p>
 
-  <a class="cta-button" href="mailto:hello@mayafourteen.com">Email hello@mayafourteen.com</a>
+  <div class="contact-actions">
+    <a class="cta-button" href="mailto:hello@mayafourteen.com?subject=Booking%20inquiry%20for%20Maya%20Fourteen">Email hello@mayafourteen.com</a>
+    <a class="cta-button" href="https://wa.me/5547999353919?text=Booking%20inquiry%20for%20Maya%20Fourteen%3A" target="_blank" rel="noopener">WhatsApp +55 47 99935 3919</a>
+    <a class="cta-button" href="https://www.instagram.com/mayafourteen/" target="_blank" rel="noopener">DM on Instagram</a>
+  </div>
 </V3InteriorLayout>
+
+<style>
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 8px;
+  }
+</style>

@@ -18,34 +18,51 @@ interface Props {
   // Set when heroImage is one of Diego Jarschel's Greenvalley shots, so
   // the page background carries his credit.
   heroImageCredit?: boolean;
+  // Set by pages that have a real ES sibling (e.g. book.astro /
+  // book-pt.astro / book-es.astro) so the language switcher and hreflang
+  // both point at it instead of falling back to the ES homepage. Most
+  // interior pages don't have one yet (deferred per brief) and omit this.
+  hasEsSibling?: boolean;
 }
 
-const { title, description, eyebrow, heroImage = '/images/maya-landing-bw.jpg', heroImageCredit = false } = Astro.props;
+const {
+  title,
+  description,
+  eyebrow,
+  heroImage = '/images/maya-landing-bw.jpg',
+  heroImageCredit = false,
+  hasEsSibling = false,
+} = Astro.props;
 
-// EN and PT-BR versions of each interior page are siblings at the same
-// level (about.astro / about-pt.astro), so the language is derivable
-// straight from the URL and each option in the language menu can point at
-// its real counterpart instead of bouncing to the homepage. ES has no
-// interior pages yet (deferred per brief), so it always falls back to the
-// V3 homepage in Spanish.
+// EN/PT/ES versions of an interior page are siblings at the same level
+// (book.astro / book-pt.astro / book-es.astro), so the language is
+// derivable straight from the URL and each option in the language menu
+// can point at its real counterpart instead of bouncing to the homepage.
+// Most interior pages still only have EN/PT (ES deferred per brief) —
+// hasEsSibling above is what tells this layout whether the computed
+// `-es` path is real or would be a 404.
 const currentPath = Astro.url.pathname.replace(/\.html$/, '') || '/';
 const isPt = currentPath.endsWith('-pt');
-const enPath = isPt ? currentPath.slice(0, -3) : currentPath;
-const ptPath = isPt ? currentPath : `${currentPath}-pt`;
-const lang = isPt ? 'pt' : 'en';
+const isEs = currentPath.endsWith('-es');
+const basePath = isPt || isEs ? currentPath.slice(0, -3) : currentPath;
+const enPath = basePath;
+const ptPath = `${basePath}-pt`;
+const esPath = `${basePath}-es`;
+const lang = isPt ? 'pt' : isEs ? 'es' : 'en';
 
 // Brand-prefixed for the <title>/OG tags; the on-page <h1> below uses the
 // plain `title` prop so the visible heading doesn't carry the prefix too.
 const documentTitle = `MAYA FOURTEEN | ${title}`;
 
-// No `es` key here (unlike V3HomeLayout's): ES interior pages don't exist,
-// so there is no genuine ES translation of this specific page to declare —
-// the language switcher above still offers an ES link, but hreflang must
-// not (see the prop's own doc in V3BaseLayout.astro).
-const interiorHreflangAlternates = { en: enPath, pt: ptPath };
+// hreflang must only ever list genuine translations of *this* page (see
+// the prop's own doc in V3BaseLayout.astro) — `es` is only included when
+// hasEsSibling says that path is real, not a homepage fallback.
+const interiorHreflangAlternates = hasEsSibling
+  ? { en: enPath, pt: ptPath, es: esPath }
+  : { en: enPath, pt: ptPath };
 
-const homeLabelByLang: Record<string, string> = { en: 'Home', pt: 'Início' };
-const homePathByLang: Record<string, string> = { en: '/v3/page-en', pt: '/v3/page-pt' };
+const homeLabelByLang: Record<string, string> = { en: 'Home', pt: 'Início', es: 'Inicio' };
+const homePathByLang: Record<string, string> = { en: '/v3/page-en', pt: '/v3/page-pt', es: '/v3/page-es' };
 const breadcrumbs = [
   { name: homeLabelByLang[lang], path: homePathByLang[lang] },
   { name: title, path: currentPath },
@@ -57,7 +74,7 @@ const breadcrumbs = [
   description={description}
   bodyClass="page-v2-interior"
   lang={lang}
-  languageHrefOverrides={{ en: enPath, pt: ptPath, es: '/v3/page-es' }}
+  languageHrefOverrides={{ en: enPath, pt: ptPath, es: hasEsSibling ? esPath : '/v3/page-es' }}
   hreflangAlternates={interiorHreflangAlternates}
   breadcrumbs={breadcrumbs}
 >
