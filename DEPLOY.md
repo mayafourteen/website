@@ -1,13 +1,11 @@
 # DEPLOY.md — V3 cutover
 
-Deploy prep for promoting the `/v3/` prototype to the production root. Most
-of this document is planning only: nothing described here has been executed
-against production, and none of it changes current production behavior. The
-exception is §6 below (canonical URLs, hreflang, JSON-LD) — that SEO
-plumbing is already fully built and live in code, just intentionally inert
-(root-relative URLs, `noindex`) until cutover flips it on. Everything else
-exists so the actual cutover can be done deliberately, in order, without
-guessing.
+**Status: executed.** Sections 1-6 below are the plan as originally written
+pre-cutover and are kept as the historical record of what was done and why.
+The cutover itself — promoting `/v3/*` to root, archiving the old production
+pages to `/legacy/*`, adding the redirects, flipping `SITE_URL` — has been
+committed, merged to `main`, and pushed to `origin/main`. See §7 for current
+status and the branch workflow now in effect.
 
 ## 1. What "cutover" means
 
@@ -196,3 +194,29 @@ single, deliberate step at cutover instead of needing new code written then.
 - **SEO Lighthouse score**: see §5 above for the current measured numbers
   and exactly what resolves automatically at cutover vs. what's a separate
   fix (nothing currently is).
+
+## 7. Post-cutover status and branch workflow
+
+Cutover executed: `/v3/*` promoted to root routes (including `book-es.astro`,
+missed by §2's original table but real content), old production pages
+archived to `/legacy/*` (noindex, kept functional), `SITE_URL` flipped to
+`https://mayafourteen.com`, `public/_redirects` added for `/v3/*`, `/v2/*`
+and `/v2-legacy/*`, and the sitemap filtered to exclude the archived
+prefixes. `feature/v2-redesign` is merged into `main`; both are pushed to
+`origin`.
+
+Not done as part of this cutover, still open per §6: Cloudflare
+account/domain wiring (`wrangler.toml`'s `account_id` is still blank —
+that's a manual step outside this repo), and Spanish interior pages beyond
+EPK.
+
+**Workflow going forward:**
+
+- `main` is production — it's what's live at `mayafourteen.com` (once
+  Cloudflare's domain/DNS wiring, still pending per §6, points there).
+- `staging` (branched from `main` right after this cutover, pushed to
+  `origin/staging`) is where all new work happens from now on. Its
+  Cloudflare Pages auto-preview URL is the test site — use that to verify
+  changes before they go anywhere near `main`.
+- Merges from `staging` (or any feature branch) into `main` happen only on
+  explicit instruction — never automatically as part of routine work.
