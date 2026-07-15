@@ -33,6 +33,15 @@ export const images = {
     webpSrc: '/images/maya-landing.webp',
     webpSrcset: '/images/maya-landing-640w.webp 640w, /images/maya-landing-1024w.webp 1024w, /images/maya-landing-1536w.webp 1536w, /images/maya-landing-2048w.webp 2048w, /images/maya-landing.webp 2732w',
   },
+  // The root landing/redirect page's hero (src/pages/index.astro) — real
+  // color, no responsive variants generated (single 313KB WebP is already
+  // small enough not to need them). Distinct from landingColor above, which
+  // is a different, unused-by-any-current-page asset.
+  heroLandingColor: {
+    src: '/images/maya-landing-color.webp',
+    width: 2560,
+    height: 1439,
+  },
   // 1200x630, color, cropped from the same master — for og:image /
   // JSON-LD image only, never rendered as an on-page <img>.
   landingOg: {
