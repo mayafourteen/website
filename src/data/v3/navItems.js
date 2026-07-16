@@ -26,7 +26,7 @@ export const navItems = {
     { label: 'Vídeo', href: '/video-sets-pt' },
     { label: 'Áudio', href: '/audio-sets-pt' },
     { label: 'Press', href: '/press-pt' },
-    { label: 'Mídia Kit', href: '/epk-pt' },
+    { label: 'EPK', href: '/epk-pt' },
     { label: 'Info', href: '/book-pt' },
   ],
   es: [

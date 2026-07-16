@@ -80,17 +80,17 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     <div class="title-group">
       <h1 class="logo-text fade-item">Maya <br class="logo-break" />Fourteen</h1>
       <div class="slogan fade-item">'I build sets that grow on you'</div>
-    </div>
 
-    <div class="landing-cta-row fade-item">
-      <button
-        type="button"
-        class="hero-cta"
-        id="hero-enter-cta"
-        aria-label="Open menu"
-        aria-controls="hamburger-overlay"
-      ><span class="hero-cta-bracket hero-cta-bracket-open">[</span>{enterLabel}<span class="hero-cta-bracket hero-cta-bracket-close">]</span></button>
-      <a href={epkHref ?? '/epk'} class="hero-cta hero-cta-epk"><span class="hero-cta-bracket hero-cta-bracket-open">[</span>EPK<span class="hero-cta-bracket hero-cta-bracket-close">]</span></a>
+      <div class="landing-cta-row fade-item">
+        <button
+          type="button"
+          class="hero-cta"
+          id="hero-enter-cta"
+          aria-label="Open menu"
+          aria-controls="hamburger-overlay"
+        ><span class="hero-cta-bracket hero-cta-bracket-open">[</span>{enterLabel}<span class="hero-cta-bracket hero-cta-bracket-close">]</span></button>
+        <a href={epkHref ?? '/epk'} class="hero-cta hero-cta-epk"><span class="hero-cta-bracket hero-cta-bracket-open">[</span>EPK<span class="hero-cta-bracket hero-cta-bracket-close">]</span></a>
+      </div>
     </div>
   </div>
 </V3BaseLayout>
@@ -130,18 +130,17 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     overflow-x: hidden;
   }
 
-  /* The enter/EPK pair replacing the old icon row — with a ~30-second
-     attention budget, the full reveal sequence should be finished well
-     under 2s, so this reveals faster than the title-group items above it
-     (0.15s/0.32s), matching the old icon row's own timing. */
+  /* The enter/EPK pair, living inside .title-group directly below the
+     slogan (not pinned to the viewport bottom like the old icon row it
+     replaced) — reveals right after the slogan (0.15s/0.32s), just
+     slightly behind it. */
   .landing-cta-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 48px;
-    margin-bottom: 50px;
-    animation-delay: 0.55s;
+    animation-delay: 0.4s;
   }
 
   /* Balance the language selector against the hamburger icon's visual
@@ -312,7 +311,9 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     font-family: 'Cormorant Garamond', serif;
     font-style: normal;
     font-weight: 300;
-    font-size: clamp(0.8rem, 1.6vw, 1.15rem);
+    /* Matches .slogan's own clamp exactly — "slogan-size", since this pair
+       now lives directly below it as part of the same title block. */
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
     letter-spacing: 0.05em;
     text-transform: lowercase;
     color: rgba(255, 255, 255, 0.58);
@@ -361,20 +362,16 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     margin-left: 0.15em;
   }
 
-  /* Mobile-only vertical composition. justify-content:space-between with
-     exactly two flex items (title-group, CTA row) gives a hard guarantee
-     against overflow: the title-group's top edge is pinned by padding-top
-     and the CTA row's bottom edge is pinned by padding-bottom, whatever
-     free space is left goes into the single gap between them. Tuning the
-     padding values directly controls where the title sits (~torso height)
-     and keeps the CTA row anchored at the bottom, always visible without
-     scrolling — this doesn't depend on guessing exact font metrics the
-     way splitting space across two independent auto-margins did. Desktop's
-     lower-third composition is untouched — .title-group is
-     `display:contents` there, so it isn't a flex item at all. */
+  /* Mobile-only vertical composition. .landing-cta-row now lives inside
+     .title-group (see markup — it's the block right below .slogan), so
+     .content-wrapper only ever has that one flow child on mobile;
+     justify-content:center simply centers the whole title+slogan+CTA
+     cluster as a unit, top-to-bottom padding giving it room either side.
+     Desktop's lower-third composition is untouched — .title-group is
+     `position:absolute` there, so it isn't a flex item at all. */
   @media (max-width: 768px) {
     .content-wrapper {
-      justify-content: space-between;
+      justify-content: center;
       padding: 36vh 8% calc(6vh + env(safe-area-inset-bottom, 0px));
     }
 
@@ -394,8 +391,8 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     }
 
     /* Cancels the desktop absolute-positioning treatment above — back to
-       a normal in-flow block so space-between (not the optical-center
-       math) governs where the whole title+slogan+CTA group sits. */
+       a normal in-flow block, its children (name, slogan, CTA row) simply
+       stacking in document order. */
     .title-group {
       position: static;
       transform: none;
@@ -405,24 +402,16 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
       max-width: none;
     }
 
+    /* Tighter gap between enter/EPK than desktop's 48px — the pair reads
+       as one unit at this width. Padding expands each item's own tap
+       target to a 44px-tall box without needing a font-size bump: the
+       base clamp already floors at 1.1rem here (2.2vw of a 390px
+       viewport is well under that floor). */
     .landing-cta-row {
-      margin-bottom: 0;
-      flex-shrink: 0;
       gap: 28px;
     }
 
-    /* Desktop's clamp() floors out at 0.8rem for any viewport this narrow
-       (the 1.6vw preferred value only overtakes that floor past ~800px),
-       so mobile was rendering the CTA at a flat 12.8px — legible but a
-       cramped tap target. 1.05rem is a flat +31% over that floor (within
-       the requested 25-35% range); brackets aren't touched here, so they
-       stay proportioned to the word exactly as fix #1 set them, just
-       scaling up together. Padding expands each item's own hit area to a
-       44px-tall box; the row's own reduced gap above (28px, down from the
-       desktop 48px) keeps the visible space between the two roughly
-       consistent despite that added padding. */
     .hero-cta {
-      font-size: 1.05rem;
       padding: 14px 10px;
     }
   }
@@ -431,12 +420,12 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
      the phone breakpoint above but are too narrow/tall-aspect for the
      desktop optical-center composition to read well — same reasoning as
      the mobile block, just at a wider min-width. Reuses only the
-     positioning mechanics (space-between + block title-group), not the
+     positioning mechanics (center + block title-group), not the
      phone-specific font-size/letter-spacing/line-break fixes, since
      those exist purely for 390px-wide overflow and don't apply here. */
   @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
     .content-wrapper {
-      justify-content: space-between;
+      justify-content: center;
       padding: 36vh 8% calc(6vh + env(safe-area-inset-bottom, 0px));
     }
 
@@ -447,11 +436,6 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
       flex-shrink: 0;
       width: auto;
       max-width: none;
-    }
-
-    .landing-cta-row {
-      margin-bottom: 0;
-      flex-shrink: 0;
     }
   }
 </style>
