@@ -6,8 +6,7 @@
 import V3BaseLayout from './V3BaseLayout.astro';
 import HeroBackground from '../components/v3/HeroBackground.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
-import SocialNav from '../components/v3/SocialNav.astro';
-import { primarySocialLinks } from '../data/v3/primarySocialLinks.js';
+import TextFooter from '../components/v3/TextFooter.astro';
 
 interface Props {
   title: string;
@@ -71,8 +70,8 @@ const breadcrumbs = [
 ];
 
 // EPK is a real page in all three languages (unlike most interior pages,
-// which stay EN/PT only), so the bottom icon row's EPK entry always has a
-// genuine same-language target — no homepage-style fallback needed.
+// which stay EN/PT only), so the footer's EPK entry always has a genuine
+// same-language target — no homepage-style fallback needed.
 const epkHrefByLang: Record<string, string> = { en: '/epk', pt: '/epk-pt', es: '/epk-es' };
 ---
 
@@ -89,12 +88,9 @@ const epkHrefByLang: Record<string, string> = { en: '/epk', pt: '/epk-pt', es: '
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
-    <!-- Only the brand icons the bottom social row and HamburgerMenu's own
-         social row render (YouTube, SoundCloud, Instagram) are used from
-         Font Awesome — load just the core + brands, not the full
-         all.min.css bundle. -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css">
+    <!-- No Font Awesome here: interior pages render only text (the footer
+         is plain links, not icons) — the shared all.min.css/brands.min.css
+         links would be 100% unused CSS on every one of these pages. -->
   </Fragment>
 
   <div class="background-container">
@@ -112,10 +108,9 @@ const epkHrefByLang: Record<string, string> = { en: '/epk', pt: '/epk-pt', es: '
     <div class="page-body fade-item">
       <slot />
     </div>
-    <div class="interior-social-row fade-item">
-      <SocialNav links={primarySocialLinks} epkHref={epkHrefByLang[lang]} />
-    </div>
   </div>
+
+  <TextFooter epkHref={epkHrefByLang[lang]} />
 </V3BaseLayout>
 
 <style is:global>
@@ -214,22 +209,6 @@ const epkHrefByLang: Record<string, string> = { en: '/epk', pt: '/epk-pt', es: '
   .page-body {
     animation-delay: 0.45s;
     text-align: left;
-  }
-
-  /* Bottom-of-content icon row (EPK, Instagram, YouTube, SoundCloud,
-     Beepd) — same five, same order and assets as the old landing-page row
-     (see primarySocialLinks.js), now living at the end of every interior
-     page's content instead. SocialNav's own .nav-links styling (size,
-     gap, hover) is untouched; this just resets its bottom margin, which
-     existed for the old landing page's own composition and isn't wanted
-     here now that page-body's spacing already precedes it. */
-  .interior-social-row {
-    animation-delay: 0.6s;
-    margin-top: 12px;
-  }
-
-  .interior-social-row :global(.nav-links) {
-    margin-bottom: 0;
   }
 
   .page-body :global(p) {

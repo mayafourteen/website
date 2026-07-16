@@ -1,7 +1,5 @@
 ---
 import { navItems } from '../../data/v3/navItems.js';
-import { primarySocialLinksNoEpk } from '../../data/v3/primarySocialLinks.js';
-import BeepdIcon from './icons/BeepdIcon.astro';
 
 interface Props {
   lang?: string;
@@ -31,14 +29,6 @@ const items = navItems[lang] ?? navItems.en;
       <li><a href={item.href} class="menu-list-item">{item.label}</a></li>
     ))}
   </ul>
-
-  <div class="menu-social-row">
-    {primarySocialLinksNoEpk.map((link) => (
-      <a href={link.href} class="menu-social-link" title={link.title} target="_blank" rel="noopener">
-        {link.name === 'beepd' ? <BeepdIcon /> : <i class={`fa-brands fa-${link.name}`}></i>}
-      </a>
-    ))}
-  </div>
 </nav>
 
 <script>
@@ -127,7 +117,6 @@ const items = navItems[lang] ?? navItems.en;
     inset: 0;
     z-index: 55;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.97);
@@ -203,42 +192,4 @@ const items = navItems[lang] ?? navItems.en;
   .menu-list li:nth-child(3) { transition-delay: 0.15s; }
   .menu-list li:nth-child(4) { transition-delay: 0.2s; }
   .menu-list li:nth-child(5) { transition-delay: 0.25s; }
-
-  /* Discreet social row below the nav items — deliberately smaller and
-     dimmer than both the menu links above it and every other icon row on
-     the site (SocialNav's), with a thin rule for separation instead of
-     its own heading, so it reads as a quiet footnote rather than a peer
-     of the primary navigation. */
-  .menu-social-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 22px;
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-  }
-
-  .menu-social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
-  }
-
-  .menu-social-link:hover,
-  .menu-social-link:focus-visible {
-    opacity: 1;
-  }
-
-  .menu-social-link :global(.fa-brands) {
-    font-size: 1.1rem;
-  }
-
-  .menu-social-link :global(.beepd-svg) {
-    height: 17px;
-    width: auto;
-  }
 </style>

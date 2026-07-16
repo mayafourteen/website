@@ -1,0 +1,103 @@
+---
+// True page-bottom footer for every interior/EPK page — plain text links,
+// not icons (see the old icon row this replaces). EPK · INSTAGRAM ·
+// YOUTUBE · SOUNDCLOUD, in that order; Beepd deliberately excluded here
+// (lives only in the EPK page's own "Discover MAYA" icon row).
+import { socialLinks } from '../../data/v3/socialLinks.js';
+
+interface Props {
+  // Omit on the EPK pages themselves — linking EPK from EPK is redundant.
+  epkHref?: string;
+}
+
+const { epkHref } = Astro.props;
+
+const SOCIAL_ORDER = ['instagram', 'youtube', 'soundcloud'];
+const socialItems = SOCIAL_ORDER.map((name) => socialLinks.find((link) => link.name === name)).filter(Boolean);
+
+const items = [
+  ...(epkHref ? [{ label: 'EPK', href: epkHref, newTab: false }] : []),
+  ...socialItems.map((link) => ({ label: link.title.toUpperCase(), href: link.href, newTab: true })),
+];
+---
+
+<footer class="text-footer">
+  <div class="text-footer-links">
+    {items.map((item, i) => (
+      <Fragment>
+        {i > 0 && <span class="text-footer-dot" aria-hidden="true">&middot;</span>}
+        <a
+          href={item.href}
+          class="text-footer-link"
+          target={item.newTab ? '_blank' : undefined}
+          rel={item.newTab ? 'noopener' : undefined}
+        >{item.label}</a>
+      </Fragment>
+    ))}
+  </div>
+</footer>
+
+<style>
+  .text-footer {
+    /* Must be a positioned element (not static): the page's hero photo
+       sits in a position:fixed background-container, and per CSS stacking
+       rules ANY positioned element paints above non-positioned ones
+       regardless of DOM order — without this, the fixed background painted
+       over this footer's text even though it comes later in the markup
+       (content-wrapper avoids the same issue via its own position:relative). */
+    position: relative;
+    margin-top: 60px;
+    padding-top: 24px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    text-align: center;
+    /* This footer sits directly over the page's photo background (there's
+       no opaque page body behind it), and that photo's brightness varies
+       by page/crop — a lighter patch of sand or sky can wash out the dim
+       rule/text otherwise. A faint bottom-weighted scrim (plus the
+       text-shadow on the links/dot below) keeps both legible regardless
+       of what's directly behind them. */
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.35));
+  }
+
+  .text-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .text-footer-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
+    transition: color 0.3s ease;
+  }
+
+  .text-footer-link:hover,
+  .text-footer-link:focus-visible {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .text-footer-dot {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.7rem;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
+  }
+
+  @media (max-width: 480px) {
+    .text-footer {
+      margin-top: 44px;
+      padding-top: 20px;
+    }
+
+    .text-footer-links {
+      gap: 8px;
+    }
+  }
+</style>
