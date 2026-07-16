@@ -41,3 +41,8 @@
 /v2-legacy/page-pt  /page-pt         301
 /v2-legacy/page-es  /page-es         301
 /v2-legacy/*        /                301
+
+# Legacy sitemap.xml (the old worker.js-era filename) -> the real
+# @astrojs/sitemap output, so nothing still linking/crawling /sitemap.xml
+# hits a 404.
+/sitemap.xml        /sitemap-index.xml  301
