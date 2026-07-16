@@ -24,7 +24,7 @@ const SITEMAP_HREFLANG_GROUPS = [
   { en: '/epk', pt: '/epk-pt', es: '/epk-es' },
   { en: '/video-sets', pt: '/video-sets-pt' },
   { en: '/audio-sets', pt: '/audio-sets-pt' },
-  { en: '/press', pt: '/press-pt' },
+  { en: '/press', pt: '/press-pt', es: '/press-es' },
 ];
 
 // pt is specifically Brazilian Portuguese sitewide (see siteConfig.js /
