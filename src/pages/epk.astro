@@ -210,12 +210,12 @@ const mediaSpotlightItems = [
     </section>
 
     <!-- MEDIA SPOTLIGHT -->
-    <section class="epk-section epk-media">
+    <section class="epk-section epk-media epk-media-spotlight">
       <img
         class="epk-media-image"
         src={images.epkMediaSpotlight.src}
         srcset={images.epkMediaSpotlight.srcset}
-        sizes="(max-width: 768px) 92vw, 340px"
+        sizes="(max-width: 768px) 92vw, 480px"
         width={images.epkMediaSpotlight.width}
         height={images.epkMediaSpotlight.height}
         alt="Maya Fourteen on the cover of Sync Beat Magazine"
@@ -260,7 +260,7 @@ const mediaSpotlightItems = [
           artists to watch in 2026, featured alongside <a class="epk-inline-link" href="https://www.instagram.com/mazmusic/" target="_blank" rel="noopener">Maz</a>, <a class="epk-inline-link" href="https://www.instagram.com/beltran/" target="_blank" rel="noopener">Beltran</a>, <a class="epk-inline-link" href="https://www.instagram.com/brunoantdot/" target="_blank" rel="noopener">Antdot</a>, and <a class="epk-inline-link" href="https://www.instagram.com/djalinerocha/" target="_blank" rel="noopener">Aline
           Rocha</a>. The selection reflects growing international attention around her
           work and positioning within today's global electronic music landscape. She
-          also recorded an exclusive set for <a class="epk-inline-link" href="https://soundcloud.com/entergrayarea/maya-fourteen-exclusive-set-for-ocho-by-gray-area-225" target="_blank" rel="noopener">OCHO by Gray Area</a>.
+          also recorded an exclusive one-hour set for <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen/maya-ocho-siriusxm" target="_blank" rel="noopener">OCHO by Gray Area</a>, aired on SiriusXM's Diplo's Revolution.
         </p>
       </div>
     </section>
@@ -315,9 +315,9 @@ const mediaSpotlightItems = [
       <h2>Featured Set</h2>
       <iframe
         class="epk-embed"
-        height="166"
+        height="300"
         scrolling="no"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil&color=%23ffffff&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil&color=%23f2ede4&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
         title="Maya Fourteen: Ancestral (Mato Grosso, Brazil)"
         loading="lazy"
       ></iframe>
@@ -328,7 +328,7 @@ const mediaSpotlightItems = [
     <section class="epk-section">
       <h2>Global Audience &amp; Reach</h2>
       <p>
-        MAYA's content on <a class="epk-inline-link" href="https://www.youtube.com/@MayaFourteen" target="_blank" rel="noopener">YouTube</a> and <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">SoundCloud</a> has surpassed 300K plays, reaching
+        MAYA's combined content on <a class="epk-inline-link" href="https://www.youtube.com/@MayaFourteen" target="_blank" rel="noopener">YouTube</a> and <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">SoundCloud</a> has surpassed 350K plays, reaching
         listeners in over 100 countries through steady, organic growth. Her mixes
         stand out for technical precision, harmonic flow, refined taste, and a
         distinct storytelling identity, reflecting sustained international listener
@@ -543,6 +543,22 @@ const mediaSpotlightItems = [
     max-height: 420px;
     object-fit: cover;
     border-radius: 3px;
+  }
+
+  /* Desktop only: Media Spotlight's image column widens from the shared
+     .epk-media 340px to 48% of the row (up from ~34% at this section's
+     max content width), so more of the Sync Beat covers collage reads.
+     Scoped via .epk-media-spotlight rather than changing .epk-media
+     itself, which every other two-column section on this page (Artist
+     Overview, Award-Winning Artist, Industry Voices, Editorial
+     Recognition...) shares and must stay untouched. Mobile is unaffected
+     by construction: this rule's own min-width:769px guard means it never
+     applies at the same viewport as the mobile query below's single-
+     column collapse, so there's no specificity contest between them. */
+  @media (min-width: 769px) {
+    .epk-media.epk-media-spotlight {
+      grid-template-columns: 48% 1fr;
+    }
   }
 
   /* WORLD STAGES / DISCOGRAPHY layout */
