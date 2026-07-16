@@ -424,6 +424,10 @@ import { images } from '../data/v3/images.js';
     height: 100%;
     object-fit: cover;
     object-position: center 25%;
+    /* Matches HeroBackground's .filtered treatment (see that component) so
+       this hero reads as black-and-white like every other interior page,
+       even though the underlying file (the landing page's hero) is color. */
+    filter: brightness(38%) grayscale(100%);
   }
 
   .epk-hero::after {

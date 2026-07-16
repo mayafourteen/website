@@ -49,11 +49,14 @@ export const images = {
     width: 1200,
     height: 630,
   },
+  // Reuses the landing page's hero photo (src/pages/index.astro) rather
+  // than its own dedicated shot — same file as heroLandingColor above, no
+  // separate copy on disk. No srcset: that single WebP has no generated
+  // smaller variants (see heroLandingColor's own comment).
   epkHero: {
-    src: '/images/epk/epk-hero.jpg',
-    width: 1080,
-    height: 1350,
-    srcset: '/images/epk/epk-hero-540w.jpg 540w, /images/epk/epk-hero.jpg 1080w',
+    src: '/images/maya-landing-color.webp',
+    width: 2560,
+    height: 1439,
   },
   epkOverview: {
     src: '/images/epk/epk-overview.jpg',
