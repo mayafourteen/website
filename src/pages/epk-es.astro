@@ -7,10 +7,23 @@
 import V3BaseLayout from '../layouts/V3BaseLayout.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import SocialNav from '../components/v3/SocialNav.astro';
-import { pressItems } from '../data/v3/pressItems.js';
 import { discoverSocialLinks } from '../data/v3/discoverSocialLinks.js';
 import TextFooter from '../components/v3/TextFooter.astro';
 import { images } from '../data/v3/images.js';
+
+// EPK-only Media Spotlight list — see epk.astro for the full sourcing
+// notes. Only Gray Area (US)'s label is localized; every other outlet
+// label stays English, matching the site's established pattern.
+const mediaSpotlightItems = [
+  { outlet: 'DJ Mag LATAM', href: 'https://djmagla.com/conoce-a-maya-fourteen-la-artista-brasilena-que-esta-llevando-su-talento-a-nuevos-lugares-del-mundo', label: 'Read article' },
+  { outlet: 'Mixmag Brazil', href: 'https://mixmag.com.br/feature/conheca-maya-fourteen-artista-brasileira-reconhecida-por-nicole-moudaber-e-pete-tong', label: 'Read article' },
+  { outlet: 'Clubbing TV', href: 'https://clubbingtv.com/shows/view/5593/lds-with-maya-fourteen-ade-2023-spaces/', label: 'Watch feature' },
+  { outlet: 'Sync Beat Magazine Cover', href: 'https://issuu.com/syncbeatmagazine/docs/maya_-_english', label: 'View cover feature' },
+  { outlet: 'Gray Area (US)', href: 'https://grayarea.co/ocho', label: 'ESCUCHAR EN SIRIUSXM' },
+  { outlet: 'Play BPM', href: 'https://playbpm.com.br/colunas/play-bpm-indica/maya/', label: 'Read article' },
+  { outlet: 'Alataj', href: 'https://alataj.com.br/15-to-understand/maya', label: 'Read article' },
+  { outlet: 'EKM', href: 'https://ekm.co/maya-fourteen-uniqueness/', label: 'Read review' },
+];
 ---
 
 <V3BaseLayout
@@ -218,10 +231,10 @@ import { images } from '../data/v3/images.js';
           internacional dentro del circuito global de la música electrónica.
         </p>
         <ul class="epk-press-list">
-          {pressItems.map((item) => (
+          {mediaSpotlightItems.map((item) => (
             <li>
               <strong>{item.outlet}</strong>
-              <a href={item.href} target="_blank">{item.label}</a>
+              <a href={item.href} target="_blank" rel="noopener">{item.label}</a>
             </li>
           ))}
         </ul>
