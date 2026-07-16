@@ -119,8 +119,10 @@ export const images = {
   // registry entirely, which meant HeroBackground.astro's width/height
   // lookup silently returned undefined and the <img> shipped with no
   // intrinsic size (a real CLS risk) despite every other hero image here
-  // having one.
-  epkHero: {
+  // having one. Named pressHero, not epkHero — that key is already taken
+  // above by the EPK pages' own (different) hero photo; reusing it would
+  // silently shadow that entry via JS's last-duplicate-key-wins semantics.
+  pressHero: {
     src: '/images/epk/epk-hero.jpg',
     width: 1080,
     height: 1350,
