@@ -119,7 +119,7 @@ const mediaSpotlightItems = [
     <!-- ESCENARIOS INTERNACIONALES -->
     <section class="epk-section">
       <h2>Escenarios Internacionales</h2>
-      <div class="epk-stages-layout">
+      <div class="epk-stages-layout epk-worldstages">
         <img
           class="epk-stages-image"
           src={images.epkWorldStages.src}
@@ -564,6 +564,25 @@ const mediaSpotlightItems = [
     max-height: 560px;
     object-fit: cover;
     border-radius: 3px;
+  }
+
+  /* Desktop-only: makes the World Stages photo match the full height of
+     the cards column exactly (top of photo = top of first card row,
+     bottom of photo = bottom of the tour card), instead of the shared
+     .epk-stages-layout's default align-items:start + capped max-height
+     (used by Discography too, which stays untouched — hence the extra
+     .epk-worldstages scope rather than changing the shared rule).
+     min-width guards against this ever firing at the mobile breakpoint
+     below, where .epk-stages-layout collapses to a single column and the
+     stacked behavior must stay exactly as it was. */
+  @media (min-width: 769px) {
+    .epk-stages-layout.epk-worldstages {
+      align-items: stretch;
+    }
+
+    .epk-stages-layout.epk-worldstages .epk-stages-image {
+      max-height: none;
+    }
   }
 
   .epk-stage-cards {
