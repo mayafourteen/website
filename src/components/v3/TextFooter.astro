@@ -1,39 +1,18 @@
 ---
-// True page-bottom footer for every interior/EPK page — plain text links,
-// not icons (see the old icon row this replaces). EPK · INSTAGRAM ·
-// YOUTUBE · SOUNDCLOUD, in that order; Beepd deliberately excluded here
-// (lives only in the EPK page's own "Discover MAYA" icon row).
-import { socialLinks } from '../../data/v3/socialLinks.js';
-
+// True page-bottom footer for interior pages — a single discreet "EPK"
+// text link (not an icon), plain, with a thin rule above. Not used on the
+// EPK pages themselves (linking EPK from EPK is redundant, and their own
+// "Discover MAYA" row already covers socials).
 interface Props {
-  // Omit on the EPK pages themselves — linking EPK from EPK is redundant.
-  epkHref?: string;
+  epkHref: string;
 }
 
 const { epkHref } = Astro.props;
-
-const SOCIAL_ORDER = ['instagram', 'youtube', 'soundcloud'];
-const socialItems = SOCIAL_ORDER.map((name) => socialLinks.find((link) => link.name === name)).filter(Boolean);
-
-const items = [
-  ...(epkHref ? [{ label: 'EPK', href: epkHref, newTab: false }] : []),
-  ...socialItems.map((link) => ({ label: link.title.toUpperCase(), href: link.href, newTab: true })),
-];
 ---
 
 <footer class="text-footer">
   <div class="text-footer-links">
-    {items.map((item, i) => (
-      <Fragment>
-        {i > 0 && <span class="text-footer-dot" aria-hidden="true">&middot;</span>}
-        <a
-          href={item.href}
-          class="text-footer-link"
-          target={item.newTab ? '_blank' : undefined}
-          rel={item.newTab ? 'noopener' : undefined}
-        >{item.label}</a>
-      </Fragment>
-    ))}
+    <a href={epkHref} class="text-footer-link">EPK</a>
   </div>
 </footer>
 
@@ -55,17 +34,15 @@ const items = [
        no opaque page body behind it), and that photo's brightness varies
        by page/crop — a lighter patch of sand or sky can wash out the dim
        rule/text otherwise. A faint bottom-weighted scrim (plus the
-       text-shadow on the links/dot below) keeps both legible regardless
-       of what's directly behind them. */
+       text-shadow on the link below) keeps both legible regardless of
+       what's directly behind them. */
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.35));
   }
 
   .text-footer-links {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 10px;
   }
 
   .text-footer-link {
@@ -84,20 +61,10 @@ const items = [
     color: rgba(255, 255, 255, 0.9);
   }
 
-  .text-footer-dot {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.7rem;
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
-  }
-
   @media (max-width: 480px) {
     .text-footer {
       margin-top: 44px;
       padding-top: 20px;
-    }
-
-    .text-footer-links {
-      gap: 8px;
     }
   }
 </style>
