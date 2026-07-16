@@ -336,27 +336,25 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     color: #fff;
   }
 
-  /* [enter]/[entrar] only: starts invisible and fades in on its own
-     (~1s ease-in, delayed slightly past .slogan's own 0.32s+1.1s reveal
-     so it reads as the last beat of the sequence, not simultaneous with
-     it) — no abrupt appearance at any point, unlike relying on the
-     generic .fade-item class here, which .hero-cta-enter's own
-     `animation` shorthand would silently override anyway (shorthand
-     resets, not merges, so two classes both setting `animation` on the
-     same element never combine). Once the fade-in's `forwards` fill
-     locks in opacity:1, the breathing pulse below picks up seamlessly —
-     its own 0%/100% keyframe is also opacity:1, so there's no jump at
-     the handoff. */
+  /* [enter]/[entrar] only: reuses the exact same reveal as .title-group's
+     .fade-item elements (smoothReveal — opacity+blur+translateY, same
+     cubic-bezier), not a custom fade, so it genuinely reads as "the same
+     entrance style" rather than a look-alike. Timed off .slogan, the
+     last .fade-item to finish (0.32s delay + 1.1s duration = 1.42s):
+     starts ~1s after that (2.4s) and runs at half speed — 2x the
+     title/slogan's 1.1s, so 2.2s — finishing at 4.6s. The breathing pulse
+     is delayed to start at that exact same 4.6s mark, so it only ever
+     picks up once the fade-in has fully landed; nothing here is ever
+     abrupt. (Can't just add .fade-item to this element instead of
+     duplicating its keyframe/easing — .hero-cta-enter's own `animation`
+     shorthand would silently override it anyway, since two classes both
+     setting `animation` on one element never combine, only the
+     later-cascading one applies.) */
   .hero-cta-enter {
     opacity: 0;
     animation:
-      heroCtaFadeIn 1s ease-in 0.6s forwards,
-      heroCtaBreathe 3s ease-in-out 1.6s infinite;
-  }
-
-  @keyframes heroCtaFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+      smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 2.4s forwards,
+      heroCtaBreathe 3s ease-in-out 4.6s infinite;
   }
 
   @keyframes heroCtaBreathe {
@@ -372,23 +370,23 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
 
   /* Preview-only alternative to the breathing pulse above (see the
      ?fx=letter toggle in the script below): each letter dims in sequence
-     instead of the whole word pulsing as one unit. Still fades in first
-     via the same heroCtaFadeIn — just without the breathing pulse
+     instead of the whole word pulsing as one unit. Still fades/blurs in
+     first via the same smoothReveal — just without the breathing pulse
      layered after it, since the individual letters take over the ongoing
      motion instead. */
   .hero-cta-enter.fx-letter {
-    animation: heroCtaFadeIn 1s ease-in 0.6s forwards;
+    animation: smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 2.4s forwards;
   }
 
   .hero-cta-letter {
     display: inline-block;
-    animation: heroCtaLetterWave 2.4s ease-in-out 1.6s infinite;
+    animation: heroCtaLetterWave 2.4s ease-in-out 4.6s infinite;
     animation-play-state: paused;
   }
 
   .hero-cta-enter.fx-letter .hero-cta-letter {
     animation-play-state: running;
-    animation-delay: calc(1.6s + var(--i) * 0.1s);
+    animation-delay: calc(4.6s + var(--i) * 0.1s);
   }
 
   @keyframes heroCtaLetterWave {
