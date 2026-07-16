@@ -9,6 +9,7 @@ import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import SocialNav from '../components/v3/SocialNav.astro';
 import { pressItems } from '../data/v3/pressItems.js';
 import { discoverSocialLinks } from '../data/v3/discoverSocialLinks.js';
+import { primarySocialLinksNoEpk } from '../data/v3/primarySocialLinks.js';
 import { images } from '../data/v3/images.js';
 ---
 
@@ -372,6 +373,11 @@ import { images } from '../data/v3/images.js';
           solicitud. Rider profesional completo disponible.
         </p>
       </div>
+    </section>
+
+    <!-- SOCIAL ROW -->
+    <section class="epk-section epk-social-row">
+      <SocialNav links={primarySocialLinksNoEpk} />
     </section>
   </main>
 </V3BaseLayout>
@@ -806,6 +812,20 @@ import { images } from '../data/v3/images.js';
   }
 
   .epk-discover :global(.nav-links) {
+    justify-content: center;
+    margin-bottom: 0;
+    animation: none;
+    opacity: 1;
+  }
+
+  /* SOCIAL ROW — same treatment as Discover above (this page's own icon
+     row, but without the EPK entry: linking to the EPK page from the EPK
+     page itself would be redundant). */
+  .epk-social-row {
+    text-align: center;
+  }
+
+  .epk-social-row :global(.nav-links) {
     justify-content: center;
     margin-bottom: 0;
     animation: none;

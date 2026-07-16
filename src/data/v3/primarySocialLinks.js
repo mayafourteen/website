@@ -13,3 +13,7 @@ const PRIMARY_ORDER = ['epk', 'instagram', 'youtube', 'soundcloud', 'beepd'];
 export const primarySocialLinks = PRIMARY_ORDER.map((name) =>
   socialLinks.find((link) => link.name === name)
 ).filter(Boolean);
+
+// Same four, minus EPK — for icon rows that already live on the EPK page
+// itself (an EPK-links-to-EPK icon would be redundant there).
+export const primarySocialLinksNoEpk = primarySocialLinks.filter((link) => link.name !== 'epk');

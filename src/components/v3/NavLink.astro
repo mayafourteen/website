@@ -2,12 +2,17 @@
 interface Props {
   href: string;
   title: string;
+  // EPK links in this row should navigate in the same tab (it's an
+  // internal page); every other icon (external social profiles) opens in
+  // a new tab. Defaults to new-tab since that's every caller except the
+  // EPK entry.
+  newTab?: boolean;
 }
 
-const { href, title } = Astro.props;
+const { href, title, newTab = true } = Astro.props;
 ---
 
-<a href={href} target="_blank" title={title}>
+<a href={href} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener' : undefined} title={title}>
   <slot />
 </a>
 

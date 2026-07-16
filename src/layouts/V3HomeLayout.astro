@@ -6,8 +6,6 @@
 import V3BaseLayout from './V3BaseLayout.astro';
 import HeroBackground from '../components/v3/HeroBackground.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
-import SocialNav from '../components/v3/SocialNav.astro';
-import { primarySocialLinks } from '../data/v3/primarySocialLinks.js';
 import { images } from '../data/v3/images.js';
 
 const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap';
@@ -62,9 +60,10 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     />
     <link rel="preload" as="style" href={fontsHref} />
     <link href={fontsHref} rel="stylesheet">
-    <!-- Only the brand icons SocialNav actually renders (YouTube, SoundCloud,
-         Instagram) are used from Font Awesome — the full all.min.css bundle
-         was ~99% unused CSS on this page, so load just the core + brands. -->
+    <!-- Only the brand icons HamburgerMenu's social row renders (YouTube,
+         SoundCloud, Instagram) are used from Font Awesome — the full
+         all.min.css bundle was ~99% unused CSS on this page, so load just
+         the core + brands. -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css">
   </Fragment>
@@ -81,16 +80,18 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     <div class="title-group">
       <h1 class="logo-text fade-item">Maya <br class="logo-break" />Fourteen</h1>
       <div class="slogan fade-item">'I build sets that grow on you'</div>
+    </div>
+
+    <div class="landing-cta-row fade-item">
       <button
         type="button"
-        class="hero-cta fade-item"
+        class="hero-cta"
         id="hero-enter-cta"
         aria-label="Open menu"
         aria-controls="hamburger-overlay"
       ><span class="hero-cta-bracket hero-cta-bracket-open">[</span>{enterLabel}<span class="hero-cta-bracket hero-cta-bracket-close">]</span></button>
+      <a href={epkHref ?? '/epk'} class="hero-cta hero-cta-epk"><span class="hero-cta-bracket hero-cta-bracket-open">[</span>EPK<span class="hero-cta-bracket hero-cta-bracket-close">]</span></a>
     </div>
-
-    <SocialNav links={primarySocialLinks} epkHref={epkHref} />
   </div>
 </V3BaseLayout>
 
@@ -129,12 +130,17 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     overflow-x: hidden;
   }
 
-  /* Icons are the credibility signals — with a ~30-second attention budget,
-     the full reveal sequence should be finished well under 2s, not the
-     production trio's more leisurely ~3.7s. Overriding SocialNav's own
-     delay from outside keeps that shared component untouched for the
-     pages that already rely on its current timing. */
-  .content-wrapper :global(.nav-links) {
+  /* The enter/EPK pair replacing the old icon row — with a ~30-second
+     attention budget, the full reveal sequence should be finished well
+     under 2s, so this reveals faster than the title-group items above it
+     (0.15s/0.32s), matching the old icon row's own timing. */
+  .landing-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 50px;
     animation-delay: 0.55s;
   }
 
@@ -165,15 +171,15 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
   }
 
   /* Desktop only: independently positions the name+slogan block near the
-     viewport's optical center (~46vh) without moving the icon row. Under
-     the flex-end-anchored .content-wrapper below, adding margin/padding
-     above a flex-flow title-group does NOT shift it — the bottom-anchored
-     stack's positions are computed backward from the last item, so
-     leading space just eats into existing blank space instead of moving
-     anything (confirmed by measuring rendered position before/after a
-     margin-based attempt). Taking title-group out of that flow entirely
-     via position:absolute sidesteps it: SocialNav becomes the sole flex
-     child of .content-wrapper, still pinned to the bottom exactly as
+     viewport's optical center (~46vh) without moving the CTA row below it.
+     Under the flex-end-anchored .content-wrapper below, adding margin/
+     padding above a flex-flow title-group does NOT shift it — the
+     bottom-anchored stack's positions are computed backward from the last
+     item, so leading space just eats into existing blank space instead of
+     moving anything (confirmed by measuring rendered position before/after
+     a margin-based attempt). Taking title-group out of that flow entirely
+     via position:absolute sidesteps it: .landing-cta-row becomes the sole
+     flex child of .content-wrapper, still pinned to the bottom exactly as
      before. --name-half-line mirrors .logo-text's own font-size clamp
      scaled by (line-height / 2), so translateY cancels out exactly half
      the name's own rendered height regardless of viewport width — landing
@@ -288,17 +294,17 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     animation-delay: 0.32s;
   }
 
-  /* Quiet aside, not a button (functionally it's one — see the forwarding
-     script above — but should never read as one): the name's own display
-     serif, not the slogan's italic voice, so it reads as a soft
-     typographic echo of "MAYA FOURTEEN" rather than a continuation of the
-     tagline. Lowercase and only slightly tracked (vs. the name's heavy
-     0.22em uppercase spacing) keeps it hushed. Real <button> means native
-     focus/keyboard behavior — no custom handling needed to match the
-     hamburger's. */
+  /* Quiet aside, not a prominent button (the enter control is functionally
+     one — see the forwarding script above — but should never read as one):
+     the name's own display serif, not the slogan's italic voice, so it
+     reads as a soft typographic echo of "MAYA FOURTEEN" rather than a
+     continuation of the tagline. Lowercase and only slightly tracked (vs.
+     the name's heavy 0.22em uppercase spacing) keeps it hushed. Shared by
+     both the enter <button> and the EPK <a> so they read as one pair —
+     real <button>/<a> elements mean native focus/keyboard behavior, no
+     custom handling needed to match the hamburger's. */
   .hero-cta {
     display: inline-block;
-    margin-bottom: 46px;
     background: none;
     border: none;
     padding: 0;
@@ -312,13 +318,24 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     color: rgba(255, 255, 255, 0.58);
     text-decoration: none;
     transition: color 0.3s ease;
-    animation-delay: 0.42s;
   }
 
   .hero-cta:hover,
   .hero-cta:focus-visible,
   .hero-cta:active {
     color: #fff;
+  }
+
+  /* EPK reads as the secondary of the pair — dimmer at rest and on hover,
+     never brighter than enter's own states. */
+  .hero-cta-epk {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .hero-cta-epk:hover,
+  .hero-cta-epk:focus-visible,
+  .hero-cta-epk:active {
+    color: rgba(255, 255, 255, 0.82);
   }
 
   /* Brackets at full glyph size dwarfed the lowercase word and read as a
@@ -345,12 +362,12 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
   }
 
   /* Mobile-only vertical composition. justify-content:space-between with
-     exactly two flex items (title-group, icon row) gives a hard guarantee
+     exactly two flex items (title-group, CTA row) gives a hard guarantee
      against overflow: the title-group's top edge is pinned by padding-top
-     and the icon row's bottom edge is pinned by padding-bottom, whatever
+     and the CTA row's bottom edge is pinned by padding-bottom, whatever
      free space is left goes into the single gap between them. Tuning the
      padding values directly controls where the title sits (~torso height)
-     and keeps the icon row anchored at the bottom, always visible without
+     and keeps the CTA row anchored at the bottom, always visible without
      scrolling — this doesn't depend on guessing exact font metrics the
      way splitting space across two independent auto-margins did. Desktop's
      lower-third composition is untouched — .title-group is
@@ -388,9 +405,10 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
       max-width: none;
     }
 
-    .content-wrapper :global(.nav-links) {
+    .landing-cta-row {
       margin-bottom: 0;
       flex-shrink: 0;
+      gap: 28px;
     }
 
     /* Desktop's clamp() floors out at 0.8rem for any viewport this narrow
@@ -399,19 +417,13 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
        cramped tap target. 1.05rem is a flat +31% over that floor (within
        the requested 25-35% range); brackets aren't touched here, so they
        stay proportioned to the word exactly as fix #1 set them, just
-       scaling up together. Padding expands the actual hit area to a
-       44px-tall box without shifting surrounding layout: matching
-       negative margins on top/left/right cancel the padding's own space,
-       and margin-bottom drops by the same amount added as padding-bottom
-       so the gap to the icon row below is unchanged from the pre-padding
-       46px. */
+       scaling up together. Padding expands each item's own hit area to a
+       44px-tall box; the row's own reduced gap above (28px, down from the
+       desktop 48px) keeps the visible space between the two roughly
+       consistent despite that added padding. */
     .hero-cta {
       font-size: 1.05rem;
       padding: 14px 10px;
-      margin-top: -14px;
-      margin-right: -10px;
-      margin-bottom: 32px;
-      margin-left: -10px;
     }
   }
 
@@ -437,7 +449,7 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
       max-width: none;
     }
 
-    .content-wrapper :global(.nav-links) {
+    .landing-cta-row {
       margin-bottom: 0;
       flex-shrink: 0;
     }
