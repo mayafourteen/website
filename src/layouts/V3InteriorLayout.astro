@@ -89,7 +89,12 @@ const breadcrumbs = [
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" />
+    <!-- media="print" + onload swap takes this off the render-blocking path
+         — same CSS applies once loaded, only the paint-timing changes.
+         noscript fallback covers the no-JS case. -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet"></noscript>
     <!-- No Font Awesome here: interior pages render only text (the footer
          is plain links, not icons) — the shared all.min.css/brands.min.css
          links would be 100% unused CSS on every one of these pages. -->
