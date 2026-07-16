@@ -10,7 +10,7 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../dat
   heroImage="/images/epk/epk-discography.jpg"
 >
   <p>
-    Mixes and original tracks, streaming directly from SoundCloud.
+    Mixes, original tracks and remixes, streaming directly from SoundCloud and Spotify.
   </p>
 
   <p class="section-title">Mixes</p>
@@ -53,7 +53,10 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../dat
     </li>
   </ul>
 
-  <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank">Listen on SoundCloud</a>
+  <div class="audio-cta-row">
+    <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">More on SoundCloud</a>
+    <a class="cta-button" href="https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r" target="_blank" rel="noopener">More on Spotify</a>
+  </div>
 </V3InteriorLayout>
 
 <style>
@@ -109,5 +112,11 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../dat
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.55);
+  }
+
+  .audio-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
   }
 </style>
