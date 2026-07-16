@@ -75,10 +75,6 @@ const breadcrumbs = [
   { name: title, path: currentPath },
 ];
 
-// EPK is a real page in all three languages (unlike most interior pages,
-// which stay EN/PT only), so the footer's EPK entry always has a genuine
-// same-language target — no homepage-style fallback needed.
-const epkHrefByLang: Record<string, string> = { en: '/epk', pt: '/epk-pt', es: '/epk-es' };
 ---
 
 <V3BaseLayout
@@ -116,7 +112,7 @@ const epkHrefByLang: Record<string, string> = { en: '/epk', pt: '/epk-pt', es: '
     </div>
   </div>
 
-  <TextFooter epkHref={epkHrefByLang[lang]} />
+  <TextFooter />
 </V3BaseLayout>
 
 <style is:global>
