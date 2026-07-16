@@ -79,7 +79,7 @@ export const images = {
   epkIndustryVoices: {
     src: '/images/epk/epk-industry-voices.jpg',
     width: 1080,
-    height: 675,
+    height: 1245,
     srcset: '/images/epk/epk-industry-voices-540w.jpg 540w, /images/epk/epk-industry-voices.jpg 1080w',
   },
   epkMediaSpotlight: {
