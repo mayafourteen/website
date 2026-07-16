@@ -341,9 +341,9 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
      cubic-bezier), not a custom fade, so it genuinely reads as "the same
      entrance style" rather than a look-alike. Timed off .slogan, the
      last .fade-item to finish (0.32s delay + 1.1s duration = 1.42s):
-     starts ~1s after that (2.4s) and runs at half speed — 2x the
-     title/slogan's 1.1s, so 2.2s — finishing at 4.6s. The breathing pulse
-     is delayed to start at that exact same 4.6s mark, so it only ever
+     starts ~0.5s after that (1.9s) and runs at half speed — 2x the
+     title/slogan's 1.1s, so 2.2s — finishing at 4.1s. The breathing pulse
+     is delayed to start at that exact same 4.1s mark, so it only ever
      picks up once the fade-in has fully landed; nothing here is ever
      abrupt. (Can't just add .fade-item to this element instead of
      duplicating its keyframe/easing — .hero-cta-enter's own `animation`
@@ -353,8 +353,8 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
   .hero-cta-enter {
     opacity: 0;
     animation:
-      smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 2.4s forwards,
-      heroCtaBreathe 3s ease-in-out 4.6s infinite;
+      smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 1.9s forwards,
+      heroCtaBreathe 3s ease-in-out 4.1s infinite;
   }
 
   @keyframes heroCtaBreathe {
@@ -375,18 +375,18 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
      layered after it, since the individual letters take over the ongoing
      motion instead. */
   .hero-cta-enter.fx-letter {
-    animation: smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 2.4s forwards;
+    animation: smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 1.9s forwards;
   }
 
   .hero-cta-letter {
     display: inline-block;
-    animation: heroCtaLetterWave 2.4s ease-in-out 4.6s infinite;
+    animation: heroCtaLetterWave 2.4s ease-in-out 4.1s infinite;
     animation-play-state: paused;
   }
 
   .hero-cta-enter.fx-letter .hero-cta-letter {
     animation-play-state: running;
-    animation-delay: calc(4.6s + var(--i) * 0.1s);
+    animation-delay: calc(4.1s + var(--i) * 0.1s);
   }
 
   @keyframes heroCtaLetterWave {
