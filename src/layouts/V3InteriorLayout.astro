@@ -19,6 +19,11 @@ interface Props {
   // Set when heroImage is one of Diego Jarschel's Greenvalley shots, so
   // the page background carries his credit.
   heroImageCredit?: boolean;
+  // Override for HeroBackground's alt text, which every page otherwise
+  // shares as the generic "Maya Fourteen" — only worth setting for pages
+  // whose specific photo (subject, location, action) is worth describing
+  // on its own.
+  heroImageAlt?: string;
   // Set by pages that have a real ES sibling (e.g. book.astro /
   // book-pt.astro / book-es.astro) so the language switcher and hreflang
   // both point at it instead of falling back to the ES homepage. Most
@@ -32,6 +37,7 @@ const {
   eyebrow,
   heroImage = '/images/maya-landing-bw.jpg',
   heroImageCredit = false,
+  heroImageAlt = 'Maya Fourteen',
   hasEsSibling = false,
 } = Astro.props;
 
@@ -94,7 +100,7 @@ const epkHrefByLang: Record<string, string> = { en: '/epk', pt: '/epk-pt', es: '
   </Fragment>
 
   <div class="background-container">
-    <HeroBackground src={heroImage} alt="Maya Fourteen" filtered />
+    <HeroBackground src={heroImage} alt={heroImageAlt} filtered />
     {heroImageCredit && (
       <p class="hero-photo-credit">Photography: <a href="https://www.instagram.com/diegofotografias/" target="_blank" rel="noopener noreferrer">Diego Jarschel</a></p>
     )}

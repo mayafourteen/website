@@ -106,6 +106,14 @@ export const images = {
     height: 1600,
     srcset: '/images/epk/epk-world-stages-533w.jpg 533w, /images/epk/epk-world-stages.jpg 1066w',
   },
+  // Video Sets page hero — distinct from epkWorldStages above (still used
+  // by the EPK pages' own World Stages section, left untouched). Single
+  // file, no generated smaller variants.
+  videoHeroGreenvalley: {
+    src: '/images/video-hero-greenvalley.webp',
+    width: 1920,
+    height: 1080,
+  },
   epkDiscography: {
     src: '/images/epk/epk-discography.jpg',
     width: 1080,
