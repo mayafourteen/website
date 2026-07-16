@@ -119,6 +119,13 @@ export const images = {
   epkPress2: { src: '/images/epk/epk-press-2.jpg', width: 400, height: 400 },
   epkPress3: { src: '/images/epk/epk-press-3.jpg', width: 400, height: 400 },
   epkPress4: { src: '/images/epk/epk-press-4.jpg', width: 400, height: 400 },
+  // The real press kit photos (EPK "Press Photos" grid), restoring what
+  // epkPress1-4 above were standing in for. No srcset: single files, no
+  // generated smaller variants.
+  epkPressKit1: { src: '/images/epk/press/press-kit-1.jpg', width: 1080, height: 1080 },
+  epkPressKit2: { src: '/images/epk/press/press-kit-2.jpg', width: 1080, height: 1080 },
+  epkPressKit3: { src: '/images/epk/press/press-kit-3.jpg', width: 1080, height: 1080 },
+  epkPressKit4: { src: '/images/epk/press/press-kit-4.jpg', width: 1080, height: 1080 },
 };
 
 // Looks up an entry by its `src` path — lets HeroBackground callers keep
