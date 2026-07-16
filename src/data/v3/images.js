@@ -114,6 +114,17 @@ export const images = {
     width: 1920,
     height: 1080,
   },
+  // Press page hero (src/pages/press.astro + press-pt/press-es) — single
+  // file, no generated smaller variants. Was previously missing from this
+  // registry entirely, which meant HeroBackground.astro's width/height
+  // lookup silently returned undefined and the <img> shipped with no
+  // intrinsic size (a real CLS risk) despite every other hero image here
+  // having one.
+  epkHero: {
+    src: '/images/epk/epk-hero.jpg',
+    width: 1080,
+    height: 1350,
+  },
   epkDiscography: {
     src: '/images/epk/epk-discography.jpg',
     width: 1080,
