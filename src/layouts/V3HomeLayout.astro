@@ -71,9 +71,15 @@ const homeHreflangAlternates = { en: '/page-en', pt: '/page-pt', es: '/page-es' 
     <noscript><link href={fontsHref} rel="stylesheet"></noscript>
     <!-- Only the brand icons SocialNav actually renders (YouTube, SoundCloud,
          Instagram) are used from Font Awesome — the full all.min.css bundle
-         was ~99% unused CSS on this page, so load just the core + brands. -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css">
+         was ~99% unused CSS on this page, so load just the core + brands.
+         Same preload/media=print swap as the fonts CSS above: still ~99KB
+         either way, but no longer blocks first paint getting there. -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css"></noscript>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css"></noscript>
   </Fragment>
 
   <div class="background-container">
