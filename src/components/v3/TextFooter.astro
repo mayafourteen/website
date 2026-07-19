@@ -37,7 +37,10 @@
 
   .text-footer-link {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.805rem;
+    /* +15% from 0.805rem — was reading too small against the rest of the
+       page's type scale. letter-spacing stays 0.15em: em is relative to
+       font-size, so it scales proportionally with this for free. */
+    font-size: 0.926rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.45);
