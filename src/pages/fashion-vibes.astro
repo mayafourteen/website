@@ -18,7 +18,6 @@
 import V3BaseLayout from '../layouts/V3BaseLayout.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import TextFooter from '../components/v3/TextFooter.astro';
-import SocialNav from '../components/v3/SocialNav.astro';
 import { images } from '../data/v3/images.js';
 
 // Local to this page, not socialLinks.js: this exact four-item set
@@ -35,28 +34,24 @@ const fashionDiscoverLinks = [
 const appearances = [
   {
     title: 'Formula 1 Circuits',
-    flag: '\u{1F3CE}\u{FE0F}',
     copy: 'Private after-race performances during Monaco and Abu Dhabi Grand Prix weekends.',
     image: images.fashionF1,
     alt: 'Maya Fourteen at a Formula 1 after-race event',
   },
   {
     title: 'Film Festivals',
-    flag: '\u{1F3AC}',
     copy: 'Music curation and private performance for select soirées during the Cannes Film Festival.',
     image: images.fashionFilm,
     alt: 'Maya Fourteen at the Cannes Film Festival',
   },
   {
     title: 'Luxury Hospitality',
-    flag: '\u{1F3DD}\u{FE0F}',
-    copy: 'Curated destination-set recorded in Bali, blending atmosphere, rhythm, and a strong sense of place.',
+    copy: 'Live performance at W Budapest and a curated destination-set recorded in Bali, blending atmosphere, rhythm, and a strong sense of place.',
     image: images.fashionHospitality,
-    alt: 'Maya Fourteen DJing in a luxury hospitality setting',
+    alt: 'Maya Fourteen performing at W Budapest',
   },
   {
     title: 'Brand Activations',
-    flag: '✨',
     copy: 'Exclusive private performance for FENDI & GT Home at their Pininfarina YachtHouse unit launch.',
     image: images.fashionBrand,
     alt: 'Maya Fourteen at the FENDI & GT Home Pininfarina YachtHouse launch',
@@ -112,15 +107,17 @@ const appearances = [
     </section>
 
     <!-- ARTIST PROFILE -->
-    <section class="fv-section fv-media fade-item">
-      <img
-        class="fv-media-image"
-        src={images.fashionProfile.src}
-        width={images.fashionProfile.width}
-        height={images.fashionProfile.height}
-        alt="Maya Fourteen behind the decks"
-        loading="lazy"
-      />
+    <section class="fv-section fv-media fv-media-reverse fade-item">
+      <div class="fv-media-frame">
+        <img
+          class="fv-media-image"
+          src={images.fashionProfile.src}
+          width={images.fashionProfile.width}
+          height={images.fashionProfile.height}
+          alt="Maya Fourteen behind the decks"
+          loading="lazy"
+        />
+      </div>
       <div class="fv-media-text">
         <h2>Artist Profile</h2>
         <p>
@@ -140,15 +137,17 @@ const appearances = [
     </section>
 
     <!-- AWARD-WINNING ARTIST -->
-    <section class="fv-section fv-media fv-media-reverse fade-item">
-      <img
-        class="fv-media-image"
-        src={images.fashionAward.src}
-        width={images.fashionAward.width}
-        height={images.fashionAward.height}
-        alt="Maya Fourteen at IMS Ibiza 2025"
-        loading="lazy"
-      />
+    <section class="fv-section fv-media fade-item">
+      <div class="fv-media-frame">
+        <img
+          class="fv-media-image"
+          src={images.fashionAward.src}
+          width={images.fashionAward.width}
+          height={images.fashionAward.height}
+          alt="Maya Fourteen at IMS Ibiza 2025"
+          loading="lazy"
+        />
+      </div>
       <div class="fv-media-text">
         <h2>Award-Winning Artist</h2>
         <!--
@@ -195,7 +194,7 @@ const appearances = [
               />
             </div>
             <div class="fv-appearance-text">
-              <h3>{item.title} <span aria-hidden="true">{item.flag}</span></h3>
+              <h3>{item.title}</h3>
               <p>{item.copy}</p>
             </div>
           </div>
@@ -205,14 +204,16 @@ const appearances = [
 
     <!-- FASHION SOUND CURATION -->
     <section class="fv-section fv-media fade-item">
-      <img
-        class="fv-media-image"
-        src={images.fashionOceanus1.src}
-        width={images.fashionOceanus1.width}
-        height={images.fashionOceanus1.height}
-        alt="Maya Fourteen, OCEANUS runway soundtrack curation"
-        loading="lazy"
-      />
+      <div class="fv-media-frame">
+        <img
+          class="fv-media-image"
+          src={images.fashionOceanus1.src}
+          width={images.fashionOceanus1.width}
+          height={images.fashionOceanus1.height}
+          alt="Maya Fourteen, OCEANUS runway soundtrack curation"
+          loading="lazy"
+        />
+      </div>
       <div class="fv-media-text">
         <h2>Fashion Sound Curation</h2>
         <p>
@@ -232,15 +233,17 @@ const appearances = [
     </section>
 
     <!-- MEDIA SPOTLIGHT -->
-    <section class="fv-section fv-media fv-media-reverse fade-item">
-      <img
-        class="fv-media-image"
-        src={images.fashionOceanus2.src}
-        width={images.fashionOceanus2.width}
-        height={images.fashionOceanus2.height}
-        alt="Maya Fourteen, OCEANUS runway soundtrack curation"
-        loading="lazy"
-      />
+    <section class="fv-section fv-media fade-item">
+      <div class="fv-media-frame">
+        <img
+          class="fv-media-image"
+          src={images.fashionOceanus2.src}
+          width={images.fashionOceanus2.width}
+          height={images.fashionOceanus2.height}
+          alt="Maya Fourteen, OCEANUS runway soundtrack curation"
+          loading="lazy"
+        />
+      </div>
       <div class="fv-media-text">
         <h2>Media Spotlight</h2>
         <p>
@@ -310,7 +313,14 @@ const appearances = [
     <!-- DISCOVER MAYA -->
     <section class="fv-section fv-discover fade-item">
       <h2>Discover MAYA</h2>
-      <SocialNav links={fashionDiscoverLinks} />
+      <div class="fv-discover-row">
+        {fashionDiscoverLinks.map((link) => (
+          <a class="fv-discover-link" href={link.href} target="_blank" rel="noopener" title={link.title}>
+            <i class={`fa-brands fa-${link.name} fv-discover-icon`} aria-hidden="true"></i>
+            <span class="fv-discover-label">{link.title}</span>
+          </a>
+        ))}
+      </div>
     </section>
 
     <!-- BOOKING & MANAGEMENT -->
@@ -467,15 +477,24 @@ const appearances = [
     filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
   }
 
-  /* SECTION SHELL: translucent, not solid, so the fixed starfield stays
-     visible through and between cards while scrolling. */
+  /* SECTION SHELL: translucent glass, not solid, so the fixed starfield
+     stays faintly visible through and between cards while scrolling. The
+     fill is a lighter neutral grey (not near-black) specifically so it
+     reads as a distinct panel against the near-black starfield behind it —
+     a dark-on-dark fill at this same opacity blended into the page and
+     was the whole complaint this rule fixes. The inset highlight (top
+     edge) plus the outer drop shadow are what sell "glass panel floating
+     over stars" rather than just "a translucent rectangle". */
   .fv-section {
-    background: rgba(20, 20, 24, 0.55);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 22px;
+    background: rgba(52, 52, 60, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
     padding: 44px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.07),
+      0 20px 50px rgba(0, 0, 0, 0.35);
   }
 
   .fv-section h2 {
@@ -511,16 +530,26 @@ const appearances = [
     grid-template-columns: 1fr 340px;
   }
 
-  .fv-media-reverse .fv-media-image {
+  .fv-media-reverse .fv-media-frame {
     order: 2;
   }
 
+  /* aspect-ratio lives on this wrapping frame, not the <img> itself — see
+     the matching comment on .fv-appearance-image-frame below for why.
+     3:4 gives every section photo (Artist Profile, Award, Fashion Sound
+     Curation, Media Spotlight) the same clean portrait crop, instead of
+     each one landing on a different incidental height. */
+  .fv-media-frame {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
   .fv-media-image {
+    display: block;
     width: 100%;
     height: 100%;
-    max-height: 420px;
     object-fit: cover;
-    border-radius: 16px;
   }
 
   .fv-media .fv-inline-link {
@@ -543,18 +572,19 @@ const appearances = [
     border-bottom-color: rgba(255, 255, 255, 0.85);
   }
 
-  /* SELECTED GLOBAL APPEARANCES */
+  /* SELECTED GLOBAL APPEARANCES: 4 equal columns at desktop (see the
+     mobile query below for the 2x2 collapse). Each card is just an image
+     frame + caption sitting directly on the section's own glass fill, no
+     separate nested card border, matching the reference layout. */
   .fv-appearance-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
   }
 
   .fv-appearance-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 16px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   /* aspect-ratio lives on the wrapping frame, not the <img> itself: an
@@ -563,10 +593,12 @@ const appearances = [
      attributes' intrinsic pixel size instead of the grid column width
      (reproducible even outside this page's own CSS) — wrapping in a block
      container sidesteps it. Same pattern epk.astro's .epk-photo-grid
-     already uses for exactly this reason. */
+     already uses for exactly this reason. 3:4 portrait, matching every
+     other photo on this page (see .fv-media-frame). */
   .fv-appearance-image-frame {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 4;
     overflow: hidden;
+    border-radius: 16px;
   }
 
   .fv-appearance-image {
@@ -577,7 +609,7 @@ const appearances = [
   }
 
   .fv-appearance-text {
-    padding: 18px 20px 22px;
+    padding: 14px 2px 0;
   }
 
   .fv-appearance-text h3 {
@@ -638,7 +670,7 @@ const appearances = [
   .fv-photo-frame {
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 16px;
   }
 
   .fv-photo-grid img {
@@ -680,16 +712,59 @@ const appearances = [
     color: #fff;
   }
 
-  /* DISCOVER */
+  /* DISCOVER: bespoke markup rather than the shared SocialNav component,
+     since this row needs a text label under each icon that SocialNav has
+     no slot for — deliberately not touching that shared component just
+     for one page's brief. Icons at 2.5rem (~40% over SocialNav's own
+     1.8rem default) with wide gaps and no connecting line/color, per
+     brief. */
   .fv-discover {
     text-align: center;
   }
 
-  .fv-discover :global(.nav-links) {
+  .fv-discover-row {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 0;
-    animation: none;
+    align-items: flex-start;
+    gap: 52px;
+  }
+
+  .fv-discover-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  }
+
+  .fv-discover-icon {
+    display: block;
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .fv-discover-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    transition: color 0.3s ease;
+  }
+
+  .fv-discover-link:hover,
+  .fv-discover-link:focus-visible {
     opacity: 1;
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.55));
+  }
+
+  .fv-discover-link:hover .fv-discover-label,
+  .fv-discover-link:focus-visible .fv-discover-label {
+    color: #fff;
   }
 
   /* BOOKING */
@@ -744,16 +819,30 @@ const appearances = [
       grid-template-columns: 1fr;
     }
 
-    .fv-media-reverse .fv-media-image {
+    .fv-media-reverse .fv-media-frame {
       order: 0;
     }
 
-    .fv-media-image {
-      max-height: 260px;
+    .fv-appearance-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
     }
 
-    .fv-appearance-grid {
-      grid-template-columns: 1fr;
+    .fv-appearance-text {
+      padding-top: 10px;
+    }
+
+    .fv-discover-row {
+      gap: 18px;
+    }
+
+    .fv-discover-icon {
+      font-size: 1.9rem;
+    }
+
+    .fv-discover-label {
+      font-size: 0.56rem;
+      letter-spacing: 0.08em;
     }
   }
 
