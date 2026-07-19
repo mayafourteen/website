@@ -15,6 +15,17 @@
 // hamburger menu's own list), not linked from any other page. Reachable
 // only by direct URL. See astro.config.mjs's sitemap filter for the
 // matching sitemap exclusion.
+//
+// Visual direction (2026-07-19, explicit instruction): closely matches the
+// Gamma reference's own layout and colors section-by-section — orange
+// accent (--accent, sampled from the reference), card fill/border/radius,
+// two-column hero, per-section heading colors, the Discover row's
+// badge/line/brand-color pattern, and the Booking section's flatter
+// inline-link structure. The one deliberate exception is typography: this
+// page keeps the site's serif (Cormorant Garamond), never Gamma's sans.
+// This supersedes an earlier pass that used the homepage's gold accent and
+// kept everything monochrome — don't revert to that without a new
+// explicit instruction.
 import V3BaseLayout from '../layouts/V3BaseLayout.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import TextFooter from '../components/v3/TextFooter.astro';
@@ -24,11 +35,13 @@ import { images } from '../data/v3/images.js';
 // (including LinkedIn, which isn't part of the site's standard five-icon
 // row) is specific to the brief for this page only — adding LinkedIn to
 // the shared file would silently grow every other page's Discover/nav row.
+// `color` values are sampled directly from the Gamma reference (badge
+// border + label color per platform), not invented.
 const fashionDiscoverLinks = [
-  { href: 'https://www.instagram.com/mayafourteen/', title: 'Instagram', type: 'fa', name: 'instagram' },
-  { href: 'https://www.youtube.com/@MayaFourteen', title: 'YouTube', type: 'fa', name: 'youtube' },
-  { href: 'https://soundcloud.com/MayaFourteen', title: 'SoundCloud', type: 'fa', name: 'soundcloud' },
-  { href: 'https://www.linkedin.com/in/mayafourteen/', title: 'LinkedIn', type: 'fa', name: 'linkedin' },
+  { href: 'https://www.instagram.com/mayafourteen/', title: 'Instagram', type: 'fa', name: 'instagram', color: '#B05EF1' },
+  { href: 'https://www.youtube.com/@MayaFourteen', title: 'YouTube', type: 'fa', name: 'youtube', color: '#F44444' },
+  { href: 'https://soundcloud.com/MayaFourteen', title: 'SoundCloud', type: 'fa', name: 'soundcloud', color: '#FFA44F' },
+  { href: 'https://www.linkedin.com/in/mayafourteen/', title: 'LinkedIn', type: 'fa', name: 'linkedin', color: '#5E98F1' },
 ];
 
 const appearances = [
@@ -126,12 +139,11 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
   <HamburgerMenu lang="en" />
 
   <main class="fv">
-    <!-- HERO -->
-    <section class="fv-hero">
-      <p class="fv-eyebrow fade-item">[ Fashion &amp; Luxury Vibes EPK ]</p>
-      <h1 class="fv-name fade-item">MAYA FOURTEEN</h1>
-      <p class="fv-tagline fade-item">Electronic Music Artist &amp; Cultural Curator</p>
-      <div class="fv-hero-portrait-frame fade-item">
+    <!-- HERO: same card shell as every other section (Gamma's hero lives
+         inside the identical bordered card, not a standalone treatment),
+         two columns, portrait left. -->
+    <section class="fv-section fv-hero fade-item">
+      <div class="fv-hero-portrait-frame">
         <img
           class="fv-hero-portrait"
           src={images.fashionHero.src}
@@ -141,6 +153,11 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
           loading="eager"
           fetchpriority="high"
         />
+      </div>
+      <div class="fv-hero-content">
+        <h1 class="fv-name">MAYA FOURTEEN</h1>
+        <p class="fv-tagline">Electronic Music Artist &amp; Cultural Curator</p>
+        <p class="fv-eyebrow">[ Fashion &amp; Luxury Vibes EPK ]</p>
       </div>
     </section>
 
@@ -157,7 +174,7 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
         />
       </div>
       <div class="fv-media-text">
-        <h2>Artist Profile</h2>
+        <h2 class="fv-heading-accent">Artist Profile</h2>
         <p>
           MAYA is a Brazilian electronic music artist known for her versatility across both
           clubbing environments and refined, design-driven settings. With a highly developed
@@ -187,7 +204,7 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
         />
       </div>
       <div class="fv-media-text">
-        <h2>Award-Winning Artist</h2>
+        <h2 class="fv-heading-accent">Award-Winning Artist</h2>
         <!--
           Two mandated copy edits from the source Gamma page, per brief:
           (a) the IMS clause must read "a Future Talent Award at IMS Ibiza
@@ -298,6 +315,7 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     <!-- SOUND & ATMOSPHERE -->
     <section class="fv-section fade-item">
       <h2>Sound &amp; Atmosphere</h2>
+      <p class="fv-instruction">Explore selected visual and audio projects by clicking the images below.</p>
       <p>
         MAYA's work extends beyond clubs, radios and festivals, into carefully selected
         audiovisual projects and cultural settings worldwide. Alongside her club and festival
@@ -345,39 +363,69 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
         <div class="fv-photo-frame"><img src={images.fashionPress4.src} width={images.fashionPress4.width} height={images.fashionPress4.height} alt="Maya Fourteen, portrait in the desert at golden hour" loading="lazy" /></div>
       </div>
       <div class="fv-download-actions">
-        <a class="cta-button" href="https://drive.google.com/open?id=1Y0dyWs18uc7w8QbKFj_pbmrpeX81bu_j" target="_blank" rel="noopener">Download Press Kit</a>
-        <a class="cta-button" href="https://drive.google.com/open?id=1XacZsWwys1ieA5C3hLZzSoFWPFS_yh2z" target="_blank" rel="noopener">Download Full Artist EPK</a>
+        <a class="cta-button cta-button-solid" href="https://drive.google.com/open?id=1Y0dyWs18uc7w8QbKFj_pbmrpeX81bu_j" target="_blank" rel="noopener">Download Press Kit</a>
+        <a class="cta-button cta-button-outline" href="https://drive.google.com/open?id=1XacZsWwys1ieA5C3hLZzSoFWPFS_yh2z" target="_blank" rel="noopener">Download Full Artist EPK</a>
       </div>
     </section>
 
-    <!-- DISCOVER MAYA -->
+    <!-- DISCOVER MAYA: horizontal line with each platform's icon in a
+         rounded-square badge sitting on it, a short drop line, and a
+         brand-colored label beneath — matches the Gamma reference's
+         structure exactly. Per-link accent color is a CSS custom property
+         set inline (one value per link, cheaper than four near-duplicate
+         CSS rules). -->
     <section class="fv-section fv-discover fade-item">
       <h2>Discover MAYA</h2>
       <div class="fv-discover-row">
+        <div class="fv-discover-line" aria-hidden="true"></div>
         {fashionDiscoverLinks.map((link) => (
-          <a class="fv-discover-link" href={link.href} target="_blank" rel="noopener" title={link.title} aria-label={`${link.title} (opens in a new tab)`}>
-            <i class={`fa-brands fa-${link.name} fv-discover-icon`} aria-hidden="true"></i>
+          <a
+            class="fv-discover-item"
+            href={link.href}
+            target="_blank"
+            rel="noopener"
+            title={link.title}
+            aria-label={`${link.title} (opens in a new tab)`}
+            style={`--brand-color: ${link.color}`}
+          >
+            <span class="fv-discover-badge">
+              <i class={`fa-brands fa-${link.name}`} aria-hidden="true"></i>
+            </span>
+            <span class="fv-discover-drop" aria-hidden="true"></span>
             <span class="fv-discover-label">{link.title}</span>
           </a>
         ))}
       </div>
     </section>
 
-    <!-- BOOKING & MANAGEMENT -->
+    <!-- BOOKING & MANAGEMENT: left-aligned contact block inside a subtle
+         inner card, plain inline links (email white, WhatsApp orange) not
+         buttons, beepd logo centered in its own footer strip — matches
+         the Gamma reference's actual structure, which is flatter than a
+         button-CTA pattern. -->
     <section class="fv-section fv-booking fade-item">
       <h2>Booking &amp; Management</h2>
       <div class="fv-booking-card">
-        <p class="fv-booking-heading">For Bookings &amp; Artist Enquiries</p>
-        <p class="fv-booking-name">Antonio Afonso, Management</p>
-        <div class="fv-booking-actions">
-          <a class="cta-button" href="mailto:hello@mayafourteen.com">Email hello@mayafourteen.com</a>
-          <a class="cta-button" href="https://wa.me/5547999353919" target="_blank" rel="noopener">+55 47 99935-3919, WhatsApp</a>
+        <div class="fv-booking-content">
+          <p class="fv-booking-heading">For Bookings &amp; Artist Enquiries</p>
+          <p class="fv-booking-name">Antonio Afonso, Management</p>
+          <p class="fv-booking-contact">
+            Email: <a class="fv-booking-link" href="mailto:hello@mayafourteen.com">hello@mayafourteen.com</a>
+          </p>
+          <p class="fv-booking-contact">
+            <span aria-hidden="true">&#128222;</span> +55 47 99935-3919
+            <span aria-hidden="true">&nbsp;I&nbsp;</span>
+            <a class="fv-booking-link fv-booking-link-accent" href="https://wa.me/5547999353919" target="_blank" rel="noopener">WhatsApp</a>
+          </p>
+          <p class="fv-booking-note">
+            Available for select international appearances, including curated events, cultural
+            programming, and brand collaborations. Club and festival bookings considered on a
+            case-by-case basis. Full professional technical rider available upon request.
+          </p>
         </div>
-        <p class="fv-booking-note">
-          Available for select international appearances, including curated events, cultural
-          programming, and brand collaborations. Club and festival bookings considered on a
-          case-by-case basis. Full professional technical rider available upon request.
-        </p>
+        <div class="fv-booking-footer">
+          <img src="/images/fashion/beepd-logo.svg" alt="beepd | MUSIC" width="106" height="27" />
+        </div>
       </div>
     </section>
   </main>
@@ -533,6 +581,9 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     opacity: 0.7;
   }
 
+  /* Vertical rhythm matches the reference's own generous ~64px gap
+     between cards (measured directly on the Gamma page at this same
+     1440px width), a big jump from a tighter stack. */
   .fv {
     position: relative;
     z-index: 1;
@@ -541,51 +592,59 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     padding: 140px 4% 100px;
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    gap: 56px;
   }
 
-  /* HERO */
+  /* Accent: Gamma's exact orange, sampled from the reference (badge
+     border/label color for Instagram/YouTube/SoundCloud/LinkedIn is its
+     own separate --brand-color per link, set inline — see .fv-discover
+     below). Applied where Gamma applies it: the EPK eyebrow tag, the
+     Artist Profile / Award-Winning Artist headings (.fv-heading-accent),
+     the appearance-card labels, the Sound & Atmosphere instruction line,
+     the WhatsApp link, and the buttons. Every other section heading stays
+     white, matching the reference's own per-section mix. */
+  :global(.page-fashion-vibes) {
+    --accent: #fc8337;
+  }
+
+  /* HERO: two columns inside the same card shell as every other section
+     (see .fv-section) — portrait left, wordmark/tagline/eyebrow right,
+     matching the Gamma reference's layout exactly. */
   .fv-hero {
-    text-align: center;
+    display: grid;
+    grid-template-columns: minmax(220px, 380px) 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .fv-hero-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-bottom: 10px;
   }
 
-  /* Accent gold: the site's own muted-desert-gold token, sampled from the
-     "[ enter ]"/"[ entrar ]" homepage CTA (V3HomeLayout.astro's
-     .hero-cta), not invented here. Applied ONLY to the EPK eyebrow tag,
-     inline links, hover/focus states, and small labels — never to
-     headings or as a large fill. No orange anywhere on this page. */
-  :global(.page-fashion-vibes) {
-    --accent-gold: #d9a96a;
+  .fv-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 0 0 12px 0;
+  }
+
+  .fv-tagline {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 16px 0;
   }
 
   .fv-eyebrow {
     font-size: 0.75rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--accent-gold);
-    margin: 0 0 10px 0;
-  }
-
-  .fv-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.6rem, 7vw, 4.4rem);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 300;
-    margin: 0 0 10px 0;
-    transition-delay: 0.1s;
-  }
-
-  .fv-tagline {
-    font-size: clamp(1.05rem, 2vw, 1.3rem);
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.75);
-    margin: 0 0 18px 0;
-    transition-delay: 0.2s;
+    color: var(--accent);
+    margin: 0;
   }
 
   /* Intentional, responsive container instead of a bare <img> — width is
@@ -594,14 +653,11 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
      cover) guarantees the full cutout figure is always visible even if
      this asset's aspect ratio ever changes; for the current 1:1 asset in
      this 1:1 frame the two behave identically, contain is just the safer
-     default going forward. */
+     default going forward. No radius, no crop — matches the reference,
+     which shows this same cutout uncropped and square. */
   .fv-hero-portrait-frame {
     width: 100%;
-    max-width: 320px;
     aspect-ratio: 1 / 1;
-    margin: 0 auto;
-    transition-delay: 0.3s;
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
   }
 
   .fv-hero-portrait {
@@ -611,24 +667,19 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     object-fit: contain;
   }
 
-  /* SECTION SHELL: translucent glass, not solid, so the fixed starfield
-     stays faintly visible through and between cards while scrolling. The
-     fill is a lighter neutral grey (not near-black) specifically so it
-     reads as a distinct panel against the near-black starfield behind it —
-     a dark-on-dark fill at this same opacity blended into the page and
-     was the whole complaint this rule fixes. The inset highlight (top
-     edge) plus the outer drop shadow are what sell "glass panel floating
-     over stars" rather than just "a translucent rectangle". */
+  /* SECTION SHELL: fill, border and radius sampled directly from the
+     Gamma reference's own card (rgba(3,3,3,0.75) fill, a 2px-equivalent
+     mid-grey border, ~22px radius, measured at this same 1440px width) —
+     translucent enough that the fixed starfield stays faintly visible
+     through and between cards while scrolling, without reading as a flat
+     rectangle. */
   .fv-section {
-    background: rgba(44, 44, 50, 0.44);
+    background: rgba(3, 3, 3, 0.75);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    border: 1px solid rgba(78, 78, 78, 0.6);
+    border-radius: 22px;
     padding: 44px;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 20px 50px rgba(0, 0, 0, 0.35);
   }
 
   .fv-section h2 {
@@ -637,6 +688,22 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     font-weight: 300;
     letter-spacing: 0.04em;
     margin: 0 0 20px 0;
+  }
+
+  /* Orange section headings: Gamma colors only Artist Profile and
+     Award-Winning Artist this way, every other section heading stays
+     white (the default) — matches the reference's own mix exactly, not
+     a blanket "all headings orange" rule. */
+  .fv-heading-accent {
+    color: var(--accent);
+  }
+
+  /* Sound & Atmosphere's orange instruction line, verbatim from the
+     reference. Still accurate here: the click-to-load facades (see
+     .fv-embed-facade) are literally images a visitor clicks to load the
+     real player, so the copy still describes the real interaction. */
+  .fv-instruction {
+    color: var(--accent) !important;
   }
 
   /* Line-length cap: sections with no image column (Sound & Atmosphere,
@@ -698,9 +765,9 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
   }
 
   .fv-inline-link {
-    color: var(--accent-gold);
+    color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px dotted rgba(217, 169, 106, 0.5);
+    border-bottom: 1px dotted rgba(252, 131, 55, 0.5);
     font-size: 0.85rem;
     letter-spacing: 0.03em;
     transition: color 0.3s ease, border-color 0.3s ease;
@@ -734,12 +801,14 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
      attributes' intrinsic pixel size instead of the grid column width
      (reproducible even outside this page's own CSS) — wrapping in a block
      container sidesteps it. Same pattern epk.astro's .epk-photo-grid
-     already uses for exactly this reason. 3:4 portrait, matching every
-     other photo on this page (see .fv-media-frame). */
+     already uses for exactly this reason. Square (1:1), matching the
+     reference's own appearance-card images exactly (measured ~242x242 at
+     this viewport width) — not the 3:4 portrait used elsewhere on this
+     page (.fv-media-frame), which is a different section. */
   .fv-appearance-image-frame {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: 14px;
   }
 
   .fv-appearance-image {
@@ -753,18 +822,15 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     padding: 14px 2px 0;
   }
 
+  /* Bold orange labels, always (not a hover-only accent) — matches the
+     reference exactly. */
   .fv-appearance-text h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
+    font-weight: 600;
     font-size: 1.15rem;
     letter-spacing: 0.02em;
     margin: 0 0 8px 0;
-    color: #fff;
-    transition: color 0.3s ease;
-  }
-
-  .fv-appearance-card:hover .fv-appearance-text h3 {
-    color: var(--accent-gold);
+    color: var(--accent);
   }
 
   .fv-appearance-text p {
@@ -866,13 +932,13 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
 
   .fv-embed-facade:hover .fv-embed-play,
   .fv-embed-facade:focus-visible .fv-embed-play {
-    border-color: var(--accent-gold);
+    border-color: var(--accent);
     background: rgba(0, 0, 0, 0.7);
   }
 
   .fv-embed-facade:hover .fv-embed-play::after,
   .fv-embed-facade:focus-visible .fv-embed-play::after {
-    border-left-color: var(--accent-gold);
+    border-left-color: var(--accent);
   }
 
   /* PRESS PHOTOS */
@@ -906,140 +972,220 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     margin-top: 24px;
   }
 
-  /* One ghost/outline button style, used everywhere on the page (Press
-     Assets downloads, Booking email/WhatsApp) — previously a mix of a
-     solid-white variant and an outline variant; unified to this single
-     treatment with a gold hover/focus state for consistency. */
+  /* Press Assets buttons: solid-orange + outline-orange, matching the
+     reference exactly (its "Download Press Kit" is filled, "Download
+     Full Artist EPK" is outlined) — a moderately rounded rect, not a
+     full pill, per the reference's own ~14px radius. */
   .cta-button {
     display: inline-block;
     font-family: 'Cormorant Garamond', serif;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     font-size: 0.85rem;
     text-decoration: none;
-    color: #fff;
-    background: transparent;
     padding: 14px 28px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    border-radius: 14px;
+    border: 1px solid var(--accent);
+    transition: opacity 0.3s ease, background 0.3s ease;
   }
 
-  .cta-button:hover,
-  .cta-button:focus-visible {
-    color: var(--accent-gold);
-    border-color: var(--accent-gold);
-    background: rgba(217, 169, 106, 0.08);
+  .cta-button-solid {
+    background: var(--accent);
+    color: #000;
+  }
+
+  .cta-button-solid:hover,
+  .cta-button-solid:focus-visible {
+    opacity: 0.85;
+  }
+
+  .cta-button-outline {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .cta-button-outline:hover,
+  .cta-button-outline:focus-visible {
+    background: rgba(252, 131, 55, 0.12);
   }
 
   /* DISCOVER: bespoke markup rather than the shared SocialNav component,
-     since this row needs a text label under each icon that SocialNav has
-     no slot for — deliberately not touching that shared component just
-     for one page's brief. Icons at 2.5rem (~40% over SocialNav's own
-     1.8rem default) with wide gaps and no connecting line. Monochrome by
-     default (no per-platform brand colors), gold accent on hover/focus
-     only — never on the label text by default, matching the "no colors"
-     brief while still using the page's one accent for feedback. */
-  .fv-discover {
-    text-align: center;
-  }
-
+     since this row needs a per-platform badge/line/label structure that
+     SocialNav has no slot for — deliberately not touching that shared
+     component just for one page's brief. Matches the reference: a
+     horizontal line with each icon in a rounded-square badge sitting on
+     it, a short drop line, and a brand-colored label beneath. Left-
+     aligned heading, matching the reference (every other .fv-section h2
+     is already left-aligned by default — this rule just removes the
+     centering this section previously had). --brand-color is set inline
+     per link (see the markup) so one set of rules covers all four. */
   .fv-discover-row {
+    position: relative;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
-    gap: 52px;
+    flex-wrap: wrap;
+    row-gap: 28px;
   }
 
-  .fv-discover-link {
+  .fv-discover-line {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .fv-discover-item {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
-    min-width: 44px;
-    min-height: 44px;
-    color: #fff;
     text-decoration: none;
-    opacity: 0.85;
-    transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
   }
 
-  .fv-discover-icon {
-    display: block;
-    font-size: 2.5rem;
-    line-height: 1;
-    transition: color 0.3s ease;
+  .fv-discover-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #030303;
+    border: 2px solid var(--brand-color);
+    color: #fff;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .fv-discover-drop {
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 2px 0;
   }
 
   .fv-discover-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.65);
-    transition: color 0.3s ease;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-decoration: underline;
+    color: var(--brand-color);
+    white-space: nowrap;
   }
 
-  .fv-discover-link:hover,
-  .fv-discover-link:focus-visible {
-    opacity: 1;
+  .fv-discover-item:hover .fv-discover-badge,
+  .fv-discover-item:focus-visible .fv-discover-badge {
     transform: translateY(-2px);
-    filter: drop-shadow(0 0 12px rgba(217, 169, 106, 0.55));
+    box-shadow: 0 0 14px var(--brand-color);
   }
 
-  .fv-discover-link:hover .fv-discover-icon,
-  .fv-discover-link:focus-visible .fv-discover-icon,
-  .fv-discover-link:hover .fv-discover-label,
-  .fv-discover-link:focus-visible .fv-discover-label {
-    color: var(--accent-gold);
-  }
-
-  /* BOOKING */
+  /* BOOKING: left-aligned inner card (subtly lighter than the outer
+     section fill), plain inline contact links rather than pill buttons,
+     a footer strip with the beepd logo — matches the reference's actual
+     structure, which is flatter than a button-CTA pattern. */
   .fv-booking-card {
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    padding: 30px;
-    text-align: center;
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .fv-booking-content {
+    padding: 28px 30px;
   }
 
   .fv-booking-heading {
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.55) !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #fff !important;
+    margin: 0 0 6px 0;
   }
 
   .fv-booking-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    color: #fff !important;
+    font-weight: 600;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85) !important;
+    margin: 0 0 16px 0;
   }
 
-  .fv-booking-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    margin: 20px 0;
+  .fv-booking-contact {
+    font-size: 0.95rem !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    margin: 0 0 6px 0 !important;
+  }
+
+  .fv-booking-link {
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .fv-booking-link:hover,
+  .fv-booking-link:focus-visible {
+    color: #fff;
+  }
+
+  .fv-booking-link-accent {
+    color: var(--accent);
+  }
+
+  .fv-booking-link-accent:hover,
+  .fv-booking-link-accent:focus-visible {
+    color: #fff;
   }
 
   .fv-booking-note {
     font-size: 0.85rem !important;
     color: rgba(255, 255, 255, 0.55) !important;
+    margin-top: 16px !important;
+  }
+
+  .fv-booking-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .fv-booking-footer img {
+    display: block;
+    height: 22px;
+    width: auto;
   }
 
   /* MOBILE */
   @media (max-width: 860px) {
     .fv {
       padding: 110px 5% 70px;
-      gap: 18px;
+      gap: 32px;
     }
 
     .fv-section {
       padding: 28px 22px;
       border-radius: 18px;
+    }
+
+    .fv-hero {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .fv-hero-portrait-frame {
+      max-width: 240px;
+      margin: 0 auto;
+    }
+
+    .fv-hero-content {
+      text-align: center;
+      align-items: center;
     }
 
     .fv-media,
@@ -1061,16 +1207,21 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     }
 
     .fv-discover-row {
-      gap: 18px;
+      justify-content: space-around;
+      column-gap: 16px;
     }
 
-    .fv-discover-icon {
-      font-size: 1.9rem;
+    .fv-discover-line {
+      display: none;
+    }
+
+    .fv-discover-badge {
+      width: 40px;
+      height: 40px;
     }
 
     .fv-discover-label {
-      font-size: 0.56rem;
-      letter-spacing: 0.08em;
+      font-size: 0.75rem;
     }
   }
 
