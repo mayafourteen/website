@@ -147,6 +147,28 @@ export const images = {
   epkPressKit2: { src: '/images/epk/press/press-kit-2.jpg', width: 1080, height: 1080 },
   epkPressKit3: { src: '/images/epk/press/press-kit-3.jpg', width: 1080, height: 1080 },
   epkPressKit4: { src: '/images/epk/press/press-kit-4.jpg', width: 1080, height: 1080 },
+
+  // /fashion-vibes (unlisted, noindex) — sourced from the private Fashion &
+  // Luxury Vibes EPK at epk-fl-maya-fourteen-6m0uheh.gamma.site, re-hosted
+  // here rather than hotlinked. No srcset: single files, no generated
+  // smaller variants (same convention as the epkPressKit/epkAudience keys
+  // above for one-off photos under ~1200px).
+  // Background-removed cutout (real alpha channel, not a CSS trick) — kept
+  // as .webp specifically, not flattened to .jpg, so the transparency
+  // survives and the figure sits directly on the starfield background.
+  fashionHero: { src: '/images/fashion/fashion-hero.webp', width: 1024, height: 1024 },
+  fashionProfile: { src: '/images/fashion/fashion-profile.jpg', width: 1080, height: 1080 },
+  fashionAward: { src: '/images/fashion/fashion-award.jpg', width: 1024, height: 1536 },
+  fashionF1: { src: '/images/fashion/fashion-f1.jpg', width: 600, height: 600 },
+  fashionFilm: { src: '/images/fashion/fashion-film.jpg', width: 1200, height: 1200 },
+  fashionHospitality: { src: '/images/fashion/fashion-hospitality.jpg', width: 625, height: 625 },
+  fashionBrand: { src: '/images/fashion/fashion-brand.jpg', width: 600, height: 600 },
+  fashionOceanus1: { src: '/images/fashion/fashion-oceanus-1.jpg', width: 1080, height: 1080 },
+  fashionOceanus2: { src: '/images/fashion/fashion-oceanus-2.jpg', width: 1080, height: 675 },
+  fashionPress1: { src: '/images/fashion/fashion-press-1.jpg', width: 900, height: 900 },
+  fashionPress2: { src: '/images/fashion/fashion-press-2.jpg', width: 600, height: 600 },
+  fashionPress3: { src: '/images/fashion/fashion-press-3.jpg', width: 600, height: 600 },
+  fashionPress4: { src: '/images/fashion/fashion-press-4.jpg', width: 600, height: 600 },
 };
 
 // Looks up an entry by its `src` path — lets HeroBackground callers keep

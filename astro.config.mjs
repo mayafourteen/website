@@ -41,7 +41,10 @@ export default defineConfig({
       // in the build for reference (see DEPLOY.md) — the sitemap has no
       // awareness of per-page <meta name="robots"> tags, so they'd otherwise
       // be listed as indexable production URLs despite carrying noindex.
-      filter: (page) => !/^https?:\/\/[^/]+\/(legacy|v2-legacy|v2)(\/|$)/.test(page),
+      // /fashion-vibes is an unlisted, noindex page shared privately with
+      // fashion/luxury clients, reachable only by direct URL — it must
+      // never appear in the sitemap either.
+      filter: (page) => !/^https?:\/\/[^/]+\/(legacy|v2-legacy|v2|fashion-vibes)(\/|$)/.test(page),
       // Attaches xhtml:link hreflang alternates to every URL that belongs to
       // one of the groups above, so crawlers see the same language
       // relationships the pages themselves declare. Pages with no group

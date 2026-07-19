@@ -1,0 +1,765 @@
+---
+// Unlisted, noindex EPK variant shared privately with fashion and luxury
+// clients only. Content sourced verbatim from the private Gamma page at
+// epk-fl-maya-fourteen-6m0uheh.gamma.site (text and photos re-hosted here,
+// see src/data/v3/images.js's "fashion*" keys), with two mandated copy
+// edits in the Award-Winning Artist section (see inline comments below).
+// Structurally modeled on epk.astro (direct V3BaseLayout usage, not
+// V3InteriorLayout, so it can carry image+text sections and card grids),
+// but with its own "fv-" prefixed styles rather than epk's "epk-" ones,
+// and a CSS-only fixed starfield background layer instead of a hero photo
+// background — see the .fv-starfield rule for why position:fixed (not
+// background-attachment:fixed, which is broken on iOS Safari) is required.
+//
+// Deliberately unreachable from any nav: not present in navItems.js (the
+// hamburger menu's own list), not linked from any other page. Reachable
+// only by direct URL. See astro.config.mjs's sitemap filter for the
+// matching sitemap exclusion.
+import V3BaseLayout from '../layouts/V3BaseLayout.astro';
+import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
+import TextFooter from '../components/v3/TextFooter.astro';
+import SocialNav from '../components/v3/SocialNav.astro';
+import { images } from '../data/v3/images.js';
+
+// Local to this page, not socialLinks.js: this exact four-item set
+// (including LinkedIn, which isn't part of the site's standard five-icon
+// row) is specific to the brief for this page only — adding LinkedIn to
+// the shared file would silently grow every other page's Discover/nav row.
+const fashionDiscoverLinks = [
+  { href: 'https://www.instagram.com/mayafourteen/', title: 'Instagram', type: 'fa', name: 'instagram' },
+  { href: 'https://www.youtube.com/@MayaFourteen', title: 'YouTube', type: 'fa', name: 'youtube' },
+  { href: 'https://soundcloud.com/MayaFourteen', title: 'SoundCloud', type: 'fa', name: 'soundcloud' },
+  { href: 'https://www.linkedin.com/in/mayafourteen/', title: 'LinkedIn', type: 'fa', name: 'linkedin' },
+];
+
+const appearances = [
+  {
+    title: 'Formula 1 Circuits',
+    flag: '\u{1F3CE}\u{FE0F}',
+    copy: 'Private after-race performances during Monaco and Abu Dhabi Grand Prix weekends.',
+    image: images.fashionF1,
+    alt: 'Maya Fourteen at a Formula 1 after-race event',
+  },
+  {
+    title: 'Film Festivals',
+    flag: '\u{1F3AC}',
+    copy: 'Music curation and private performance for select soirées during the Cannes Film Festival.',
+    image: images.fashionFilm,
+    alt: 'Maya Fourteen at the Cannes Film Festival',
+  },
+  {
+    title: 'Luxury Hospitality',
+    flag: '\u{1F3DD}\u{FE0F}',
+    copy: 'Curated destination-set recorded in Bali, blending atmosphere, rhythm, and a strong sense of place.',
+    image: images.fashionHospitality,
+    alt: 'Maya Fourteen DJing in a luxury hospitality setting',
+  },
+  {
+    title: 'Brand Activations',
+    flag: '✨',
+    copy: 'Exclusive private performance for FENDI & GT Home at their Pininfarina YachtHouse unit launch.',
+    image: images.fashionBrand,
+    alt: 'Maya Fourteen at the FENDI & GT Home Pininfarina YachtHouse launch',
+  },
+];
+---
+
+<V3BaseLayout
+  title="MAYA FOURTEEN | Fashion & Luxury Vibes EPK"
+  description="Private electronic press kit for fashion and luxury clients: Maya Fourteen's runway sound curation, brand activations and international bookings."
+  bodyClass="page-fashion-vibes"
+  lang="en"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css"></noscript>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css"></noscript>
+  </Fragment>
+
+  <!-- Fixed, non-scrolling starfield layer. position:fixed (not
+       background-attachment:fixed, which iOS Safari doesn't render
+       correctly) so it stays pinned behind the page while .fv-content
+       scrolls above it. -->
+  <div class="fv-starfield" aria-hidden="true"></div>
+
+  <HamburgerMenu lang="en" />
+
+  <main class="fv">
+    <!-- HERO -->
+    <section class="fv-hero">
+      <p class="fv-eyebrow fade-item">[ Fashion &amp; Luxury Vibes EPK ]</p>
+      <h1 class="fv-name fade-item">MAYA FOURTEEN</h1>
+      <p class="fv-tagline fade-item">Electronic Music Artist &amp; Cultural Curator</p>
+      <img
+        class="fv-hero-portrait fade-item"
+        src={images.fashionHero.src}
+        width={images.fashionHero.width}
+        height={images.fashionHero.height}
+        alt="Maya Fourteen"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </section>
+
+    <!-- ARTIST PROFILE -->
+    <section class="fv-section fv-media fade-item">
+      <img
+        class="fv-media-image"
+        src={images.fashionProfile.src}
+        width={images.fashionProfile.width}
+        height={images.fashionProfile.height}
+        alt="Maya Fourteen behind the decks"
+        loading="lazy"
+      />
+      <div class="fv-media-text">
+        <h2>Artist Profile</h2>
+        <p>
+          MAYA is a Brazilian electronic music artist known for her versatility across both
+          clubbing environments and refined, design-driven settings. With a highly developed
+          musical taste and extensive repertoire, her sound balances atmosphere, rhythm, and
+          emotional flow, adapting naturally from dancefloor performances to sophisticated
+          brand and cultural contexts.
+        </p>
+        <p>
+          Based between Brazil and Europe, MAYA is booked for clubs, festivals, and curated
+          events, as well as bespoke musical selections for private, luxury, and hospitality
+          environments. Acting as a sonic curator, she delivers performances shaped by timing
+          and spatial awareness, whether driving the room or subtly elevating it.
+        </p>
+      </div>
+    </section>
+
+    <!-- AWARD-WINNING ARTIST -->
+    <section class="fv-section fv-media fv-media-reverse fade-item">
+      <img
+        class="fv-media-image"
+        src={images.fashionAward.src}
+        width={images.fashionAward.width}
+        height={images.fashionAward.height}
+        alt="Maya Fourteen at IMS Ibiza 2025"
+        loading="lazy"
+      />
+      <div class="fv-media-text">
+        <h2>Award-Winning Artist</h2>
+        <!--
+          Two mandated copy edits from the source Gamma page, per brief:
+          (a) the IMS clause must read "a Future Talent Award at IMS Ibiza
+              2025, selected by Pete Tong" (was: "...IMS Ibiza 2025, one of
+              the most respected platforms in global electronic music
+              culture").
+          (b) "she was also granted a special distinction" is replaced with
+              "she was also awarded the Nicole Moudaber Talent Highlight
+              Prize, a personal distinction from Nicole Moudaber".
+          No em dashes anywhere on this page, commas only.
+        -->
+        <p>
+          MAYA has received international recognition for her work, including a Future Talent
+          Award at IMS Ibiza 2025, selected by Pete Tong. In the same edition, she was also
+          awarded the Nicole Moudaber Talent Highlight Prize, a personal distinction from
+          Nicole Moudaber, highlighting her artistic clarity and positioning her among the
+          most forward-looking artists of her generation.
+        </p>
+        <p>
+          In 2023, she was selected as part of a highly curated group of artists at the
+          MixMasters Ibiza Get Signed Summit, chosen from thousands of participants worldwide.
+          This early recognition reflected endorsement from industry leaders and acknowledged
+          her artistic potential.
+        </p>
+      </div>
+    </section>
+
+    <!-- SELECTED GLOBAL APPEARANCES -->
+    <section class="fv-section fade-item">
+      <h2>Selected Global Appearances</h2>
+      <div class="fv-appearance-grid">
+        {appearances.map((item) => (
+          <div class="fv-appearance-card">
+            <div class="fv-appearance-image-frame">
+              <img
+                class="fv-appearance-image"
+                src={item.image.src}
+                width={item.image.width}
+                height={item.image.height}
+                alt={item.alt}
+                loading="lazy"
+              />
+            </div>
+            <div class="fv-appearance-text">
+              <h3>{item.title} <span aria-hidden="true">{item.flag}</span></h3>
+              <p>{item.copy}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- FASHION SOUND CURATION -->
+    <section class="fv-section fv-media fade-item">
+      <img
+        class="fv-media-image"
+        src={images.fashionOceanus1.src}
+        width={images.fashionOceanus1.width}
+        height={images.fashionOceanus1.height}
+        alt="Maya Fourteen, OCEANUS runway soundtrack curation"
+        loading="lazy"
+      />
+      <div class="fv-media-text">
+        <h2>Fashion Sound Curation</h2>
+        <p>
+          MAYA curated the official runway soundtrack for OCEANUS during Paris and London
+          Fashion Weeks, developing a bespoke sonic narrative aligned with the brand's
+          retro-futuristic visual identity.
+        </p>
+        <p>
+          Drawing from 80s-inspired synth textures and contemporary electronic design, the
+          soundtrack was crafted to support runway pacing, silhouette movement, and
+          atmosphere. The result is a refined, forward-facing soundscape that balances
+          nostalgia and modernity, enhancing the rhythm and emotional flow of the show without
+          overpowering it.
+        </p>
+        <a class="fv-inline-link" href="https://www.instagram.com/p/DQkSW7aESiR/" target="_blank" rel="noopener">View the OCEANUS runway soundtrack &rarr;</a>
+      </div>
+    </section>
+
+    <!-- MEDIA SPOTLIGHT -->
+    <section class="fv-section fv-media fv-media-reverse fade-item">
+      <img
+        class="fv-media-image"
+        src={images.fashionOceanus2.src}
+        width={images.fashionOceanus2.width}
+        height={images.fashionOceanus2.height}
+        alt="Maya Fourteen, OCEANUS runway soundtrack curation"
+        loading="lazy"
+      />
+      <div class="fv-media-text">
+        <h2>Media Spotlight</h2>
+        <p>
+          MAYA was featured on the cover of Spain's Sync Beat Magazine, with the editorial
+          photographed during a private presentation for FENDI &amp; GT Home at the Pininfarina
+          YachtHouse, one of Balneário Camboriú's most iconic luxury developments. The
+          feature places her within curated, high-end environments where music, fashion, and
+          design converge naturally, reinforcing her positioning beyond traditional club
+          contexts.
+        </p>
+      </div>
+    </section>
+
+    <!-- SOUND & ATMOSPHERE -->
+    <section class="fv-section fade-item">
+      <h2>Sound &amp; Atmosphere</h2>
+      <p>
+        MAYA's work extends beyond clubs, radios and festivals, into carefully selected
+        audiovisual projects and cultural settings worldwide. Alongside her club and festival
+        activity, she has developed bespoke sets and sound narratives for fashion, private
+        events, and brand-driven environments, adapting her musical language to context
+        without compromising identity.
+      </p>
+      <div class="fv-embed-frame fv-embed-video">
+        <iframe
+          src="https://www.youtube.com/embed/lcOJEm9-DjI"
+          title="Maya Fourteen, video set"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <iframe
+        class="fv-embed fv-embed-soundcloud"
+        height="400"
+        scrolling="no"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/an-organic-deep-tech-storytelling-set-with-magical-vibes-from-nusa-dua-bali&color=%23141414&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+        title="Maya Fourteen: An Organic Deep Tech Storytelling Set with Magical Vibes from Nusa Dua, Bali"
+        loading="lazy"
+      ></iframe>
+      <iframe
+        class="fv-embed fv-embed-soundcloud"
+        height="400"
+        scrolling="no"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/maya-etnika-tajbc&color=%23141414&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+        title="Maya Fourteen: Etnika TAJBC"
+        loading="lazy"
+      ></iframe>
+    </section>
+
+    <!-- PRESS ASSETS -->
+    <section class="fv-section fade-item">
+      <h2>Press Assets</h2>
+      <p>High-resolution images available for promotional use. All photos copyright protected.</p>
+      <div class="fv-photo-grid">
+        <div class="fv-photo-frame"><img src={images.fashionPress1.src} width={images.fashionPress1.width} height={images.fashionPress1.height} alt="Maya Fourteen, press photo" loading="lazy" /></div>
+        <div class="fv-photo-frame"><img src={images.fashionPress2.src} width={images.fashionPress2.width} height={images.fashionPress2.height} alt="Maya Fourteen, press photo" loading="lazy" /></div>
+        <div class="fv-photo-frame"><img src={images.fashionPress3.src} width={images.fashionPress3.width} height={images.fashionPress3.height} alt="Maya Fourteen, press photo" loading="lazy" /></div>
+        <div class="fv-photo-frame"><img src={images.fashionPress4.src} width={images.fashionPress4.width} height={images.fashionPress4.height} alt="Maya Fourteen, press photo" loading="lazy" /></div>
+      </div>
+      <div class="fv-download-actions">
+        <a class="cta-button" href="https://drive.google.com/open?id=1Y0dyWs18uc7w8QbKFj_pbmrpeX81bu_j" target="_blank" rel="noopener">Download Press Kit</a>
+        <a class="cta-button cta-button-outline" href="https://drive.google.com/open?id=1XacZsWwys1ieA5C3hLZzSoFWPFS_yh2z" target="_blank" rel="noopener">Download Full Artist EPK</a>
+      </div>
+    </section>
+
+    <!-- DISCOVER MAYA -->
+    <section class="fv-section fv-discover fade-item">
+      <h2>Discover MAYA</h2>
+      <SocialNav links={fashionDiscoverLinks} />
+    </section>
+
+    <!-- BOOKING & MANAGEMENT -->
+    <section class="fv-section fv-booking fade-item">
+      <h2>Booking &amp; Management</h2>
+      <div class="fv-booking-card">
+        <p class="fv-booking-heading">For Bookings &amp; Artist Enquiries</p>
+        <p class="fv-booking-name">Antonio Afonso, Management</p>
+        <div class="fv-booking-actions">
+          <a class="cta-button" href="mailto:hello@mayafourteen.com">Email hello@mayafourteen.com</a>
+          <a class="cta-button cta-button-outline" href="https://wa.me/5547999353919" target="_blank" rel="noopener">+55 47 99935-3919, WhatsApp</a>
+        </div>
+        <p class="fv-booking-note">
+          Available for select international appearances, including curated events, cultural
+          programming, and brand collaborations. Club and festival bookings considered on a
+          case-by-case basis. Full professional technical rider available upon request.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <TextFooter />
+</V3BaseLayout>
+
+<style is:global>
+  .fade-item {
+    opacity: 0;
+    animation: smoothReveal 1.1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  }
+
+  @keyframes smoothReveal {
+    from { opacity: 0; filter: blur(10px); transform: translateY(18px); }
+    to { opacity: 1; filter: blur(0); transform: translateY(0); }
+  }
+</style>
+
+<style>
+  :global(.page-fashion-vibes) {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    background: #050506;
+  }
+
+  /* No language switcher on this private page (see file header comment) —
+     hidden per-page via bodyClass rather than touching LanguageMenu itself,
+     which every other V3 page still needs unmodified. */
+  :global(.page-fashion-vibes) :global(.language-menu) {
+    display: none;
+  }
+
+  :global(.page-fashion-vibes) :global(.language-menu-trigger) {
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    padding: 10px 14px 10px 10px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* FIXED STARFIELD BACKGROUND
+     position: fixed (never background-attachment: fixed, which iOS Safari
+     fails to render correctly) keeps this pinned behind the viewport while
+     .fv scrolls above it, so stars stay visible through and between the
+     translucent cards. Pure CSS, three layered radial-gradient dot fields
+     at different densities/sizes for a parallax-like depth read, plus a
+     faint white nebula wash, all monochrome, no new colors. */
+  .fv-starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #050506;
+  }
+
+  .fv-starfield::before,
+  .fv-starfield::after {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background-repeat: repeat;
+  }
+
+  .fv-starfield::before {
+    background-image:
+      radial-gradient(1.6px 1.6px at 10% 20%, rgba(255, 255, 255, 0.9), transparent 100%),
+      radial-gradient(1.2px 1.2px at 35% 65%, rgba(255, 255, 255, 0.65), transparent 100%),
+      radial-gradient(1.8px 1.8px at 65% 15%, rgba(255, 255, 255, 0.85), transparent 100%),
+      radial-gradient(1px 1px at 85% 75%, rgba(255, 255, 255, 0.55), transparent 100%),
+      radial-gradient(1.4px 1.4px at 20% 85%, rgba(255, 255, 255, 0.7), transparent 100%),
+      radial-gradient(1.2px 1.2px at 55% 45%, rgba(255, 255, 255, 0.6), transparent 100%);
+    background-size: 340px 340px;
+  }
+
+  .fv-starfield::after {
+    background-image:
+      radial-gradient(1px 1px at 6% 45%, rgba(255, 255, 255, 0.5), transparent 100%),
+      radial-gradient(1px 1px at 48% 10%, rgba(255, 255, 255, 0.4), transparent 100%),
+      radial-gradient(1.3px 1.3px at 28% 70%, rgba(255, 255, 255, 0.55), transparent 100%),
+      radial-gradient(1px 1px at 78% 40%, rgba(255, 255, 255, 0.4), transparent 100%),
+      radial-gradient(1.1px 1.1px at 92% 88%, rgba(255, 255, 255, 0.5), transparent 100%);
+    background-size: 220px 220px;
+    opacity: 0.7;
+  }
+
+  .fv {
+    position: relative;
+    z-index: 1;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 140px 4% 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  /* HERO */
+  .fv-hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  .fv-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 14px 0;
+  }
+
+  .fv-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.6rem, 7vw, 4.4rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin: 0 0 12px 0;
+    animation-delay: 0.1s;
+  }
+
+  .fv-tagline {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 30px 0;
+    animation-delay: 0.2s;
+  }
+
+  .fv-hero-portrait {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    animation-delay: 0.3s;
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.6));
+  }
+
+  /* SECTION SHELL: translucent, not solid, so the fixed starfield stays
+     visible through and between cards while scrolling. */
+  .fv-section {
+    background: rgba(20, 20, 24, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    padding: 44px;
+  }
+
+  .fv-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    margin: 0 0 20px 0;
+  }
+
+  .fv-section p {
+    font-weight: 200;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 16px 0;
+  }
+
+  .fv-section p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  /* MEDIA (image + text) */
+  .fv-media {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .fv-media-reverse {
+    grid-template-columns: 1fr 340px;
+  }
+
+  .fv-media-reverse .fv-media-image {
+    order: 2;
+  }
+
+  .fv-media-image {
+    width: 100%;
+    height: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .fv-media .fv-inline-link {
+    display: inline-block;
+    margin-top: 4px;
+  }
+
+  .fv-inline-link {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.45);
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    transition: border-color 0.3s ease;
+  }
+
+  .fv-inline-link:hover,
+  .fv-inline-link:focus-visible {
+    border-bottom-style: solid;
+    border-bottom-color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* SELECTED GLOBAL APPEARANCES */
+  .fv-appearance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .fv-appearance-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* aspect-ratio lives on the wrapping frame, not the <img> itself: an
+     <img> with both an explicit CSS aspect-ratio and HTML width/height
+     attributes inside a CSS grid track resolves its height from the
+     attributes' intrinsic pixel size instead of the grid column width
+     (reproducible even outside this page's own CSS) — wrapping in a block
+     container sidesteps it. Same pattern epk.astro's .epk-photo-grid
+     already uses for exactly this reason. */
+  .fv-appearance-image-frame {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .fv-appearance-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .fv-appearance-text {
+    padding: 18px 20px 22px;
+  }
+
+  .fv-appearance-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 8px 0;
+  }
+
+  .fv-appearance-text p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    font-weight: 300;
+  }
+
+  /* SOUND & ATMOSPHERE */
+  .fv-embed-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .fv-embed-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .fv-embed {
+    width: 100%;
+    border: none;
+    display: block;
+    border-radius: 12px;
+  }
+
+  .fv-embed-soundcloud:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  /* PRESS PHOTOS */
+  .fv-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  /* aspect-ratio on the wrapping frame, not the <img> — see the matching
+     comment on .fv-appearance-image-frame above for why. */
+  .fv-photo-frame {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .fv-photo-grid img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .fv-download-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: #000;
+    background: #fff;
+    padding: 14px 28px;
+    border-radius: 999px;
+    transition: opacity 0.3s ease;
+    border: 1px solid #fff;
+  }
+
+  .cta-button:hover {
+    opacity: 0.85;
+  }
+
+  .cta-button-outline {
+    background: transparent;
+    color: #fff;
+  }
+
+  /* DISCOVER */
+  .fv-discover {
+    text-align: center;
+  }
+
+  .fv-discover :global(.nav-links) {
+    justify-content: center;
+    margin-bottom: 0;
+    animation: none;
+    opacity: 1;
+  }
+
+  /* BOOKING */
+  .fv-booking-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+  }
+
+  .fv-booking-heading {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+
+  .fv-booking-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: #fff !important;
+  }
+
+  .fv-booking-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .fv-booking-note {
+    font-size: 0.85rem !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+
+  /* MOBILE */
+  @media (max-width: 860px) {
+    .fv {
+      padding: 110px 5% 70px;
+      gap: 18px;
+    }
+
+    .fv-section {
+      padding: 28px 22px;
+      border-radius: 18px;
+    }
+
+    .fv-media,
+    .fv-media-reverse {
+      grid-template-columns: 1fr;
+    }
+
+    .fv-media-reverse .fv-media-image {
+      order: 0;
+    }
+
+    .fv-media-image {
+      max-height: 260px;
+    }
+
+    .fv-appearance-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .fv-photo-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
