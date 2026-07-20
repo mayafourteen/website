@@ -292,12 +292,12 @@ const mediaSpotlightItems = [
           <div class="epk-discography-layout">
             <div class="epk-label-card">
               <h3><a class="epk-inline-link" href="https://www.systematic-recordings.com/" target="_blank" rel="noopener">Systematic Recordings</a> 🇩🇪</h3>
-              <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a>'s iconic label, celebrating 20 years</p>
+              <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a>'s iconic label</p>
               <p>
                 MAYA's debut single <a class="epk-inline-link" href="https://www.beatport.com/track/uniqueness-feat-francesca/19198825" target="_blank" rel="noopener">'Uniqueness'</a>, featuring spoken word vocals by Francesca Posgai, was handpicked by <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a> for the 20th anniversary album of Systematic Recordings, released alongside Carl Cox, Timo Maas, Josh Wink, Rodriguez Jr. and Gui Boratto.
               </p>
               <p>
-                Romboy first heard the track at the Ibiza Get Signed Summit and instantly fell in love with its distinctive sound and empowering energy: &ldquo;It's a throwback to the golden era of House, evoking timeless vibes akin to Mood II Swing.&rdquo;
+                Romboy first heard the track at the Ibiza Summit and instantly fell in love with its distinctive sound and empowering energy: &ldquo;It's a throwback to the golden era of House, evoking timeless vibes akin to Mood II Swing.&rdquo;
               </p>
               <p class="epk-label-tag">TOP 10 Beatport, peaked at #8</p>
             </div>
@@ -313,10 +313,12 @@ const mediaSpotlightItems = [
               </div>
               <div class="epk-label-card">
                 <h3>Dioscuri Records 🇮🇹</h3>
+                <p class="epk-label-sub">Costax's imprint, born in Italy, tuned in the UK</p>
                 <p>
                   MAYA's remix debut: her official remix for Costax's track 'Stay', released
                   alongside additional remixes, including one by legendary <a class="epk-inline-link" href="https://www.instagram.com/timo.maas/" target="_blank" rel="noopener">Timo Maas</a>.
                 </p>
+                <p>Released on the Italian label of the duo Dioscuri.</p>
               </div>
             </div>
           </div>
@@ -653,6 +655,19 @@ const mediaSpotlightItems = [
     padding: 20px;
   }
 
+  /* Flex column so the Beatport badge (.epk-label-tag, its last child) can
+     anchor to the bottom via margin-top: auto — matters once
+     .epk-discography-layout's grid stretches this card taller than its own
+     content (to match the combined VIVa+Dioscuri column height), which
+     would otherwise leave the badge stranded right under the last
+     paragraph with empty space below it. Applies to every .epk-label-card,
+     not just Systematic's, but is a no-op for the other two (no
+     margin-top: auto child), so it's safe to share. */
+  .epk-label-card {
+    display: flex;
+    flex-direction: column;
+  }
+
   .epk-stage-card.epk-stage-tour {
     grid-column: 1 / -1;
   }
@@ -690,14 +705,22 @@ const mediaSpotlightItems = [
      blended to a 1.35:1 contrast ratio, functionally invisible. Confirmed
      via Lighthouse's accessibility audit, not a design change: this
      restores the badge's originally-intended readable black text. */
+  /* margin-top: auto anchors the badge to the bottom of the now-flex
+     .epk-label-card (see above); !important for the same reason color
+     needs it above, the shared .epk-label-card p { margin: 0 } rule is a
+     higher-specificity selector and would otherwise silently win. Slightly
+     smaller than before (padding/font-size trimmed a touch) so it reads as
+     an integrated detail at the foot of the card rather than a bulky
+     standalone element. */
   .epk-label-tag {
     display: inline-block;
+    margin-top: auto !important;
     background: #f4d03f;
     color: #000 !important;
     font-weight: 500;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     letter-spacing: 0.05em;
-    padding: 4px 10px;
+    padding: 3px 9px;
     border-radius: 2px;
   }
 
