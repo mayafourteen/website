@@ -332,10 +332,45 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
       </div>
     </section>
 
-    <!-- SOUND & ATMOSPHERE -->
+    <!-- SOUND & ATMOSPHERE: round 2 restructure — the FENDI video and both
+         SoundCloud tracks now sit as three equal small thumbnails in one
+         row (matching the Gamma reference's own layout, which this had
+         drifted from into three stacked full-width embeds that dominated
+         the viewport), with the descriptive paragraph below the row
+         instead of above it, also matching the reference's actual order. -->
     <section class="fv-section fade-item">
       <h2>Sound &amp; Atmosphere</h2>
       <p class="fv-instruction">Explore selected visual and audio projects by clicking the images below.</p>
+      <div class="fv-embed-row">
+        <div class="fv-embed-item fv-embed-item-video">
+          <button
+            type="button"
+            class="fv-embed-facade"
+            data-embed-type="video"
+            data-embed-src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1`}
+            data-embed-title="Maya Fourteen, FENDI & GT Home / Pininfarina video set"
+            aria-label="Play video: Maya Fourteen, FENDI & GT Home / Pininfarina video set"
+          >
+            <img src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`} alt="" loading="lazy" width="1280" height="720" />
+            <span class="fv-embed-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        {soundcloudTracks.map((track, i) => (
+          <div class="fv-embed-item fv-embed-item-audio">
+            <button
+              type="button"
+              class="fv-embed-facade"
+              data-embed-type="audio"
+              data-embed-src={track.embedSrc}
+              data-embed-title={track.title}
+              aria-label={`Play track: ${track.title}`}
+            >
+              {soundcloudThumbs[i] && <img src={soundcloudThumbs[i]!} alt="" loading="lazy" width="500" height="500" />}
+              <span class="fv-embed-play" aria-hidden="true"></span>
+            </button>
+          </div>
+        ))}
+      </div>
       <p>
         MAYA's work extends beyond clubs, radios and festivals, into carefully selected
         audiovisual projects and cultural settings worldwide. Alongside her club and festival
@@ -343,33 +378,6 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
         events, and brand-driven environments, adapting her musical language to context
         without compromising identity.
       </p>
-      <div class="fv-embed-frame fv-embed-video">
-        <button
-          type="button"
-          class="fv-embed-facade"
-          data-embed-type="video"
-          data-embed-src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1`}
-          data-embed-title="Maya Fourteen, video set"
-          aria-label="Play video: Maya Fourteen, video set"
-        >
-          <img src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`} alt="" loading="lazy" width="1280" height="720" />
-          <span class="fv-embed-play" aria-hidden="true"></span>
-        </button>
-      </div>
-      {soundcloudTracks.map((track, i) => (
-        <button
-          type="button"
-          class="fv-embed-facade fv-embed-facade-audio"
-          data-embed-type="audio"
-          data-embed-src={track.embedSrc}
-          data-embed-title={track.title}
-          data-embed-height="400"
-          aria-label={`Play track: ${track.title}`}
-        >
-          {soundcloudThumbs[i] && <img src={soundcloudThumbs[i]!} alt="" loading="lazy" width="500" height="500" />}
-          <span class="fv-embed-play" aria-hidden="true"></span>
-        </button>
-      ))}
     </section>
 
     <!-- PRESS ASSETS -->
@@ -456,6 +464,10 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     // Click-to-load facades (Sound & Atmosphere): the real YouTube/
     // SoundCloud iframe is only created once a visitor actually clicks —
     // keeps third-party embed JS out of the initial page load entirely.
+    // The parent .fv-embed-item starts as a small grid tile (see CSS) and
+    // gets .fv-embed-item--expanded on click so the injected iframe has
+    // room to actually be usable (16:9 for video, a fixed height for
+    // audio) instead of playing inside a tiny thumbnail.
     document.querySelectorAll<HTMLButtonElement>('.fv-embed-facade').forEach((btn) => {
       btn.addEventListener('click', () => {
         const src = btn.dataset.embedSrc;
@@ -463,16 +475,15 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
         const iframe = document.createElement('iframe');
         iframe.src = src;
         iframe.title = btn.dataset.embedTitle ?? '';
+        iframe.className = 'fv-embed-injected';
         if (btn.dataset.embedType === 'video') {
           iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
           iframe.allowFullscreen = true;
-          iframe.className = 'fv-embed-injected fv-embed-injected-video';
         } else {
           iframe.allow = 'autoplay';
           iframe.scrolling = 'no';
-          iframe.height = btn.dataset.embedHeight ?? '400';
-          iframe.className = 'fv-embed-injected fv-embed-injected-audio';
         }
+        btn.closest('.fv-embed-item')?.classList.add('fv-embed-item--expanded');
         btn.replaceWith(iframe);
       });
     });
@@ -893,59 +904,62 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     font-weight: 300;
   }
 
-  /* SOUND & ATMOSPHERE: rounded containers for both the pre-click facade
-     and the real iframe once injected (see the click-to-load script) —
-     same radius/overflow treatment either way, so there's no visible
-     shift in shape when the embed loads in. */
-  .fv-embed-frame {
+  /* SOUND & ATMOSPHERE: round 2 — three equal small tiles in a row
+     (matching the Gamma reference's own layout) instead of three stacked
+     full-width embeds. Each .fv-embed-item is a small square by default;
+     clicking its facade swaps in the real iframe and adds
+     .fv-embed-item--expanded so the now-playing embed gets a usable size
+     (16:9 video / fixed-height audio) instead of being stuck in a tiny
+     tile — see the click-to-load script. */
+  .fv-embed-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .fv-embed-item {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 1 / 1;
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 20px;
+    background: #141414;
+  }
+
+  .fv-embed-item--expanded {
+    grid-column: 1 / -1;
+  }
+
+  .fv-embed-item--expanded.fv-embed-item-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  .fv-embed-item--expanded.fv-embed-item-audio {
+    aspect-ratio: auto;
+    height: 400px;
   }
 
   .fv-embed-injected {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
     border: none;
   }
 
-  .fv-embed-injected-video {
+  .fv-embed-facade {
     position: absolute;
     inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
-  }
-
-  .fv-embed-injected-audio {
-    width: 100%;
-    display: block;
-    border-radius: 12px;
-    margin-bottom: 20px;
-  }
-
-  .fv-embed-facade {
-    position: relative;
-    display: block;
-    width: 100%;
     border: none;
     padding: 0;
     margin: 0;
     cursor: pointer;
-    background: #141414;
+    background: transparent;
     overflow: hidden;
-  }
-
-  .fv-embed-video .fv-embed-facade {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-  }
-
-  .fv-embed-facade-audio {
-    height: 400px;
-    border-radius: 12px;
-    margin-bottom: 20px;
   }
 
   .fv-embed-facade img {
@@ -960,8 +974,8 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 68px;
-    height: 68px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -976,9 +990,9 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 12px 0 12px 20px;
+    border-width: 9px 0 9px 15px;
     border-color: transparent transparent transparent #fff;
-    margin-left: 4px;
+    margin-left: 3px;
     transition: border-color 0.3s ease;
   }
 
@@ -1280,6 +1294,10 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
   @media (max-width: 560px) {
     .fv-photo-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fv-embed-row {
+      grid-template-columns: 1fr;
     }
   }
 </style>
