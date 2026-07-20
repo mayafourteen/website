@@ -446,9 +446,9 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
 
     <!-- BOOKING & MANAGEMENT: left-aligned contact block inside a subtle
          inner card, plain inline links (email white, WhatsApp orange) not
-         buttons, beepd logo centered in its own footer strip — matches
-         the Gamma reference's actual structure, which is flatter than a
-         button-CTA pattern. -->
+         buttons — matches the Gamma reference's actual structure, which is
+         flatter than a button-CTA pattern. The beepd logo footer strip
+         (round 1) was removed in round 2 per client request. -->
     <section class="fv-section fv-booking fade-item">
       <h2>Booking &amp; Management</h2>
       <div class="fv-booking-card">
@@ -468,9 +468,6 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
             programming, and brand collaborations. Club and festival bookings considered on a
             case-by-case basis. Full professional technical rider available upon request.
           </p>
-        </div>
-        <div class="fv-booking-footer">
-          <img src="/images/fashion/beepd-logo.svg" alt="beepd | MUSIC" width="106" height="27" />
         </div>
       </div>
     </section>
@@ -1149,9 +1146,9 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
   }
 
   /* BOOKING: left-aligned inner card (subtly lighter than the outer
-     section fill), plain inline contact links rather than pill buttons,
-     a footer strip with the beepd logo — matches the reference's actual
-     structure, which is flatter than a button-CTA pattern. */
+     section fill), plain inline contact links rather than pill buttons —
+     matches the reference's actual structure, which is flatter than a
+     button-CTA pattern. */
   .fv-booking-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1209,22 +1206,6 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     font-size: 0.85rem !important;
     color: rgba(255, 255, 255, 0.55) !important;
     margin-top: 16px !important;
-  }
-
-  .fv-booking-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 16px 30px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.02);
-  }
-
-  .fv-booking-footer img {
-    display: block;
-    height: 22px;
-    width: auto;
   }
 
   /* MOBILE */
