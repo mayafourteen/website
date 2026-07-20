@@ -46,13 +46,16 @@ import { images } from '../data/v3/images.js';
 // (including LinkedIn, which isn't part of the site's standard five-icon
 // row) is specific to the brief for this page only — adding LinkedIn to
 // the shared file would silently grow every other page's Discover/nav row.
-// `color` values are sampled directly from the Gamma reference (badge
-// border + label color per platform), not invented.
+// Round 2: dropped the per-platform `color` field along with the colored
+// badges themselves (see .fv-discover-icon) — the row is monochrome now,
+// so there's nothing left to key a brand color off of. The Website entry
+// (globe icon, mayafourteen.com) isn't a Font Awesome brand icon so it's
+// rendered separately, ahead of this mapped list — see the markup below.
 const fashionDiscoverLinks = [
-  { href: 'https://www.instagram.com/mayafourteen/', title: 'Instagram', type: 'fa', name: 'instagram', color: '#B05EF1' },
-  { href: 'https://www.youtube.com/@MayaFourteen', title: 'YouTube', type: 'fa', name: 'youtube', color: '#F44444' },
-  { href: 'https://soundcloud.com/MayaFourteen', title: 'SoundCloud', type: 'fa', name: 'soundcloud', color: '#FFA44F' },
-  { href: 'https://www.linkedin.com/in/mayafourteen/', title: 'LinkedIn', type: 'fa', name: 'linkedin', color: '#5E98F1' },
+  { href: 'https://www.instagram.com/mayafourteen/', title: 'Instagram', name: 'instagram' },
+  { href: 'https://www.youtube.com/@MayaFourteen', title: 'YouTube', name: 'youtube' },
+  { href: 'https://soundcloud.com/MayaFourteen', title: 'SoundCloud', name: 'soundcloud' },
+  { href: 'https://www.linkedin.com/in/mayafourteen/', title: 'LinkedIn', name: 'linkedin' },
 ];
 
 const appearances = [
@@ -396,16 +399,33 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
       </div>
     </section>
 
-    <!-- DISCOVER MAYA: horizontal line with each platform's icon in a
-         rounded-square badge sitting on it, a short drop line, and a
-         brand-colored label beneath — matches the Gamma reference's
-         structure exactly. Per-link accent color is a CSS custom property
-         set inline (one value per link, cheaper than four near-duplicate
-         CSS rules). -->
+    <!-- DISCOVER MAYA: round 2 — dropped the colored rounded-square badges
+         (those only existed to mimic the Gamma reference) for a plain,
+         monochrome icon row: no boxes, no per-platform brand colors, just
+         icon + label, matching the rest of this page's minimal aesthetic.
+         Website is first (globe icon, inline SVG so it doesn't need a new
+         icon-font style loaded — see the file header's "no new
+         dependencies" note), then Instagram, YouTube, SoundCloud, LinkedIn. -->
     <section class="fv-section fv-discover fade-item">
       <h2>Discover MAYA</h2>
       <div class="fv-discover-row">
-        <div class="fv-discover-line" aria-hidden="true"></div>
+        <a
+          class="fv-discover-item"
+          href="https://mayafourteen.com"
+          target="_blank"
+          rel="noopener"
+          title="Website"
+          aria-label="Website (opens in a new tab)"
+        >
+          <span class="fv-discover-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18" />
+              <path d="M12 3c2.5 2.7 4 5.9 4 9s-1.5 6.3-4 9c-2.5-2.7-4-5.9-4-9s1.5-6.3 4-9z" />
+            </svg>
+          </span>
+          <span class="fv-discover-label">Website</span>
+        </a>
         {fashionDiscoverLinks.map((link) => (
           <a
             class="fv-discover-item"
@@ -414,12 +434,10 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
             rel="noopener"
             title={link.title}
             aria-label={`${link.title} (opens in a new tab)`}
-            style={`--brand-color: ${link.color}`}
           >
-            <span class="fv-discover-badge">
+            <span class="fv-discover-icon" aria-hidden="true">
               <i class={`fa-brands fa-${link.name}`} aria-hidden="true"></i>
             </span>
-            <span class="fv-discover-drop" aria-hidden="true"></span>
             <span class="fv-discover-label">{link.title}</span>
           </a>
         ))}
@@ -626,14 +644,13 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     gap: 56px;
   }
 
-  /* Accent: Gamma's exact orange, sampled from the reference (badge
-     border/label color for Instagram/YouTube/SoundCloud/LinkedIn is its
-     own separate --brand-color per link, set inline — see .fv-discover
-     below). Applied where Gamma applies it: the EPK eyebrow tag, the
-     Artist Profile / Award-Winning Artist headings (.fv-heading-accent),
-     the appearance-card labels, the Sound & Atmosphere instruction line,
-     the WhatsApp link, and the buttons. Every other section heading stays
-     white, matching the reference's own per-section mix. */
+  /* Accent: Gamma's exact orange, sampled from the reference. Applied
+     where Gamma applies it: the EPK eyebrow tag, the Artist Profile /
+     Award-Winning Artist headings (.fv-heading-accent), the
+     appearance-card labels, the Sound & Atmosphere instruction line, the
+     WhatsApp link, the buttons, and (round 2) the Discover row's hover
+     state. Every other section heading stays white, matching the
+     reference's own per-section mix. */
   :global(.page-fashion-vibes) {
     --accent: #fc8337;
   }
@@ -1078,77 +1095,57 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     background: rgba(252, 131, 55, 0.12);
   }
 
-  /* DISCOVER: bespoke markup rather than the shared SocialNav component,
-     since this row needs a per-platform badge/line/label structure that
-     SocialNav has no slot for — deliberately not touching that shared
-     component just for one page's brief. Matches the reference: a
-     horizontal line with each icon in a rounded-square badge sitting on
-     it, a short drop line, and a brand-colored label beneath. Left-
-     aligned heading, matching the reference (every other .fv-section h2
-     is already left-aligned by default — this rule just removes the
-     centering this section previously had). --brand-color is set inline
-     per link (see the markup) so one set of rules covers all four. */
+  /* DISCOVER: round 2 — dropped the colored badge/line/drop structure for
+     a plain, monochrome icon + label row (bespoke markup, not the shared
+     SocialNav component, since it still carries the Website entry that
+     isn't part of the site's standard five-icon set — see the file header
+     note on fashionDiscoverLinks). Left-aligned heading, matching every
+     other .fv-section h2 on this page. */
   .fv-discover-row {
-    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-    row-gap: 28px;
-  }
-
-  .fv-discover-line {
-    position: absolute;
-    top: 22px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.25);
+    gap: 40px;
   }
 
   .fv-discover-item {
-    position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
     text-decoration: none;
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.3s ease, transform 0.3s ease;
   }
 
-  .fv-discover-badge {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: #030303;
-    border: 2px solid var(--brand-color);
-    color: #fff;
-    font-size: 1.15rem;
+  .fv-discover-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 26px;
+    height: 26px;
+    font-size: 1.35rem;
   }
 
-  .fv-discover-drop {
-    width: 1px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.3);
-    margin: 2px 0;
+  .fv-discover-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
   .fv-discover-label {
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.02em;
-    text-decoration: underline;
-    color: var(--brand-color);
+    font-weight: 400;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: inherit;
     white-space: nowrap;
   }
 
-  .fv-discover-item:hover .fv-discover-badge,
-  .fv-discover-item:focus-visible .fv-discover-badge {
+  .fv-discover-item:hover,
+  .fv-discover-item:focus-visible {
+    color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 0 14px var(--brand-color);
   }
 
   /* BOOKING: left-aligned inner card (subtly lighter than the outer
@@ -1281,20 +1278,17 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
 
     .fv-discover-row {
       justify-content: space-around;
-      column-gap: 16px;
+      gap: 24px;
     }
 
-    .fv-discover-line {
-      display: none;
-    }
-
-    .fv-discover-badge {
-      width: 40px;
-      height: 40px;
+    .fv-discover-icon {
+      width: 22px;
+      height: 22px;
+      font-size: 1.15rem;
     }
 
     .fv-discover-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
     }
   }
 
