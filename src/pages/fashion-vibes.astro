@@ -383,13 +383,13 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     <!-- PRESS ASSETS -->
     <section class="fv-section fade-item">
       <h2>Press Assets</h2>
-      <p>High-resolution images available for promotional use. All photos copyright protected.</p>
       <div class="fv-photo-grid">
         <div class="fv-photo-frame"><img src={images.fashionPress1.src} width={images.fashionPress1.width} height={images.fashionPress1.height} alt="Maya Fourteen, editorial portrait in a black textured outfit" loading="lazy" /></div>
         <div class="fv-photo-frame"><img src={images.fashionPress2.src} width={images.fashionPress2.width} height={images.fashionPress2.height} alt="Maya Fourteen, portrait seated on rustic wooden steps" loading="lazy" /></div>
         <div class="fv-photo-frame"><img src={images.fashionPress3.src} width={images.fashionPress3.width} height={images.fashionPress3.height} alt="Maya Fourteen, portrait against a corrugated metal wall" loading="lazy" /></div>
         <div class="fv-photo-frame"><img src={images.fashionPress4.src} width={images.fashionPress4.width} height={images.fashionPress4.height} alt="Maya Fourteen, portrait in the desert at golden hour" loading="lazy" /></div>
       </div>
+      <p>High-resolution images available for promotional use. All photos copyright protected.</p>
       <div class="fv-download-actions">
         <a class="cta-button cta-button-solid" href="https://drive.google.com/open?id=1Y0dyWs18uc7w8QbKFj_pbmrpeX81bu_j" target="_blank" rel="noopener">Download Press Kit</a>
         <a class="cta-button cta-button-outline" href="https://drive.google.com/open?id=1XacZsWwys1ieA5C3hLZzSoFWPFS_yh2z" target="_blank" rel="noopener">Download Full Artist EPK</a>
@@ -1030,10 +1030,13 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     object-fit: cover;
   }
 
+  /* Left-aligned on desktop per round 2 review; centered again on mobile
+     (see the 860px query below), where a left-aligned pair reads as
+     accidentally off-center rather than intentional. */
   .fv-download-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 16px;
     margin-top: 24px;
   }
@@ -1270,6 +1273,10 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
 
     .fv-appearance-text {
       padding-top: 10px;
+    }
+
+    .fv-download-actions {
+      justify-content: center;
     }
 
     .fv-discover-row {
