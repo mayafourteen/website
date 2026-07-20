@@ -184,8 +184,9 @@ const mediaSpotlightItems = [
           <a class="epk-inline-link" href="https://www.instagram.com/petetongofficial/" target="_blank" rel="noopener">Pete Tong</a></strong>, and recipient of the <strong><a class="epk-inline-link" href="https://www.instagram.com/nicolemoudaber/" target="_blank" rel="noopener">Nicole Moudaber</a> Talent Highlight Prize</strong>, a personal distinction from one of the most respected voices in the industry.
         </p>
         <p>
-          At the Ibiza Summit, she was selected among thousands of artists worldwide, in a
-          process curated by labels such as Defected, Solid Grooves and Systematic.
+          At the MixMasters Ibiza Summit 2023, she was selected among thousands of artists worldwide, in a
+          process curated by labels such as <a class="epk-inline-link" href="https://www.instagram.com/defectedrecords/" target="_blank" rel="noopener">Defected</a>, <a class="epk-inline-link" href="https://www.instagram.com/solidgroovesuk/" target="_blank" rel="noopener">Solid Grooves</a> and <a class="epk-inline-link" href="https://www.instagram.com/systematicrecordings/" target="_blank" rel="noopener">Systematic</a>.
+          It was there that <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a> first heard her work, the encounter that would lead to her debut on Systematic Recordings.
         </p>
       </div>
     </section>
@@ -270,14 +271,14 @@ const mediaSpotlightItems = [
           artists to watch in 2026, featured alongside <a class="epk-inline-link" href="https://www.instagram.com/mazmusic/" target="_blank" rel="noopener">Maz</a>, <a class="epk-inline-link" href="https://www.instagram.com/beltran/" target="_blank" rel="noopener">Beltran</a>, <a class="epk-inline-link" href="https://www.instagram.com/brunoantdot/" target="_blank" rel="noopener">Antdot</a>, and <a class="epk-inline-link" href="https://www.instagram.com/djalinerocha/" target="_blank" rel="noopener">Aline
           Rocha</a>. The selection reflects growing international attention around her
           work and positioning within today's global electronic music landscape. She
-          also recorded an exclusive one-hour set for <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen/maya-ocho-siriusxm" target="_blank" rel="noopener">OCHO by Gray Area</a>, aired on SiriusXM's Diplo's Revolution.
+          was invited to record an exclusive set for <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen/maya-ocho-siriusxm" target="_blank" rel="noopener">OCHO by Gray Area</a>, aired on SiriusXM's Diplo's Revolution.
         </p>
       </div>
     </section>
 
     <!-- DISCOGRAPHY -->
     <section class="epk-section">
-      <div class="epk-stages-layout">
+      <div class="epk-stages-layout epk-worldstages">
         <img
           class="epk-stages-image"
           src={images.epkDiscography.src}
@@ -314,12 +315,11 @@ const mediaSpotlightItems = [
               </div>
               <div class="epk-label-card">
                 <h3><a class="epk-inline-link" href="https://www.instagram.com/dioscurirecords/" target="_blank" rel="noopener">Dioscuri Records</a> 🇮🇹</h3>
-                <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/costaxmusic/" target="_blank" rel="noopener">Costax</a>'s imprint, born in Italy, tuned in the UK</p>
+                <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/costaxmusic/" target="_blank" rel="noopener">Costax</a>'s imprint, born in Italy, raised in the UK</p>
                 <p>
                   MAYA's remix debut: her official remix for <a class="epk-inline-link" href="https://www.instagram.com/costaxmusic/" target="_blank" rel="noopener">Costax</a>'s track 'Stay', released
                   alongside additional remixes, including one by legendary <a class="epk-inline-link" href="https://www.instagram.com/timo.maas/" target="_blank" rel="noopener">Timo Maas</a>.
                 </p>
-                <p>Released on the Italian label of the duo Dioscuri.</p>
               </div>
             </div>
           </div>
@@ -594,15 +594,16 @@ const mediaSpotlightItems = [
     border-radius: 3px;
   }
 
-  /* Desktop-only: makes the World Stages photo match the full height of
-     the cards column exactly (top of photo = top of first card row,
-     bottom of photo = bottom of the tour card), instead of the shared
-     .epk-stages-layout's default align-items:start + capped max-height
-     (used by Discography too, which stays untouched — hence the extra
-     .epk-worldstages scope rather than changing the shared rule).
-     min-width guards against this ever firing at the mobile breakpoint
-     below, where .epk-stages-layout collapses to a single column and the
-     stacked behavior must stay exactly as it was. */
+  /* Desktop-only: makes the World Stages/Discography photo match the full
+     height of its text column exactly (top of photo = top of the column,
+     bottom of photo = bottom of the last card) instead of the shared
+     .epk-stages-layout's default align-items:start + capped max-height.
+     Both sections now carry .epk-worldstages (name is a holdover from
+     when only World Stages used it) rather than changing the shared rule,
+     which nothing else on this page needs stretched. min-width guards
+     against this ever firing at the mobile breakpoint below, where
+     .epk-stages-layout collapses to a single column and the stacked
+     behavior must stay exactly as it was. */
   @media (min-width: 769px) {
     .epk-stages-layout.epk-worldstages {
       align-items: stretch;
