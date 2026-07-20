@@ -302,15 +302,20 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
       </div>
     </section>
 
-    <!-- MEDIA SPOTLIGHT -->
-    <section class="fv-section fv-media fade-item">
-      <div class="fv-media-frame">
+    <!-- MEDIA SPOTLIGHT: the Sync Beat cover + spread is a native horizontal
+         image (1080x675, see fashionOceanus2 in images.js) — the default
+         .fv-media-frame's forced 3:4 portrait crop was destroying it, so
+         this uses the natural-ratio modifier (full image, no crop) inside a
+         widened column (see .fv-media--wide below) so it doesn't render as
+         a tiny sliver beside the text. -->
+    <section class="fv-section fv-media fv-media--wide fade-item">
+      <div class="fv-media-frame fv-media-frame--natural" style={`aspect-ratio: ${images.fashionOceanus2.width} / ${images.fashionOceanus2.height};`}>
         <img
-          class="fv-media-image"
+          class="fv-media-image fv-media-image--natural"
           src={images.fashionOceanus2.src}
           width={images.fashionOceanus2.width}
           height={images.fashionOceanus2.height}
-          alt="Maya Fourteen, OCEANUS runway soundtrack curation"
+          alt="Maya Fourteen on the cover of Sync Beat Magazine"
           loading="lazy"
         />
       </div>
@@ -797,6 +802,13 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
 
   .fv-media-image--natural {
     object-fit: contain;
+  }
+
+  /* Media Spotlight's cover is landscape, not the shared 3:4 portrait
+     column width — widened so it doesn't render as a thin sliver next to
+     the text. */
+  .fv-media--wide {
+    grid-template-columns: 440px 1fr;
   }
 
   .fv-media .fv-inline-link {
