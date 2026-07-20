@@ -161,10 +161,10 @@ export const images = {
   fashionAward: { src: '/images/fashion/fashion-award.jpg', width: 1024, height: 1536 },
   fashionF1: { src: '/images/fashion/fashion-f1.jpg', width: 600, height: 600 },
   fashionFilm: { src: '/images/fashion/fashion-film.jpg', width: 1200, height: 1200 },
-  // Replaced 2026-07-19 with a real W Budapest live-performance photo
-  // (pre-cropped 3:4 by the source), swapped in for the original Bali
-  // destination-set placeholder shot.
-  fashionHospitality: { src: '/images/fashion/fashion-hospitality.jpg', width: 1200, height: 1600 },
+  // Reverted 2026-07-19 (round 2 review): the W Budapest swap above was
+  // rolled back per client feedback, back to the original Bali
+  // destination-set portrait.
+  fashionHospitality: { src: '/images/fashion/fashion-hospitality.jpg', width: 625, height: 625 },
   fashionBrand: { src: '/images/fashion/fashion-brand.jpg', width: 600, height: 600 },
   fashionOceanus1: { src: '/images/fashion/fashion-oceanus-1.jpg', width: 1080, height: 1080 },
   fashionOceanus2: { src: '/images/fashion/fashion-oceanus-2.jpg', width: 1080, height: 675 },
