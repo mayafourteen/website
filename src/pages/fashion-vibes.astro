@@ -19,13 +19,24 @@
 // Visual direction (2026-07-19, explicit instruction): closely matches the
 // Gamma reference's own layout and colors section-by-section — orange
 // accent (--accent, sampled from the reference), card fill/border/radius,
-// two-column hero, per-section heading colors, the Discover row's
-// badge/line/brand-color pattern, and the Booking section's flatter
-// inline-link structure. The one deliberate exception is typography: this
-// page keeps the site's serif (Cormorant Garamond), never Gamma's sans.
-// This supersedes an earlier pass that used the homepage's gold accent and
-// kept everything monochrome — don't revert to that without a new
-// explicit instruction.
+// two-column hero, per-section heading colors, and the Booking section's
+// flatter inline-link structure. The one deliberate exception is
+// typography: this page keeps the site's serif (Cormorant Garamond), never
+// Gamma's sans. This supersedes an earlier pass that used the homepage's
+// gold accent and kept everything monochrome — don't revert to that
+// without a new explicit instruction.
+//
+// Round 2 (2026-07-19, side-by-side review vs. the Gamma reference):
+// lighter/more translucent glass cards so the starfield stays visible
+// while scrolling; no forced crops on artwork/covers (OCEANUS, the Sync
+// Beat magazine spread — see .fv-media-frame--natural); larger hero
+// portrait; Luxury Hospitality reverted to the original Bali portrait +
+// copy; Sound & Atmosphere restructured to three small clickable tiles in
+// a row (matching the Gamma reference) with the descriptive paragraph
+// below instead of above; Press Assets paragraph moved below the photo
+// grid and its buttons left-aligned on desktop; Discover MAYA's colored
+// badge/line/brand-color pattern dropped for a plain monochrome icon row
+// (also gained a Website entry, first); beepd logo removed from Booking.
 import V3BaseLayout from '../layouts/V3BaseLayout.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import TextFooter from '../components/v3/TextFooter.astro';
@@ -667,16 +678,19 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     object-fit: contain;
   }
 
-  /* SECTION SHELL: fill, border and radius sampled directly from the
-     Gamma reference's own card (rgba(3,3,3,0.75) fill, a 2px-equivalent
-     mid-grey border, ~22px radius, measured at this same 1440px width) —
-     translucent enough that the fixed starfield stays faintly visible
-     through and between cards while scrolling, without reading as a flat
-     rectangle. */
+  /* SECTION SHELL: round 2 (2026-07-19) lowered the fill to rgba(10,10,12,0.4)
+     with a lighter blur, per direct client feedback that the previous
+     0.75-opacity fill read as near-opaque black and hid the starfield while
+     scrolling — the whole point of the fixed starfield layer above. Border
+     and radius unchanged. Contrast check: the underlying starfield is #050506
+     with only sparse 1-2px star points, so blending 40% of a near-black
+     overlay over it keeps effective background luminance low almost
+     everywhere; body copy (rgba(255,255,255,0.8) on this) and the orange
+     accent both clear WCAG AA (4.5:1) against that dark blend. */
   .fv-section {
-    background: rgba(3, 3, 3, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(10, 10, 12, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(78, 78, 78, 0.6);
     border-radius: 22px;
     padding: 44px;
