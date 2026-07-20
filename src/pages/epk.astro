@@ -289,31 +289,38 @@ const mediaSpotlightItems = [
         />
         <div class="epk-stage-cards">
           <h2 class="epk-discography-title">Discography</h2>
-          <div class="epk-label-card">
-            <h3><a class="epk-inline-link" href="https://www.systematic-recordings.com/" target="_blank" rel="noopener">Systematic Recordings</a> 🇩🇪</h3>
-            <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a>'s 20YRS label</p>
-            <p>
-              <a class="epk-inline-link" href="https://www.beatport.com/track/uniqueness-feat-francesca/19198825" target="_blank" rel="noopener">'Uniqueness'</a> feat. Francesca Posgai: &ldquo;(&hellip;) A throwback to the
-              golden era of House timeless vibes in the spirit of Mood II Swing
-              (&hellip;)&rdquo;, <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a> on Maya Fourteen's "Uniqueness".
-            </p>
-            <p class="epk-label-tag">TOP 10 Beatport, peaked at #8</p>
-          </div>
-          <div class="epk-label-card">
-            <h3><a class="epk-inline-link" href="https://vivamusicltd.com/" target="_blank" rel="noopener">VIVa MUSiC</a> 🇬🇧</h3>
-            <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/djstevelawler/" target="_blank" rel="noopener">Steve Lawler</a>'s esteemed imprint</p>
-            <p>
-              'Feel Better' EP, a two-track collaboration with <a class="epk-inline-link" href="https://www.instagram.com/mario_f_franca/" target="_blank" rel="noopener">Mario Franca</a>
-              (Bedrock | Selador) showcasing MAYA's versatility, moving from
-              dream-like Deep House to a deeper, more driving Deep Tech edge.
-            </p>
-          </div>
-          <div class="epk-label-card">
-            <h3>Dioscuri Records 🇮🇹</h3>
-            <p>
-              MAYA's official remix for Costax's track 'Stay', released alongside
-              additional remixes, including one by legendary <a class="epk-inline-link" href="https://www.instagram.com/timo.maas/" target="_blank" rel="noopener">Timo Maas</a>.
-            </p>
+          <div class="epk-discography-layout">
+            <div class="epk-label-card">
+              <h3><a class="epk-inline-link" href="https://www.systematic-recordings.com/" target="_blank" rel="noopener">Systematic Recordings</a> 🇩🇪</h3>
+              <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a>'s iconic label</p>
+              <p>
+                MAYA's debut single <a class="epk-inline-link" href="https://www.beatport.com/track/uniqueness-feat-francesca/19198825" target="_blank" rel="noopener">'Uniqueness'</a>, featuring spoken word vocals by Francesca Posgai, was handpicked by <a class="epk-inline-link" href="https://www.instagram.com/marcromboy/" target="_blank" rel="noopener">Marc Romboy</a> for the 20th anniversary album of Systematic Recordings, released alongside Carl Cox, Timo Maas, Josh Wink, Rodriguez Jr. and Gui Boratto.
+              </p>
+              <p>
+                Romboy first heard the track at the Ibiza Summit and instantly fell in love with its distinctive sound and empowering energy: &ldquo;It's a throwback to the golden era of House, evoking timeless vibes akin to Mood II Swing.&rdquo;
+              </p>
+              <p class="epk-label-tag">TOP 10 Beatport, peaked at #8</p>
+            </div>
+            <div class="epk-discography-side">
+              <div class="epk-label-card">
+                <h3><a class="epk-inline-link" href="https://vivamusicltd.com/" target="_blank" rel="noopener">VIVa MUSiC</a> 🇬🇧</h3>
+                <p class="epk-label-sub"><a class="epk-inline-link" href="https://www.instagram.com/djstevelawler/" target="_blank" rel="noopener">Steve Lawler</a>'s esteemed imprint</p>
+                <p>
+                  'Feel Better' EP, a two-track collaboration with <a class="epk-inline-link" href="https://www.instagram.com/mario_f_franca/" target="_blank" rel="noopener">Mario Franca</a>
+                  (Bedrock | Selador) showcasing MAYA's versatility, moving from
+                  dream-like Deep House to a deeper, more driving Deep Tech edge.
+                </p>
+              </div>
+              <div class="epk-label-card">
+                <h3>Dioscuri Records 🇮🇹</h3>
+                <p class="epk-label-sub">Costax's imprint, born in Italy, tuned in the UK</p>
+                <p>
+                  MAYA's remix debut: her official remix for Costax's track 'Stay', released
+                  alongside additional remixes, including one by legendary <a class="epk-inline-link" href="https://www.instagram.com/timo.maas/" target="_blank" rel="noopener">Timo Maas</a>.
+                </p>
+                <p>Released on the Italian label of the duo Dioscuri.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -619,12 +626,46 @@ const mediaSpotlightItems = [
     margin: 0;
   }
 
+  /* DISCOGRAPHY LAYOUT: Systematic occupies the full left column; VIVa and
+     Dioscuri stack in the right column. Scoped to its own class (not the
+     shared .epk-stage-cards grid also used by World Stages above) and set
+     to span that grid's full width via grid-column: 1 / -1. Systematic's
+     card automatically matches the combined height of the right column
+     for free: grid items default to align-items: stretch, so the one grid
+     row here is sized to the taller of the two columns (Systematic vs. the
+     VIVa+Dioscuri stack) and both columns stretch to fill it. */
+  .epk-discography-layout {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .epk-discography-side {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .epk-stage-card,
   .epk-label-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 3px;
     padding: 20px;
+  }
+
+  /* Flex column so the Beatport badge (.epk-label-tag, its last child) can
+     anchor to the bottom via margin-top: auto — matters once
+     .epk-discography-layout's grid stretches this card taller than its own
+     content (to match the combined VIVa+Dioscuri column height), which
+     would otherwise leave the badge stranded right under the last
+     paragraph with empty space below it. Applies to every .epk-label-card,
+     not just Systematic's, but is a no-op for the other two (no
+     margin-top: auto child), so it's safe to share. */
+  .epk-label-card {
+    display: flex;
+    flex-direction: column;
   }
 
   .epk-stage-card.epk-stage-tour {
@@ -664,14 +705,22 @@ const mediaSpotlightItems = [
      blended to a 1.35:1 contrast ratio, functionally invisible. Confirmed
      via Lighthouse's accessibility audit, not a design change: this
      restores the badge's originally-intended readable black text. */
+  /* margin-top: auto anchors the badge to the bottom of the now-flex
+     .epk-label-card (see above); !important for the same reason color
+     needs it above, the shared .epk-label-card p { margin: 0 } rule is a
+     higher-specificity selector and would otherwise silently win. Slightly
+     smaller than before (padding/font-size trimmed a touch) so it reads as
+     an integrated detail at the foot of the card rather than a bulky
+     standalone element. */
   .epk-label-tag {
     display: inline-block;
+    margin-top: auto !important;
     background: #f4d03f;
     color: #000 !important;
     font-weight: 500;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     letter-spacing: 0.05em;
-    padding: 4px 10px;
+    padding: 3px 9px;
     border-radius: 2px;
   }
 
@@ -964,6 +1013,13 @@ const mediaSpotlightItems = [
     }
 
     .epk-stage-cards {
+      grid-template-columns: 1fr;
+    }
+
+    /* Stacks Systematic, VIVa, Dioscuri in that order — DOM order already
+       matches (Systematic first, then the VIVa/Dioscuri wrapper), so
+       collapsing both grids to one column is all that's needed. */
+    .epk-discography-layout {
       grid-template-columns: 1fr;
     }
 
