@@ -681,21 +681,26 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
   }
 
   /* Bold per round 2 client review (provisional — may be reverted on the
-     next pass). */
+     next pass). !important on font-weight/color: both are <p> tags inside
+     .fv-section, and the shared `.fv-section p` rule (font-weight: 200,
+     white-ish color) is a higher-specificity selector once Astro's scoping
+     attribute is factored in, so it silently wins over a plain
+     .fv-tagline/.fv-eyebrow rule without !important — same reason
+     .fv-instruction below needs it for the same shared-rule conflict. */
   .fv-tagline {
     font-size: clamp(1.05rem, 2vw, 1.3rem);
-    font-weight: 700;
+    font-weight: 700 !important;
     font-style: italic;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.75) !important;
     margin: 0 0 16px 0;
   }
 
   .fv-eyebrow {
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 700 !important;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent) !important;
     margin: 0;
   }
 
