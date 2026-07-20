@@ -625,9 +625,13 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
   /* HERO: two columns inside the same card shell as every other section
      (see .fv-section) — portrait left, wordmark/tagline/eyebrow right,
      matching the Gamma reference's layout exactly. */
+  /* Portrait column widened ~22% (round 2, client review vs. the Gamma
+     reference) — the wordmark column stays 1fr/untouched, so the row's
+     height (align-items: center) simply grows to fit the now-larger
+     square portrait; no fixed card height to maintain elsewhere. */
   .fv-hero {
     display: grid;
-    grid-template-columns: minmax(220px, 380px) 1fr;
+    grid-template-columns: minmax(260px, 465px) 1fr;
     gap: 48px;
     align-items: center;
   }
@@ -646,9 +650,11 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     margin: 0 0 12px 0;
   }
 
+  /* Bold per round 2 client review (provisional — may be reverted on the
+     next pass). */
   .fv-tagline {
     font-size: clamp(1.05rem, 2vw, 1.3rem);
-    font-weight: 300;
+    font-weight: 700;
     font-style: italic;
     color: rgba(255, 255, 255, 0.75);
     margin: 0 0 16px 0;
@@ -656,6 +662,7 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
 
   .fv-eyebrow {
     font-size: 0.75rem;
+    font-weight: 700;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--accent);
@@ -1212,7 +1219,7 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     }
 
     .fv-hero-portrait-frame {
-      max-width: 240px;
+      max-width: 292px;
       margin: 0 auto;
     }
 
