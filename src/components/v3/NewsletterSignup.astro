@@ -104,6 +104,9 @@ const localeByLang: Record<string, string> = { en: 'en', pt: 'pt', es: 'es' };
             if (res.ok) {
               form.hidden = true;
               show('success');
+              if (typeof gtag === 'function') {
+                gtag('event', 'newsletter_signup', { method: 'website_form' });
+              }
             } else {
               show('error');
             }

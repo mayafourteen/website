@@ -164,6 +164,30 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
     gtag('config', 'G-3NGTH9664P');
   </script>
 
+  <!-- Conversion tracking: fires GA4 events for the outcomes that matter
+       (booking contact, listening, newsletter). Consent Mode gates whether
+       these actually reach GA, so nothing is sent until the visitor accepts.
+       A single delegated click listener classifies outbound links by href;
+       the newsletter component fires its own 'newsletter_signup' on success. -->
+  <script is:inline>
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a') : null;
+      if (!a || typeof gtag !== 'function') return;
+      var href = a.getAttribute('href') || '';
+      if (/^mailto:/i.test(href)) {
+        gtag('event', 'booking_email_click', { link_url: href });
+      } else if (/wa\.me|whatsapp/i.test(href)) {
+        gtag('event', 'booking_whatsapp_click', { link_url: href });
+      } else if (/youtube\.com|youtu\.be/i.test(href)) {
+        gtag('event', 'youtube_click', { link_url: href });
+      } else if (/soundcloud\.com/i.test(href)) {
+        gtag('event', 'soundcloud_click', { link_url: href });
+      } else if (/instagram\.com/i.test(href)) {
+        gtag('event', 'instagram_click', { link_url: href });
+      }
+    }, true);
+  </script>
+
   <slot name="head" />
 </head>
 <body class={bodyClass}>
