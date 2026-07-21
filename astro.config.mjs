@@ -48,7 +48,7 @@ export default defineConfig({
       // /fashion-vibes is an unlisted, noindex page shared privately with
       // fashion/luxury clients, reachable only by direct URL — it must
       // never appear in the sitemap either.
-      filter: (page) => !/^https?:\/\/[^/]+\/(legacy|v2-legacy|v2|fashion-vibes|404)(\/|$)/.test(page),
+      filter: (page) => !/^https?:\/\/[^/]+\/(legacy|v2-legacy|v2|fashion-vibes|404|subscribed)(\/|$)/.test(page),
       // Attaches xhtml:link hreflang alternates to every URL that belongs to
       // one of the groups above, so crawlers see the same language
       // relationships the pages themselves declare. Pages with no group
