@@ -840,7 +840,7 @@ const mediaSpotlightItems = [
   .epk-download-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 16px;
     margin: 20px 0 0;
   }
@@ -878,31 +878,61 @@ const mediaSpotlightItems = [
     transform: scale(1.06);
   }
 
-  /* DISCOVER */
-  .epk-discover {
-    text-align: center;
-  }
-
+  /* DISCOVER: left-aligned like every other section, so the whole page
+     keeps one shared left spine (the centered version broke the rhythm).
+     Icons run ~20% larger than SocialNav's defaults with wider spacing,
+     since here they're the section's entire content, not a footer row. */
   .epk-discover :global(.nav-links) {
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 44px;
     margin-bottom: 0;
     animation: none;
     opacity: 1;
   }
 
-  /* BOOKING: section heading centered to match .epk-discover above it —
-     the card itself was already text-align: center, this just extends
-     that to the h2 sitting outside the card. */
-  .epk-booking {
-    text-align: center;
+  .epk-discover :global(.social-svg) {
+    width: 2rem;
+    height: 2rem;
   }
 
+  .epk-discover :global(.brand-svg),
+  .epk-discover :global(.beepd-svg),
+  .epk-discover :global(.folder-svg) {
+    height: 35px;
+  }
+
+  .epk-discover :global(.ra-logo) {
+    height: 22px;
+  }
+
+  @media (max-width: 768px) {
+    .epk-discover :global(.nav-links) {
+      gap: 26px;
+    }
+
+    .epk-discover :global(.social-svg) {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    .epk-discover :global(.brand-svg),
+    .epk-discover :global(.beepd-svg),
+    .epk-discover :global(.folder-svg) {
+      height: 28px;
+    }
+
+    .epk-discover :global(.ra-logo) {
+      height: 19px;
+    }
+  }
+
+  /* BOOKING: left-aligned with the rest of the page, same reasoning as
+     .epk-discover above. */
   .epk-booking-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 3px;
     padding: 30px;
-    text-align: center;
   }
 
   .epk-booking-heading {
@@ -921,7 +951,7 @@ const mediaSpotlightItems = [
   .epk-booking-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 16px;
     margin: 20px 0;
   }
