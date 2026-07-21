@@ -14,18 +14,26 @@ const { src, alt, filtered = false } = Astro.props;
 // so no call site can drift out of sync with the actual files. This
 // component is always used as a full-viewport, position:fixed background —
 // i.e. always the page's hero/LCP element — so it's always eager with
-// fetchpriority="high" and sizes="100vw", never lazy.
+// fetchpriority="high", never lazy.
 const meta = findImageBySrc(src);
+
+// This is a full-bleed object-fit:cover background. On a portrait phone the
+// landscape photo is scaled up to cover the tall viewport, so its rendered
+// width is ~2-3x the viewport width — a plain "100vw" would make the browser
+// pick a variant far too small and the hero looks soft. On portrait screens
+// we ask for ~240vw so a large, crisp variant is chosen; landscape/desktop
+// keep 100vw.
+const HERO_SIZES = '(max-aspect-ratio: 1/1) 240vw, 100vw';
 ---
 
 <picture>
   {meta?.webpSrcset && (
-    <source type="image/webp" srcset={meta.webpSrcset} sizes="100vw" />
+    <source type="image/webp" srcset={meta.webpSrcset} sizes={HERO_SIZES} />
   )}
   <img
     src={src}
     srcset={meta?.srcset}
-    sizes={meta?.srcset ? '100vw' : undefined}
+    sizes={meta?.srcset ? HERO_SIZES : undefined}
     width={meta?.width}
     height={meta?.height}
     alt={alt}
