@@ -116,12 +116,13 @@ export const images = {
   // by the EPK pages' own World Stages section, left untouched). Single
   // file, no generated smaller variants.
   videoHeroGreenvalley: {
-    // Re-cropped 2026-07-21 v2 (Antonio): moderate 1.2x zoom from the
-    // original 1920x1080 — full figure head-to-toe with headroom, window
-    // sits lower (less crowd), dead right side and right fan removed.
+    // Re-cropped 2026-07-21 v3 (Antonio): gentle 1.09x zoom from the
+    // original 1920x1080 — full figure with generous margin, dead right
+    // side trimmed, slight top-crowd trim. (v1 1.43x was far too tight,
+    // v2 1.2x still read too close.)
     src: '/images/video-hero-greenvalley.webp',
-    width: 1600,
-    height: 900,
+    width: 1760,
+    height: 990,
     // Responsive variants (sharp, q58 — always rendered darkened+grayscale
     // as a filtered background, so aggressive compression is invisible).
     srcset: '/images/video-hero-greenvalley-640w.webp 640w, /images/video-hero-greenvalley-960w.webp 960w, /images/video-hero-greenvalley-1344w.webp 1344w',
