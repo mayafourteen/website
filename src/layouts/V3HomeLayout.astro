@@ -289,6 +289,9 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
   .logo-mark {
     display: block;
     margin: 0 auto 16px;
+    /* Soft white to match .slogan's rgba(255,255,255,0.85) voice — the
+       pure-white render read harsher than the text around it. */
+    opacity: 0.88;
     width: clamp(260px, 42vw, 620px);
     height: auto;
   }
