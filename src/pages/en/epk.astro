@@ -405,6 +405,13 @@ const mediaSpotlightItems = [
     color: #fff;
     font-family: 'Inter', sans-serif;
     background: #0a0a0a;
+    /* The site-wide global sets html,body { height:100% } — that makes the
+       body's box exactly one viewport tall, so its #0a0a0a background
+       stopped there and the html's pure-black canvas showed through
+       below it (a visible gray-to-black seam in the page margins around
+       the first scroll). Let the body grow with its content instead. */
+    height: auto;
+    min-height: 100%;
   }
 
   /* padding-left trimmed to 10px (from a symmetric 14px) for optical
@@ -453,11 +460,7 @@ const mediaSpotlightItems = [
     content: '';
     position: absolute;
     inset: 0;
-    /* Bottom stop is the page's own #0a0a0a at full opacity, so the photo
-       dissolves seamlessly into the page instead of ending on a visible
-       edge (the previous 0.85 black left the photo's last rows faintly
-       showing against the solid background below). */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 45%, rgba(10,10,10,0.75) 78%, #0a0a0a 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.85) 100%);
   }
 
   .epk-hero-text {
