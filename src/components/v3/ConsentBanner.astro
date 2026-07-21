@@ -74,7 +74,7 @@ const copy = COPY[lang] ?? COPY.en;
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(42px + env(safe-area-inset-bottom, 0px));
     z-index: 300;
     display: flex;
     align-items: center;
@@ -147,27 +147,24 @@ const copy = COPY[lang] ?? COPY.en;
   }
 
   @media (max-width: 560px) {
-    /* Mobile: an ultra-slim full-width strip glued to the bottom edge,
-       below the homepage's social icon row instead of floating over it. */
+    /* Mobile: the homepage pins its icon row near the bottom edge, so
+       there is no clean room down there. The banner docks as a small
+       card at the top instead, just below the language/menu chrome,
+       where the photo has breathing space. */
     .consent-banner {
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transform: none;
-      max-width: none;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-      border-radius: 0;
-      background: rgba(8, 8, 10, 0.72);
+      top: calc(58px + env(safe-area-inset-top, 0px));
+      bottom: auto;
+      width: min(92vw, 360px);
       justify-content: center;
       flex-wrap: wrap;
       gap: 6px 12px;
-      padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px));
+      background: rgba(8, 8, 10, 0.55);
+      padding: 7px 12px;
     }
 
     .consent-text {
       font-size: 0.62rem;
+      text-align: center;
     }
 
     .consent-btn {
