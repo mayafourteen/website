@@ -80,8 +80,9 @@ const copy = COPY[lang] ?? COPY.en;
     align-items: center;
     gap: 14px;
     box-sizing: border-box;
-    width: min(92vw, 560px);
-    padding: 7px 14px;
+    width: auto;
+    max-width: 92vw;
+    padding: 8px 16px;
     background: rgba(8, 8, 10, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 2px;
@@ -91,6 +92,7 @@ const copy = COPY[lang] ?? COPY.en;
 
   .consent-text {
     margin: 0;
+    max-width: 250px;
     font-family: 'Inter', Arial, sans-serif;
     font-weight: 300;
     font-size: 0.68rem;
@@ -168,6 +170,7 @@ const copy = COPY[lang] ?? COPY.en;
     .consent-text {
       font-size: 0.62rem;
       text-align: center;
+      max-width: none;
     }
 
     .consent-btn {
