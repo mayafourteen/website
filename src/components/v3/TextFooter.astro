@@ -1,12 +1,18 @@
 ---
-// True page-bottom footer for interior pages — a single "MENU" control that
+// True page-bottom footer for interior pages: a single "MENU" control that
 // opens the same hamburger overlay as the top-right trigger (via a forwarded
 // click, same pattern as the landing page's [enter] CTA), so the page bottom
 // always has a way back into full site navigation.
+interface Props {
+  lang?: string;
+}
+const { lang = 'en' } = Astro.props;
+// "Menu" is identical in EN and PT-BR; Spanish takes the accent.
+const label = lang === 'es' ? 'Menú' : 'Menu';
 ---
 
 <footer class="text-footer">
-  <button type="button" class="text-footer-link" id="text-footer-menu">Menu</button>
+  <button type="button" class="text-footer-link" id="text-footer-menu">{label}</button>
 </footer>
 
 <script>
