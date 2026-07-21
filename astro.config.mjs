@@ -1,6 +1,11 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
+// Build timestamp stamped as <lastmod> on every sitemap URL, so Google gets a
+// freshness signal to re-crawl after each deploy (a sitemap with no lastmod
+// gives crawlers no reason to revisit known URLs).
+const SITEMAP_BUILD_DATE = new Date().toISOString();
+
 // Maya Fourteen — static site, Cloudflare Pages.
 // output stays 'static': there is no server-side rendering need here,
 // so no Cloudflare adapter is required.
@@ -55,6 +60,7 @@ export default defineConfig({
       // (currently just "/", the language-detect redirect page, which
       // likewise has no hreflang tags of its own) pass through unchanged.
       serialize(item) {
+        item.lastmod = SITEMAP_BUILD_DATE;
         const itemUrl = new URL(item.url);
         const pathname = itemUrl.pathname.replace(/\/$/, '') || '/';
         const group = SITEMAP_HREFLANG_GROUPS.find((g) => Object.values(g).includes(pathname));
