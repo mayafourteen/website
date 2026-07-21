@@ -9,7 +9,7 @@ export const socialLinks = [
   { href: 'https://soundcloud.com/mayafourteen', title: 'SoundCloud', type: 'fa', name: 'soundcloud' },
   { href: 'https://www.beatport.com/artist/maya-fourteen/1218920', title: 'Beatport', type: 'svg', name: 'beatport' },
   { href: '/en/epk', title: 'EPK', type: 'svg', name: 'epk' },
-  { href: 'https://open.spotify.com/artist/6vCjW095i7Y8D7P2Uf6H0K', title: 'Spotify', type: 'fa', name: 'spotify' },
+  { href: 'https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r', title: 'Spotify', type: 'fa', name: 'spotify' },
   { href: 'https://music.beepd.co/card/mayafourteen', title: 'Beepd', type: 'svg', name: 'beepd' },
 ];
 
