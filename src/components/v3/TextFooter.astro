@@ -43,11 +43,11 @@ const label = lang === 'es' ? 'Menú' : 'Menu';
 
   .text-footer-link {
     font-family: 'Cormorant Garamond', serif;
-    /* 1.019rem = a further +10% on the previous 0.926rem (itself +15% from
-       the original 0.805rem), bringing it up to sit properly against the
-       rest of the page's type scale. letter-spacing stays 0.15em: em is
-       relative to font-size, so it scales proportionally with this for free. */
-    font-size: 1.019rem;
+    /* 1.17rem = a further ~15% on the previous 1.019rem (which was itself
+       two bumps up from the original 0.805rem) — Antonio kept reading it
+       as too small against the page's type scale. letter-spacing stays
+       0.15em: em is relative to font-size, so it scales along for free. */
+    font-size: 1.17rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     /* Raised from 0.45 to 0.65 alpha: the dimmer value read as too faint /
