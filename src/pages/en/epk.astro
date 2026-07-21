@@ -878,12 +878,12 @@ const mediaSpotlightItems = [
     transform: scale(1.06);
   }
 
-  /* DISCOVER: left-aligned like every other section, so the whole page
-     keeps one shared left spine (the centered version broke the rhythm).
-     Icons run ~20% larger than SocialNav's defaults with wider spacing,
-     since here they're the section's entire content, not a footer row. */
+  /* DISCOVER: the section title keeps the page's shared left spine, but
+     the icon row itself is centered — as the section's entire content it
+     reads as a display piece, not a text block (Antonio's call). Icons
+     run larger than SocialNav's defaults for the same reason. */
   .epk-discover :global(.nav-links) {
-    justify-content: flex-start;
+    justify-content: center;
     gap: 44px;
     margin-bottom: 0;
     animation: none;
@@ -891,18 +891,18 @@ const mediaSpotlightItems = [
   }
 
   .epk-discover :global(.social-svg) {
-    width: 2rem;
-    height: 2rem;
+    width: 2.3rem;
+    height: 2.3rem;
   }
 
   .epk-discover :global(.brand-svg),
   .epk-discover :global(.beepd-svg),
   .epk-discover :global(.folder-svg) {
-    height: 35px;
+    height: 40px;
   }
 
   .epk-discover :global(.ra-logo) {
-    height: 22px;
+    height: 25px;
   }
 
   @media (max-width: 768px) {
@@ -911,28 +911,30 @@ const mediaSpotlightItems = [
     }
 
     .epk-discover :global(.social-svg) {
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 2rem;
+      height: 2rem;
     }
 
     .epk-discover :global(.brand-svg),
     .epk-discover :global(.beepd-svg),
     .epk-discover :global(.folder-svg) {
-      height: 28px;
+      height: 32px;
     }
 
     .epk-discover :global(.ra-logo) {
-      height: 19px;
+      height: 22px;
     }
   }
 
-  /* BOOKING: left-aligned with the rest of the page, same reasoning as
-     .epk-discover above. */
+  /* BOOKING: the section title keeps the page's left spine; the card's
+     own content is centered (same call as .epk-discover above) so the
+     contact block reads as a composed unit. */
   .epk-booking-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 3px;
     padding: 30px;
+    text-align: center;
   }
 
   .epk-booking-heading {
@@ -951,7 +953,7 @@ const mediaSpotlightItems = [
   .epk-booking-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 16px;
     margin: 20px 0;
   }
