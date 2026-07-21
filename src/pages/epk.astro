@@ -20,7 +20,7 @@ import { images } from '../data/v3/images.js';
 const mediaSpotlightItems = [
   { outlet: 'DJ Mag LATAM', href: 'https://djmagla.com/conoce-a-maya-fourteen-la-artista-brasilena-que-esta-llevando-su-talento-a-nuevos-lugares-del-mundo', label: 'Read article' },
   { outlet: 'Mixmag Brazil', href: 'https://mixmag.com.br/feature/conheca-maya-fourteen-artista-brasileira-reconhecida-por-nicole-moudaber-e-pete-tong', label: 'Read article' },
-  { outlet: 'Sync Beat Magazine Cover', href: 'https://issuu.com/syncbeatmagazine/docs/maya_-_english', label: 'View cover feature' },
+  { outlet: 'Sync Beat Magazine Cover', href: 'https://music.beepd.co/card/syncbeatmagazine', label: 'View cover feature' },
   { outlet: 'Clubbing TV', href: 'https://clubbingtv.com/shows/view/5593/lds-with-maya-fourteen-ade-2023-spaces/', label: 'Watch feature' },
   { outlet: 'Gray Area (US)', href: 'https://www.instagram.com/p/DTggbNBDb4H/', label: 'VIEW FEATURE' },
   { outlet: 'Play BPM', href: 'https://playbpm.com.br/colunas/play-bpm-indica/maya/', label: 'Read article' },
@@ -194,7 +194,7 @@ const mediaSpotlightItems = [
     <!-- INDUSTRY VOICES -->
     <section class="epk-section epk-media epk-media-reverse">
       <img
-        class="epk-media-image"
+        class="epk-media-image epk-media-image--voices"
         src={images.epkIndustryVoices.src}
         srcset={images.epkIndustryVoices.srcset}
         sizes="(max-width: 768px) 92vw, 340px"
@@ -267,7 +267,7 @@ const mediaSpotlightItems = [
       <div class="epk-media-text">
         <h2>Editorial Recognition</h2>
         <p>
-          MAYA was highlighted by US-based platform <a class="epk-inline-link" href="https://www.instagram.com/p/DTggbNBDb4H/" target="_blank" rel="noopener">Gray Area</a> as one of the Brazilian
+          MAYA was highlighted by US-based platform <a class="epk-inline-link" href="https://grayarea.co" target="_blank" rel="noopener">Gray Area</a> as one of the Brazilian
           artists to watch in 2026, featured alongside <a class="epk-inline-link" href="https://www.instagram.com/mazmusic/" target="_blank" rel="noopener">Maz</a>, <a class="epk-inline-link" href="https://www.instagram.com/beltran/" target="_blank" rel="noopener">Beltran</a>, <a class="epk-inline-link" href="https://www.instagram.com/brunoantdot/" target="_blank" rel="noopener">Antdot</a>, and <a class="epk-inline-link" href="https://www.instagram.com/djalinerocha/" target="_blank" rel="noopener">Aline
           Rocha</a>. The selection reflects growing international attention around her
           work and positioning within today's global electronic music landscape.
@@ -624,6 +624,7 @@ const mediaSpotlightItems = [
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: stretch;
     gap: 16px;
   }
 
@@ -648,10 +649,18 @@ const mediaSpotlightItems = [
      would otherwise leave the badge stranded right under the last
      paragraph with empty space below it. Applies to every .epk-label-card,
      not just Systematic's, but is a no-op for the other two (no
-     margin-top: auto child), so it's safe to share. */
+     margin-top: auto child), so it's safe to share.
+     min-height: 0 overrides the implicit min-height: auto every flex
+     container gets — without it, a flex item that's also a stretched grid
+     cell can, in some engines/timing (e.g. mid font-swap reflow), refuse
+     to shrink to the grid track's height and let its own content (the
+     last line of body copy) render past the card's bottom edge instead of
+     the box growing to fit. This is the standard fix for that class of
+     grid-stretch + flex-child overflow. */
   .epk-label-card {
     display: flex;
     flex-direction: column;
+    min-height: 0;
   }
 
   .epk-stage-card.epk-stage-tour {
@@ -979,6 +988,15 @@ const mediaSpotlightItems = [
 
     .epk-media-image {
       max-height: 260px;
+    }
+
+    /* Mobile-only: this photo's subjects (two people mid-interview) sit
+       near the top of the frame, and the shared object-fit: cover default
+       (center) was cropping their heads once the image got squeezed into
+       260px on narrow viewports. Desktop is unaffected — this rule only
+       exists inside the 860px breakpoint. */
+    .epk-media-image--voices {
+      object-position: center 25%;
     }
 
     .epk-stages-layout {
