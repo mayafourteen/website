@@ -1,0 +1,217 @@
+---
+// Minimal newsletter signup block — posts directly to the Brevo form
+// endpoint (list #4 "Website Subscribers", double opt-in) via fetch, so
+// none of Brevo's own styling or scripts ever load. Visitor sees only
+// the site's aesthetic; Brevo sees a normal form submission.
+interface Props {
+  lang?: string;
+}
+const { lang = 'en' } = Astro.props;
+
+const BREVO_ACTION =
+  'https://ad34cde4.sibforms.com/serve/MUIFAOoULmjduBYHDx7jH6VArYpKDDqmtgEOyqePGaucGXqiqUvzGy6B64dA8Q_LIhwI_xTzBzZsv93Hda_MC2xBKS5LTjTHXXrjJFuWBPl_qbGBTdoxa8voe1pbpXiPTBAdFFHns_msvUpAZk1iV0CS-uNzF-XWa9X_6275ut2MK0Ub_Ng6YbKn_6KJ7osDjIfiipvq8u5PNHGQ';
+
+const COPY: Record<string, {
+  heading: string;
+  text: string;
+  placeholder: string;
+  button: string;
+  success: string;
+  error: string;
+  invalid: string;
+}> = {
+  en: {
+    heading: 'Stay close',
+    text: 'Priority access to new sets, release news, dates and special invitations.',
+    placeholder: 'Your email',
+    button: 'Subscribe',
+    success: 'Almost there — check your inbox to confirm.',
+    error: 'Something went wrong. Please try again.',
+    invalid: 'Please enter a valid email address.',
+  },
+  pt: {
+    heading: 'Fique por perto',
+    text: 'Acesso prioritário aos novos sets, lançamentos, datas e convites especiais.',
+    placeholder: 'Seu e-mail',
+    button: 'Assinar',
+    success: 'Quase lá — confirme no seu e-mail.',
+    error: 'Algo deu errado. Tente novamente.',
+    invalid: 'Insira um endereço de e-mail válido.',
+  },
+  es: {
+    heading: 'Quédate cerca',
+    text: 'Acceso prioritario a los nuevos sets, lanzamientos, fechas e invitaciones especiales.',
+    placeholder: 'Tu correo',
+    button: 'Suscribirse',
+    success: 'Casi listo — confirma en tu correo.',
+    error: 'Algo salió mal. Inténtalo de nuevo.',
+    invalid: 'Introduce un correo válido.',
+  },
+};
+const copy = COPY[lang] ?? COPY.en;
+const localeByLang: Record<string, string> = { en: 'en', pt: 'pt', es: 'es' };
+---
+
+<section class="newsletter-block" aria-label={copy.heading}>
+  <h2 class="newsletter-heading">{copy.heading}</h2>
+  <p class="newsletter-text">{copy.text}</p>
+  <form class="newsletter-form" data-action={BREVO_ACTION} data-locale={localeByLang[lang] ?? 'en'} novalidate>
+    <input
+      class="newsletter-input"
+      type="email"
+      name="EMAIL"
+      placeholder={copy.placeholder}
+      autocomplete="email"
+      required
+    />
+    <button class="newsletter-button" type="submit">{copy.button}</button>
+  </form>
+  <p class="newsletter-message" data-success={copy.success} data-error={copy.error} data-invalid={copy.invalid} hidden></p>
+</section>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('.newsletter-form').forEach(function (form) {
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var input = form.querySelector('input[name="EMAIL"]');
+        var message = form.parentElement.querySelector('.newsletter-message');
+        var button = form.querySelector('.newsletter-button');
+        var email = (input.value || '').trim();
+
+        function show(kind) {
+          message.textContent = message.getAttribute('data-' + kind);
+          message.hidden = false;
+          message.classList.toggle('is-success', kind === 'success');
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          show('invalid');
+          return;
+        }
+
+        var data = new FormData();
+        data.append('EMAIL', email);
+        data.append('email_address_check', '');
+        data.append('locale', form.getAttribute('data-locale') || 'en');
+
+        button.disabled = true;
+        fetch(form.getAttribute('data-action') + '?isAjax=1', {
+          method: 'POST',
+          body: data,
+        })
+          .then(function (res) {
+            if (res.ok) {
+              form.hidden = true;
+              show('success');
+            } else {
+              show('error');
+            }
+          })
+          .catch(function () { show('error'); })
+          .finally(function () { button.disabled = false; });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .newsletter-block {
+    margin-top: 56px;
+    padding: 28px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 2px;
+    max-width: 480px;
+  }
+
+  .newsletter-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 8px;
+  }
+
+  .newsletter-text {
+    font-size: 0.88em;
+    opacity: 0.75;
+    margin: 0 0 20px;
+    line-height: 1.55;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    color: inherit;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    padding: 8px 2px;
+    outline: none;
+    border-radius: 0;
+    transition: border-color 0.25s ease;
+  }
+
+  .newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .newsletter-input:focus {
+    border-bottom-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .newsletter-button {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: inherit;
+    padding: 9px 18px;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .newsletter-button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.92);
+    color: #0a0a0c;
+  }
+
+  .newsletter-button:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+
+  .newsletter-message {
+    margin: 14px 0 0;
+    font-size: 0.85em;
+    opacity: 0.85;
+  }
+
+  .newsletter-message.is-success {
+    opacity: 1;
+  }
+
+  @media (max-width: 480px) {
+    .newsletter-form {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .newsletter-button {
+      align-self: flex-start;
+    }
+  }
+</style>

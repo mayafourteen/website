@@ -49,13 +49,12 @@ const {
 // hasEsSibling above is what tells this layout whether the computed
 // `-es` path is real or would be a 404.
 const currentPath = Astro.url.pathname.replace(/\.html$/, '') || '/';
-const isPt = currentPath.endsWith('-pt');
-const isEs = currentPath.endsWith('-es');
-const basePath = isPt || isEs ? currentPath.slice(0, -3) : currentPath;
-const enPath = basePath;
-const ptPath = `${basePath}-pt`;
-const esPath = `${basePath}-es`;
-const lang = isPt ? 'pt' : isEs ? 'es' : 'en';
+const langMatch = currentPath.match(/^\/(en|pt|es)(\/.*)?$/);
+const lang = langMatch ? langMatch[1] : 'en';
+const slug = langMatch && langMatch[2] ? langMatch[2] : '';
+const enPath = `/en${slug}`;
+const ptPath = `/pt${slug}`;
+const esPath = `/es${slug}`;
 
 // Brand-prefixed for the <title>/OG tags; the on-page <h1> below uses the
 // plain `title` prop so the visible heading doesn't carry the prefix too.
@@ -69,7 +68,7 @@ const interiorHreflangAlternates = hasEsSibling
   : { en: enPath, pt: ptPath };
 
 const homeLabelByLang: Record<string, string> = { en: 'Home', pt: 'Início', es: 'Inicio' };
-const homePathByLang: Record<string, string> = { en: '/page-en', pt: '/page-pt', es: '/page-es' };
+const homePathByLang: Record<string, string> = { en: '/en', pt: '/pt', es: '/es' };
 const breadcrumbs = [
   { name: homeLabelByLang[lang], path: homePathByLang[lang] },
   { name: title, path: currentPath },
@@ -82,7 +81,7 @@ const breadcrumbs = [
   description={description}
   bodyClass="page-v2-interior"
   lang={lang}
-  languageHrefOverrides={{ en: enPath, pt: ptPath, es: hasEsSibling ? esPath : '/page-es' }}
+  languageHrefOverrides={{ en: enPath, pt: ptPath, es: hasEsSibling ? esPath : '/es' }}
   hreflangAlternates={interiorHreflangAlternates}
   breadcrumbs={breadcrumbs}
 >

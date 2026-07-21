@@ -1,0 +1,118 @@
+---
+// Custom 404 — served by Cloudflare Pages for any unknown path.
+// Deliberately minimal and trilingual-neutral: the visitor may have
+// arrived from a link in any language, so the page offers all three
+// homes without guessing.
+import V3BaseLayout from '../layouts/V3BaseLayout.astro';
+import HeroBackground from '../components/v3/HeroBackground.astro';
+
+const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap';
+---
+
+<V3BaseLayout
+  title="MAYA FOURTEEN | Page not found"
+  description="This page doesn't exist."
+  bodyClass="page-404"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href={fontsHref} rel="stylesheet">
+  </Fragment>
+
+  <div class="background-container">
+    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
+  </div>
+
+  <div class="content-404">
+    <p class="code">404</p>
+    <h1 class="headline">This page doesn't exist.</h1>
+    <p class="subline">The music does.</p>
+    <nav class="home-links" aria-label="Go home">
+      <a href="/en">English</a>
+      <span class="dot" aria-hidden="true">•</span>
+      <a href="/pt">Português</a>
+      <span class="dot" aria-hidden="true">•</span>
+      <a href="/es">Español</a>
+    </nav>
+  </div>
+</V3BaseLayout>
+
+<style>
+  :global(.page-404) {
+    overflow: hidden;
+  }
+
+  .background-container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .content-404 {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 0 24px;
+  }
+
+  .code {
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 200;
+    font-size: 0.85rem;
+    letter-spacing: 0.5em;
+    margin: 0 0 14px;
+    opacity: 0.5;
+  }
+
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+
+  .subline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.05rem, 2.6vw, 1.4rem);
+    opacity: 0.75;
+    margin: 10px 0 0;
+  }
+
+  .home-links {
+    margin-top: 42px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .home-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .home-links a:hover {
+    color: #fff;
+  }
+
+  .dot {
+    opacity: 0.4;
+  }
+</style>

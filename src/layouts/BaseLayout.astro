@@ -95,6 +95,14 @@ const personSchema = {
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    var mayaConsent = null;
+    try { mayaConsent = localStorage.getItem('maya-consent'); } catch (e) {}
+    gtag('consent', 'default', {
+      analytics_storage: mayaConsent === 'granted' ? 'granted' : 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
     gtag('js', new Date());
     gtag('config', 'G-3NGTH9664P');
   </script>

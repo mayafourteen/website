@@ -18,13 +18,17 @@ import sitemap from '@astrojs/sitemap';
 // language siblings change. Groups without an `es` entry mirror pages where
 // hasEsSibling isn't set (no real ES translation exists yet).
 const SITEMAP_HREFLANG_GROUPS = [
-  { en: '/page-en', pt: '/page-pt', es: '/page-es' },
-  { en: '/about', pt: '/about-pt', es: '/about-es' },
-  { en: '/book', pt: '/book-pt', es: '/book-es' },
-  { en: '/epk', pt: '/epk-pt', es: '/epk-es' },
-  { en: '/video-sets', pt: '/video-sets-pt' },
-  { en: '/audio-sets', pt: '/audio-sets-pt' },
-  { en: '/press', pt: '/press-pt', es: '/press-es' },
+  { en: '/en', pt: '/pt', es: '/es' },
+  { en: '/en/about', pt: '/pt/about', es: '/es/about' },
+  { en: '/en/book', pt: '/pt/book', es: '/es/book' },
+  { en: '/en/epk', pt: '/pt/epk', es: '/es/epk' },
+  { en: '/en/video-sets', pt: '/pt/video-sets' },
+  { en: '/en/audio-sets', pt: '/pt/audio-sets' },
+  { en: '/en/press', pt: '/pt/press', es: '/es/press' },
+  { en: '/en/privacy', pt: '/pt/privacy', es: '/es/privacy' },
+  { en: '/en/sets/greenvalley', pt: '/pt/sets/greenvalley' },
+  { en: '/en/sets/sls-dubai', pt: '/pt/sets/sls-dubai' },
+  { en: '/en/sets/amazon-basin', pt: '/pt/sets/amazon-basin' },
 ];
 
 // pt is specifically Brazilian Portuguese sitewide (see siteConfig.js /
@@ -44,7 +48,7 @@ export default defineConfig({
       // /fashion-vibes is an unlisted, noindex page shared privately with
       // fashion/luxury clients, reachable only by direct URL — it must
       // never appear in the sitemap either.
-      filter: (page) => !/^https?:\/\/[^/]+\/(legacy|v2-legacy|v2|fashion-vibes)(\/|$)/.test(page),
+      filter: (page) => !/^https?:\/\/[^/]+\/(legacy|v2-legacy|v2|fashion-vibes|404)(\/|$)/.test(page),
       // Attaches xhtml:link hreflang alternates to every URL that belongs to
       // one of the groups above, so crawlers see the same language
       // relationships the pages themselves declare. Pages with no group

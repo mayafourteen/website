@@ -1,0 +1,107 @@
+---
+import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
+---
+
+<V3InteriorLayout
+  title="Greenvalley — Abertura do 17º Aniversário"
+  eyebrow="História do set"
+  description="Maya Fourteen abre o 17º aniversário da Greenvalley — uma sunset session de 90 minutos no clube eleito 5 vezes #1 do mundo pela DJ Mag, antes de Beltran, Michael Bibi e Chemical Surf."
+  heroImage="/images/video-hero-greenvalley.webp"
+  heroImageCredit
+  heroImageAlt="Maya Fourteen se apresentando na Greenvalley, Brasil"
+>
+  <div class="video-frame">
+    <iframe
+      src="https://www.youtube.com/embed/mWqUmkWs3wY"
+      title="De pista vazia a lotada: Sunset DJ Set na Greenvalley | Maya Fourteen"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <p>
+    A pista estava vazia quando tudo começou. O sol ainda estava alto, milhares de pessoas
+    estavam a caminho, e a missão era tão clara quanto implacável: abrir o 17º aniversário da
+    Greenvalley — eleita 5 vezes o clube #1 do mundo pela DJ Mag — e construir a energia que
+    Beltran, Michael Bibi e Chemical Surf levariam noite adentro.
+  </p>
+  <p>
+    Foi a primeira sunset session da Greenvalley em mais de uma década. O set foi desenhado como
+    uma progressão pura — o long burn: primeiro texturas orgânicas e calor tribal, depois deep
+    house melódico, e por fim grooves de deep tech e tech house, deixando a energia crescer
+    naturalmente à medida que o público chegava. Noventa minutos, do vazio ao lotado.
+  </p>
+  <p class="venue-note">
+    Greenvalley — Camboriú, Santa Catarina, Brasil. Cinco vezes eleita o clube #1 do mundo pela
+    DJ Mag, quinze anos consecutivos no pódio da DJ Mag, e um destino de peregrinação para fãs
+    de música eletrônica do mundo inteiro.
+  </p>
+
+  <h2>A jornada</h2>
+  <ul class="tracklist">
+    <li>Cruz Vittor, Nacho Varela, Nauel — Underworld (Volen Sentir Remix)</li>
+    <li>Dave Seaman — Rapscallion's Revenge (Original 12" Mix)</li>
+    <li>Davi — Lie Machine</li>
+    <li>Samu.l — Have It Like That</li>
+    <li>PillowTalk &amp; Gustavo Lobo — Gonna Be With You (Kellerkind Remix)</li>
+    <li>Manuel Kane &amp; Kiki Botonaki — We Fly (Christos Fourkis Remix)</li>
+    <li>WiLDKATS — Perpetrating</li>
+    <li>Maya Fourteen — Uniqueness feat. Francesca <span class="note">· lançamento dela na Systematic Recordings</span></li>
+    <li>Alexey Union &amp; Anturage — Visions</li>
+    <li>Helsloot — Disco Maxi</li>
+    <li>Rex the Dog — Change This Pain For Ecstasy</li>
+    <li>German Brigante — You Know</li>
+    <li>Mike Tohr — Whales (Extended Mix)</li>
+    <li>Nick Curly — Squid</li>
+    <li>Ost &amp; Kjex — Kaputt (Karmon Remix)</li>
+    <li>Mario Franca &amp; Maya Fourteen — Feel Better <span class="note">· lançamento dela na VIVa MUSiC</span></li>
+  </ul>
+
+  <a class="cta-button" href="https://www.youtube.com/watch?v=mWqUmkWs3wY" target="_blank" rel="noopener">Assista ao set completo no YouTube</a>
+</V3InteriorLayout>
+
+<style>
+  .video-frame {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+    margin: 0 0 28px;
+  }
+
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .venue-note {
+    font-size: 0.88em;
+    opacity: 0.7;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    font-size: 1.35em;
+    margin: 1.6em 0 0.5em;
+  }
+
+  .tracklist {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    font-size: 0.88em;
+    line-height: 1.9;
+    opacity: 0.85;
+  }
+
+  .note {
+    opacity: 0.6;
+    font-style: italic;
+  }
+</style>

@@ -1,16 +1,17 @@
 ---
-import V3InteriorLayout from '../layouts/V3InteriorLayout.astro';
-import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../data/v3/audioSets.js';
+import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
+import NewsletterSignup from '../../components/v3/NewsletterSignup.astro';
+import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../data/v3/audioSets.js';
 ---
 
 <V3InteriorLayout
-  title="Audio"
-  eyebrow="How does she sound"
-  description="Stream Maya Fourteen's sets and tracks on SoundCloud."
+  title="Áudio"
+  eyebrow="Qual é o som dela"
+  description="Ouça os sets em áudio e lançamentos de Maya Fourteen no SoundCloud."
   heroImage="/images/epk/epk-discography.jpg"
 >
   <p>
-    Mixes, original tracks and remixes, streaming directly from SoundCloud and Spotify.
+    Mixes, faixas originais e remixes, direto do SoundCloud e do Spotify.
   </p>
 
   <p class="section-title">Mixes</p>
@@ -30,7 +31,7 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../dat
     ))}
   </ul>
 
-  <p class="section-title">Original Tracks</p>
+  <p class="section-title">Faixas Originais</p>
   <ul class="audio-list">
     {originalTracks.map((track) => (
       <li>
@@ -47,16 +48,17 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../dat
     ))}
     <li>
       <a class="beatport-fallback" href={feelBetterFallback.href} target="_blank" rel="noopener">
-        <span class="beatport-fallback-title">'Feel Better' EP, with Mario Franca</span>
-        <span class="beatport-fallback-meta">Listen to the VIVa MUSiC release on Beatport</span>
+        <span class="beatport-fallback-title">EP 'Feel Better', com Mario Franca</span>
+        <span class="beatport-fallback-meta">Ouça o lançamento da VIVa MUSiC no Beatport</span>
       </a>
     </li>
   </ul>
 
   <div class="audio-cta-row">
-    <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">More on SoundCloud</a>
-    <a class="cta-button" href="https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r" target="_blank" rel="noopener">More on Spotify</a>
+    <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">Mais no SoundCloud</a>
+    <a class="cta-button" href="https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r" target="_blank" rel="noopener">Mais no Spotify</a>
   </div>
+  <NewsletterSignup lang="pt" />
 </V3InteriorLayout>
 
 <style>

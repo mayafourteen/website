@@ -2,11 +2,11 @@
 // PT-BR counterpart of epk.astro — same structure/CSS, copy translated
 // from the real PT gamma EPK page, with the same award-name override.
 // See epk.astro for the full sourcing notes.
-import V3BaseLayout from '../layouts/V3BaseLayout.astro';
-import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
-import SocialNav from '../components/v3/SocialNav.astro';
-import { discoverSocialLinks } from '../data/v3/discoverSocialLinks.js';
-import { images } from '../data/v3/images.js';
+import V3BaseLayout from '../../layouts/V3BaseLayout.astro';
+import HamburgerMenu from '../../components/v3/HamburgerMenu.astro';
+import SocialNav from '../../components/v3/SocialNav.astro';
+import { discoverSocialLinks } from '../../data/v3/discoverSocialLinks.js';
+import { images } from '../../data/v3/images.js';
 
 // EPK-only Media Spotlight list — see epk.astro for the full sourcing
 // notes. Only Gray Area (US)'s label is localized; every other outlet
@@ -28,9 +28,9 @@ const mediaSpotlightItems = [
   description="Baixe o mídia kit oficial da artista premiada Maya Fourteen, com biografia, credenciais, palcos internacionais e discografia."
   bodyClass="page-epk"
   lang="pt"
-  languageHrefOverrides={{ en: '/epk', pt: '/epk-pt', es: '/epk-es' }}
-  hreflangAlternates={{ en: '/epk', pt: '/epk-pt', es: '/epk-es' }}
-  breadcrumbs={[{ name: 'Início', path: '/page-pt' }, { name: 'EPK', path: '/epk-pt' }]}
+  languageHrefOverrides={{ en: '/en/epk', pt: '/pt/epk', es: '/es/epk' }}
+  hreflangAlternates={{ en: '/en/epk', pt: '/pt/epk', es: '/es/epk' }}
+  breadcrumbs={[{ name: 'Início', path: '/pt' }, { name: 'EPK', path: '/pt/epk' }]}
 >
   <Fragment slot="head">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -324,7 +324,7 @@ const mediaSpotlightItems = [
     <section class="epk-section">
       <h2>Alcance Global e Audiência</h2>
       <p>
-        O conteúdo combinado da MAYA no <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">SoundCloud</a> e no <a class="epk-inline-link" href="https://www.youtube.com/@MayaFourteen" target="_blank" rel="noopener">YouTube</a> soma mais de 350 mil plays, alcançando
+        O conteúdo combinado da MAYA no <a class="epk-inline-link" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">SoundCloud</a> e no <a class="epk-inline-link" href="https://www.youtube.com/@MayaFourteen" target="_blank" rel="noopener">YouTube</a> soma mais de 330 mil plays, alcançando
         ouvintes em mais de 100 países, com crescimento orgânico e engajamento
         consistente. Seus sets circulam globalmente entre públicos, plataformas e
         curadores, ampliando sua presença internacional além do circuito físico de

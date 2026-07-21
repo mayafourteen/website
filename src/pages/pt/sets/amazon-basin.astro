@@ -1,0 +1,83 @@
+---
+import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
+---
+
+<V3InteriorLayout
+  title="Amazon Basin — Uma Jornada ao Pôr do Sol em Casa"
+  eyebrow="História do set"
+  description="A sunset session de Maya Fourteen gravada ao vivo na Bacia Amazônica, em Mato Grosso, Brasil — organic tech, texturas tribais e vibes progressivas onde começa a maior floresta tropical do mundo."
+>
+  <div class="video-frame">
+    <iframe
+      src="https://www.youtube.com/embed/IRV1sNs9aTk"
+      title="DJ Set ao vivo na Bacia Amazônica (Sunset Session), Mato Grosso, Brasil | Maya Fourteen"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <p>
+    Este é o retorno para casa. Uma sunset session gravada ao vivo no coração da Bacia
+    Amazônica, em Mato Grosso — a terra natal — onde os rios e lagoas começam a convergir e a
+    natureza dança no seu próprio ritmo. O set foi desenhado para honrar isso: uma seleção
+    inspirada pela paisagem exuberante e pela energia da região.
+  </p>
+  <p>
+    Ele percorre organic tech, texturas tribais e vibes progressivas enquanto o sol mergulha
+    atrás da maior floresta tropical do mundo. É o long burn na sua forma mais pura — percussão
+    orgânica, narrativa emocional, um ritmo que respira com a paisagem.
+  </p>
+
+  <h2>A jornada</h2>
+  <ul class="tracklist">
+    <li>Pablo Fierro, Hyenah — Panoramica</li>
+    <li>Ameme — Your Vibe</li>
+    <li>The Angels feat. Idd Aziz — Jungle Walk</li>
+    <li>Boy Oh Boy — Ko Kora</li>
+    <li>Eran Hersh — Yums</li>
+    <li>Dave S. — Everything Comes In Threes</li>
+    <li>Matthias Meyer, Budakid — Hybrid Society</li>
+    <li>Sam Davies — Cosmos</li>
+    <li>Stan Kolev — Inward</li>
+    <li>Kintar, Delum — Sophie</li>
+    <li>Swedish House Mafia, The Weeknd — Moth To A Flame</li>
+  </ul>
+
+  <a class="cta-button" href="https://www.youtube.com/watch?v=IRV1sNs9aTk" target="_blank" rel="noopener">Assista ao set completo no YouTube</a>
+</V3InteriorLayout>
+
+<style>
+  .video-frame {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+    margin: 0 0 28px;
+  }
+
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    font-size: 1.35em;
+    margin: 1.6em 0 0.5em;
+  }
+
+  .tracklist {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    font-size: 0.88em;
+    line-height: 1.9;
+    opacity: 0.85;
+  }
+</style>

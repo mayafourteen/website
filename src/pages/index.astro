@@ -7,7 +7,7 @@ import HeroBackground from '../components/v3/HeroBackground.astro';
   title="MAYA FOURTEEN | Official Website"
   description="Maya Fourteen is an award-winning electronic music artist known for deep, tech, organic and progressive sets that grow on you."
   bodyClass="page-landing"
-  hreflangAlternates={{ en: '/page-en', pt: '/page-pt', es: '/page-es' }}
+  hreflangAlternates={{ en: '/en', pt: '/pt', es: '/es' }}
 >
   <Fragment slot="head">
     <!-- Automatic language routing, mirrored from the production landing page. -->
@@ -38,11 +38,11 @@ import HeroBackground from '../components/v3/HeroBackground.astro';
           target = detectFromBrowser();
         }
 
-        window.location.replace('/page-' + target);
+        window.location.replace('/' + target);
       })();
     </script>
     <noscript>
-      <meta http-equiv="refresh" content="0;url=/page-en" />
+      <meta http-equiv="refresh" content="0;url=/en" />
     </noscript>
   </Fragment>
 
@@ -50,11 +50,11 @@ import HeroBackground from '../components/v3/HeroBackground.astro';
     <HeroBackground src="/images/maya-landing-color.webp" alt="Maya Fourteen" />
     <noscript>
       <div class="noscript-fallback">
-        <a href="/page-en">English</a>
+        <a href="/en">English</a>
         <span class="dot">•</span>
-        <a href="/page-pt">Português</a>
+        <a href="/pt">Português</a>
         <span class="dot">•</span>
-        <a href="/page-es">Español</a>
+        <a href="/es">Español</a>
       </div>
     </noscript>
   </div>

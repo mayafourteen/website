@@ -1,45 +1,65 @@
-# V3 cutover redirects — see DEPLOY.md for the full cutover plan.
-# All three prefixes below are archived/retired prototype paths; every
-# route in this file 301s to its root-path equivalent so no external link
-# or bookmark 404s post-cutover.
+# URL structure migration (2026-07-21): flat root paths -> /en /pt /es
+# language folders. Every previously-live URL 301s to its new home so no
+# external link, bookmark, or already-indexed URL 404s.
 
-# /v3/* (promoted prototype) -> root
+# --- Old production root paths -> language-prefixed paths ---
+/page-en            /en              301
+/page-pt            /pt              301
+/page-es            /es              301
+/about              /en/about        301
+/about-pt           /pt/about        301
+/about-es           /es/about        301
+/video-sets         /en/video-sets   301
+/video-sets-pt      /pt/video-sets   301
+/audio-sets         /en/audio-sets   301
+/audio-sets-pt      /pt/audio-sets   301
+/press              /en/press        301
+/press-pt           /pt/press        301
+/press-es           /es/press        301
+/book               /en/book         301
+/book-pt            /pt/book         301
+/book-es            /es/book         301
+/epk                /en/epk          301
+/epk-pt             /pt/epk          301
+/epk-es             /es/epk          301
+
+# --- /v3/* (promoted prototype, pre-cutover URLs) -> new paths directly ---
 /v3                 /                301
-/v3/page-en         /page-en         301
-/v3/page-pt         /page-pt         301
-/v3/page-es         /page-es         301
-/v3/about           /about           301
-/v3/about-pt        /about-pt        301
-/v3/press           /press           301
-/v3/press-pt        /press-pt        301
-/v3/audio-sets      /audio-sets      301
-/v3/audio-sets-pt   /audio-sets-pt   301
-/v3/video-sets      /video-sets      301
-/v3/video-sets-pt   /video-sets-pt   301
-/v3/book            /book            301
-/v3/book-pt         /book-pt         301
-/v3/book-es         /book-es         301
-/v3/epk             /epk             301
-/v3/epk-pt          /epk-pt          301
-/v3/epk-es          /epk-es          301
+/v3/page-en         /en              301
+/v3/page-pt         /pt              301
+/v3/page-es         /es              301
+/v3/about           /en/about        301
+/v3/about-pt        /pt/about        301
+/v3/press           /en/press        301
+/v3/press-pt        /pt/press        301
+/v3/audio-sets      /en/audio-sets   301
+/v3/audio-sets-pt   /pt/audio-sets   301
+/v3/video-sets      /en/video-sets   301
+/v3/video-sets-pt   /pt/video-sets   301
+/v3/book            /en/book         301
+/v3/book-pt         /pt/book         301
+/v3/book-es         /es/book         301
+/v3/epk             /en/epk          301
+/v3/epk-pt          /pt/epk          301
+/v3/epk-es          /es/epk          301
 /v3/*               /                301
 
-# /v2/* (frozen prototype) -> root
+# --- /v2/* (frozen prototype) -> new paths directly ---
 /v2                 /                301
-/v2/page-en         /page-en         301
-/v2/page-pt         /page-pt         301
-/v2/page-es         /page-es         301
-/v2/about           /about           301
-/v2/press           /press           301
-/v2/audio-sets      /audio-sets      301
-/v2/video-sets      /video-sets      301
-/v2/book            /book            301
+/v2/page-en         /en              301
+/v2/page-pt         /pt              301
+/v2/page-es         /es              301
+/v2/about           /en/about        301
+/v2/press           /en/press        301
+/v2/audio-sets      /en/audio-sets   301
+/v2/video-sets      /en/video-sets   301
+/v2/book            /en/book         301
 /v2/*               /                301
 
-# /v2-legacy/* (already-archived older prototype) -> root
-/v2-legacy/page-en  /page-en         301
-/v2-legacy/page-pt  /page-pt         301
-/v2-legacy/page-es  /page-es         301
+# --- /v2-legacy/* (already-archived older prototype) ---
+/v2-legacy/page-en  /en              301
+/v2-legacy/page-pt  /pt              301
+/v2-legacy/page-es  /es              301
 /v2-legacy/*        /                301
 
 # Legacy sitemap.xml (the old worker.js-era filename) -> the real

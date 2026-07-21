@@ -1,5 +1,6 @@
 ---
 import LanguageMenu from '../components/v3/LanguageMenu.astro';
+import ConsentBanner from '../components/v3/ConsentBanner.astro';
 import { SITE_URL } from '../data/v3/siteConfig.js';
 import { socialLinks } from '../data/v3/socialLinks.js';
 import { findImageBySrc } from '../data/v3/images.js';
@@ -144,11 +145,21 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   )}
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) with Consent Mode v2: analytics stays denied
+       until the visitor accepts via the consent banner (choice persisted
+       in localStorage 'maya-consent', shared across all pages). -->
   <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P"></script>
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    var mayaConsent = null;
+    try { mayaConsent = localStorage.getItem('maya-consent'); } catch (e) {}
+    gtag('consent', 'default', {
+      analytics_storage: mayaConsent === 'granted' ? 'granted' : 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
     gtag('js', new Date());
     gtag('config', 'G-3NGTH9664P');
   </script>
@@ -158,6 +169,7 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
 <body class={bodyClass}>
   <LanguageMenu currentLang={lang} hrefOverrides={languageHrefOverrides} />
   <slot />
+  <ConsentBanner lang={lang} />
 </body>
 </html>
 

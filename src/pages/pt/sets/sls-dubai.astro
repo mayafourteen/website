@@ -1,0 +1,91 @@
+---
+import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
+---
+
+<V3InteriorLayout
+  title="SLS Dubai — 75 Andares Acima"
+  eyebrow="História do set"
+  description="Maya Fourteen ao vivo no Pyramid Waves Showcase, Privilege Rooftop do SLS Dubai — uma jornada de deep tech e progressive house 75 andares acima da cidade, com o Burj Khalifa atrás das pick-ups."
+>
+  <div class="video-frame">
+    <iframe
+      src="https://www.youtube.com/embed/twN80oij1Uw"
+      title="75 andares acima: Deep Tech & Progressive House | Maya Fourteen ao vivo no SLS Dubai"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <p>
+    Setenta e cinco andares acima, cercada pelo skyline de Dubai, com o Burj Khalifa cortando o
+    horizonte bem atrás das pick-ups. Gravado no Pyramid Waves Showcase, no Privilege Rooftop
+    do SLS Dubai, este set é uma jornada pura de deep tech e progressive house — uma história
+    sonora que evolui com a energia das luzes da cidade lá embaixo.
+  </p>
+  <p>
+    O groove foi construído para se revelar naturalmente junto com a noite — a música com espaço
+    para respirar, puxando todo mundo naquele rooftop para o mesmo ritmo. Uma daquelas sessões
+    que mereciam durar mais; havia um voo para Barcelona esperando logo depois da última faixa.
+  </p>
+  <p class="venue-note">
+    O SLS Dubai é um dos hotéis de luxo mais icônicos dos Emirados, com rooftops de vista
+    panorâmica para o skyline e o Burj Khalifa. O Pyramid Waves é uma série de música eletrônica
+    de Dubai que conecta a energia underground à vida noturna de luxo da cidade, com foco em
+    sons progressive e deep tech.
+  </p>
+
+  <h2>A jornada</h2>
+  <ul class="tracklist">
+    <li>Eelke Kleijn — The Hierophant</li>
+    <li>Audio Junkies — Revelations</li>
+    <li>Miguel Matoz, Westseven — Brainchild</li>
+    <li>Adam Ten, Mita Gami — The Beat Machine</li>
+    <li>D-Nox, Beckers — Narita Express</li>
+    <li>Bedouin, Vintage Culture — Tijuana</li>
+    <li>D-Formation, D-Nox &amp; Beckers — Balkia</li>
+    <li>Betoko, Haze-M — Rebirth</li>
+  </ul>
+
+  <a class="cta-button" href="https://www.youtube.com/watch?v=twN80oij1Uw" target="_blank" rel="noopener">Assista ao set completo no YouTube</a>
+</V3InteriorLayout>
+
+<style>
+  .video-frame {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+    margin: 0 0 28px;
+  }
+
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .venue-note {
+    font-size: 0.88em;
+    opacity: 0.7;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    font-size: 1.35em;
+    margin: 1.6em 0 0.5em;
+  }
+
+  .tracklist {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    font-size: 0.88em;
+    line-height: 1.9;
+    opacity: 0.85;
+  }
+</style>

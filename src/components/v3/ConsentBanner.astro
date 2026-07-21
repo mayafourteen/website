@@ -1,0 +1,156 @@
+---
+// Minimal GDPR consent banner for the GA4 analytics already running
+// sitewide. Shown once, bottom of viewport, until the visitor makes a
+// choice; the choice persists in localStorage ('maya-consent') and is
+// read by the Consent Mode default snippet in V3BaseLayout on every
+// subsequent page view. Designed to whisper, not shout: dark, small,
+// no overlay, never blocks the page.
+interface Props {
+  lang?: string;
+}
+const { lang = 'en' } = Astro.props;
+
+const COPY: Record<string, { text: string; accept: string; decline: string; privacy: string; privacyHref: string }> = {
+  en: {
+    text: 'This site uses cookies for anonymous visit statistics.',
+    accept: 'Accept',
+    decline: 'Decline',
+    privacy: 'Privacy',
+    privacyHref: '/en/privacy',
+  },
+  pt: {
+    text: 'Este site usa cookies para estatísticas anônimas de visitas.',
+    accept: 'Aceitar',
+    decline: 'Recusar',
+    privacy: 'Privacidade',
+    privacyHref: '/pt/privacy',
+  },
+  es: {
+    text: 'Este sitio usa cookies para estadísticas anónimas de visitas.',
+    accept: 'Aceptar',
+    decline: 'Rechazar',
+    privacy: 'Privacidad',
+    privacyHref: '/es/privacy',
+  },
+};
+const copy = COPY[lang] ?? COPY.en;
+---
+
+<div class="consent-banner" id="consent-banner" hidden>
+  <p class="consent-text">
+    {copy.text}
+    <a class="consent-privacy" href={copy.privacyHref}>{copy.privacy}</a>
+  </p>
+  <div class="consent-actions">
+    <button type="button" class="consent-btn consent-accept" id="consent-accept">{copy.accept}</button>
+    <button type="button" class="consent-btn consent-decline" id="consent-decline">{copy.decline}</button>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var KEY = 'maya-consent';
+    var banner = document.getElementById('consent-banner');
+    if (!banner) return;
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+    if (stored === 'granted' || stored === 'denied') return;
+    banner.hidden = false;
+
+    function choose(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      if (value === 'granted' && typeof gtag === 'function') {
+        gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+      banner.hidden = true;
+    }
+    document.getElementById('consent-accept').addEventListener('click', function () { choose('granted'); });
+    document.getElementById('consent-decline').addEventListener('click', function () { choose('denied'); });
+  })();
+</script>
+
+<style>
+  .consent-banner {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    max-width: min(92vw, 560px);
+    padding: 12px 20px;
+    background: rgba(8, 8, 10, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 2px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .consent-text {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .consent-privacy {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-left: 6px;
+    white-space: nowrap;
+  }
+
+  .consent-privacy:hover {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .consent-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .consent-btn {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 7px 14px;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .consent-accept:hover {
+    background: rgba(255, 255, 255, 0.92);
+    color: #0a0a0c;
+  }
+
+  .consent-decline {
+    border-color: transparent;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .consent-decline:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (max-width: 560px) {
+    .consent-banner {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+      padding: 14px 18px;
+    }
+  }
+</style>
