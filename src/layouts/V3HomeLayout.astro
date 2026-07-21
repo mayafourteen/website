@@ -99,7 +99,7 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
         type="button"
         class="hero-cta hero-cta-enter"
         id="hero-enter-cta"
-        aria-label="Open menu"
+        aria-label={`${enterLabel}, open menu`}
         aria-controls="hamburger-overlay"
       ><span class="hero-cta-bracket hero-cta-bracket-open">[</span> <span class="hero-cta-letters">{enterLabel.split('').map((ch, i) => (
           <span class="hero-cta-letter" style={`--i: ${i}`}>{ch}</span>
