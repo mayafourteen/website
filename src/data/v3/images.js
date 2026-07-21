@@ -100,6 +100,17 @@ export const images = {
     height: 675,
     srcset: '/images/epk/epk-editorial-540w.jpg 540w, /images/epk/epk-editorial.jpg 1080w',
   },
+  // Press page background (2026-07-21, Antonio's pick): "CoffeStreet"
+  // urban shot against a metal shutter, pre-converted to grayscale
+  // (the page filter darkens it further). Source: Hub/Maya/Assets.
+  pressHeroStreet: {
+    src: '/images/press-hero-street.webp',
+    width: 1920,
+    height: 1296,
+    srcset: '/images/press-hero-street-640w.webp 640w, /images/press-hero-street-960w.webp 960w, /images/press-hero-street-1366w.webp 1366w, /images/press-hero-street.webp 1920w',
+    webpSrc: '/images/press-hero-street.webp',
+    webpSrcset: '/images/press-hero-street-640w.webp 640w, /images/press-hero-street-960w.webp 960w, /images/press-hero-street-1366w.webp 1366w, /images/press-hero-street.webp 1920w',
+  },
   epkFendi: {
     src: '/images/epk/epk-fendi.jpg',
     width: 1080,
