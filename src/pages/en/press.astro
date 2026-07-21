@@ -20,7 +20,7 @@ import { pressItems } from '../../data/v3/pressItems.js';
       <li>
         <strong>{item.outlet}</strong>
         {item.quote && <p class="press-quote">"{item.quote}"</p>}
-        <a href={item.href} target="_blank">{item.label}</a>
+        <a class="press-link" href={item.href} target="_blank"><span class="press-bracket">[</span> {item.label} <span class="press-bracket">]</span></a>
       </li>
     ))}
   </ul>
@@ -29,6 +29,33 @@ import { pressItems } from '../../data/v3/pressItems.js';
 <style>
   /* Editorial pull quote per press item: the outlet's own words, kept in
      the article's original language for authenticity. */
+  /* Press links carry the site's bracket gesture ([ enter ]/[ explore ]):
+     serif lowercase in the desert gold. Static — with eight links on one
+     page, the breathing pulse would turn into noise, so only the single
+     next-step CTAs breathe; these just share the gesture and the hover. */
+  .press-link {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-weight: 300;
+    text-transform: lowercase !important;
+    letter-spacing: 0.05em !important;
+    font-size: 1.05rem !important;
+    color: #d9a96a !important;
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+  }
+
+  .press-link:hover,
+  .press-link:focus-visible {
+    color: #fff !important;
+    letter-spacing: 0.09em !important;
+    transform: none !important;
+  }
+
+  .press-bracket {
+    display: inline-block;
+    font-size: 0.72em;
+    vertical-align: 0.09em;
+  }
+
   .press-quote {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
