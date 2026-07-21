@@ -20,8 +20,23 @@ import { pressItems } from '../../data/v3/pressItems.js';
     {pressItems.map((item) => (
       <li>
         <strong>{item.outlet}</strong>
+        {item.quote && <p class="press-quote">"{item.quote}"</p>}
         <a href={item.href} target="_blank">{item.label}</a>
       </li>
     ))}
   </ul>
 </V3InteriorLayout>
+
+<style>
+  /* Editorial pull quote per press item: the outlet's own words, kept in
+     the article's original language for authenticity. */
+  .press-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.05em !important;
+    color: rgba(255, 255, 255, 0.75) !important;
+    margin: 2px 0 10px 0 !important;
+    line-height: 1.5 !important;
+  }
+</style>

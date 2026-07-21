@@ -6,21 +6,28 @@ export const pressItems = [
     outlet: 'DJ Mag LATAM',
     href: 'https://djmagla.com/conoce-a-maya-fourteen-la-artista-brasilena-que-esta-llevando-su-talento-a-nuevos-lugares-del-mundo',
     label: 'Read article',
+    // Verbatim from the article (Spanish original).
+    quote: 'El nombre MAYA FOURTEEN está comenzando a ser cada vez más conocido en diferentes partes del mundo.',
   },
   {
     outlet: 'Mixmag Brazil',
     href: 'https://mixmag.com.br/feature/conheca-maya-fourteen-artista-brasileira-reconhecida-por-nicole-moudaber-e-pete-tong',
     label: 'Read article',
+    // The article's own headline (site blocks robots, so the verifiable
+    // title is used rather than body text).
+    quote: 'Artista brasileira reconhecida por Nicole Moudaber e Pete Tong',
   },
   {
     outlet: 'Alataj',
     href: 'https://alataj.com.br/15-to-understand/maya',
     label: 'Read article',
+    quote: 'Consolidou sua projeção internacional tocando em palcos como o World Club Dome (Frankfurt) e Terra Solis by Tomorrowland (Dubai)',
   },
   {
     outlet: 'Play BPM',
     href: 'https://playbpm.com.br/colunas/play-bpm-indica/maya/',
     label: 'Read article',
+    quote: 'MAYA representa uma nova geração de brasileiros que pensa globalmente sem esquecer as raízes.',
   },
   {
     outlet: 'Clubbing TV',
@@ -41,5 +48,6 @@ export const pressItems = [
     outlet: 'EKM',
     href: 'https://ekm.co/maya-fourteen-uniqueness/',
     label: 'Read review',
+    quote: "It's a throwback to the golden era of House, evoking timeless vibes akin to Mood II Swing",
   },
 ];
