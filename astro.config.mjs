@@ -22,13 +22,13 @@ const SITEMAP_HREFLANG_GROUPS = [
   { en: '/en/about', pt: '/pt/about', es: '/es/about' },
   { en: '/en/book', pt: '/pt/book', es: '/es/book' },
   { en: '/en/epk', pt: '/pt/epk', es: '/es/epk' },
-  { en: '/en/video-sets', pt: '/pt/video-sets' },
-  { en: '/en/audio-sets', pt: '/pt/audio-sets' },
+  { en: '/en/video-sets', pt: '/pt/video-sets', es: '/es/video-sets' },
+  { en: '/en/audio-sets', pt: '/pt/audio-sets', es: '/es/audio-sets' },
   { en: '/en/press', pt: '/pt/press', es: '/es/press' },
   { en: '/en/privacy', pt: '/pt/privacy', es: '/es/privacy' },
-  { en: '/en/sets/greenvalley', pt: '/pt/sets/greenvalley' },
-  { en: '/en/sets/sls-dubai', pt: '/pt/sets/sls-dubai' },
-  { en: '/en/sets/amazon-basin', pt: '/pt/sets/amazon-basin' },
+  { en: '/en/sets/greenvalley', pt: '/pt/sets/greenvalley', es: '/es/sets/greenvalley' },
+  { en: '/en/sets/sls-dubai', pt: '/pt/sets/sls-dubai', es: '/es/sets/sls-dubai' },
+  { en: '/en/sets/amazon-basin', pt: '/pt/sets/amazon-basin', es: '/es/sets/amazon-basin' },
 ];
 
 // pt is specifically Brazilian Portuguese sitewide (see siteConfig.js /

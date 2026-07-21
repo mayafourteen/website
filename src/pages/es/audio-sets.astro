@@ -5,14 +5,14 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
 ---
 
 <V3InteriorLayout
-  title="Áudio"
-  eyebrow="Qual é o som dela"
-  description="Ouça os sets em áudio e lançamentos de Maya Fourteen no SoundCloud."
+  title="Audio"
+  eyebrow="Cuál es su sonido"
+  description="Escucha los sets de audio y los lanzamientos de Maya Fourteen en SoundCloud."
   heroImage="/images/epk/epk-discography.jpg"
   hasEsSibling
 >
   <p>
-    Mixes, faixas originais e remixes, direto do SoundCloud e do Spotify.
+    Mixes, temas originales y remixes, directamente desde SoundCloud y Spotify.
   </p>
 
   <p class="section-title">Mixes</p>
@@ -32,7 +32,7 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
     ))}
   </ul>
 
-  <p class="section-title">Faixas Originais</p>
+  <p class="section-title">Temas Originales</p>
   <ul class="audio-list">
     {originalTracks.map((track) => (
       <li>
@@ -49,17 +49,17 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
     ))}
     <li>
       <a class="beatport-fallback" href={feelBetterFallback.href} target="_blank" rel="noopener">
-        <span class="beatport-fallback-title">EP 'Feel Better', com Mario Franca</span>
-        <span class="beatport-fallback-meta">Ouça o lançamento da VIVa MUSiC no Beatport</span>
+        <span class="beatport-fallback-title">EP 'Feel Better', con Mario Franca</span>
+        <span class="beatport-fallback-meta">Escucha el lanzamiento de VIVa MUSiC en Beatport</span>
       </a>
     </li>
   </ul>
 
   <div class="audio-cta-row">
-    <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">Mais no SoundCloud</a>
-    <a class="cta-button" href="https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r" target="_blank" rel="noopener">Mais no Spotify</a>
+    <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">Más en SoundCloud</a>
+    <a class="cta-button" href="https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r" target="_blank" rel="noopener">Más en Spotify</a>
   </div>
-  <NewsletterSignup lang="pt" />
+  <NewsletterSignup lang="es" />
 </V3InteriorLayout>
 
 <style>
