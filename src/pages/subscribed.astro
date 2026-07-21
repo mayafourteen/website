@@ -7,6 +7,8 @@
 // confirmation email.
 import V3BaseLayout from '../layouts/V3BaseLayout.astro';
 import HeroBackground from '../components/v3/HeroBackground.astro';
+import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
+import TextFooter from '../components/v3/TextFooter.astro';
 
 const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap';
 ---
@@ -27,6 +29,8 @@ const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:i
     <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
   </div>
 
+  <HamburgerMenu lang="en" />
+
   <div class="content-subscribed">
     <p class="eyebrow">Maya Fourteen</p>
     <h1 class="headline">You're in.</h1>
@@ -40,24 +44,28 @@ const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:i
       <a href="/es">Español</a>
     </nav>
   </div>
+
+  <TextFooter />
 </V3BaseLayout>
 
 <style>
-  :global(.page-subscribed) {
-    overflow: hidden;
-  }
-
   .background-container {
     position: fixed;
     inset: 0;
     z-index: 0;
   }
 
+  /* Footer sits over the fixed hero photo — needs its own stacking so it
+     paints above the z-index:0 background-container. */
+  :global(.page-subscribed) :global(.text-footer) {
+    z-index: 1;
+  }
+
   .content-subscribed {
     position: relative;
     z-index: 1;
-    height: 100vh;
-    height: 100dvh;
+    min-height: 86vh;
+    min-height: 86dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
