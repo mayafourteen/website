@@ -38,11 +38,14 @@ export const pressItems = [
     outlet: 'Sync Beat Magazine',
     href: 'https://issuu.com/syncbeatmagazine/docs/portada_bebbo',
     label: 'View publication',
+    // Verbatim from the magazine's editorial intro to her interview.
+    quote: 'A rising star in the electronic music scene, celebrated for her distinctive blend of organic soundscapes, deep tech, and progressive vibes.',
   },
   {
     outlet: 'Sync Beat Magazine Cover',
     href: 'https://issuu.com/syncbeatmagazine/docs/maya_-_english',
     label: 'View cover feature',
+    quote: 'Enchanting audiences worldwide with her emotionally charged sets and signature style.',
   },
   {
     outlet: 'EKM',
