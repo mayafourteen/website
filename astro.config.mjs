@@ -75,6 +75,9 @@ export default defineConfig({
     }),
   ],
   build: {
+    // Inline the small per-page CSS into the HTML so it isn't a
+    // render-blocking request on slow connections (homepage CSS is ~4KB).
+    inlineStylesheets: 'always',
     // Emit page-en.html / index.html instead of pretty-URL directories,
     // so routes match the reference project's file names exactly and
     // nothing in worker.js's routing has to change.

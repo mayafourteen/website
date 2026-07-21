@@ -147,8 +147,13 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
 
   <!-- Google tag (gtag.js) with Consent Mode v2: analytics stays denied
        until the visitor accepts via the consent banner (choice persisted
-       in localStorage 'maya-consent', shared across all pages). -->
-  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P"></script>
+       in localStorage 'maya-consent', shared across all pages).
+       The consent default + config are set inline immediately (queued in
+       dataLayer), but the ~64KB gtag.js library is loaded lazily — on the
+       first interaction or when the browser is idle, whichever comes first
+       — so it stays off the critical load path. Queued commands (config,
+       consent) replay when the library arrives, so the pageview is not
+       lost. -->
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -162,6 +167,24 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
     });
     gtag('js', new Date());
     gtag('config', 'G-3NGTH9664P');
+    (function () {
+      var loaded = false;
+      function loadGA() {
+        if (loaded) return; loaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-3NGTH9664P';
+        document.head.appendChild(s);
+      }
+      ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (evt) {
+        window.addEventListener(evt, loadGA, { once: true, passive: true });
+      });
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGA, { timeout: 5000 });
+      } else {
+        setTimeout(loadGA, 4000);
+      }
+    })();
   </script>
 
   <!-- Conversion tracking: fires GA4 events for the outcomes that matter
