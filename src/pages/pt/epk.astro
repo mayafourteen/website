@@ -895,6 +895,13 @@ const mediaSpotlightItems = [
     height: 2.3rem;
   }
 
+  /* SoundCloud's glyph is wide and short, so at the shared box size it
+     reads ~20% smaller than the others; nudge just it up to match. */
+  .epk-discover :global(.soundcloud-svg) {
+    width: 2.76rem;
+    height: 2.76rem;
+  }
+
   .epk-discover :global(.brand-svg),
   .epk-discover :global(.beepd-svg),
   .epk-discover :global(.folder-svg) {
@@ -913,6 +920,11 @@ const mediaSpotlightItems = [
     .epk-discover :global(.social-svg) {
       width: 2rem;
       height: 2rem;
+    }
+
+    .epk-discover :global(.soundcloud-svg) {
+      width: 2.4rem;
+      height: 2.4rem;
     }
 
     .epk-discover :global(.brand-svg),
