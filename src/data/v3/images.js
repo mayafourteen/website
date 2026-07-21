@@ -41,6 +41,12 @@ export const images = {
     src: '/images/maya-landing-color.webp',
     width: 2560,
     height: 1439,
+    // Responsive variants (generated with sharp, q72) so mobile loads a
+    // ~12KB image instead of the full 313KB master — the homepage hero is
+    // the page's LCP element, so this directly drives mobile LCP.
+    srcset: '/images/maya-landing-color-640w.webp 640w, /images/maya-landing-color-960w.webp 960w, /images/maya-landing-color-1366w.webp 1366w, /images/maya-landing-color-2048w.webp 2048w, /images/maya-landing-color.webp 2560w',
+    webpSrc: '/images/maya-landing-color.webp',
+    webpSrcset: '/images/maya-landing-color-640w.webp 640w, /images/maya-landing-color-960w.webp 960w, /images/maya-landing-color-1366w.webp 1366w, /images/maya-landing-color-2048w.webp 2048w, /images/maya-landing-color.webp 2560w',
   },
   // 1200x630, color, cropped from the same master — for og:image /
   // JSON-LD image only, never rendered as an on-page <img>.
@@ -113,6 +119,12 @@ export const images = {
     src: '/images/video-hero-greenvalley.webp',
     width: 1920,
     height: 1080,
+    // Responsive variants (sharp, q58 — always rendered darkened+grayscale
+    // as a filtered background, so aggressive compression is invisible).
+    // Mobile loads ~40KB instead of the 340KB master.
+    srcset: '/images/video-hero-greenvalley-640w.webp 640w, /images/video-hero-greenvalley-960w.webp 960w, /images/video-hero-greenvalley-1366w.webp 1366w, /images/video-hero-greenvalley-1920w.webp 1920w',
+    webpSrc: '/images/video-hero-greenvalley.webp',
+    webpSrcset: '/images/video-hero-greenvalley-640w.webp 640w, /images/video-hero-greenvalley-960w.webp 960w, /images/video-hero-greenvalley-1366w.webp 1366w, /images/video-hero-greenvalley-1920w.webp 1920w',
   },
   // Press page hero (src/pages/press.astro + press-pt/press-es) — single
   // file, no generated smaller variants. Was previously missing from this
