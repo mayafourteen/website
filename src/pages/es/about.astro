@@ -9,14 +9,14 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
   hasEsSibling
 >
   <p>
-    Artista premiada, Maya Fourteen transita con naturalidad entre géneros, dando forma al sonido
-    a través de la performance, la producción y la curaduría. Con un público internacional sólido
-    y presentaciones en escenarios destacados de todo el mundo, su presencia transmite
-    profundidad y un gusto inconfundible.
+    Artista brasileña premiada de música electrónica, Maya Fourteen transita con naturalidad
+    entre géneros, dando forma al sonido a través de la performance, la producción y la curaduría.
+    Con un público internacional sólido y presentaciones en escenarios destacados de todo el
+    mundo, su presencia transmite profundidad y un gusto inconfundible.
   </p>
   <p>
-    Nacida donde comienza la Cuenca Amazónica, en Mato Grosso, Brasil, y hoy radicada entre Europa
-    y Sudamérica, Maya es reconocida por sets emocionantes y narrativos, entrelazando elementos
+    Nacida donde comienza la Cuenca Amazónica, en Mato Grosso, y hoy radicada entre Europa y
+    Sudamérica, Maya es reconocida por sets emocionantes y narrativos, entrelazando elementos
     deep, tech, organic y progressive en viajes que crecen en ti.
   </p>
   <p>
@@ -44,7 +44,13 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
     color: #d9a96a;
     text-decoration: none;
     transition: color 0.3s ease, letter-spacing 0.3s ease;
-    animation: readOnBreathe 3s ease-in-out 1.6s infinite;
+    /* Enters exactly like the landing page's [ enter ]: same smoothReveal
+       fade (opacity + blur + translateY), 1.9s start, 2.2s duration, then
+       the breathing pulse picks up at 4.1s once the reveal has landed. */
+    opacity: 0;
+    animation:
+      smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 1.9s forwards,
+      readOnBreathe 3s ease-in-out 4.1s infinite;
   }
 
   .read-on:hover,

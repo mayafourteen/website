@@ -9,14 +9,15 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
   hasEsSibling
 >
   <p>
-    Award-winning electronic music artist Maya Fourteen moves fluidly across genres, shaping sound
-    through performance, production and curation. With a strong international following and
-    performances on respected stages worldwide, her presence carries depth and unmistakable taste.
+    Brazilian award-winning electronic music artist Maya Fourteen moves fluidly across genres,
+    shaping sound through performance, production and curation. With a strong international
+    following and performances on respected stages worldwide, her presence carries depth and
+    unmistakable taste.
   </p>
   <p>
-    Born where the Amazon Basin begins, in Mato Grosso, Brazil, and now based between Europe and
-    South America, Maya is known for sets that are emotionally driven and story-telling, blending
-    deep, tech, organic and progressive elements into journeys that grow on you.
+    Born where the Amazon Basin begins, in Mato Grosso, and now based between Europe and South
+    America, Maya is known for sets that are emotionally driven and story-telling, blending deep,
+    tech, organic and progressive elements into journeys that grow on you.
   </p>
   <p>
     Her work spans releases on renowned international labels and performances across three
@@ -50,7 +51,13 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
     color: #d9a96a;
     text-decoration: none;
     transition: color 0.3s ease, letter-spacing 0.3s ease;
-    animation: readOnBreathe 3s ease-in-out 1.6s infinite;
+    /* Enters exactly like the landing page's [ enter ]: same smoothReveal
+       fade (opacity + blur + translateY), 1.9s start, 2.2s duration, then
+       the breathing pulse picks up at 4.1s once the reveal has landed. */
+    opacity: 0;
+    animation:
+      smoothReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) 1.9s forwards,
+      readOnBreathe 3s ease-in-out 4.1s infinite;
   }
 
   .read-on:hover,
