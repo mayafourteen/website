@@ -12,10 +12,21 @@
     display: block;
     fill: #fff;
   }
+  /* SoundCloud's glyph is wide and short, so at the shared box size it
+     reads ~20% smaller than the other marks; size just it up to balance
+     the row wherever it appears (EPK footer sets its own larger value). */
+  .soundcloud-svg {
+    width: 1.98rem;
+    height: 1.98rem;
+  }
   @media (max-width: 768px) {
     .social-svg {
       width: 1.45rem;
       height: 1.45rem;
+    }
+    .soundcloud-svg {
+      width: 1.74rem;
+      height: 1.74rem;
     }
   }
 </style>
