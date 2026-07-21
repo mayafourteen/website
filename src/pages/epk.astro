@@ -326,20 +326,6 @@ const mediaSpotlightItems = [
       </div>
     </section>
 
-    <!-- FEATURED SET -->
-    <section class="epk-section">
-      <h2>Featured Set</h2>
-      <iframe
-        class="epk-embed"
-        height="300"
-        scrolling="no"
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil&color=%23f2ede4&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
-        title="Maya Fourteen: Ancestral (Mato Grosso, Brazil)"
-        loading="lazy"
-      ></iframe>
-      <a class="epk-inline-link epk-video-link" href="/video-sets">Watch full video sets &rarr;</a>
-    </section>
-
     <!-- GLOBAL AUDIENCE & REACH -->
     <section class="epk-section">
       <h2>Global Audience &amp; Reach</h2>
@@ -352,12 +338,11 @@ const mediaSpotlightItems = [
       </p>
       <div class="epk-audience-grid">
         <img src={images.epkAudienceMap.src} width={images.epkAudienceMap.width} height={images.epkAudienceMap.height} alt="Map of Maya Fourteen's global listener reach" loading="lazy" />
-        <img src={images.epkAudienceRadio.src} width={images.epkAudienceRadio.width} height={images.epkAudienceRadio.height} alt="Maya Fourteen featured on Gray Area / Diplo's Revolution / SiriusXM" loading="lazy" />
-        <img src={images.epkAudienceGreenvalley.src} width={images.epkAudienceGreenvalley.width} height={images.epkAudienceGreenvalley.height} alt="Maya Fourteen performing at Greenvalley" loading="lazy" />
+        <a href="https://soundcloud.com/mayafourteen/maya-ocho-siriusxm" target="_blank" rel="noopener"><img src={images.epkAudienceRadio.src} width={images.epkAudienceRadio.width} height={images.epkAudienceRadio.height} alt="Maya Fourteen featured on Gray Area / Diplo's Revolution / SiriusXM" loading="lazy" /></a>
+        <a href="https://www.youtube.com/watch?v=mWqUmkWs3wY" target="_blank" rel="noopener"><img src={images.epkAudienceGreenvalley.src} width={images.epkAudienceGreenvalley.width} height={images.epkAudienceGreenvalley.height} alt="Maya Fourteen performing at Greenvalley" loading="lazy" /></a>
       </div>
       <p class="epk-audience-caption">
-        Explore MAYA's catalogue and experience her musical language across
-        different settings, moods, and contexts.
+        Every set is a journey. Choose yours.
       </p>
     </section>
 
@@ -384,18 +369,18 @@ const mediaSpotlightItems = [
       <SocialNav links={discoverSocialLinks} />
     </section>
 
-    <!-- BOOKING & MANAGEMENT -->
+    <!-- GET IN TOUCH -->
     <section class="epk-section epk-booking">
-      <h2>Booking &amp; Management</h2>
+      <h2>Get in Touch</h2>
       <div class="epk-booking-card">
-        <p class="epk-booking-heading">For Bookings &amp; Artist Enquiries</p>
-        <p class="epk-booking-name">Antonio Afonso, Management</p>
+        <p class="epk-booking-heading">Booking &amp; Management</p>
+        <p class="epk-booking-name">Antonio Afonso</p>
         <div class="epk-booking-actions">
-          <a class="cta-button" href="mailto:hello@mayafourteen.com">Email hello@mayafourteen.com</a>
+          <a class="cta-button" href="mailto:hello@mayafourteen.com">hello@mayafourteen.com</a>
           <a class="cta-button cta-button-outline" href="https://wa.me/5547999353919" target="_blank">WhatsApp +55 47 99935 3919</a>
         </div>
         <p class="epk-booking-note">
-          Available for select private, club and festival bookings worldwide.
+          Available for select private, club and festival bookings worldwide.<br />
           International tours upon request. Full professional rider provided.
         </p>
       </div>
@@ -785,14 +770,6 @@ const mediaSpotlightItems = [
     color: #fff;
   }
 
-  /* FEATURED SET */
-  .epk-embed {
-    width: 100%;
-    border: none;
-    display: block;
-    border-radius: 3px;
-  }
-
   /* GLOBAL AUDIENCE */
   .epk-audience-grid {
     display: grid;
@@ -866,13 +843,6 @@ const mediaSpotlightItems = [
     margin: 20px 0 0;
   }
 
-  .epk-video-link {
-    display: inline-block;
-    margin-top: 14px;
-    font-size: 0.85rem;
-    letter-spacing: 0.03em;
-  }
-
   /* 2x2 grid: exactly 4 curated photos (down from 6), so an even column
      count reads better than the old 3-column layout's leftover 4th item
      stranded alone on its own row. */
@@ -918,7 +888,13 @@ const mediaSpotlightItems = [
     opacity: 1;
   }
 
-  /* BOOKING */
+  /* BOOKING: section heading centered to match .epk-discover above it —
+     the card itself was already text-align: center, this just extends
+     that to the h2 sitting outside the card. */
+  .epk-booking {
+    text-align: center;
+  }
+
   .epk-booking-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.12);
