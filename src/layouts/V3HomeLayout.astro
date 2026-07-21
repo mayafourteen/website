@@ -84,7 +84,16 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
 
   <div class="content-wrapper">
     <div class="title-group">
-      <h1 class="logo-text fade-item">Maya <br class="logo-break" />Fourteen</h1>
+      <!-- LOGO PROTOTYPE TEST (staging): the new MAYA wordmark replaces the
+           typeset name. The h1 keeps "Maya Fourteen" for SEO/screen readers
+           via the img alt. Revert = restore the previous text h1. -->
+      <h1 class="logo-text logo-text--mark fade-item"><img
+        class="logo-mark"
+        src="/images/maya-logo-prototype.webp"
+        alt="Maya Fourteen"
+        width="1226"
+        height="269"
+      /></h1>
       <div class="slogan fade-item">'I build sets that grow on you'</div>
       <button
         type="button"
@@ -269,6 +278,25 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
     box-sizing: border-box;
     text-align: center;
     padding: 100px 10% calc(9vh + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Prototype wordmark sizing: roughly matches the old text's rendered
+     width so the composition (46vh center, slogan below) stays intact. */
+  .logo-text--mark {
+    line-height: 0;
+  }
+
+  .logo-mark {
+    display: block;
+    margin: 0 auto 16px;
+    width: clamp(300px, 52vw, 760px);
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    .logo-mark {
+      width: min(82vw, 420px);
+    }
   }
 
   .logo-text {
