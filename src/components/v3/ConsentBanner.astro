@@ -71,11 +71,26 @@ const copy = COPY[lang] ?? COPY.en;
     // banner exactly in the free space between it and the bottom edge.
     // Other pages (no .nav-links) and mobile keep the CSS defaults.
     function positionBanner() {
-      if (window.innerWidth <= 560) { banner.style.bottom = ''; return; }
       var icons = document.querySelector('.nav-links');
       if (!icons) return;
-      var gap = window.innerHeight - icons.getBoundingClientRect().bottom;
       var h = banner.offsetHeight;
+      if (window.innerWidth <= 560) {
+        // Mobile homepage: center in the free zone between the [enter]
+        // CTA and the icon row.
+        var cta = document.getElementById('hero-enter-cta');
+        if (!cta) return;
+        var zoneTop = cta.getBoundingClientRect().bottom;
+        var zoneBottom = icons.getBoundingClientRect().top;
+        if (zoneBottom - zoneTop > h + 8) {
+          banner.style.top = Math.round(zoneTop + (zoneBottom - zoneTop - h) / 2) + 'px';
+          banner.style.bottom = 'auto';
+        }
+        return;
+      }
+      // Desktop homepage: center in the free zone between the icon row
+      // and the bottom edge.
+      banner.style.top = '';
+      var gap = window.innerHeight - icons.getBoundingClientRect().bottom;
       if (gap > h + 8) banner.style.bottom = Math.round((gap - h) / 2) + 'px';
     }
     positionBanner();
@@ -185,7 +200,7 @@ const copy = COPY[lang] ?? COPY.en;
     .consent-text {
       font-size: 0.62rem;
       text-align: center;
-      max-width: none;
+      max-width: 215px;
     }
 
     .consent-btn {
