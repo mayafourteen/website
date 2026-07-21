@@ -9,20 +9,21 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
   hasEsSibling
 >
   <p>
-    Award-winning electronic music artist Maya Fourteen moves fluidly across electronic genres,
-    shaping sound through performance, production and curation. With a solid international
-    audience and performances across respected stages worldwide, her presence carries depth and
-    unmistakable taste.
+    Maya Fourteen is a Brazilian electronic music artist, born where the Amazon Basin begins, in
+    Mato Grosso, and now based between Europe and South America.
   </p>
   <p>
-    Originally from where the Amazon Basin begins, in Mato Grosso state, Brazil, Maya's sets are
-    known for being emotionally driven and story-telling, blending deep, tech, organic and
-    progressive elements into journeys that grow on you.
+    Drawn to music from an early age, she found her purpose in electronic music in 2020. In 2025
+    she won a Future Talent Award at IMS Ibiza, and she has released on respected international
+    labels and performed across three continents and more than fifteen countries, reaching major
+    capitals along the way.
   </p>
   <p>
-    Her work spans releases on renowned international labels and performances across three
-    continents and over fifteen countries.
+    Her sets move across deep, tech, organic and progressive, emotionally driven and
+    story-telling, journeys that grow on you.
   </p>
+
+  <a class="read-on" href="/en/epk">Read on &rarr;</a>
 </V3InteriorLayout>
 
 <style>
@@ -32,6 +33,26 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
      which share the same layout but should stay left-aligned. */
   p {
     text-align: justify;
+  }
+
+  /* Quiet "continue into the EPK" link, sits below the intro as an
+     invitation rather than a hard button. Serif to echo the page title,
+     lightly tracked, brightens and eases open on hover. */
+  .read-on {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+  }
+
+  .read-on:hover,
+  .read-on:focus-visible {
+    color: #fff;
+    letter-spacing: 0.2em;
   }
 
   @media (max-width: 768px) {

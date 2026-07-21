@@ -43,13 +43,17 @@ const label = lang === 'es' ? 'Menú' : 'Menu';
 
   .text-footer-link {
     font-family: 'Cormorant Garamond', serif;
-    /* +15% from 0.805rem — was reading too small against the rest of the
-       page's type scale. letter-spacing stays 0.15em: em is relative to
-       font-size, so it scales proportionally with this for free. */
-    font-size: 0.926rem;
+    /* 1.019rem = a further +10% on the previous 0.926rem (itself +15% from
+       the original 0.805rem), bringing it up to sit properly against the
+       rest of the page's type scale. letter-spacing stays 0.15em: em is
+       relative to font-size, so it scales proportionally with this for free. */
+    font-size: 1.019rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.45);
+    /* Raised from 0.45 to 0.65 alpha: the dimmer value read as too faint /
+       too transparent against the photo, so this makes the control clearly
+       more visible while still staying quieter than the hover (0.9). */
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.85);
     transition: color 0.3s ease;
