@@ -354,12 +354,6 @@ const mediaSpotlightItems = [
       </div>
     </section>
 
-    <!-- DESCUBRE A MAYA -->
-    <section class="epk-section epk-discover">
-      <h2>Descubre a MAYA</h2>
-      <SocialNav links={discoverSocialLinks} />
-    </section>
-
     <!-- CONTACTO -->
     <section class="epk-section epk-booking">
       <h2>Contacto</h2>
@@ -376,6 +370,11 @@ const mediaSpotlightItems = [
           Giras internacionales bajo solicitud. Rider profesional completo disponible.
         </p>
       </div>
+    </section>
+
+    <!-- SOCIAL FOOTER -->
+    <section class="epk-discover">
+      <SocialNav links={discoverSocialLinks} />
     </section>
 
   </main>
@@ -876,6 +875,13 @@ const mediaSpotlightItems = [
     transform: scale(1.06);
   }
 
+  /* SOCIAL FOOTER: former Discover section, now a bare centered icon row
+     at the very bottom (title and box removed) so contact closes the page
+     and the socials sign it off. */
+  .epk-discover {
+    padding: 4px 0 16px;
+  }
+
   /* DISCOVER: the section title keeps the page's shared left spine, but
      the icon row itself is centered — as the section's entire content it
      reads as a display piece, not a text block (Antonio's call). Icons
@@ -944,7 +950,7 @@ const mediaSpotlightItems = [
 
   .epk-booking-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
+    font-size: clamp(1.7rem, 3vw, 2.2rem);
     color: #fff !important;
   }
 
