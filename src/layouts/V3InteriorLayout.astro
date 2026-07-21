@@ -280,6 +280,11 @@ const breadcrumbs = [
 
   .page-body :global(.cta-button) {
     display: inline-block;
+    /* Long labels (email address, WhatsApp number) overflowed 390px
+       phones: cap to the container and let the text wrap. */
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
     font-family: 'Cormorant Garamond', serif;
     text-transform: uppercase;
     letter-spacing: 0.3em;

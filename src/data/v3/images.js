@@ -104,9 +104,10 @@ export const images = {
   // urban shot against a metal shutter, pre-converted to grayscale
   // (the page filter darkens it further). Source: Hub/Maya/Assets.
   pressHeroStreet: {
+    // Mystery crop (Antonio): frame starts at the lips, face unseen.
     src: '/images/press-hero-street.webp',
     width: 1920,
-    height: 1296,
+    height: 1080,
     srcset: '/images/press-hero-street-640w.webp 640w, /images/press-hero-street-960w.webp 960w, /images/press-hero-street-1366w.webp 1366w, /images/press-hero-street.webp 1920w',
     webpSrc: '/images/press-hero-street.webp',
     webpSrcset: '/images/press-hero-street-640w.webp 640w, /images/press-hero-street-960w.webp 960w, /images/press-hero-street-1366w.webp 1366w, /images/press-hero-street.webp 1920w',
