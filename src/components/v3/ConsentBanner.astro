@@ -146,11 +146,31 @@ const copy = COPY[lang] ?? COPY.en;
   }
 
   @media (max-width: 560px) {
+    /* Mobile: an ultra-slim full-width strip glued to the bottom edge,
+       below the homepage's social icon row instead of floating over it. */
     .consent-banner {
-      flex-direction: column;
-      gap: 10px;
-      text-align: center;
-      padding: 14px 18px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transform: none;
+      max-width: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0;
+      background: rgba(8, 8, 10, 0.72);
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .consent-text {
+      font-size: 0.62rem;
+    }
+
+    .consent-btn {
+      padding: 3px 8px;
     }
   }
 </style>
