@@ -902,8 +902,18 @@ const mediaSpotlightItems = [
   /* SoundCloud's glyph is wide and short, so at the shared box size it
      reads ~20% smaller than the others; nudge just it up to match. */
   .epk-discover :global(.soundcloud-svg) {
-    width: 2.76rem;
-    height: 2.76rem;
+    width: 3.1rem;
+    height: 3.1rem;
+  }
+
+  .epk-discover :global(.instagram-svg) {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .epk-discover :global(.youtube-svg) {
+    width: 2.6rem;
+    height: 2.6rem;
   }
 
   .epk-discover :global(.brand-svg),
@@ -918,27 +928,37 @@ const mediaSpotlightItems = [
 
   @media (max-width: 768px) {
     .epk-discover :global(.nav-links) {
-      gap: 26px;
+      gap: 12px;
     }
 
     .epk-discover :global(.social-svg) {
-      width: 2rem;
-      height: 2rem;
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+
+    .epk-discover :global(.instagram-svg) {
+      width: 1.85rem;
+      height: 1.85rem;
+    }
+
+    .epk-discover :global(.youtube-svg) {
+      width: 1.9rem;
+      height: 1.9rem;
     }
 
     .epk-discover :global(.soundcloud-svg) {
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 2.2rem;
+      height: 2.2rem;
     }
 
     .epk-discover :global(.brand-svg),
     .epk-discover :global(.beepd-svg),
     .epk-discover :global(.folder-svg) {
-      height: 32px;
+      height: 28px;
     }
 
     .epk-discover :global(.ra-logo) {
-      height: 22px;
+      height: 20px;
     }
   }
 
