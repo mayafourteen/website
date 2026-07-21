@@ -508,4 +508,58 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
       flex-shrink: 0;
     }
   }
+
+  /* Phones in landscape (short viewport, wider than the 768px phone
+     breakpoint so the desktop optical-center composition applies). The
+     desktop treatment is deliberately kept here (the user wants the
+     landscape view to read like the desktop layout), but two things break
+     at ~430px of height: the full-size .logo-text (up to 5.8rem) plus the
+     46vh title placement pushed the slogan/CTA stack down onto the
+     bottom-pinned icon row, and the resulting overflow past 100dvh let the
+     page scroll, which on iOS collapses the toolbar and visibly shifts the
+     fixed hero and icon row as you swipe. Fix: scale the type to the
+     viewport height so the whole stack fits with clearance above the icons,
+     drop the icon row lower toward the bottom edge, and lock scroll so
+     there is nothing to drag (the homepage is a single-viewport entrance,
+     it was never meant to scroll). max-height:500px keeps tablets in
+     landscape, which are much taller, on the untouched desktop layout. */
+  @media (orientation: landscape) and (max-height: 500px) {
+    :global(body.page-v2-home) {
+      overflow: hidden;
+    }
+
+    .content-wrapper {
+      padding-top: 40px;
+      padding-bottom: calc(4vh + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* --name-half-line mirrors the landscape .logo-text clamp below scaled
+       by (line-height / 2) = 0.55, so the translateY still lands the name's
+       true vertical center on `top`, same mechanism as the desktop rule. */
+    .title-group {
+      top: 42vh;
+      --name-half-line: clamp(1.21rem, 4.4vh, 1.87rem);
+    }
+
+    .logo-text {
+      font-size: clamp(2.2rem, 8vh, 3.4rem);
+      line-height: 1.1;
+      letter-spacing: 0.18em;
+      margin-bottom: 6px;
+    }
+
+    .slogan {
+      font-size: clamp(0.85rem, 2.6vh, 1.1rem);
+      margin-bottom: 12px;
+    }
+
+    .hero-cta {
+      font-size: clamp(0.85rem, 2.6vh, 1.1rem);
+      margin-bottom: 0;
+    }
+
+    .content-wrapper :global(.nav-links) {
+      margin-bottom: 0;
+    }
+  }
 </style>
