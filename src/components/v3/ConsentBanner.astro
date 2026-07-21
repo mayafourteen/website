@@ -152,8 +152,11 @@ const copy = COPY[lang] ?? COPY.en;
        card at the top instead, just below the language/menu chrome,
        where the photo has breathing space. */
     .consent-banner {
-      top: calc(58px + env(safe-area-inset-top, 0px));
-      bottom: auto;
+      /* Between the [enter] CTA (ends ~65% down) and the icon row
+         (pinned at the bottom 6vh) — the one clear zone on the mobile
+         homepage composition. */
+      bottom: calc(15vh + env(safe-area-inset-bottom, 0px));
+      top: auto;
       width: min(92vw, 360px);
       justify-content: center;
       flex-wrap: wrap;
