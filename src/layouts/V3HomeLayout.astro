@@ -292,6 +292,9 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
     /* Soft white to match .slogan's rgba(255,255,255,0.85) voice — the
        pure-white render read harsher than the text around it. */
     opacity: 0.88;
+    /* Subtle drop shadow lifts the lettering off the brighter parts of
+       the hero (sky, sand) without reading as an effect. */
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45));
     width: clamp(260px, 42vw, 620px);
     height: auto;
   }
