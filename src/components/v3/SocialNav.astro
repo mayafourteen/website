@@ -4,6 +4,10 @@ import EpkIcon from './icons/EpkIcon.astro';
 import BeatportIcon from './icons/BeatportIcon.astro';
 import BeepdIcon from './icons/BeepdIcon.astro';
 import ResidentAdvisorIcon from './icons/ResidentAdvisorIcon.astro';
+import InstagramIcon from './icons/InstagramIcon.astro';
+import YoutubeIcon from './icons/YoutubeIcon.astro';
+import SoundcloudIcon from './icons/SoundcloudIcon.astro';
+import SpotifyIcon from './icons/SpotifyIcon.astro';
 import { socialLinks } from '../../data/v3/socialLinks.js';
 
 interface Props {
@@ -21,7 +25,10 @@ const { epkHref, links = socialLinks } = Astro.props;
       {link.name === 'beatport' && <BeatportIcon />}
       {link.name === 'beepd' && <BeepdIcon />}
       {link.name === 'residentadvisor' && <ResidentAdvisorIcon />}
-      {link.type === 'fa' && <i class={`fa-brands fa-${link.name} fa-icon`}></i>}
+      {link.name === 'instagram' && <InstagramIcon />}
+      {link.name === 'youtube' && <YoutubeIcon />}
+      {link.name === 'soundcloud' && <SoundcloudIcon />}
+      {link.name === 'spotify' && <SpotifyIcon />}
     </NavLink>
   ))}
 </div>
@@ -37,19 +44,9 @@ const { epkHref, links = socialLinks } = Astro.props;
     margin-bottom: 50px;
   }
 
-  .fa-icon {
-    font-size: 1.8rem;
-    display: block;
-    line-height: 1;
-  }
-
   @media (max-width: 768px) {
     .nav-links {
       gap: 20px;
-    }
-
-    .fa-icon {
-      font-size: 1.6rem;
     }
   }
 </style>
