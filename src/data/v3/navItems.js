@@ -32,8 +32,8 @@ export const navItems = {
   es: [
     { label: 'Inicio', href: '/es' },
     { label: 'Sobre', href: '/es/about' },
-    { label: 'Vídeo', href: '/en/video-sets' },
-    { label: 'Audio', href: '/en/audio-sets' },
+    { label: 'Vídeo', href: '/es/video-sets' },
+    { label: 'Audio', href: '/es/audio-sets' },
     { label: 'Prensa', href: '/es/press' },
     { label: 'EPK', href: '/es/epk' },
     { label: 'Info', href: '/es/book' },
