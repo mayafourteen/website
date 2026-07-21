@@ -11,7 +11,7 @@ export const videoSets = [
   },
   {
     id: 'IRV1sNs9aTk',
-    title: 'Live DJ Set at Amazon Basin (Sunset Session) — Mato Grosso, Brazil | Maya Fourteen',
+    title: 'Live DJ Set at Amazon Basin (Sunset Session) - Mato Grosso, Brazil | Maya Fourteen',
   },
   {
     id: 'lcOJEm9-DjI',

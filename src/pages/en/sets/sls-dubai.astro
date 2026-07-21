@@ -3,9 +3,9 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
 ---
 
 <V3InteriorLayout
-  title="SLS Dubai — 75 Floors Up"
+  title="SLS Dubai - 75 Floors Up"
   eyebrow="Set story"
-  description="Maya Fourteen live at the Pyramid Waves Showcase, Privilege Rooftop at SLS Dubai — a deep tech and progressive house journey 75 floors above the city, with the Burj Khalifa behind the decks."
+  description="Maya Fourteen live at the Pyramid Waves Showcase, Privilege Rooftop at SLS Dubai: a deep tech and progressive house journey 75 floors above the city, with the Burj Khalifa behind the decks."
 >
   <div class="video-frame">
     <iframe
@@ -20,13 +20,13 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
   <p>
     Seventy-five floors up, surrounded by the Dubai skyline, with the Burj Khalifa piercing the
     horizon right behind the decks. Recorded at the Pyramid Waves Showcase on the Privilege
-    Rooftop at SLS Dubai, this set is a pure deep tech and progressive house journey — a sonic
+    Rooftop at SLS Dubai, this set is a pure deep tech and progressive house journey, a sonic
     story that evolves with the energy of the city lights below.
   </p>
   <p>
-    The groove was built to unfold naturally as the night did — music left room to breathe,
-    pulling everyone on that rooftop into the same rhythm. One of those sessions that deserved
-    to run longer; there was a flight to Barcelona waiting right after the last track.
+    The groove was built to unfold naturally as the night did. The music was left room to
+    breathe, pulling everyone on that rooftop into the same rhythm. One of those sessions that
+    deserved to run longer; there was a flight to Barcelona waiting right after the last track.
   </p>
   <p class="venue-note">
     SLS Dubai is one of the UAE's most iconic luxury hotels, its rooftop venues looking out over
@@ -37,14 +37,14 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
 
   <h2>The journey</h2>
   <ul class="tracklist">
-    <li>Eelke Kleijn — The Hierophant</li>
-    <li>Audio Junkies — Revelations</li>
-    <li>Miguel Matoz, Westseven — Brainchild</li>
-    <li>Adam Ten, Mita Gami — The Beat Machine</li>
-    <li>D-Nox, Beckers — Narita Express</li>
-    <li>Bedouin, Vintage Culture — Tijuana</li>
-    <li>D-Formation, D-Nox &amp; Beckers — Balkia</li>
-    <li>Betoko, Haze-M — Rebirth</li>
+    <li><span class="ts">00:00</span>Eelke Kleijn - The Hierophant</li>
+    <li><span class="ts">06:15</span>Audio Junkies - Revelations</li>
+    <li><span class="ts">12:58</span>Miguel Matoz, Westseven - Brainchild</li>
+    <li><span class="ts">19:38</span>Adam Ten, Mita Gami - The Beat Machine</li>
+    <li><span class="ts">24:30</span>D-Nox, Beckers - Narita Express</li>
+    <li><span class="ts">32:11</span>Bedouin, Vintage Culture - Tijuana</li>
+    <li><span class="ts">37:00</span>D-Formation, D-Nox &amp; Beckers - Balkia</li>
+    <li><span class="ts">44:05</span>Betoko, Haze-M - Rebirth</li>
   </ul>
 
   <a class="cta-button" href="https://www.youtube.com/watch?v=twN80oij1Uw" target="_blank" rel="noopener">Watch the full set on YouTube</a>
@@ -54,7 +54,6 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
   .video-frame {
     position: relative;
     width: 100%;
-    max-width: 640px;
     aspect-ratio: 16 / 9;
     margin: 0 0 28px;
   }
@@ -65,6 +64,10 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
     width: 100%;
     height: 100%;
     border: 0;
+  }
+
+  p {
+    text-align: justify;
   }
 
   .venue-note {
@@ -87,5 +90,18 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
     font-size: 0.88em;
     line-height: 1.9;
     opacity: 0.85;
+  }
+
+  .ts {
+    display: inline-block;
+    min-width: 4.4em;
+    opacity: 0.55;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 768px) {
+    p {
+      text-align: left;
+    }
   }
 </style>

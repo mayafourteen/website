@@ -66,6 +66,20 @@ const copy = COPY[lang] ?? COPY.en;
     }
     document.getElementById('consent-accept').addEventListener('click', function () { choose('granted'); });
     document.getElementById('consent-decline').addEventListener('click', function () { choose('denied'); });
+
+    // Desktop, homepage only: measure the social icon row and center the
+    // banner exactly in the free space between it and the bottom edge.
+    // Other pages (no .nav-links) and mobile keep the CSS defaults.
+    function positionBanner() {
+      if (window.innerWidth <= 560) { banner.style.bottom = ''; return; }
+      var icons = document.querySelector('.nav-links');
+      if (!icons) return;
+      var gap = window.innerHeight - icons.getBoundingClientRect().bottom;
+      var h = banner.offsetHeight;
+      if (gap > h + 8) banner.style.bottom = Math.round((gap - h) / 2) + 'px';
+    }
+    positionBanner();
+    window.addEventListener('resize', positionBanner);
   })();
 </script>
 
@@ -78,7 +92,7 @@ const copy = COPY[lang] ?? COPY.en;
     z-index: 300;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     box-sizing: border-box;
     width: auto;
     max-width: 92vw;
@@ -142,6 +156,7 @@ const copy = COPY[lang] ?? COPY.en;
   .consent-decline {
     border-color: transparent;
     color: rgba(255, 255, 255, 0.4);
+    padding-right: 0;
   }
 
   .consent-decline:hover {
@@ -154,15 +169,15 @@ const copy = COPY[lang] ?? COPY.en;
        card at the top instead, just below the language/menu chrome,
        where the photo has breathing space. */
     .consent-banner {
-      /* Between the [enter] CTA (ends ~65% down) and the icon row
-         (pinned at the bottom 6vh) — the one clear zone on the mobile
-         homepage composition. */
+      /* Between the [enter] CTA and the bottom-pinned icon row, the one
+         clear zone on the mobile homepage composition. Width hugs the
+         text: as narrow as possible without forcing a line break. */
       bottom: calc(15vh + env(safe-area-inset-bottom, 0px));
       top: auto;
-      width: min(92vw, 360px);
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px 12px;
+      flex-direction: column;
+      width: fit-content;
+      max-width: 96vw;
+      gap: 6px;
       background: rgba(8, 8, 10, 0.55);
       padding: 7px 12px;
     }

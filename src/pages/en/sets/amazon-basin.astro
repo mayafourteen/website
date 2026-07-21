@@ -3,9 +3,9 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
 ---
 
 <V3InteriorLayout
-  title="Amazon Basin — A Sunset Journey Home"
+  title="Amazon Basin - A Sunset Journey Home"
   eyebrow="Set story"
-  description="Maya Fourteen's sunset session recorded live in the Amazon Basin, Mato Grosso, Brazil — organic tech, tribal textures and progressive vibes where the world's largest rainforest begins."
+  description="Maya Fourteen's sunset session recorded live in the Amazon Basin, Mato Grosso, Brazil: organic tech, tribal textures and progressive vibes where the world's largest rainforest begins."
 >
   <div class="video-frame">
     <iframe
@@ -19,29 +19,29 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
 
   <p>
     This is the homecoming. A sunset session recorded live in the heart of the Amazon Basin, in
-    Mato Grosso — the homeland — where the rivers and lagoons begin to converge and nature
-    dances to its own rhythm. The set was designed to honor that: a selection inspired by the
-    lush landscape and the soulful energy of the region.
+    Mato Grosso, the homeland, where the rivers and lagoons begin to converge and nature dances
+    to its own rhythm. The set was designed to honor that: a selection inspired by the lush
+    landscape and the soulful energy of the region.
   </p>
   <p>
     It moves through organic tech, tribal textures and progressive vibes as the sun dips below
-    the world's largest rainforest. This is the long burn in its purest form — organic
+    the world's largest rainforest. This is the long burn in its purest form: organic
     percussion, emotional storytelling, a rhythm that breathes with the landscape.
   </p>
 
   <h2>The journey</h2>
   <ul class="tracklist">
-    <li>Pablo Fierro, Hyenah — Panoramica</li>
-    <li>Ameme — Your Vibe</li>
-    <li>The Angels feat. Idd Aziz — Jungle Walk</li>
-    <li>Boy Oh Boy — Ko Kora</li>
-    <li>Eran Hersh — Yums</li>
-    <li>Dave S. — Everything Comes In Threes</li>
-    <li>Matthias Meyer, Budakid — Hybrid Society</li>
-    <li>Sam Davies — Cosmos</li>
-    <li>Stan Kolev — Inward</li>
-    <li>Kintar, Delum — Sophie</li>
-    <li>Swedish House Mafia, The Weeknd — Moth To A Flame</li>
+    <li>Pablo Fierro, Hyenah - Panoramica</li>
+    <li>Ameme - Your Vibe</li>
+    <li>The Angels feat. Idd Aziz - Jungle Walk</li>
+    <li>Boy Oh Boy - Ko Kora</li>
+    <li>Eran Hersh - Yums</li>
+    <li>Dave S. - Everything Comes In Threes</li>
+    <li>Matthias Meyer, Budakid - Hybrid Society</li>
+    <li>Sam Davies - Cosmos</li>
+    <li>Stan Kolev - Inward</li>
+    <li>Kintar, Delum - Sophie</li>
+    <li>Swedish House Mafia, The Weeknd - Moth To A Flame</li>
   </ul>
 
   <a class="cta-button" href="https://www.youtube.com/watch?v=IRV1sNs9aTk" target="_blank" rel="noopener">Watch the full set on YouTube</a>
@@ -51,7 +51,6 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
   .video-frame {
     position: relative;
     width: 100%;
-    max-width: 640px;
     aspect-ratio: 16 / 9;
     margin: 0 0 28px;
   }
@@ -62,6 +61,10 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
     width: 100%;
     height: 100%;
     border: 0;
+  }
+
+  p {
+    text-align: justify;
   }
 
   h2 {
@@ -79,5 +82,11 @@ import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
     font-size: 0.88em;
     line-height: 1.9;
     opacity: 0.85;
+  }
+
+  @media (max-width: 768px) {
+    p {
+      text-align: left;
+    }
   }
 </style>
