@@ -404,7 +404,10 @@ const mediaSpotlightItems = [
   :global(.page-epk) {
     color: #fff;
     font-family: 'Inter', sans-serif;
-    background: #0a0a0a;
+    /* Nudged darker from #0a0a0a (Antonio, after the seam fix unified the
+       page): a touch more contrast between the page canvas and the
+       #141414 section cards. */
+    background: #070707;
     /* The site-wide global sets html,body { height:100% } — that makes the
        body's box exactly one viewport tall, so its #0a0a0a background
        stopped there and the html's pure-black canvas showed through
