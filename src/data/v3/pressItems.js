@@ -29,12 +29,12 @@ export const pressItems = [
   },
   {
     outlet: 'Sync Beat Magazine',
-    href: 'https://issuu.com/syncbeatmagazine/docs/maya_-_english',
+    href: 'https://issuu.com/syncbeatmagazine/docs/portada_bebbo',
     label: 'View publication',
   },
   {
     outlet: 'Sync Beat Magazine Cover',
-    href: 'https://issuu.com/syncbeatmagazine/docs/portada_bebbo',
+    href: 'https://issuu.com/syncbeatmagazine/docs/maya_-_english',
     label: 'View cover feature',
   },
   {

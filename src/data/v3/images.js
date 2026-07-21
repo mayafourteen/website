@@ -116,15 +116,18 @@ export const images = {
   // by the EPK pages' own World Stages section, left untouched). Single
   // file, no generated smaller variants.
   videoHeroGreenvalley: {
+    // Re-cropped 2026-07-21 (Antonio): 40% tighter on Maya — the original
+    // 1920x1080 frame showed the two floor fans in the corners and loose
+    // space at the sides. Master is now the 1344x756 crop (16:9 kept, no
+    // upscaling so it stays crisp).
     src: '/images/video-hero-greenvalley.webp',
-    width: 1920,
-    height: 1080,
+    width: 1344,
+    height: 756,
     // Responsive variants (sharp, q58 — always rendered darkened+grayscale
     // as a filtered background, so aggressive compression is invisible).
-    // Mobile loads ~40KB instead of the 340KB master.
-    srcset: '/images/video-hero-greenvalley-640w.webp 640w, /images/video-hero-greenvalley-960w.webp 960w, /images/video-hero-greenvalley-1366w.webp 1366w, /images/video-hero-greenvalley-1920w.webp 1920w',
+    srcset: '/images/video-hero-greenvalley-640w.webp 640w, /images/video-hero-greenvalley-960w.webp 960w, /images/video-hero-greenvalley-1344w.webp 1344w',
     webpSrc: '/images/video-hero-greenvalley.webp',
-    webpSrcset: '/images/video-hero-greenvalley-640w.webp 640w, /images/video-hero-greenvalley-960w.webp 960w, /images/video-hero-greenvalley-1366w.webp 1366w, /images/video-hero-greenvalley-1920w.webp 1920w',
+    webpSrcset: '/images/video-hero-greenvalley-640w.webp 640w, /images/video-hero-greenvalley-960w.webp 960w, /images/video-hero-greenvalley-1344w.webp 1344w',
   },
   // Press page hero (src/pages/press.astro + press-pt/press-es) — single
   // file, no generated smaller variants. Was previously missing from this
