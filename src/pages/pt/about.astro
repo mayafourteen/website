@@ -24,7 +24,7 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
     continentes e mais de quinze países.
   </p>
 
-  <a class="read-on" href="/pt/epk">Leia mais &rarr;</a>
+  <a class="read-on" href="/pt/epk"><span class="read-on-bracket">[</span> leia mais <span class="read-on-bracket">]</span></a>
 </V3InteriorLayout>
 
 <style>
@@ -33,20 +33,38 @@ import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
   }
 
   .read-on {
-    display: inline-block;
-    margin-top: 10px;
+    display: block;
+    text-align: center;
+    margin-top: 36px;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.14em;
-    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    color: #d9a96a;
     text-decoration: none;
     transition: color 0.3s ease, letter-spacing 0.3s ease;
+    animation: readOnBreathe 3s ease-in-out 1.6s infinite;
   }
 
   .read-on:hover,
   .read-on:focus-visible {
     color: #fff;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.09em;
+  }
+
+  /* Bracket glyphs shrunk and nudged to hug the word, mirroring the
+     landing page's [ enter ] treatment so the two invitations read as the
+     same gesture. */
+  .read-on-bracket {
+    display: inline-block;
+    font-size: 0.72em;
+    vertical-align: 0.09em;
+  }
+
+  @keyframes readOnBreathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
   }
 
   @media (max-width: 768px) {
