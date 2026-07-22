@@ -36,4 +36,27 @@ import NewsletterSignup from '../../components/v3/NewsletterSignup.astro';
     color: rgba(255, 255, 255, 0.9) !important;
     margin-top: 30px !important;
   }
+
+  /* Desktop composition: Maya stands on the left of the photo, so the
+     whole text column moves to the right, over the dark door, and
+     left-aligns. She owns the light, the words own the shadow. Phones
+     keep the centered stack (the photo's sides crop away there). */
+  @media (min-width: 900px) {
+    :global(.page-v2-interior .content-wrapper) {
+      max-width: 470px !important;
+      margin-right: 4% !important;
+      margin-left: auto !important;
+      text-align: left !important;
+    }
+
+    :global(.page-v2-interior .eyebrow),
+    :global(.page-v2-interior .page-title) {
+      text-align: left !important;
+    }
+
+    p,
+    .subscribe-close {
+      text-align: left;
+    }
+  }
 </style>

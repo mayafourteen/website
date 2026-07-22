@@ -124,7 +124,7 @@ export const images = {
   subscribeHeroSafe: {
     src: '/images/subscribe-hero-safe.webp',
     width: 1920,
-    height: 1280,
+    height: 1080,
     srcset: '/images/subscribe-hero-safe-640w.webp 640w, /images/subscribe-hero-safe-960w.webp 960w, /images/subscribe-hero-safe-1366w.webp 1366w, /images/subscribe-hero-safe.webp 1920w',
     webpSrc: '/images/subscribe-hero-safe.webp',
     webpSrcset: '/images/subscribe-hero-safe-640w.webp 640w, /images/subscribe-hero-safe-960w.webp 960w, /images/subscribe-hero-safe-1366w.webp 1366w, /images/subscribe-hero-safe.webp 1920w',
