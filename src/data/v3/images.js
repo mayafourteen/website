@@ -129,6 +129,18 @@ export const images = {
     webpSrc: '/images/subscribe-hero-safe.webp',
     webpSrcset: '/images/subscribe-hero-safe-640w.webp 640w, /images/subscribe-hero-safe-960w.webp 960w, /images/subscribe-hero-safe-1366w.webp 1366w, /images/subscribe-hero-safe.webp 1920w',
   },
+  // /subscribed (double opt-in confirmation) full-bleed background: the
+  // same antique safe as /subscribe but standing OPEN — the visual payoff
+  // of the closed-safe subscribe page. Pre-converted b&w to match.
+  // Source: Hub/Maya/Assets/safe_open.png.
+  subscribedHeroVault: {
+    src: '/images/subscribed-hero-vault.webp',
+    width: 1536,
+    height: 1024,
+    srcset: '/images/subscribed-hero-vault-640w.webp 640w, /images/subscribed-hero-vault-960w.webp 960w, /images/subscribed-hero-vault-1366w.webp 1366w, /images/subscribed-hero-vault.webp 1536w',
+    webpSrc: '/images/subscribed-hero-vault.webp',
+    webpSrcset: '/images/subscribed-hero-vault-640w.webp 640w, /images/subscribed-hero-vault-960w.webp 960w, /images/subscribed-hero-vault-1366w.webp 1366w, /images/subscribed-hero-vault.webp 1536w',
+  },
   epkFendi: {
     src: '/images/epk/epk-fendi.jpg',
     width: 1080,
