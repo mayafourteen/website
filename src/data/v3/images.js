@@ -24,6 +24,11 @@ export const images = {
     srcset: '/images/maya-landing-bw-640w.jpg 640w, /images/maya-landing-bw-960w.jpg 960w, /images/maya-landing-bw-1366w.jpg 1366w, /images/maya-landing-bw-2048w.jpg 2048w, /images/maya-landing-bw.jpg 2732w',
     webpSrc: '/images/maya-landing-bw.webp',
     webpSrcset: '/images/maya-landing-bw-640w.webp 640w, /images/maya-landing-bw-960w.webp 960w, /images/maya-landing-bw-1366w.webp 1366w, /images/maya-landing-bw-2048w.webp 2048w, /images/maya-landing-bw.webp 2732w',
+    // AVIF at quality 65: ~30-35% under the webp equivalents with no
+    // visible quality loss (checked on the hero). Only the two landing
+    // images carry AVIF: the grainy press/video textures compressed
+    // WORSE in AVIF than webp, so those deliberately have none.
+    avifSrcset: '/images/maya-landing-bw-640w.avif 640w, /images/maya-landing-bw-960w.avif 960w, /images/maya-landing-bw-1366w.avif 1366w, /images/maya-landing-bw-2048w.avif 2048w, /images/maya-landing-bw.avif 2732w',
   },
   landingColor: {
     src: '/images/maya-landing.jpg',
@@ -47,6 +52,7 @@ export const images = {
     srcset: '/images/maya-landing-color-640w.webp 640w, /images/maya-landing-color-960w.webp 960w, /images/maya-landing-color-1366w.webp 1366w, /images/maya-landing-color-2048w.webp 2048w, /images/maya-landing-color.webp 2560w',
     webpSrc: '/images/maya-landing-color.webp',
     webpSrcset: '/images/maya-landing-color-640w.webp 640w, /images/maya-landing-color-960w.webp 960w, /images/maya-landing-color-1366w.webp 1366w, /images/maya-landing-color-2048w.webp 2048w, /images/maya-landing-color.webp 2560w',
+    avifSrcset: '/images/maya-landing-color-640w.avif 640w, /images/maya-landing-color-960w.avif 960w, /images/maya-landing-color-1366w.avif 1366w, /images/maya-landing-color-2048w.avif 2048w, /images/maya-landing-color.avif 2560w',
   },
   // 1200x630, color, cropped from the same master — for og:image /
   // JSON-LD image only, never rendered as an on-page <img>.

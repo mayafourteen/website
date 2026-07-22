@@ -27,6 +27,9 @@ const HERO_SIZES = '(max-aspect-ratio: 1/1) 240vw, 100vw';
 ---
 
 <picture>
+  {meta?.avifSrcset && (
+    <source type="image/avif" srcset={meta.avifSrcset} sizes={HERO_SIZES} />
+  )}
   {meta?.webpSrcset && (
     <source type="image/webp" srcset={meta.webpSrcset} sizes={HERO_SIZES} />
   )}
