@@ -182,13 +182,29 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
     letter-spacing: 0.18em;
   }
 
-  /* Current page: quiet gold underline, the "you are here" marker. */
+  /* Current page: white underline with a soft slow flash, the "you are
+     here" marker. White, not gold, so it never competes with the gold
+     EPK item (Antonio's call). Drawn as a pseudo-element so only the
+     line pulses, never the label text. */
   .menu-list-item.is-current {
     opacity: 1;
-    text-decoration: underline;
-    text-decoration-color: #d9a96a;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 10px;
+    position: relative;
+  }
+
+  .menu-list-item.is-current::after {
+    content: '';
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 8px;
+    height: 1px;
+    background: #fff;
+    animation: menuCurrentPulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes menuCurrentPulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 0.3; }
   }
 
   /* The one lit item in the menu (currently EPK — see navItems.js):
