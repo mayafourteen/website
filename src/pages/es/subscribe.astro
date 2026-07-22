@@ -1,0 +1,17 @@
+---
+import V3InteriorLayout from '../../layouts/V3InteriorLayout.astro';
+import NewsletterSignup from '../../components/v3/NewsletterSignup.astro';
+---
+
+{/* Unlisted newsletter landing page: not in any menu, shared directly
+    (IG stories, link-in-bio). Background: placeholder until Antonio's
+    chosen "safe" photo lands in Assets, then swap heroImage. */}
+<V3InteriorLayout
+  title="Suscríbete"
+  eyebrow="Newsletter"
+  description="Acceso prioritario a nuevos sets y video sets, novedades de lanzamientos, fechas e invitaciones especiales. Antes que nadie."
+  hasEsSibling
+>
+  <NewsletterSignup lang="es" />
+</V3InteriorLayout>
+
