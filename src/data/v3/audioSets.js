@@ -19,35 +19,30 @@ export function buildEmbedUrl(trackUrl) {
   return `https://w.soundcloud.com/player/?${params.toString()}`;
 }
 //
-// Two of the originally-requested named mixes ("IBIZA LIVE RADIO"
-// exclusive DJ mix, a "RETRO PULSE" set) could not be found on her
-// profile after an extensive search — checked plausible URL slugs via
-// oEmbed, all 404. Replaced with her next-highest-played sets instead of
-// guessing a URL, per the brief's own "substitute the highest-play-count
-// set" fallback instruction.
+// Mixes mirror the five SPOTLIGHT (pinned) sets on her SoundCloud profile,
+// in the profile's own order (Antonio, 2026-07-22). Two of these (Ibiza
+// Live Radio, Retro Pulse) did not exist at the previous pass; all five
+// were re-verified live on soundcloud.com before this update.
 export const mixes = [
-  {
-    url: 'https://soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil',
-    title: 'Ancestral, Mato Grosso, Brazil',
-  },
   {
     url: 'https://soundcloud.com/mayafourteen/maya-fourteen-la-mansarda',
     title: "'CENA ON' Radio Show, Live at La Mansarda",
   },
   {
-    url: 'https://soundcloud.com/mayafourteen/maya-f1-after-race-recap',
-    title: 'Maya F1 After Race Recap',
+    url: 'https://soundcloud.com/mayafourteen/ibiza-live-radio-exclusive-dj-mix',
+    title: 'Ibiza Live Radio, Exclusive DJ Mix',
   },
-  // Substitute for "IBIZA LIVE RADIO Exclusive DJ Mix" (not found) — her
-  // 2nd highest-played set at time of writing.
   {
-    url: 'https://soundcloud.com/mayafourteen/maya-fourteen-greenvalley-summer-opening-camboriu-brazil',
-    title: 'Live DJ Set at Greenvalley, Camboriú',
+    url: 'https://soundcloud.com/mayafourteen/retro-pulse',
+    title: 'Retro Pulse, Curated for Oceanus (Paris & London Fashion Week)',
   },
-  // Substitute for "RETRO PULSE" (not found) — her 3rd highest-played set.
   {
-    url: 'https://soundcloud.com/mayafourteen/dance-club-mag-podcast-feat-maya-fourteen',
-    title: "Dance Club Mag 'Global Sessions', Portugal",
+    url: 'https://soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil',
+    title: 'Ancestral, Mato Grosso, Brazil',
+  },
+  {
+    url: 'https://soundcloud.com/mayafourteen/pyramid-waves-showcase-privilege-roftop-sls-dubai',
+    title: 'Pyramid Waves Showcase, Privilege Rooftop, SLS Dubai',
   },
 ];
 
