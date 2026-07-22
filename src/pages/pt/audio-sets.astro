@@ -122,5 +122,9 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    /* Three buttons span the content width: first flush left, last flush
+       right (justified with the players above), middle centered. Wraps
+       back to a plain stacked row on narrow screens. */
+    justify-content: space-between;
   }
 </style>
