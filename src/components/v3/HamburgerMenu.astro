@@ -7,6 +7,10 @@ interface Props {
 
 const { lang = 'en' } = Astro.props;
 const items = navItems[lang] ?? navItems.en;
+
+// "You are here": mark the item matching the current URL so the open menu
+// orients the visitor (gold underline via .is-current below).
+const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 ---
 
 <button
@@ -26,7 +30,11 @@ const items = navItems[lang] ?? navItems.en;
   <button type="button" class="menu-close" id="hamburger-close" aria-label="Close menu">&times;</button>
   <ul class="menu-list">
     {items.map((item) => (
-      <li><a href={item.href} class:list={['menu-list-item', { 'menu-list-item--highlight': item.highlight }]}>{item.label}</a></li>
+      <li><a
+        href={item.href}
+        aria-current={item.href === currentPath ? 'page' : undefined}
+        class:list={['menu-list-item', { 'menu-list-item--highlight': item.highlight, 'is-current': item.href === currentPath }]}
+      >{item.label}</a></li>
     ))}
   </ul>
 </nav>
@@ -172,6 +180,15 @@ const items = navItems[lang] ?? navItems.en;
   .menu-list-item:hover {
     opacity: 1;
     letter-spacing: 0.18em;
+  }
+
+  /* Current page: quiet gold underline, the "you are here" marker. */
+  .menu-list-item.is-current {
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-color: #d9a96a;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 10px;
   }
 
   /* The one lit item in the menu (currently EPK — see navItems.js):

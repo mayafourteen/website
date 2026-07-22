@@ -1,0 +1,88 @@
+---
+import V3InteriorLayout from '../../../layouts/V3InteriorLayout.astro';
+---
+
+<V3InteriorLayout
+  title="FENDI x Yachthouse - 300 Meters Above"
+  eyebrow="Set story"
+  description="Maya Fourteen's exclusive deep and tech house session, recorded as the prelude to a private FENDI and GT Home event at the Yachthouse by Pininfarina, 300 meters above Balneário Camboriú, Brazil."
+  hasEsSibling
+  videoId="lcOJEm9-DjI"
+>
+  <div class="video-frame">
+    <iframe
+      src="https://www.youtube.com/embed/lcOJEm9-DjI"
+      title="FENDI x Yachthouse - 300 Meters Above | Maya Fourteen"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <p>
+    Three hundred meters above the ground. An exclusive session recorded as the prelude to a private FENDI and GT Home event, performed inside the Yachthouse by Pininfarina, one of the tallest residential skyscrapers in Brazil, with the skyline of Balneário Camboriú, the "Dubai of Brazil", stretching below.
+  </p>
+  <p>
+    Playing inside one of the city's most luxurious residences was a moment of pure synergy between high fashion, refined design and panoramic ocean views. The session was captured early, in its purest form: just the music, the architecture and the infinite horizon. The selection moves through deep, tech and groove-driven house, designed to reflect that elevated atmosphere.
+  </p>
+
+  <h2>The journey</h2>
+  <ul class="tracklist">
+    <li>Metro Area - Miura</li>
+    <li>Karmon - Feel It</li>
+    <li>Asadinho, Natamiq - Transgression</li>
+    <li>Hot Since 82 - Let It Ride</li>
+    <li>Peggy Gou - It Makes You Forget</li>
+    <li>Lovebirds - In The Shadows</li>
+    <li>Karmon - Wowshit</li>
+    <li>16BL - Friendly Neighbour</li>
+    <li>The Art of Being - Love Somebody Else</li>
+    <li>Bob Moses - Enough to Believe</li>
+  </ul>
+
+  <a class="cta-button" href="https://www.youtube.com/watch?v=lcOJEm9-DjI" target="_blank" rel="noopener">Watch the full set on YouTube</a>
+</V3InteriorLayout>
+
+<style>
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0 0 28px;
+  }
+
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    font-size: 1.35em;
+    margin: 1.6em 0 0.5em;
+  }
+
+  .tracklist {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    font-size: 0.88em;
+    line-height: 1.9;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 768px) {
+    p {
+      text-align: left;
+    }
+  }
+</style>

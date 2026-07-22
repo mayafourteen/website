@@ -245,4 +245,18 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
   html.js-page-transitions.is-ready body {
     opacity: 1;
   }
+
+  /* Visitors with a reduced-motion system setting get the same page with
+     the choreography collapsed: entrance fades complete instantly and the
+     breathing pulses never loop. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    html {
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
