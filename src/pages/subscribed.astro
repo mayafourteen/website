@@ -1,4 +1,12 @@
 ---
+// Self-hosted fonts (fontsource, bundled locally): removes the two
+// Google Fonts round-trips from the critical path and the GDPR gray zone
+// of shipping visitor IPs to Google. Same families/weights as before.
+import '@fontsource/cormorant-garamond/300.css';
+import '@fontsource/cormorant-garamond/300-italic.css';
+import '@fontsource/inter/200.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
 // Landing page for Brevo's double opt-in confirmation link — replaces
 // Brevo's default hosted "success" page. Language-neutral by design:
 // one form serves all three site languages, and Brevo allows a single
@@ -9,8 +17,6 @@ import V3BaseLayout from '../layouts/V3BaseLayout.astro';
 import HeroBackground from '../components/v3/HeroBackground.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import TextFooter from '../components/v3/TextFooter.astro';
-
-const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap';
 ---
 
 <V3BaseLayout
@@ -20,9 +26,6 @@ const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:i
 >
   <Fragment slot="head">
     <meta name="robots" content="noindex" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href={fontsHref} rel="stylesheet">
   </Fragment>
 
   <div class="background-container">

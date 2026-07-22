@@ -1,4 +1,12 @@
 ---
+// Self-hosted fonts (fontsource, bundled locally): removes the two
+// Google Fonts round-trips from the critical path and the GDPR gray zone
+// of shipping visitor IPs to Google. Same families/weights as before.
+import '@fontsource/cormorant-garamond/300.css';
+import '@fontsource/cormorant-garamond/300-italic.css';
+import '@fontsource/inter/200.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
 // ES counterpart of epk.astro — same structure/CSS, copy translated
 // from the real ES gamma EPK page. New page: ES has no other interior
 // pages (About/Press/etc stay EN/PT only, per the project's ES
@@ -36,14 +44,10 @@ const mediaSpotlightItems = [
   breadcrumbs={[{ name: 'Inicio', path: '/es' }, { name: 'EPK', path: '/es/epk' }]}
 >
   <Fragment slot="head">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" />
     <!-- media="print" + onload swap takes this off the render-blocking path
          — same CSS applies once loaded, only the paint-timing changes.
          noscript fallback covers the no-JS case. -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet"></noscript>
+    <noscript></noscript>
   </Fragment>
 
   {/* navItems has no 'es' key (ES has no other interior pages) — falls back to the English nav automatically */}

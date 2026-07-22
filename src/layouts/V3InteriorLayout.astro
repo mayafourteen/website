@@ -1,4 +1,12 @@
 ---
+// Self-hosted fonts (fontsource, bundled locally): removes the two
+// Google Fonts round-trips from the critical path and the GDPR gray zone
+// of shipping visitor IPs to Google. Same families/weights as before.
+import '@fontsource/cormorant-garamond/300.css';
+import '@fontsource/cormorant-garamond/300-italic.css';
+import '@fontsource/inter/200.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
 // Shared shell for every V3 menu destination (About, Video Sets, Audio
 // Sets, Press, Book Maya). One layout so each page only supplies its own
 // content — keeps the five pages visually consistent by construction
@@ -86,14 +94,10 @@ const breadcrumbs = [
   breadcrumbs={breadcrumbs}
 >
   <Fragment slot="head">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" />
     <!-- media="print" + onload swap takes this off the render-blocking path
          — same CSS applies once loaded, only the paint-timing changes.
          noscript fallback covers the no-JS case. -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet"></noscript>
+    <noscript></noscript>
     <!-- No Font Awesome here: interior pages render only text (the footer
          is plain links, not icons) — the shared all.min.css/brands.min.css
          links would be 100% unused CSS on every one of these pages. -->

@@ -1,4 +1,12 @@
 ---
+// Self-hosted fonts (fontsource, bundled locally): removes the two
+// Google Fonts round-trips from the critical path and the GDPR gray zone
+// of shipping visitor IPs to Google. Same families/weights as before.
+import '@fontsource/cormorant-garamond/300.css';
+import '@fontsource/cormorant-garamond/300-italic.css';
+import '@fontsource/inter/200.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
 // V3 homepage shell — cinematic entrance, not the About page. Content is
 // deliberately minimal: hero, title, tagline, hamburger nav, social icons.
 // See PROJECT.md v2 milestone notes for the "homepage as entrance, not
@@ -9,8 +17,6 @@ import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import SocialNav from '../components/v3/SocialNav.astro';
 import { primarySocialLinks } from '../data/v3/primarySocialLinks.js';
 import { images } from '../data/v3/images.js';
-
-const fontsHref = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Inter:wght@200;300;400&display=swap';
 
 interface Props {
   title: string;
@@ -39,8 +45,6 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
   hreflangAlternates={homeHreflangAlternates}
 >
   <Fragment slot="head">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Preload the two render-blocking resources that actually gate this
          page's LCP: the hero background photo (see HeroBackground.astro —
          it already renders eager + fetchpriority="high", this just lets
@@ -60,15 +64,13 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
       type="image/avif"
       fetchpriority="high"
     />
-    <link rel="preload" as="style" href={fontsHref} />
     <!-- media="print" + onload swap keeps this off the render-blocking path
          (the preload above was only ever a priority hint, not a guarantee
          the stylesheet itself wouldn't still block first paint) — same
          final CSS applies once loaded, so nothing renders differently,
          it just doesn't hold up the initial paint waiting for it.
          noscript fallback covers the no-JS case. -->
-    <link href={fontsHref} rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href={fontsHref} rel="stylesheet"></noscript>
+    <noscript></noscript>
     <!-- Social icons are now inline SVG (see components/v3/icons/*Icon.astro),
          so Font Awesome and its cdnjs origin are gone entirely — one fewer
          third-party connection and ~99KB less CSS on the LCP path. -->
