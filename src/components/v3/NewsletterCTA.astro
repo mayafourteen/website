@@ -36,7 +36,7 @@ const copy = COPY[lang] ?? COPY.en;
 <section class="newsletter-cta" aria-label={copy.heading}>
   <h2 class="newsletter-cta-heading">{copy.heading}</h2>
   <p class="newsletter-cta-text">{copy.text}</p>
-  <a class="newsletter-cta-button" href={copy.href}>[ {copy.button} ]</a>
+  <a class="newsletter-cta-button" href={copy.href}>{copy.button}<span class="cta-arrow" aria-hidden="true">&rarr;</span></a>
 </section>
 
 <style>
@@ -62,21 +62,37 @@ const copy = COPY[lang] ?? COPY.en;
     max-width: 44ch;
   }
 
+  /* Solid gold button — the only filled color element on an otherwise
+     monochrome page, so it reads instantly as the primary action. Dark
+     text keeps it premium rather than loud. */
   .newsletter-cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
     font-family: 'Inter', Arial, sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.22em;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #d9a96a;
+    color: #0a0a0c;
+    background: #d9a96a;
     text-decoration: none;
-    padding: 4px 2px;
-    transition: letter-spacing 0.3s ease, opacity 0.3s ease;
-    opacity: 0.92;
+    padding: 14px 30px;
+    border-radius: 1px;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
 
   .newsletter-cta-button:hover {
-    opacity: 1;
-    letter-spacing: 0.3em;
+    background: #e6c08b;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(217, 169, 106, 0.28);
+  }
+
+  .cta-arrow {
+    transition: transform 0.25s ease;
+  }
+
+  .newsletter-cta-button:hover .cta-arrow {
+    transform: translateX(3px);
   }
 </style>
