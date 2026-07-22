@@ -430,7 +430,9 @@ const mediaSpotlightItems = [
   .epk {
     max-width: 1080px;
     margin: 0 auto;
-    padding: 0 4% 80px;
+    /* Bottom padding kept small: the MENU text-footer below the social
+       row is the true end of the page and should sit close to it. */
+    padding: 0 4% 8px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -927,6 +929,13 @@ const mediaSpotlightItems = [
     padding: 4px 0 16px;
   }
 
+  /* Pull the MENU control to half its default distance from the icon row
+     (the shared TextFooter's own 60/44px margin reads too far on the EPK,
+     Antonio 2026-07-22). */
+  :global(.text-footer) {
+    margin-top: 26px !important;
+  }
+
   /* DISCOVER: the section title keeps the page's shared left spine, but
      the icon row itself is centered — as the section's entire content it
      reads as a display piece, not a text block (Antonio's call). Icons
@@ -974,6 +983,11 @@ const mediaSpotlightItems = [
   @media (max-width: 768px) {
     .epk-discover :global(.nav-links) {
       gap: 12px;
+      /* Spread the row so the first/last icons align with the inner
+         card's edges above (section's 20px mobile padding), instead of
+         huddling in the center (Antonio, 2026-07-22). */
+      justify-content: space-between;
+      padding: 0 20px;
     }
 
     .epk-discover :global(.social-svg) {
