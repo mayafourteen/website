@@ -2,8 +2,10 @@
 // verified live (SoundCloud oEmbed API, not just an HTTP 200 — SoundCloud's
 // SPA returns 200 for nonexistent paths too) before being added here.
 //
-// Visual mode (artwork-filled dark player), warm-white/neutral play-button
-// color — shared builder so every embed's query string stays identical.
+// Classic compact player (small artwork square + waveform), NOT visual
+// mode — visual mode blows the artwork up full-bleed and crops it ugly
+// (Antonio, 2026-07-22). Warm-white/neutral play-button color; shared
+// builder so every embed's query string stays identical.
 export function buildEmbedUrl(trackUrl) {
   const params = new URLSearchParams({
     url: trackUrl,
@@ -14,7 +16,7 @@ export function buildEmbedUrl(trackUrl) {
     show_user: 'true',
     show_reposts: 'false',
     show_teaser: 'false',
-    visual: 'true',
+    visual: 'false',
   });
   return `https://w.soundcloud.com/player/?${params.toString()}`;
 }
