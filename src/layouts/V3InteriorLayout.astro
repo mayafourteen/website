@@ -37,6 +37,13 @@ interface Props {
   // both point at it instead of falling back to the ES homepage. Most
   // interior pages don't have one yet (deferred per brief) and omit this.
   hasEsSibling?: boolean;
+  // Set-story pages pass their YouTube video id: the layout then emits a
+  // VideoObject JSON-LD (name/description reuse this page's own localized
+  // title/description) and uses the video's thumbnail as this page's
+  // og:image, so shared links preview the actual set instead of the
+  // generic hero. uploadDate is added per-video once Antonio supplies the
+  // publish dates (YouTube blocks automated date lookups).
+  videoId?: string;
 }
 
 const {
@@ -47,6 +54,7 @@ const {
   heroImageCredit = false,
   heroImageAlt = 'Maya Fourteen',
   hasEsSibling = false,
+  videoId,
 } = Astro.props;
 
 // EN/PT/ES versions of an interior page are siblings at the same level
@@ -82,6 +90,17 @@ const breadcrumbs = [
   { name: title, path: currentPath },
 ];
 
+const videoThumb = videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : undefined;
+const videoSchema = videoId ? {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: title,
+  description: description,
+  thumbnailUrl: [videoThumb],
+  embedUrl: `https://www.youtube.com/embed/${videoId}`,
+  url: `https://www.youtube.com/watch?v=${videoId}`,
+} : null;
+
 ---
 
 <V3BaseLayout
@@ -92,6 +111,8 @@ const breadcrumbs = [
   languageHrefOverrides={{ en: enPath, pt: ptPath, es: hasEsSibling ? esPath : '/es' }}
   hreflangAlternates={interiorHreflangAlternates}
   breadcrumbs={breadcrumbs}
+  ogImage={videoThumb}
+  extraSchemas={videoSchema ? [videoSchema] : []}
 >
   <Fragment slot="head">
     <!-- media="print" + onload swap takes this off the render-blocking path

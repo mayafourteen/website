@@ -33,6 +33,9 @@ interface Props {
   // Each path is site-root-relative (e.g. '/about'); resolved through
   // the same SITE_URL prefix as canonical/hreflang below.
   breadcrumbs?: Array<{ name: string; path: string }>;
+  // Additional JSON-LD blocks (e.g. a set page's VideoObject) — emitted
+  // verbatim after the built-in MusicGroup/BreadcrumbList schemas.
+  extraSchemas?: object[];
 }
 
 const {
@@ -45,6 +48,7 @@ const {
   hreflangAlternates,
   ogImage = '/images/maya-landing-og.jpg',
   breadcrumbs,
+  extraSchemas = [],
 } = Astro.props;
 
 // Auto-generate the canonical URL from the current route unless a page
@@ -144,6 +148,9 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
   {breadcrumbSchema && (
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   )}
+  {extraSchemas.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))}
 
   <!-- Google tag (gtag.js) with Consent Mode v2: analytics stays denied
        until the visitor accepts via the consent banner (choice persisted
