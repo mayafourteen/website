@@ -93,29 +93,44 @@ const localeByLang: Record<string, string> = { en: 'en', pt: 'pt', es: 'es' };
           return;
         }
 
+        // Already submitted, or a submit is in flight: do nothing. This is
+        // what stops a visitor firing the form five times when they're
+        // unsure it worked.
+        if (form.dataset.done === '1' || form.dataset.submitting === '1') return;
+        form.dataset.submitting = '1';
+
         var data = new FormData();
         data.append('EMAIL', email);
         data.append('email_address_check', '');
         data.append('locale', form.getAttribute('data-locale') || 'en');
 
         button.disabled = true;
+        // Brevo's endpoint is cross-origin and returns no CORS headers we can
+        // read, so a normal fetch can't inspect the response and would
+        // misreport a real success as an error (or as nothing). We POST
+        // no-cors: the request still reaches Brevo (the double opt-in email
+        // goes out), the promise resolves on any completed request, and the
+        // confirmation email is the real gate. So we confirm on screen
+        // optimistically and lock the form — the visitor never has to guess,
+        // which is exactly what caused the repeat submissions.
         fetch(form.getAttribute('data-action') + '?isAjax=1', {
           method: 'POST',
+          mode: 'no-cors',
           body: data,
         })
-          .then(function (res) {
-            if (res.ok) {
-              form.hidden = true;
-              show('success');
-              if (typeof gtag === 'function') {
-                gtag('event', 'newsletter_signup', { method: 'website_form' });
-              }
-            } else {
-              show('error');
+          .then(function () {
+            form.dataset.done = '1';
+            form.hidden = true;
+            show('success');
+            if (typeof gtag === 'function') {
+              gtag('event', 'newsletter_signup', { method: 'website_form' });
             }
           })
           .catch(function () { show('error'); })
-          .finally(function () { button.disabled = false; });
+          .finally(function () {
+            form.dataset.submitting = '';
+            button.disabled = false;
+          });
       });
     });
   })();
