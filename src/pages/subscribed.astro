@@ -13,8 +13,14 @@ import '@fontsource/inter/400.css';
 // redirect URL per form, so this page confirms in all three and offers
 // the three homes. noindex: it only exists to be arrived at from the
 // confirmation email.
+//
+// Deliberately image-less: every photo we own already fronts another
+// page (desert = home, vault = subscribe, street = press, greenvalley =
+// video), so any of them would read as a repeat at the exact moment the
+// visitor crosses the threshold. Instead this is a pure black "arrival":
+// a faint gold glow, a single gold thread, and the type. It feels more
+// like being let into a private room than another hero shot.
 import V3BaseLayout from '../layouts/V3BaseLayout.astro';
-import HeroBackground from '../components/v3/HeroBackground.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import TextFooter from '../components/v3/TextFooter.astro';
 ---
@@ -28,15 +34,14 @@ import TextFooter from '../components/v3/TextFooter.astro';
     <meta name="robots" content="noindex" />
   </Fragment>
 
-  <div class="background-container">
-    <HeroBackground src="/images/maya-landing-bw.jpg" alt="Maya Fourteen" filtered />
-  </div>
+  <div class="subscribed-bg" aria-hidden="true"></div>
 
   <HamburgerMenu lang="en" />
 
   <div class="content-subscribed">
     <p class="eyebrow">Maya Fourteen</p>
     <h1 class="headline">You're in.</h1>
+    <span class="gold-rule" aria-hidden="true"></span>
     <p class="subline">Inscrição confirmada · Suscripción confirmada</p>
     <p class="promise">New sets, releases, dates and special invitations, before anyone else.</p>
     <nav class="home-links" aria-label="Go to the site">
@@ -52,14 +57,19 @@ import TextFooter from '../components/v3/TextFooter.astro';
 </V3BaseLayout>
 
 <style>
-  .background-container {
+  /* Full-bleed near-black with a single soft gold glow high-centered,
+     behind the headline. No photo — see the page note above. */
+  .subscribed-bg {
     position: fixed;
     inset: 0;
     z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 34%, rgba(217, 169, 106, 0.13), rgba(5, 5, 5, 0) 60%),
+      #050505;
   }
 
-  /* Footer sits over the fixed hero photo — needs its own stacking so it
-     paints above the z-index:0 background-container. */
+  /* Footer sits over the fixed background — own stacking so it paints
+     above the z-index:0 layer. */
   :global(.page-subscribed) :global(.text-footer) {
     z-index: 1;
   }
@@ -78,6 +88,25 @@ import TextFooter from '../components/v3/TextFooter.astro';
     padding: 0 24px;
   }
 
+  /* Gentle staged fade-in — the "moment" settles in rather than snapping.
+     prefers-reduced-motion is neutralised globally in V3BaseLayout. */
+  .content-subscribed > * {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: arrive 0.9s ease forwards;
+  }
+
+  .content-subscribed .eyebrow { animation-delay: 0.05s; }
+  .content-subscribed .headline { animation-delay: 0.2s; }
+  .content-subscribed .gold-rule { animation-delay: 0.4s; }
+  .content-subscribed .subline { animation-delay: 0.55s; }
+  .content-subscribed .promise { animation-delay: 0.7s; }
+  .content-subscribed .home-links { animation-delay: 0.9s; }
+
+  @keyframes arrive {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .eyebrow {
     font-family: 'Inter', Arial, sans-serif;
     font-weight: 200;
@@ -91,9 +120,17 @@ import TextFooter from '../components/v3/TextFooter.astro';
   .headline {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-size: clamp(2.4rem, 6.5vw, 4rem);
     letter-spacing: 0.06em;
     margin: 0;
+  }
+
+  .gold-rule {
+    display: block;
+    width: 64px;
+    height: 1px;
+    margin: 26px 0 0;
+    background: linear-gradient(90deg, rgba(217, 169, 106, 0), #d9a96a, rgba(217, 169, 106, 0));
   }
 
   .subline {
@@ -102,7 +139,7 @@ import TextFooter from '../components/v3/TextFooter.astro';
     font-size: 0.78rem;
     letter-spacing: 0.14em;
     opacity: 0.6;
-    margin: 14px 0 0;
+    margin: 22px 0 0;
   }
 
   .promise {
@@ -111,7 +148,7 @@ import TextFooter from '../components/v3/TextFooter.astro';
     font-weight: 300;
     font-size: clamp(1rem, 2.4vw, 1.25rem);
     opacity: 0.85;
-    margin: 26px 0 0;
+    margin: 20px 0 0;
     max-width: 480px;
   }
 
