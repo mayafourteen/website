@@ -118,6 +118,17 @@ export const images = {
     webpSrc: '/images/press-hero-street.webp',
     webpSrcset: '/images/press-hero-street-640w.webp 640w, /images/press-hero-street-960w.webp 960w, /images/press-hero-street-1366w.webp 1366w, /images/press-hero-street.webp 1920w',
   },
+  // /subscribe landing background (Antonio/Maya's pick): Maya opening a
+  // safe, pre-converted b&w. The visual pun IS the page: subscribe,
+  // unlock what's kept away. Source: Hub/Maya/Assets/safe.jpg.
+  subscribeHeroSafe: {
+    src: '/images/subscribe-hero-safe.webp',
+    width: 1920,
+    height: 1280,
+    srcset: '/images/subscribe-hero-safe-640w.webp 640w, /images/subscribe-hero-safe-960w.webp 960w, /images/subscribe-hero-safe-1366w.webp 1366w, /images/subscribe-hero-safe.webp 1920w',
+    webpSrc: '/images/subscribe-hero-safe.webp',
+    webpSrcset: '/images/subscribe-hero-safe-640w.webp 640w, /images/subscribe-hero-safe-960w.webp 960w, /images/subscribe-hero-safe-1366w.webp 1366w, /images/subscribe-hero-safe.webp 1920w',
+  },
   epkFendi: {
     src: '/images/epk/epk-fendi.jpg',
     width: 1080,
