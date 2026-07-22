@@ -57,8 +57,8 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
 
   <div class="audio-cta-row">
     <a class="cta-button" href="https://soundcloud.com/mayafourteen" target="_blank" rel="noopener">+ en SoundCloud</a>
-    <a class="cta-button" href="https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r" target="_blank" rel="noopener">+ en Spotify</a>
     <a class="cta-button" href="https://www.beatport.com/artist/maya-fourteen/1218920" target="_blank" rel="noopener">+ en Beatport</a>
+    <a class="cta-button" href="https://open.spotify.com/artist/0A89st7lXBJ5UE96h8Ku0r" target="_blank" rel="noopener">+ en Spotify</a>
   </div>
   <NewsletterSignup lang="es" />
 </V3InteriorLayout>
@@ -126,5 +126,15 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
        right (justified with the players above), middle centered. Wraps
        back to a plain stacked row on narrow screens. */
     justify-content: space-between;
+  }
+
+  /* Stacked on phones: equal full-width buttons (mixed label lengths made
+     the centered stack look ragged, Antonio 2026-07-22). */
+  @media (max-width: 560px) {
+    .audio-cta-row .cta-button {
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+    }
   }
 </style>
