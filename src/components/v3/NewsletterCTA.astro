@@ -1,0 +1,82 @@
+---
+// Newsletter CTA block — replaces the inline signup form on content pages
+// (video-sets, audio-sets, book). Instead of a bare email field, it shows a
+// short invitation and a gold bracket button that routes to the dedicated
+// /subscribe landing page, where the full "inner circle" pitch lives. Keeps
+// one high-quality conversion surface and echoes the site's [ enter ] /
+// [ explore ] gold-gateway motif.
+interface Props {
+  lang?: string;
+}
+const { lang = 'en' } = Astro.props;
+
+const COPY: Record<string, { heading: string; text: string; button: string; href: string }> = {
+  en: {
+    heading: 'The inner circle',
+    text: 'New sets, dates and private invitations reach this list before they ever go public.',
+    button: 'subscribe',
+    href: '/en/subscribe',
+  },
+  pt: {
+    heading: 'O círculo interno',
+    text: 'Novos sets, datas e convites privados chegam a esta lista antes de irem ao público.',
+    button: 'assinar',
+    href: '/pt/subscribe',
+  },
+  es: {
+    heading: 'El círculo interno',
+    text: 'Nuevos sets, fechas e invitaciones privadas llegan a esta lista antes de hacerse públicas.',
+    button: 'suscribirse',
+    href: '/es/subscribe',
+  },
+};
+const copy = COPY[lang] ?? COPY.en;
+---
+
+<section class="newsletter-cta" aria-label={copy.heading}>
+  <h2 class="newsletter-cta-heading">{copy.heading}</h2>
+  <p class="newsletter-cta-text">{copy.text}</p>
+  <a class="newsletter-cta-button" href={copy.href}>[ {copy.button} ]</a>
+</section>
+
+<style>
+  .newsletter-cta {
+    margin-top: 56px;
+    padding: 0;
+    max-width: 640px;
+  }
+
+  .newsletter-cta-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 8px;
+  }
+
+  .newsletter-cta-text {
+    font-size: 0.88em;
+    opacity: 0.75;
+    margin: 0 0 22px;
+    line-height: 1.55;
+    max-width: 44ch;
+  }
+
+  .newsletter-cta-button {
+    display: inline-block;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #d9a96a;
+    text-decoration: none;
+    padding: 4px 2px;
+    transition: letter-spacing 0.3s ease, opacity 0.3s ease;
+    opacity: 0.92;
+  }
+
+  .newsletter-cta-button:hover {
+    opacity: 1;
+    letter-spacing: 0.3em;
+  }
+</style>
