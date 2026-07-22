@@ -1,18 +1,36 @@
 ---
-// True page-bottom footer for interior pages: a single "MENU" control that
-// opens the same hamburger overlay as the top-right trigger (via a forwarded
-// click, same pattern as the landing page's [enter] CTA), so the page bottom
-// always has a way back into full site navigation.
+// True page-bottom footer for interior pages: a single control that opens
+// the same hamburger overlay as the top-right trigger (via a forwarded
+// click, same pattern as the landing page's [enter] CTA), so the page
+// bottom always has a way back into full site navigation.
+//
+// Two modes:
+//  - 'menu' (default): a plain "MENU" button that opens the same hamburger
+//    overlay as the top-right trigger — the utilitarian way back in.
+//  - 'explore': a gold "[ explore ]" LINK (not a menu-opener) to the site's
+//    landing page — for pages a cold visitor may land on from an external
+//    link (e.g. /subscribe shared on social). "MENU" gives them no reason
+//    to click; "[ explore ]" sends them to the entrance to discover the
+//    rest of the site. Links straight to /{lang} (the splash) rather than
+//    "/" so there's no language-router redirect hop.
 interface Props {
   lang?: string;
+  cta?: 'menu' | 'explore';
 }
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', cta = 'menu' } = Astro.props;
 // "Menu" is identical in EN and PT-BR; Spanish takes the accent.
-const label = lang === 'es' ? 'Menú' : 'Menu';
+const menuLabel = lang === 'es' ? 'Menú' : 'Menu';
+const exploreLabel = lang === 'en' ? 'explore' : 'explorar';
+const isExplore = cta === 'explore';
+const exploreHref = `/${lang}`;
 ---
 
 <footer class="text-footer">
-  <button type="button" class="text-footer-link" id="text-footer-menu">{label}</button>
+  {isExplore ? (
+    <a href={exploreHref} class="text-footer-link text-footer-link--explore">[ {exploreLabel} ]</a>
+  ) : (
+    <button type="button" class="text-footer-link" id="text-footer-menu">{menuLabel}</button>
+  )}
 </footer>
 
 <script>
@@ -66,6 +84,20 @@ const label = lang === 'es' ? 'Menú' : 'Menu';
   .text-footer-link:hover,
   .text-footer-link:focus-visible {
     color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Explore variant: desert-gold and lowercase, matching the [ enter ] /
+     [ explore ] gold gateways elsewhere on the site. Brightens to white on
+     hover like the plain footer, so the two modes feel like one control. */
+  .text-footer-link--explore {
+    color: #d9a96a;
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+  }
+
+  .text-footer-link--explore:hover,
+  .text-footer-link--explore:focus-visible {
+    color: #fff;
   }
 
   @media (max-width: 480px) {

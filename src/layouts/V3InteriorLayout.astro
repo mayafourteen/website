@@ -44,6 +44,11 @@ interface Props {
   // generic hero. uploadDate is added per-video once Antonio supplies the
   // publish dates (YouTube blocks automated date lookups).
   videoId?: string;
+  // Footer call-to-action mode (passed straight to TextFooter). Defaults to
+  // the plain "MENU"; /subscribe sets 'explore' because it's a page cold
+  // visitors land on from external links and "[ explore ]" pulls them into
+  // the rest of the site where "MENU" wouldn't.
+  footerCta?: 'menu' | 'explore';
 }
 
 const {
@@ -55,6 +60,7 @@ const {
   heroImageAlt = 'Maya Fourteen',
   hasEsSibling = false,
   videoId,
+  footerCta = 'menu',
 } = Astro.props;
 
 // EN/PT/ES versions of an interior page are siblings at the same level
@@ -141,7 +147,7 @@ const videoSchema = videoId ? {
     </div>
   </div>
 
-  <TextFooter lang={lang} />
+  <TextFooter lang={lang} cta={footerCta} />
 </V3BaseLayout>
 
 <style is:global>
