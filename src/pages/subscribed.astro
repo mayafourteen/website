@@ -14,12 +14,11 @@ import '@fontsource/inter/400.css';
 // the three homes. noindex: it only exists to be arrived at from the
 // confirmation email.
 //
-// Deliberately image-less: every photo we own already fronts another
-// page (desert = home, vault = subscribe, street = press, greenvalley =
-// video), so any of them would read as a repeat at the exact moment the
-// visitor crosses the threshold. Instead this is a pure black "arrival":
-// a faint gold glow, a single gold thread, and the type. It feels more
-// like being let into a private room than another hero shot.
+// The "arrival": a pure black moment. Centrepiece is the open vault
+// (safe_open, grayscale to match the /subscribe closed-safe coding) —
+// held small and contained, not full-bleed, so it reads as "the safe is
+// open, step in" rather than another hero. Its dark edges dissolve into
+// the page black; a faint gold glow and a single gold thread finish it.
 import V3BaseLayout from '../layouts/V3BaseLayout.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import TextFooter from '../components/v3/TextFooter.astro';
@@ -39,6 +38,17 @@ import TextFooter from '../components/v3/TextFooter.astro';
   <HamburgerMenu lang="en" />
 
   <div class="content-subscribed">
+    <img
+      class="vault"
+      src="/images/confirm-safe-open.webp"
+      srcset="/images/confirm-safe-open-640w.webp 640w, /images/confirm-safe-open-960w.webp 960w, /images/confirm-safe-open.webp 1120w"
+      sizes="(max-width: 480px) 260px, 420px"
+      width="1106"
+      height="1024"
+      alt="An antique vault standing open"
+      loading="eager"
+      decoding="async"
+    />
     <p class="eyebrow">Maya Fourteen</p>
     <h1 class="headline">You're in.</h1>
     <span class="gold-rule" aria-hidden="true"></span>
@@ -96,15 +106,26 @@ import TextFooter from '../components/v3/TextFooter.astro';
     animation: arrive 0.9s ease forwards;
   }
 
-  .content-subscribed .eyebrow { animation-delay: 0.05s; }
-  .content-subscribed .headline { animation-delay: 0.2s; }
-  .content-subscribed .gold-rule { animation-delay: 0.4s; }
-  .content-subscribed .subline { animation-delay: 0.55s; }
-  .content-subscribed .promise { animation-delay: 0.7s; }
-  .content-subscribed .home-links { animation-delay: 0.9s; }
+  .content-subscribed .vault { animation-delay: 0.05s; }
+  .content-subscribed .eyebrow { animation-delay: 0.3s; }
+  .content-subscribed .headline { animation-delay: 0.45s; }
+  .content-subscribed .gold-rule { animation-delay: 0.6s; }
+  .content-subscribed .subline { animation-delay: 0.72s; }
+  .content-subscribed .promise { animation-delay: 0.86s; }
+  .content-subscribed .home-links { animation-delay: 1.05s; }
 
   @keyframes arrive {
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* The open vault — small and contained, its dark edges melting into the
+     page black. Kept modest so it reads as an invitation, not a hero. */
+  .vault {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin: 0 0 34px;
   }
 
   .eyebrow {
@@ -115,6 +136,13 @@ import TextFooter from '../components/v3/TextFooter.astro';
     text-transform: uppercase;
     margin: 0 0 18px;
     opacity: 0.55;
+  }
+
+  @media (max-width: 480px) {
+    .vault {
+      max-width: 260px;
+      margin-bottom: 26px;
+    }
   }
 
   .headline {
