@@ -46,6 +46,7 @@ import TextFooter from '../components/v3/TextFooter.astro';
     <span class="gold-rule" aria-hidden="true"></span>
     <p class="subline">Inscrição confirmada&nbsp;·&nbsp;Suscripción confirmada</p>
     <p class="promise">New sets, releases, dates and special invitations, before anyone else.</p>
+    <a class="enter-site" href="/">[ explore ]</a>
   </div>
 
   <TextFooter lang="en" />
@@ -103,6 +104,29 @@ import TextFooter from '../components/v3/TextFooter.astro';
   .content-subscribed .gold-rule { animation-delay: 0.5s; }
   .content-subscribed .subline { animation-delay: 0.64s; }
   .content-subscribed .promise { animation-delay: 0.78s; }
+  .content-subscribed .enter-site { animation-delay: 0.96s; }
+
+  /* Clear in-content way out: a gold "[ explore ]" that sends the new
+     subscriber into the site (root auto-routes to their language's
+     entrance). Sits in the visible content block so nobody has to spot
+     the hamburger or scroll to the MENU footer to leave. */
+  .enter-site {
+    display: inline-block;
+    margin-top: 42px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    color: #d9a96a;
+    text-decoration: none;
+    transition: letter-spacing 0.3s ease, color 0.3s ease;
+  }
+
+  .enter-site:hover,
+  .enter-site:focus-visible {
+    color: #fff;
+    letter-spacing: 0.16em;
+  }
   .content-subscribed .home-links { animation-delay: 0.96s; }
 
   @keyframes arrive {
