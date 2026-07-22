@@ -5,8 +5,11 @@
 // the site's aesthetic; Brevo sees a normal form submission.
 interface Props {
   lang?: string;
+  // The /subscribe landing pages carry their own richer copy above the
+  // form, so they render the form alone.
+  formOnly?: boolean;
 }
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', formOnly = false } = Astro.props;
 
 const BREVO_ACTION =
   'https://ad34cde4.sibforms.com/serve/MUIFAOoULmjduBYHDx7jH6VArYpKDDqmtgEOyqePGaucGXqiqUvzGy6B64dA8Q_LIhwI_xTzBzZsv93Hda_MC2xBKS5LTjTHXXrjJFuWBPl_qbGBTdoxa8voe1pbpXiPTBAdFFHns_msvUpAZk1iV0CS-uNzF-XWa9X_6275ut2MK0Ub_Ng6YbKn_6KJ7osDjIfiipvq8u5PNHGQ';
@@ -53,8 +56,8 @@ const localeByLang: Record<string, string> = { en: 'en', pt: 'pt', es: 'es' };
 ---
 
 <section class="newsletter-block" aria-label={copy.heading}>
-  <h2 class="newsletter-heading">{copy.heading}</h2>
-  <p class="newsletter-text">{copy.text}</p>
+  {!formOnly && <h2 class="newsletter-heading">{copy.heading}</h2>}
+  {!formOnly && <p class="newsletter-text">{copy.text}</p>}
   <form class="newsletter-form" data-action={BREVO_ACTION} data-locale={localeByLang[lang] ?? 'en'} novalidate>
     <input
       class="newsletter-input"

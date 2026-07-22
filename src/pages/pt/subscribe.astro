@@ -8,10 +8,31 @@ import NewsletterSignup from '../../components/v3/NewsletterSignup.astro';
     chosen "safe" photo lands in Assets, then swap heroImage. */}
 <V3InteriorLayout
   title="Inscreva-se"
-  eyebrow="Newsletter"
-  description="Acesso prioritário a novos sets e video sets, novidades de lançamentos, datas e convites especiais. Antes de todo mundo."
+  eyebrow="O círculo próximo"
+  description="Cada novo set e video set chega a esta lista antes de ir a público. Novidades de lançamentos, datas e convites privados que nunca aparecem nas redes."
   hasEsSibling
 >
-  <NewsletterSignup lang="pt" />
+  <p>
+    Cada novo set e video set chega a esta lista antes de ir a público. Novidades de lançamentos, datas e convites privados que nunca aparecem nas redes.
+  </p>
+  <p>
+    Um email quando algo importa. Sem ruído, nunca. Saia com um clique quando quiser.
+  </p>
+  <p class="subscribe-close">Entre para o círculo próximo:</p>
+
+  <NewsletterSignup lang="pt" formOnly />
 </V3InteriorLayout>
 
+<style>
+  p {
+    text-align: center;
+  }
+
+  .subscribe-close {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15em !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-top: 30px !important;
+  }
+</style>
