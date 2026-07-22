@@ -22,25 +22,23 @@ export function buildEmbedUrl(trackUrl) {
 }
 //
 // Mixes mirror the five SPOTLIGHT (pinned) sets on her SoundCloud profile,
-// in the profile's own order (Antonio, 2026-07-22). Two of these (Ibiza
-// Live Radio, Retro Pulse) did not exist at the previous pass; all five
-// were re-verified live on soundcloud.com before this update.
+// in the exact order Antonio provided from the profile (2026-07-22).
 export const mixes = [
   {
-    url: 'https://soundcloud.com/mayafourteen/maya-fourteen-la-mansarda',
-    title: "'CENA ON' Radio Show, Live at La Mansarda",
+    url: 'https://soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil',
+    title: 'Ancestral, Mato Grosso, Brazil',
   },
   {
     url: 'https://soundcloud.com/mayafourteen/ibiza-live-radio-exclusive-dj-mix',
     title: 'Ibiza Live Radio, Exclusive DJ Mix',
   },
   {
-    url: 'https://soundcloud.com/mayafourteen/retro-pulse',
-    title: 'Retro Pulse, Curated for Oceanus (Paris & London Fashion Week)',
+    url: 'https://soundcloud.com/mayafourteen/maya-fourteen-greenvalley-summer-opening-camboriu-brazil',
+    title: 'Live DJ Set at Greenvalley, Camboriú',
   },
   {
-    url: 'https://soundcloud.com/mayafourteen/ancestral-mato-grosso-brazil',
-    title: 'Ancestral, Mato Grosso, Brazil',
+    url: 'https://soundcloud.com/mayafourteen/maya-ocho-siriusxm',
+    title: "OCHO by Gray Area, Diplo's Revolution, SiriusXM",
   },
   {
     url: 'https://soundcloud.com/mayafourteen/pyramid-waves-showcase-privilege-roftop-sls-dubai',
