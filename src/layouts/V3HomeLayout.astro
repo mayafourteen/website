@@ -155,6 +155,33 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
     animation-delay: 0.55s;
   }
 
+  /* Icon row in the same desert gold as [ enter ] (Antonio, 2026-07-23).
+     Scoped to the homepage row only — the EPK discover row and any other
+     SocialNav usage stay white. Per-icon overrides because each icon
+     hardcodes its own #fff (fill, stroke, or SVG presentation attribute):
+     - .social-svg covers Instagram/YouTube/SoundCloud (fill-based)
+     - .mail-svg is stroke-drawn (fill stays none)
+     - .beepd-svg's path carries fill="white" as a presentation attribute,
+       which any CSS rule on the path beats
+     - .folder-svg (EPK badge): gold frame + gold lettering, black panel kept
+       for contrast */
+  .content-wrapper :global(.nav-links svg.social-svg) {
+    fill: #d9a96a;
+  }
+  /* Extra specificity: MailIcon's svg also carries .social-svg, so the
+     fill rule above would otherwise win and render it as a solid block. */
+  .content-wrapper :global(.nav-links svg.social-svg.mail-svg) {
+    fill: none;
+    stroke: #d9a96a;
+  }
+  .content-wrapper :global(.nav-links .beepd-svg path) {
+    fill: #d9a96a;
+  }
+  .content-wrapper :global(.nav-links .folder-svg path[fill='white']),
+  .content-wrapper :global(.nav-links .folder-svg text) {
+    fill: #d9a96a;
+  }
+
   /* Balance the language selector against the hamburger icon's visual
      weight — scoped to the V3 homepage only, LanguageMenu's own default
      styling (used by every other page) is untouched.
