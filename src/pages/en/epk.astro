@@ -76,7 +76,6 @@ const mediaSpotlightItems = [
         <h1 class="epk-name">MAYA FOURTEEN</h1>
         <p class="epk-tagline">International DJ &amp; Producer</p>
         <p class="epk-subtagline">Award-Winning Electronic Artist</p>
-        <p class="epk-proof">Greenvalley &middot; World Club Dome &middot; Terra Solis Dubai &middot; IMS Ibiza 2025</p>
       </div>
     </section>
 
@@ -164,9 +163,9 @@ const mediaSpotlightItems = [
             <h3>Europe, Middle East and Asia Tour &#129705;</h3>
             <p>Performing across three continents, with highlights in London, Amsterdam, Lisbon, Frankfurt, Ibiza, Cannes, Monaco, Budapest, Dubai, Tokyo, Bangkok, Kuala Lumpur and Bali, MAYA continues to consolidate her presence in electronic music's leading markets.</p>
           </div>
+          <p class="epk-setstories">Set stories: <a class="epk-inline-link" href="/en/sets/greenvalley">Greenvalley</a> &middot; <a class="epk-inline-link" href="/en/sets/sls-dubai">SLS Dubai</a> &middot; <a class="epk-inline-link" href="/en/sets/amazon-basin">Amazon Basin</a> &middot; <a class="epk-inline-link" href="/en/sets/fendi-yachthouse">FENDI Yachthouse</a></p>
         </div>
       </div>
-      <p class="epk-setstories">Set stories: <a class="epk-inline-link" href="/en/sets/greenvalley">Greenvalley</a> &middot; <a class="epk-inline-link" href="/en/sets/sls-dubai">SLS Dubai</a> &middot; <a class="epk-inline-link" href="/en/sets/amazon-basin">Amazon Basin</a> &middot; <a class="epk-inline-link" href="/en/sets/fendi-yachthouse">FENDI Yachthouse</a></p>
     </section>
 
     <!-- AWARD-WINNING ARTIST -->
@@ -402,22 +401,11 @@ const mediaSpotlightItems = [
 </V3BaseLayout>
 
 <style>
-  /* Credential strip under the hero title: understated, muted white
-     (gold stays reserved for next-step CTAs). */
-  .epk-hero-text .epk-proof {
-    margin: 14px 0 0 0;
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 300;
-    line-height: 1.5;
-  }
-
-  /* Internal links from the well-crawled EPK down to the set-story pages
-     (helps discovery + gives bookers a path to the craft narrative). */
-  .epk-section .epk-setstories {
-    margin: 24px 0 0 0;
+  /* Set-story links: foot of the cards column, spanning its full width so
+     they justify with the tour box above (not the page's left spine). */
+  .epk-stage-cards .epk-setstories {
+    grid-column: 1 / -1;
+    margin: 0;
     font-size: 0.82rem;
     letter-spacing: 0.03em;
     color: rgba(255, 255, 255, 0.55);
@@ -1105,7 +1093,7 @@ const mediaSpotlightItems = [
 
   .epk-booking-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.7rem, 3vw, 2.2rem);
+    font-size: clamp(2.2rem, 4vw, 3rem);
     color: #fff !important;
   }
 
