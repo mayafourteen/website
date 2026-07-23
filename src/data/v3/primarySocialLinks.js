@@ -1,4 +1,4 @@
-import { socialLinks } from './socialLinks.js';
+import { socialLinks, contactLink } from './socialLinks.js';
 
 // The credibility-signal icons the V3 homepage keeps visible, in the
 // specified order: EPK, Instagram, YouTube, SoundCloud, Beepd. EPK leads
@@ -10,6 +10,10 @@ import { socialLinks } from './socialLinks.js';
 // hrefs stay in sync with the canonical list.
 const PRIMARY_ORDER = ['epk', 'instagram', 'youtube', 'soundcloud', 'beepd'];
 
-export const primarySocialLinks = PRIMARY_ORDER.map((name) =>
-  socialLinks.find((link) => link.name === name)
-).filter(Boolean);
+export const primarySocialLinks = [
+  ...PRIMARY_ORDER.map((name) => socialLinks.find((link) => link.name === name)).filter(Boolean),
+  // Contact/booking icon closes the row (a booker's fast lane past the
+  // "[ enter ]" gate). Appended, not woven into PRIMARY_ORDER, so the
+  // existing EPK-led order Antonio set stays intact.
+  contactLink,
+];

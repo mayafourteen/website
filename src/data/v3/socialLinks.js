@@ -19,3 +19,10 @@ export const socialLinks = [
 // unrelated row too. Exported separately so primarySocialLinks.js and
 // discoverSocialLinks.js can both opt in explicitly instead.
 export const residentAdvisor = { href: 'https://ra.co/dj/mayafourteen', title: 'Resident Advisor', type: 'svg', name: 'residentadvisor' };
+
+// Contact/booking entry for the homepage row only. Points at the interior
+// contact page (/en/book by default; the homepage overrides with the
+// visitor's language via contactHref) rather than a raw mailto, so the
+// address stays off the highest-traffic page. Kept out of socialLinks for
+// the same reason as residentAdvisor: legacy pages read that array raw.
+export const contactLink = { href: '/en/book', title: 'Contact', type: 'svg', name: 'contact' };

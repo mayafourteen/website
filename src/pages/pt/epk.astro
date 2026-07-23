@@ -70,6 +70,7 @@ const mediaSpotlightItems = [
         <h1 class="epk-name">MAYA FOURTEEN</h1>
         <p class="epk-tagline">DJ e Produtora Internacional</p>
         <p class="epk-subtagline">Artista Eletrônica Premiada</p>
+        <p class="epk-proof">Greenvalley &middot; World Club Dome &middot; Terra Solis Dubai &middot; IMS Ibiza 2025</p>
       </div>
     </section>
 
@@ -159,6 +160,7 @@ const mediaSpotlightItems = [
           </div>
         </div>
       </div>
+      <p class="epk-setstories">Histórias dos sets: <a class="epk-inline-link" href="/pt/sets/greenvalley">Greenvalley</a> &middot; <a class="epk-inline-link" href="/pt/sets/sls-dubai">SLS Dubai</a> &middot; <a class="epk-inline-link" href="/pt/sets/amazon-basin">Amazon Basin</a> &middot; <a class="epk-inline-link" href="/pt/sets/fendi-yachthouse">FENDI Yachthouse</a></p>
     </section>
 
     <!-- ARTISTA MULTIPREMIADA -->
@@ -213,6 +215,12 @@ const mediaSpotlightItems = [
           <cite>Karlos Sense, <a class="epk-inline-link" href="https://www.instagram.com/ibizasonica/" target="_blank" rel="noopener">Ibiza Sonica</a></cite>
         </blockquote>
       </div>
+    </section>
+
+    <!-- BOOKING CTA (meio da página, após as provas) -->
+    <section class="epk-section epk-bookband">
+      <p class="epk-bookband-line">Disponível para clubes, festivais e eventos privados selecionados no mundo todo.</p>
+      <a class="epk-bookband-cta" href="#get-in-touch">[ contratar ]</a>
     </section>
 
     <!-- MÍDIA EM DESTAQUE -->
@@ -360,7 +368,7 @@ const mediaSpotlightItems = [
     </section>
 
     <!-- ENTRE EM CONTATO -->
-    <section class="epk-section epk-booking">
+    <section class="epk-section epk-booking" id="get-in-touch">
       <h2>Entre em Contato</h2>
       <div class="epk-booking-card">
         <p class="epk-booking-heading">Booking &amp; Management</p>
@@ -387,6 +395,47 @@ const mediaSpotlightItems = [
   <TextFooter lang="pt" />
   <BackToTop />
 </V3BaseLayout>
+
+<style>
+  .epk-hero-text .epk-proof {
+    margin: 14px 0 0 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .epk-section .epk-setstories {
+    margin: 24px 0 0 0;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .epk-bookband {
+    text-align: center;
+  }
+  .epk-bookband .epk-bookband-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 16px 0;
+  }
+  .epk-bookband-cta {
+    display: inline-block;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #d9a96a;
+    text-decoration: none;
+    transition: opacity 0.3s ease, letter-spacing 0.3s ease;
+  }
+  .epk-bookband-cta:hover {
+    opacity: 0.82;
+    letter-spacing: 0.22em;
+  }
+</style>
 
 <style is:global>
   .fade-item {

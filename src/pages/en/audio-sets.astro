@@ -28,6 +28,9 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
           loading={index === 0 ? 'eager' : 'lazy'}
         ></iframe>
         <p class="audio-caption">{track.title}</p>
+        {track.setStory && (
+          <a class="audio-story-link" href={`/en/sets/${track.setStory}`}>[ read the story ]</a>
+        )}
       </li>
     ))}
   </ul>
@@ -85,6 +88,20 @@ import { mixes, originalTracks, feelBetterFallback, buildEmbedUrl } from '../../
     font-size: 0.85rem;
     letter-spacing: 0.03em;
     color: rgba(255, 255, 255, 0.65);
+  }
+
+  .audio-story-link {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: #d9a96a;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .audio-story-link:hover {
+    opacity: 0.8;
   }
 
   .beatport-fallback {

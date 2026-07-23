@@ -35,6 +35,10 @@ export const mixes = [
   {
     url: 'https://soundcloud.com/mayafourteen/maya-fourteen-greenvalley-summer-opening-camboriu-brazil',
     title: 'Live DJ Set at Greenvalley, Camboriú',
+    // setStory: slug of the matching set-story page (rendered as a link
+    // below the player). Only set where the mix unambiguously maps to a
+    // story page, so we never mislink.
+    setStory: 'greenvalley',
   },
   {
     url: 'https://soundcloud.com/mayafourteen/maya-ocho-siriusxm',
@@ -43,6 +47,7 @@ export const mixes = [
   {
     url: 'https://soundcloud.com/mayafourteen/pyramid-waves-showcase-privilege-roftop-sls-dubai',
     title: 'Pyramid Waves Showcase, Privilege Rooftop, SLS Dubai',
+    setStory: 'sls-dubai',
   },
 ];
 

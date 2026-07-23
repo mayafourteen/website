@@ -8,20 +8,31 @@ import InstagramIcon from './icons/InstagramIcon.astro';
 import YoutubeIcon from './icons/YoutubeIcon.astro';
 import SoundcloudIcon from './icons/SoundcloudIcon.astro';
 import SpotifyIcon from './icons/SpotifyIcon.astro';
+import MailIcon from './icons/MailIcon.astro';
 import { socialLinks } from '../../data/v3/socialLinks.js';
 
 interface Props {
   epkHref?: string;
+  contactHref?: string;
   links?: typeof socialLinks;
 }
 
-const { epkHref, links = socialLinks } = Astro.props;
+const { epkHref, contactHref, links = socialLinks } = Astro.props;
+
+// EPK and Contact are internal pages (same-tab); everything else is an
+// external profile (new tab). Both take a per-language href override.
+const resolveHref = (link: { name: string; href: string }) =>
+  link.name === 'epk' && epkHref ? epkHref
+  : link.name === 'contact' && contactHref ? contactHref
+  : link.href;
+const isInternal = (name: string) => name === 'epk' || name === 'contact';
 ---
 
 <div class="nav-links fade-item">
   {links.map((link) => (
-    <NavLink href={link.name === 'epk' && epkHref ? epkHref : link.href} title={link.title} newTab={link.name !== 'epk'}>
+    <NavLink href={resolveHref(link)} title={link.title} newTab={!isInternal(link.name)}>
       {link.name === 'epk' && <EpkIcon />}
+      {link.name === 'contact' && <MailIcon />}
       {link.name === 'beatport' && <BeatportIcon />}
       {link.name === 'beepd' && <BeepdIcon />}
       {link.name === 'residentadvisor' && <ResidentAdvisorIcon />}
