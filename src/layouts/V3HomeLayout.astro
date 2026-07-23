@@ -337,9 +337,10 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
     font-family: 'Cormorant Garamond', serif;
     font-style: normal;
     font-weight: 300;
-    /* Was clamp(1.1rem, 2.2vw, 1.6rem) matching .slogan exactly; bumped
-       ~15% so the CTA reads a step above the slogan (Antonio, 2026-07-23). */
-    font-size: clamp(1.25rem, 2.5vw, 1.85rem);
+    /* Matches .slogan's clamp exactly on desktop; the mobile media query
+       below bumps it ~15% there only (Antonio, 2026-07-23: bigger CTA was
+       a MOBILE-only ask, desktop stays as-is). */
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
     letter-spacing: 0.05em;
     text-transform: lowercase;
     /* Muted desert gold, tuned against the hero photo's own sand/sunset
@@ -491,6 +492,9 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
       margin-right: -10px;
       margin-bottom: 32px;
       margin-left: -10px;
+      /* Mobile-only ~15% bump over the desktop clamp (17.6px -> 20px at
+         390w); desktop keeps the slogan-matched size above. */
+      font-size: 1.25rem;
     }
   }
 
