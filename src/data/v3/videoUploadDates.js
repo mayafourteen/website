@@ -10,8 +10,8 @@
 // video went public on the channel; a plain YYYY-MM-DD is valid, a full
 // timestamp (e.g. 2026-05-14T09:00:00-03:00) is even better.
 export const videoUploadDates = {
-  mWqUmkWs3wY: '',    // Greenvalley - Opening the 17th Anniversary
-  twN80oij1Uw: '',    // SLS Dubai - 75 Floors Up
-  'lcOJEm9-DjI': '',  // FENDI x Yachthouse - 300 Meters Above
-  IRV1sNs9aTk: '',    // Amazon Basin - A Sunset Journey Home
+  mWqUmkWs3wY: '2025-08-22',    // Greenvalley - Opening the 17th Anniversary
+  twN80oij1Uw: '2025-06-12',    // SLS Dubai - 75 Floors Up
+  'lcOJEm9-DjI': '2025-05-08',  // FENDI x Yachthouse - 300 Meters Above
+  IRV1sNs9aTk: '2024-08-20',    // Amazon Basin - A Sunset Journey Home
 };
