@@ -15,6 +15,7 @@ import V3BaseLayout from './V3BaseLayout.astro';
 import HeroBackground from '../components/v3/HeroBackground.astro';
 import HamburgerMenu from '../components/v3/HamburgerMenu.astro';
 import TextFooter from '../components/v3/TextFooter.astro';
+import { videoUploadDates } from '../data/v3/videoUploadDates.js';
 
 interface Props {
   title: string;
@@ -97,12 +98,17 @@ const breadcrumbs = [
 ];
 
 const videoThumb = videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : undefined;
+// uploadDate is required by schema.org/VideoObject (Google flags a critical
+// error without it). Pulled from the central videoUploadDates map by id;
+// only emitted when a real date is present so we never ship an empty field.
+const videoUploadDate = videoId ? videoUploadDates[videoId] : undefined;
 const videoSchema = videoId ? {
   '@context': 'https://schema.org',
   '@type': 'VideoObject',
   name: title,
   description: description,
   thumbnailUrl: [videoThumb],
+  ...(videoUploadDate ? { uploadDate: videoUploadDate } : {}),
   embedUrl: `https://www.youtube.com/embed/${videoId}`,
   url: `https://www.youtube.com/watch?v=${videoId}`,
 } : null;
