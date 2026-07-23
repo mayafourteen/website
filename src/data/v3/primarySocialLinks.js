@@ -8,12 +8,10 @@ import { socialLinks, contactLink } from './socialLinks.js';
 // only removed and now lives on the EPK Discover row exclusively (see
 // discoverSocialLinks.js). Derived from socialLinks (not duplicated) so
 // hrefs stay in sync with the canonical list.
-const PRIMARY_ORDER = ['epk', 'instagram', 'youtube', 'soundcloud', 'beepd'];
+// Contact sits just before Beepd so the PD mark keeps the last slot
+// (Antonio's call, 2026-07-23).
+const PRIMARY_ORDER = ['epk', 'instagram', 'youtube', 'soundcloud', 'contact', 'beepd'];
 
-export const primarySocialLinks = [
-  ...PRIMARY_ORDER.map((name) => socialLinks.find((link) => link.name === name)).filter(Boolean),
-  // Contact/booking icon closes the row (a booker's fast lane past the
-  // "[ enter ]" gate). Appended, not woven into PRIMARY_ORDER, so the
-  // existing EPK-led order Antonio set stays intact.
-  contactLink,
-];
+export const primarySocialLinks = PRIMARY_ORDER.map((name) =>
+  name === 'contact' ? contactLink : socialLinks.find((link) => link.name === name)
+).filter(Boolean);

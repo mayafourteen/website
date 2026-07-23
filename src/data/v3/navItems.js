@@ -17,20 +17,22 @@ export const navItems = {
     // highlight: rendered in the site's desert-gold with the [ enter ]
     // breathing pulse — the one lit item in the menu, so promoters and
     // bookers find their runway in one glance (Antonio's call, 2026-07-21).
+    { label: 'Booking', href: '/en/book' },
     { label: 'EPK', href: '/en/epk', highlight: true },
-    { label: 'Info', href: '/en/book' },
   ],
   // "Press" stays in English here (not "Imprensa") per explicit instruction —
-  // matches the same already-established pattern as "EPK" and "Info", both
-  // of which stay English across every language's nav too.
+  // matches the same already-established pattern as "EPK" and "Booking",
+  // both of which stay English across every language's nav too. "Booking"
+  // (was "Info") makes the runway explicit for promoters without the
+  // "book to read" ambiguity of a bare "Book" (Antonio, 2026-07-23).
   pt: [
     { label: 'Início', href: '/pt' },
     { label: 'Sobre', href: '/pt/about' },
     { label: 'Vídeo', href: '/pt/video-sets' },
     { label: 'Áudio', href: '/pt/audio-sets' },
     { label: 'Press', href: '/pt/press' },
+    { label: 'Booking', href: '/pt/book' },
     { label: 'EPK', href: '/pt/epk', highlight: true },
-    { label: 'Info', href: '/pt/book' },
   ],
   es: [
     { label: 'Inicio', href: '/es' },
@@ -38,7 +40,7 @@ export const navItems = {
     { label: 'Vídeo', href: '/es/video-sets' },
     { label: 'Audio', href: '/es/audio-sets' },
     { label: 'Prensa', href: '/es/press' },
+    { label: 'Booking', href: '/es/book' },
     { label: 'EPK', href: '/es/epk', highlight: true },
-    { label: 'Info', href: '/es/book' },
   ],
 };

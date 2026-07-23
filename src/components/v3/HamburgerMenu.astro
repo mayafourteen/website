@@ -216,11 +216,16 @@ const currentPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '')
   .menu-list-item--highlight {
     color: #d9a96a;
     opacity: 1;
+    /* Wider tracking gives the short gold EPK more physical presence as the
+       column's terminus (and a spaced luxury feel) without dots or breaking
+       consistency with the "EPK" spelling used elsewhere. */
+    letter-spacing: 0.32em;
     animation: menuItemBreathe 3s ease-in-out 0.8s infinite;
   }
 
   .menu-list-item--highlight:hover {
     color: #fff;
+    letter-spacing: 0.32em;
   }
 
   @keyframes menuItemBreathe {
