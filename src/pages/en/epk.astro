@@ -1090,7 +1090,10 @@ const mediaSpotlightItems = [
     color: rgba(255, 255, 255, 0.55) !important;
   }
 
-  .epk-booking-name {
+  /* Scoped under .epk-section to outrank the generic .epk-section p rule
+     (same specificity trap that forced the !important on color) — without
+     this the name silently stays at 1rem. */
+  .epk-section .epk-booking-name {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2.2rem, 4vw, 3rem);
     color: #fff !important;
