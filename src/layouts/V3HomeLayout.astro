@@ -156,14 +156,14 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
   }
 
   /* Icon row: white with extra transparency (Antonio, 2026-07-23 — tried
-     the full desert-gold row first, rejected). NavLink's own default is
-     opacity 0.75; drop the homepage row to 0.55 so the icons recede into
-     the photo and bloom to full white on hover (NavLink's hover already
-     sets opacity 1, which beats this at equal specificity by order? No —
-     scope wins here, so restate the hover). Scoped to the homepage row
-     only; the EPK discover row keeps the shared defaults. */
+     the full desert-gold row first, rejected; 0.55 still read too bright
+     on his phone, settled at 0.4). NavLink's own default is opacity 0.75;
+     the homepage row recedes into the photo and blooms to full white on
+     hover (restated below since this scope outranks NavLink's own hover).
+     Scoped to the homepage row only; the EPK discover row keeps the
+     shared defaults. */
   .content-wrapper :global(.nav-links a) {
-    opacity: 0.55;
+    opacity: 0.4;
   }
   .content-wrapper :global(.nav-links a:hover) {
     opacity: 1;
