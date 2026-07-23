@@ -17,7 +17,7 @@ export const navItems = {
     // highlight: rendered in the site's desert-gold with the [ enter ]
     // breathing pulse — the one lit item in the menu, so promoters and
     // bookers find their runway in one glance (Antonio's call, 2026-07-21).
-    { label: 'Booking', href: '/en/book' },
+    { label: 'Book', href: '/en/book' },
     { label: 'EPK', href: '/en/epk', highlight: true },
   ],
   // "Press" stays in English here (not "Imprensa") per explicit instruction —
@@ -31,7 +31,7 @@ export const navItems = {
     { label: 'Vídeo', href: '/pt/video-sets' },
     { label: 'Áudio', href: '/pt/audio-sets' },
     { label: 'Press', href: '/pt/press' },
-    { label: 'Booking', href: '/pt/book' },
+    { label: 'Book', href: '/pt/book' },
     { label: 'EPK', href: '/pt/epk', highlight: true },
   ],
   es: [
@@ -40,7 +40,7 @@ export const navItems = {
     { label: 'Vídeo', href: '/es/video-sets' },
     { label: 'Audio', href: '/es/audio-sets' },
     { label: 'Prensa', href: '/es/press' },
-    { label: 'Booking', href: '/es/book' },
+    { label: 'Book', href: '/es/book' },
     { label: 'EPK', href: '/es/epk', highlight: true },
   ],
 };
