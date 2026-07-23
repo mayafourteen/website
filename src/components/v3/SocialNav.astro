@@ -14,23 +14,34 @@ import { socialLinks } from '../../data/v3/socialLinks.js';
 interface Props {
   epkHref?: string;
   contactHref?: string;
+  videoHref?: string;
+  audioHref?: string;
   links?: typeof socialLinks;
 }
 
-const { epkHref, contactHref, links = socialLinks } = Astro.props;
+const { epkHref, contactHref, videoHref, audioHref, links = socialLinks } = Astro.props;
 
-// EPK and Contact are internal pages (same-tab); everything else is an
-// external profile (new tab). Both take a per-language href override.
+// EPK and Contact are always internal (same-tab). On the homepage, YouTube and
+// SoundCloud are re-pointed at the on-site Video/Audio pages (which embed the
+// same content) so warm visitors stay in the funnel instead of bouncing to the
+// platforms; the EPK discover row leaves them external by not passing the
+// overrides. Everything still external opens a new tab.
 const resolveHref = (link: { name: string; href: string }) =>
   link.name === 'epk' && epkHref ? epkHref
   : link.name === 'contact' && contactHref ? contactHref
+  : link.name === 'youtube' && videoHref ? videoHref
+  : link.name === 'soundcloud' && audioHref ? audioHref
   : link.href;
-const isInternal = (name: string) => name === 'epk' || name === 'contact';
+const isInternal = (link: { name: string }) =>
+  link.name === 'epk'
+  || link.name === 'contact'
+  || (link.name === 'youtube' && !!videoHref)
+  || (link.name === 'soundcloud' && !!audioHref);
 ---
 
 <div class="nav-links fade-item">
   {links.map((link) => (
-    <NavLink href={resolveHref(link)} title={link.title} newTab={!isInternal(link.name)}>
+    <NavLink href={resolveHref(link)} title={link.title} newTab={!isInternal(link)}>
       {link.name === 'epk' && <EpkIcon />}
       {link.name === 'contact' && <MailIcon />}
       {link.name === 'beatport' && <BeatportIcon />}
