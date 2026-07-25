@@ -478,6 +478,17 @@ const homeHreflangAlternates = { en: '/en', pt: '/pt', es: '/es' };
       flex-shrink: 0;
     }
 
+    /* Six icons is a crowded row on a 390px phone (Antonio, 2026-07-25).
+       Contact is the one that can go: on mobile the hamburger's "Book"
+       entry and the [ enter ] path both still reach /book, so no route is
+       lost — desktop, where the row has room, keeps all six. Matched on
+       title rather than name/class because the title is language-stable
+       ("Contact" in all three locales) and NavLink emits no per-link class.
+       Scoped to the homepage row; the EPK discover row is unaffected. */
+    .content-wrapper :global(.nav-links a[title='Contact']) {
+      display: none;
+    }
+
     /* No font-size override here (unlike this rule's earlier version) —
        the base clamp's 1.1rem floor already applies at this width and
        must stay identical to .slogan's own floor, not a separate mobile
