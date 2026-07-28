@@ -1033,7 +1033,18 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     height: 400px;
   }
 
-  .fv-embed-injected {
+  /* :global() is load-bearing, not decoration. Astro scopes every rule in
+     this block by appending the page's data-astro-cid-* attribute, and it
+     stamps that attribute onto elements at BUILD time. This iframe is
+     created at RUNTIME by document.createElement in the click-to-load
+     script, so it never receives the attribute and a scoped selector
+     silently fails to match it. The iframe then falls back to the browser's
+     default replaced-element box of 300x150 and sits in the top-left corner
+     of a container that has correctly expanded to a full-width 16:9 — which
+     is exactly the "YouTube opens tiny in a huge black box" bug Antonio
+     reported on 2026-07-28. Any rule targeting a JS-created node in this
+     file needs the same treatment. */
+  :global(.fv-embed-injected) {
     position: absolute;
     inset: 0;
     display: block;
