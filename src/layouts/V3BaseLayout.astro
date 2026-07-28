@@ -214,6 +214,18 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
         gtag('event', 'soundcloud_click', { link_url: href });
       } else if (/instagram\.com/i.test(href)) {
         gtag('event', 'instagram_click', { link_url: href });
+      } else if (/drive\.google\.com|docs\.google\.com/i.test(href)) {
+        /* Added 2026-07-28. On the EPK pages the press-kit download IS the
+           conversion — it is the thing a booker does right before they get
+           in touch — and until now it was the one outcome with no event at
+           all. Labelled by link text so the two separate downloads (press
+           kit vs full artist EPK) can be told apart in GA4. */
+        gtag('event', 'press_kit_download', {
+          link_url: href,
+          link_text: (a.textContent || '').trim().slice(0, 80),
+        });
+      } else if (/linkedin\.com/i.test(href)) {
+        gtag('event', 'linkedin_click', { link_url: href });
       }
     }, true);
   </script>

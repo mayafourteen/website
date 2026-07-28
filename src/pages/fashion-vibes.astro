@@ -532,6 +532,18 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
           iframe.allow = 'autoplay';
           iframe.scrolling = 'no';
         }
+        /* Added 2026-07-28. The site-wide outbound tracker in V3BaseLayout
+           is a delegated listener on <a> elements, and these facades are
+           <button>s, so a play here was invisible in GA4 — the page could
+           report zero engagement while someone sat through an entire set.
+           Fired before the swap, while btn is still in the DOM. Consent Mode
+           still gates whether this leaves the browser. */
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'epk_media_play', {
+            media_type: btn.dataset.embedType ?? 'unknown',
+            media_title: btn.dataset.embedTitle ?? '',
+          });
+        }
         btn.closest('.fv-embed-item')?.classList.add('fv-embed-item--expanded');
         btn.replaceWith(iframe);
       });

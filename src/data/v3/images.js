@@ -212,22 +212,34 @@ export const images = {
   // Background-removed cutout (real alpha channel, not a CSS trick) — kept
   // as .webp specifically, not flattened to .jpg, so the transparency
   // survives and the figure sits directly on the starfield background.
+  // 2026-07-28: the whole fashion set moved from .jpg to .webp and was
+  // resized down to roughly 2x its measured on-screen size. Before the pass
+  // this page shipped 2.41 MB of images, every one of them between 2.5x and
+  // 5.1x larger in each dimension than it was ever displayed at (the worst,
+  // fashion-film, was a 1200px file rendering into a 234px slot at 2x DPR —
+  // 26x the pixels actually used). Total went 2332KB -> 507KB, 78% smaller,
+  // with no visible change at any viewport. This matters more than usual
+  // here: an EPK gets opened by bookers on hotel wifi and phone data, and
+  // the press images sit below the fold behind lazy loading, so the weight
+  // was buying nothing. Widths below are the real intrinsic sizes and must
+  // stay in sync with the files, since they drive the CLS-preventing
+  // width/height attributes.
   fashionHero: { src: '/images/fashion/fashion-hero.webp', width: 1024, height: 1024 },
-  fashionProfile: { src: '/images/fashion/fashion-profile.jpg', width: 1080, height: 1080 },
-  fashionAward: { src: '/images/fashion/fashion-award.jpg', width: 1024, height: 1536 },
-  fashionF1: { src: '/images/fashion/fashion-f1.jpg', width: 600, height: 600 },
-  fashionFilm: { src: '/images/fashion/fashion-film.jpg', width: 1200, height: 1200 },
+  fashionProfile: { src: '/images/fashion/fashion-profile.webp', width: 760, height: 760 },
+  fashionAward: { src: '/images/fashion/fashion-award.webp', width: 760, height: 1140 },
+  fashionF1: { src: '/images/fashion/fashion-f1.webp', width: 500, height: 500 },
+  fashionFilm: { src: '/images/fashion/fashion-film.webp', width: 500, height: 500 },
   // Reverted 2026-07-19 (round 2 review): the W Budapest swap above was
   // rolled back per client feedback, back to the original Bali
   // destination-set portrait.
-  fashionHospitality: { src: '/images/fashion/fashion-hospitality.jpg', width: 625, height: 625 },
-  fashionBrand: { src: '/images/fashion/fashion-brand.jpg', width: 600, height: 600 },
-  fashionOceanus1: { src: '/images/fashion/fashion-oceanus-1.jpg', width: 1080, height: 1080 },
-  fashionOceanus2: { src: '/images/fashion/fashion-oceanus-2.jpg', width: 1080, height: 675 },
-  fashionPress1: { src: '/images/fashion/fashion-press-1.jpg', width: 900, height: 900 },
-  fashionPress2: { src: '/images/fashion/fashion-press-2.jpg', width: 600, height: 600 },
-  fashionPress3: { src: '/images/fashion/fashion-press-3.jpg', width: 600, height: 600 },
-  fashionPress4: { src: '/images/fashion/fashion-press-4.jpg', width: 600, height: 600 },
+  fashionHospitality: { src: '/images/fashion/fashion-hospitality.webp', width: 500, height: 500 },
+  fashionBrand: { src: '/images/fashion/fashion-brand.webp', width: 500, height: 500 },
+  fashionOceanus1: { src: '/images/fashion/fashion-oceanus-1.webp', width: 760, height: 760 },
+  fashionOceanus2: { src: '/images/fashion/fashion-oceanus-2.webp', width: 900, height: 562 },
+  fashionPress1: { src: '/images/fashion/fashion-press-1.webp', width: 520, height: 520 },
+  fashionPress2: { src: '/images/fashion/fashion-press-2.webp', width: 520, height: 520 },
+  fashionPress3: { src: '/images/fashion/fashion-press-3.webp', width: 520, height: 520 },
+  fashionPress4: { src: '/images/fashion/fashion-press-4.webp', width: 520, height: 520 },
 };
 
 // Looks up an entry by its `src` path — lets HeroBackground callers keep
