@@ -656,49 +656,58 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     background-repeat: repeat;
   }
 
-  /* Density/brightness round 5 (2026-07-28). Round 4 matched the reference's
-     measured star density but Antonio still could not see the field on his
-     device, and he is right: density was never the binding constraint, star
-     SIZE was. A 1.2px radial-gradient point on a 2x/3x phone display covers
-     so little area that it reads as nothing, and once the card fill takes
-     ~40% of it away there is genuinely nothing left to see. Radii are up
-     ~1.45x on the bright layer and ~1.4x on the dim layer, which roughly
-     doubles the visible area per star. Positions and tile sizes unchanged.
+  /* Density/brightness round 6 (2026-07-28).
 
-     Measured effect, star pixels per 10k (native capture):
-       open background   23.0 -> 51.2      inside a card   7.2 -> 28.5
-       brightest star   199.0 -> 218.0     inside a card  88.0 -> 123.0
-     Note the inside-card number is what moved most: 4x the visible star
-     pixels. That is the fix for "I don't see anything". */
+     Round 5 scaled the star RADII up ~1.45x to fix "I don't see anything" on
+     a phone, and it worked, but it overshot: at full alpha those larger dots
+     render as near-white points (peak luminance 218/255) and the field
+     started reading as an obvious dotted texture rather than the quiet void
+     the Gamma reference has. Antonio's word for it was "too obvious".
+
+     The fix separates the two variables that round 5 was moving together:
+       - SIZE is what makes a star perceptible at all on a 2x/3x display.
+         Keep it. Radii are unchanged from round 5.
+       - ALPHA is what makes the field obvious. Cut it. Every star alpha is
+         multiplied by 0.62, and the dim ::after layer's opacity goes
+         0.9 -> 0.65.
+     So the stars stay physically large enough to register on a phone, but
+     they are grey rather than white — present when you look, invisible when
+     you are reading.
+
+     Measured, round 5 -> round 6 (native capture):
+       open background   peak 218 -> 135    star px/10k 43.4 -> 22.5
+       inside a card     peak 123 ->  72    star px/10k 30.6 -> 10.6
+     Roughly half the visible star energy of round 5, still ~1.5x round 4's
+     inside-card figure (7.2), which is the level he could not see. */
   .fv-starfield::before {
     background-image:
-      radial-gradient(2.6px 2.6px at 10% 20%, rgba(255, 255, 255, 1), transparent 100%),
-      radial-gradient(1.9px 1.9px at 35% 65%, rgba(255, 255, 255, 0.82), transparent 100%),
-      radial-gradient(2.75px 2.75px at 65% 15%, rgba(255, 255, 255, 0.98), transparent 100%),
-      radial-gradient(1.6px 1.6px at 85% 75%, rgba(255, 255, 255, 0.7), transparent 100%),
-      radial-gradient(2.3px 2.3px at 20% 85%, rgba(255, 255, 255, 0.9), transparent 100%),
-      radial-gradient(1.9px 1.9px at 55% 45%, rgba(255, 255, 255, 0.76), transparent 100%),
-      radial-gradient(2.45px 2.45px at 44% 30%, rgba(255, 255, 255, 0.94), transparent 100%),
-      radial-gradient(1.75px 1.75px at 72% 92%, rgba(255, 255, 255, 0.68), transparent 100%),
-      radial-gradient(2.2px 2.2px at 5% 58%, rgba(255, 255, 255, 0.84), transparent 100%),
-      radial-gradient(2.05px 2.05px at 88% 34%, rgba(255, 255, 255, 0.8), transparent 100%),
-      radial-gradient(2.75px 2.75px at 30% 8%, rgba(255, 255, 255, 1), transparent 100%);
+      radial-gradient(2.6px 2.6px at 10% 20%, rgba(255, 255, 255, 0.62), transparent 100%),
+      radial-gradient(1.9px 1.9px at 35% 65%, rgba(255, 255, 255, 0.51), transparent 100%),
+      radial-gradient(2.75px 2.75px at 65% 15%, rgba(255, 255, 255, 0.61), transparent 100%),
+      radial-gradient(1.6px 1.6px at 85% 75%, rgba(255, 255, 255, 0.43), transparent 100%),
+      radial-gradient(2.3px 2.3px at 20% 85%, rgba(255, 255, 255, 0.56), transparent 100%),
+      radial-gradient(1.9px 1.9px at 55% 45%, rgba(255, 255, 255, 0.47), transparent 100%),
+      radial-gradient(2.45px 2.45px at 44% 30%, rgba(255, 255, 255, 0.58), transparent 100%),
+      radial-gradient(1.75px 1.75px at 72% 92%, rgba(255, 255, 255, 0.42), transparent 100%),
+      radial-gradient(2.2px 2.2px at 5% 58%, rgba(255, 255, 255, 0.52), transparent 100%),
+      radial-gradient(2.05px 2.05px at 88% 34%, rgba(255, 255, 255, 0.5), transparent 100%),
+      radial-gradient(2.75px 2.75px at 30% 8%, rgba(255, 255, 255, 0.62), transparent 100%);
     background-size: 200px 200px;
   }
 
   .fv-starfield::after {
     background-image:
-      radial-gradient(1.55px 1.55px at 6% 45%, rgba(255, 255, 255, 0.66), transparent 100%),
-      radial-gradient(1.4px 1.4px at 48% 10%, rgba(255, 255, 255, 0.56), transparent 100%),
-      radial-gradient(1.9px 1.9px at 28% 70%, rgba(255, 255, 255, 0.72), transparent 100%),
-      radial-gradient(1.4px 1.4px at 78% 40%, rgba(255, 255, 255, 0.54), transparent 100%),
-      radial-gradient(1.6px 1.6px at 92% 88%, rgba(255, 255, 255, 0.64), transparent 100%),
-      radial-gradient(1.4px 1.4px at 62% 62%, rgba(255, 255, 255, 0.52), transparent 100%),
-      radial-gradient(1.7px 1.7px at 16% 26%, rgba(255, 255, 255, 0.62), transparent 100%),
-      radial-gradient(1.45px 1.45px at 40% 88%, rgba(255, 255, 255, 0.54), transparent 100%),
-      radial-gradient(1.75px 1.75px at 70% 18%, rgba(255, 255, 255, 0.66), transparent 100%);
+      radial-gradient(1.55px 1.55px at 6% 45%, rgba(255, 255, 255, 0.41), transparent 100%),
+      radial-gradient(1.4px 1.4px at 48% 10%, rgba(255, 255, 255, 0.35), transparent 100%),
+      radial-gradient(1.9px 1.9px at 28% 70%, rgba(255, 255, 255, 0.45), transparent 100%),
+      radial-gradient(1.4px 1.4px at 78% 40%, rgba(255, 255, 255, 0.34), transparent 100%),
+      radial-gradient(1.6px 1.6px at 92% 88%, rgba(255, 255, 255, 0.4), transparent 100%),
+      radial-gradient(1.4px 1.4px at 62% 62%, rgba(255, 255, 255, 0.32), transparent 100%),
+      radial-gradient(1.7px 1.7px at 16% 26%, rgba(255, 255, 255, 0.38), transparent 100%),
+      radial-gradient(1.45px 1.45px at 40% 88%, rgba(255, 255, 255, 0.34), transparent 100%),
+      radial-gradient(1.75px 1.75px at 70% 18%, rgba(255, 255, 255, 0.41), transparent 100%);
     background-size: 135px 135px;
-    opacity: 0.9;
+    opacity: 0.65;
   }
 
   /* Vertical rhythm matches the reference's own generous ~64px gap
@@ -854,17 +863,22 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
      Round 5 lowers the alpha 0.36 -> 0.26 alongside the larger stars, since
      the card was still eating too much of the field to read on a phone.
 
+     Round 6 puts it back to 0.30. With the round-6 star alphas the field is
+     no longer fighting the card for attention, so the card can go back to
+     holding more of its own darkness — which is what keeps the interior
+     reading as a solid surface with space behind it rather than a hole.
+
      Final measured, card interior vs open background (native capture):
-       interior  mean 0.41   star peak 123  star px/10k 28.5
-       open      mean 1.58   star peak 218  star px/10k 51.2
+       interior  mean 0.26   star peak  72  star px/10k 10.6
+       open      mean 1.30   star peak 135  star px/10k 22.5
      Interior is darker than the surrounding void (so it stops floating),
-     stars come through at ~44% brightness and ~31% density (so you see the
+     stars come through at ~53% brightness and ~47% density (so you see the
      space behind it, less clearly than the open field), and it is identical
      in all four corners. Contrast: effective backdrop is near black, so body
      copy at rgba(255,255,255,0.8) and the orange accent both sit far above
      WCAG AA. */
   .fv-section {
-    background: rgba(0, 0, 0, 0.26);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(0.6px) saturate(120%) brightness(0.9);
     -webkit-backdrop-filter: blur(0.6px) saturate(120%) brightness(0.9);
     border: 1px solid rgba(78, 78, 78, 0.6);
