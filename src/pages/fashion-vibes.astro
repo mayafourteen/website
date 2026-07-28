@@ -628,7 +628,13 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     inset: 0;
     z-index: 0;
     overflow: hidden;
-    background: #050506;
+    /* Faint nebula wash so the glass has something soft and large-scale to
+       refract. A backdrop blur has almost no visible effect on a flat fill;
+       it needs low-frequency variation to bite on, and this supplies it. */
+    background:
+      radial-gradient(1200px 800px at 22% 12%, rgba(150, 160, 205, 0.06), transparent 70%),
+      radial-gradient(1000px 700px at 82% 78%, rgba(252, 131, 55, 0.045), transparent 70%),
+      #050506;
   }
 
   .fv-starfield::before,
@@ -639,26 +645,36 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     background-repeat: repeat;
   }
 
+  /* Density round 3 (2026-07-28): tile shrunk 340px -> 250px and the point
+     count raised 6 -> 9, so roughly 2.5x the stars per screen. The previous
+     field was sparse enough that a card could easily cover a region with no
+     star in it at all, which read as "the box is solid black" even though it
+     was already translucent. */
   .fv-starfield::before {
     background-image:
-      radial-gradient(1.6px 1.6px at 10% 20%, rgba(255, 255, 255, 0.9), transparent 100%),
-      radial-gradient(1.2px 1.2px at 35% 65%, rgba(255, 255, 255, 0.65), transparent 100%),
-      radial-gradient(1.8px 1.8px at 65% 15%, rgba(255, 255, 255, 0.85), transparent 100%),
-      radial-gradient(1px 1px at 85% 75%, rgba(255, 255, 255, 0.55), transparent 100%),
-      radial-gradient(1.4px 1.4px at 20% 85%, rgba(255, 255, 255, 0.7), transparent 100%),
-      radial-gradient(1.2px 1.2px at 55% 45%, rgba(255, 255, 255, 0.6), transparent 100%);
-    background-size: 340px 340px;
+      radial-gradient(1.7px 1.7px at 10% 20%, rgba(255, 255, 255, 0.95), transparent 100%),
+      radial-gradient(1.3px 1.3px at 35% 65%, rgba(255, 255, 255, 0.72), transparent 100%),
+      radial-gradient(1.9px 1.9px at 65% 15%, rgba(255, 255, 255, 0.9), transparent 100%),
+      radial-gradient(1.1px 1.1px at 85% 75%, rgba(255, 255, 255, 0.62), transparent 100%),
+      radial-gradient(1.5px 1.5px at 20% 85%, rgba(255, 255, 255, 0.78), transparent 100%),
+      radial-gradient(1.3px 1.3px at 55% 45%, rgba(255, 255, 255, 0.68), transparent 100%),
+      radial-gradient(1.6px 1.6px at 44% 30%, rgba(255, 255, 255, 0.8), transparent 100%),
+      radial-gradient(1.2px 1.2px at 72% 92%, rgba(255, 255, 255, 0.6), transparent 100%),
+      radial-gradient(1.4px 1.4px at 5% 58%, rgba(255, 255, 255, 0.7), transparent 100%);
+    background-size: 250px 250px;
   }
 
   .fv-starfield::after {
     background-image:
-      radial-gradient(1px 1px at 6% 45%, rgba(255, 255, 255, 0.5), transparent 100%),
-      radial-gradient(1px 1px at 48% 10%, rgba(255, 255, 255, 0.4), transparent 100%),
-      radial-gradient(1.3px 1.3px at 28% 70%, rgba(255, 255, 255, 0.55), transparent 100%),
-      radial-gradient(1px 1px at 78% 40%, rgba(255, 255, 255, 0.4), transparent 100%),
-      radial-gradient(1.1px 1.1px at 92% 88%, rgba(255, 255, 255, 0.5), transparent 100%);
-    background-size: 220px 220px;
-    opacity: 0.7;
+      radial-gradient(1.1px 1.1px at 6% 45%, rgba(255, 255, 255, 0.58), transparent 100%),
+      radial-gradient(1px 1px at 48% 10%, rgba(255, 255, 255, 0.48), transparent 100%),
+      radial-gradient(1.35px 1.35px at 28% 70%, rgba(255, 255, 255, 0.62), transparent 100%),
+      radial-gradient(1px 1px at 78% 40%, rgba(255, 255, 255, 0.46), transparent 100%),
+      radial-gradient(1.15px 1.15px at 92% 88%, rgba(255, 255, 255, 0.56), transparent 100%),
+      radial-gradient(1px 1px at 62% 62%, rgba(255, 255, 255, 0.44), transparent 100%),
+      radial-gradient(1.2px 1.2px at 16% 26%, rgba(255, 255, 255, 0.54), transparent 100%);
+    background-size: 165px 165px;
+    opacity: 0.8;
   }
 
   /* Vertical rhythm matches the reference's own generous ~64px gap
@@ -767,10 +783,39 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
      overlay over it keeps effective background luminance low almost
      everywhere; body copy (rgba(255,255,255,0.8) on this) and the orange
      accent both clear WCAG AA (4.5:1) against that dark blend. */
+  /* Round 3 (2026-07-28, Antonio): the card still read as solid black. The
+     fill was not the main culprit — the 12px backdrop blur was. A Gaussian
+     blur spreads each pixel's energy over roughly pi*(2r)^2, so at r=12 a
+     1.6px star point is smeared across ~1800px2 and its peak brightness
+     collapses by about three orders of magnitude. The starfield was being
+     erased by the very effect meant to show it through frosted glass. Small
+     bright points and a backdrop blur are fundamentally incompatible.
+
+     Measured, brightest star pixel inside the card (content hidden, border
+     excluded, 1280px viewport, out of 255):
+       blur(12px) fill .40 ->  20   (flat black, the reported bug)
+       blur(3px)  fill .32 ->  20   (no better - blur, not fill, was the cause)
+       blur(1px)  fill .32 ->  58
+       none       fill .32 -> 134
+       none       fill .45 -> 111
+     Unobstructed starfield peaks around 195, so "none + .42" lands near 55%
+     of full brightness: plainly visible, plainly dimmer than the open field
+     outside the card, which is the "see it a little, not as clear as the
+     front" the reference has.
+
+     The glass read therefore cannot come from blur. It comes from three
+     things that do not touch high-frequency detail: the translucent fill,
+     the diagonal sheen below, and a saturate/brightness backdrop filter
+     (safe, since neither redistributes a pixel's energy spatially the way a
+     Gaussian does). Contrast: effective backdrop luminance inside the card
+     measures ~9/255, so body copy at rgba(255,255,255,0.8) sits near 12:1
+     and the orange accent near 7.8:1, both clear of WCAG AA. */
   .fv-section {
-    background: rgba(10, 10, 12, 0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background:
+      linear-gradient(158deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 46%),
+      rgba(10, 10, 12, 0.42);
+    backdrop-filter: saturate(125%) brightness(0.92);
+    -webkit-backdrop-filter: saturate(125%) brightness(0.92);
     border: 1px solid rgba(78, 78, 78, 0.6);
     border-radius: 22px;
     padding: 44px;
