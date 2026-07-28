@@ -54,7 +54,7 @@ import { images } from '../data/v3/images.js';
 const fashionDiscoverLinks = [
   { href: 'https://www.instagram.com/mayafourteen/', title: 'Instagram', name: 'instagram' },
   { href: 'https://www.youtube.com/@MayaFourteen', title: 'YouTube', name: 'youtube' },
-  { href: 'https://soundcloud.com/MayaFourteen', title: 'SoundCloud', name: 'soundcloud' },
+  { href: 'https://soundcloud.com/mayafourteen', title: 'SoundCloud', name: 'soundcloud' },
   { href: 'https://www.linkedin.com/in/mayafourteen/', title: 'LinkedIn', name: 'linkedin' },
 ];
 
@@ -100,11 +100,13 @@ const soundcloudTracks = [
     url: 'https://soundcloud.com/mayafourteen/an-organic-deep-tech-storytelling-set-with-magical-vibes-from-nusa-dua-bali',
     embedSrc: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/an-organic-deep-tech-storytelling-set-with-magical-vibes-from-nusa-dua-bali&color=%23141414&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true',
     title: 'Maya Fourteen: An Organic Deep Tech Storytelling Set with Magical Vibes from Nusa Dua, Bali',
+    shortTitle: 'Nusa Dua, Bali',
   },
   {
     url: 'https://soundcloud.com/mayafourteen/maya-etnika-tajbc',
     embedSrc: 'https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/mayafourteen/maya-etnika-tajbc&color=%23141414&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true',
     title: 'Maya Fourteen: Etnika TAJBC',
+    shortTitle: 'Etnika TAJBC',
   },
 ];
 
@@ -345,32 +347,64 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
       <h2>Sound &amp; Atmosphere</h2>
       <p class="fv-instruction">Explore selected visual and audio projects by clicking the images below.</p>
       <div class="fv-embed-row">
-        <div class="fv-embed-item fv-embed-item-video">
-          <button
-            type="button"
-            class="fv-embed-facade"
-            data-embed-type="video"
-            data-embed-src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1`}
-            data-embed-title="Maya Fourteen, FENDI & GT Home / Pininfarina video set"
-            aria-label="Play video: Maya Fourteen, FENDI & GT Home / Pininfarina video set"
-          >
-            <img src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`} alt="" loading="lazy" width="1280" height="720" />
-            <span class="fv-embed-play" aria-hidden="true"></span>
-          </button>
-        </div>
-        {soundcloudTracks.map((track, i) => (
-          <div class="fv-embed-item fv-embed-item-audio">
+        <div class="fv-embed-item-wrap">
+          <div class="fv-embed-item fv-embed-item-video">
             <button
               type="button"
               class="fv-embed-facade"
-              data-embed-type="audio"
-              data-embed-src={track.embedSrc}
-              data-embed-title={track.title}
-              aria-label={`Play track: ${track.title}`}
+              data-embed-type="video"
+              data-embed-src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&rel=0&playsinline=1`}
+              data-embed-title="Maya Fourteen, FENDI & GT Home / Pininfarina video set"
+              aria-label="Play video: Maya Fourteen, FENDI & GT Home / Pininfarina video set"
             >
-              {soundcloudThumbs[i] && <img src={soundcloudThumbs[i]!} alt="" loading="lazy" width="500" height="500" />}
+              {/* maxresdefault only exists for videos uploaded at >=1280x720
+                  and YouTube does not backfill it, so it 404s on plenty of
+                  otherwise-fine videos and leaves a broken tile. hqdefault is
+                  generated for every video without exception, so it's the
+                  guaranteed fallback. Inline onerror rather than a build-time
+                  HEAD check because whether maxres exists can change on
+                  YouTube's side after we've built. */}
+              <img
+                src={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
+                data-fallback={`https://img.youtube.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`}
+                alt=""
+                loading="lazy"
+                width="1280"
+                height="720"
+                onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.removeAttribute('data-fallback');}"
+              />
               <span class="fv-embed-play" aria-hidden="true"></span>
             </button>
+          </div>
+          {/* Escape hatch: a click-to-load facade is a dead end if the
+              third-party player itself refuses to run (content blockers and
+              Safari's cross-site tracking prevention both break YouTube and
+              SoundCloud embeds, and neither is something this page can fix
+              from the inside). The plain link below always works. */}
+          <a class="fv-embed-fallback" href={`https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`} target="_blank" rel="noopener">Watch on YouTube &nearr;</a>
+        </div>
+        {soundcloudTracks.map((track, i) => (
+          <div class="fv-embed-item-wrap">
+            <div class="fv-embed-item fv-embed-item-audio">
+              <button
+                type="button"
+                class="fv-embed-facade"
+                data-embed-type="audio"
+                data-embed-src={track.embedSrc}
+                data-embed-title={track.title}
+                aria-label={`Play track: ${track.title}`}
+              >
+                {soundcloudThumbs[i] && <img src={soundcloudThumbs[i]!} alt="" loading="lazy" width="500" height="500" />}
+                {/* The artwork comes from a build-time oembed call that can
+                    fail (network blip on the build box) and silently yields a
+                    blank charcoal square with no clue what it plays. This
+                    caption is always rendered so the tile is identifiable
+                    either way; over artwork it reads as a normal caption. */}
+                <span class="fv-embed-caption">{track.shortTitle}</span>
+                <span class="fv-embed-play" aria-hidden="true"></span>
+              </button>
+            </div>
+            <a class="fv-embed-fallback" href={track.url} target="_blank" rel="noopener">Open on SoundCloud &nearr;</a>
           </div>
         ))}
       </div>
@@ -937,6 +971,21 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     margin: 20px 0;
   }
 
+  /* The tile and its fallback link travel together as one grid cell, so
+     when a tile expands to full width (grid-column: 1 / -1) its own
+     "Watch on YouTube" link expands with it rather than being orphaned
+     under a neighbouring column. */
+  .fv-embed-item-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .fv-embed-item-wrap:has(.fv-embed-item--expanded) {
+    grid-column: 1 / -1;
+  }
+
   .fv-embed-item {
     position: relative;
     aspect-ratio: 1 / 1;
@@ -945,8 +994,34 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     background: #141414;
   }
 
-  .fv-embed-item--expanded {
-    grid-column: 1 / -1;
+  .fv-embed-fallback {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .fv-embed-fallback:hover {
+    color: var(--accent);
+  }
+
+  /* Sits above the artwork's bottom edge on a gradient scrim so it stays
+     legible on both a photo and the bare charcoal tile it falls back to. */
+  .fv-embed-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 22px 10px 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.92);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+    pointer-events: none;
   }
 
   .fv-embed-item--expanded.fv-embed-item-video {
