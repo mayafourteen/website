@@ -628,13 +628,12 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     inset: 0;
     z-index: 0;
     overflow: hidden;
-    /* Faint nebula wash so the glass has something soft and large-scale to
-       refract. A backdrop blur has almost no visible effect on a flat fill;
-       it needs low-frequency variation to bite on, and this supplies it. */
-    background:
-      radial-gradient(1200px 800px at 22% 12%, rgba(150, 160, 205, 0.06), transparent 70%),
-      radial-gradient(1000px 700px at 82% 78%, rgba(252, 131, 55, 0.045), transparent 70%),
-      #050506;
+    /* Round 4 (2026-07-28): the nebula wash is gone. Measured against the
+       Gamma reference, the open background there sits at mean luminance
+       1.17/255 (a true void) while ours sat at 9.61 — the wash was lifting
+       the entire page into a milky grey and was the real reason the cards
+       read as "floating" rather than sitting in space. Flat near-black now. */
+    background: #010102;
   }
 
   .fv-starfield::before,
@@ -645,36 +644,42 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
     background-repeat: repeat;
   }
 
-  /* Density round 3 (2026-07-28): tile shrunk 340px -> 250px and the point
-     count raised 6 -> 9, so roughly 2.5x the stars per screen. The previous
-     field was sparse enough that a card could easily cover a region with no
-     star in it at all, which read as "the box is solid black" even though it
-     was already translucent. */
+  /* Density/brightness round 4 (2026-07-28), tuned against measurements
+     taken directly off the Gamma reference screenshot rather than by eye:
+       open background, star pixels per 10k:  Gamma 13.8  vs  ours 7.7
+       open background, brightest star:       Gamma  253  vs  ours 190
+     So the reference field is ~1.8x denser AND its stars go to pure white,
+     against a true black void. Tiles 250/165 -> 200/135 with 11 and 9 points
+     (~1.9x density) and the bright layer taken to full white. */
   .fv-starfield::before {
     background-image:
-      radial-gradient(1.7px 1.7px at 10% 20%, rgba(255, 255, 255, 0.95), transparent 100%),
-      radial-gradient(1.3px 1.3px at 35% 65%, rgba(255, 255, 255, 0.72), transparent 100%),
-      radial-gradient(1.9px 1.9px at 65% 15%, rgba(255, 255, 255, 0.9), transparent 100%),
-      radial-gradient(1.1px 1.1px at 85% 75%, rgba(255, 255, 255, 0.62), transparent 100%),
-      radial-gradient(1.5px 1.5px at 20% 85%, rgba(255, 255, 255, 0.78), transparent 100%),
-      radial-gradient(1.3px 1.3px at 55% 45%, rgba(255, 255, 255, 0.68), transparent 100%),
-      radial-gradient(1.6px 1.6px at 44% 30%, rgba(255, 255, 255, 0.8), transparent 100%),
-      radial-gradient(1.2px 1.2px at 72% 92%, rgba(255, 255, 255, 0.6), transparent 100%),
-      radial-gradient(1.4px 1.4px at 5% 58%, rgba(255, 255, 255, 0.7), transparent 100%);
-    background-size: 250px 250px;
+      radial-gradient(1.8px 1.8px at 10% 20%, rgba(255, 255, 255, 1), transparent 100%),
+      radial-gradient(1.3px 1.3px at 35% 65%, rgba(255, 255, 255, 0.78), transparent 100%),
+      radial-gradient(1.9px 1.9px at 65% 15%, rgba(255, 255, 255, 0.96), transparent 100%),
+      radial-gradient(1.1px 1.1px at 85% 75%, rgba(255, 255, 255, 0.66), transparent 100%),
+      radial-gradient(1.6px 1.6px at 20% 85%, rgba(255, 255, 255, 0.86), transparent 100%),
+      radial-gradient(1.3px 1.3px at 55% 45%, rgba(255, 255, 255, 0.72), transparent 100%),
+      radial-gradient(1.7px 1.7px at 44% 30%, rgba(255, 255, 255, 0.9), transparent 100%),
+      radial-gradient(1.2px 1.2px at 72% 92%, rgba(255, 255, 255, 0.64), transparent 100%),
+      radial-gradient(1.5px 1.5px at 5% 58%, rgba(255, 255, 255, 0.8), transparent 100%),
+      radial-gradient(1.4px 1.4px at 88% 34%, rgba(255, 255, 255, 0.75), transparent 100%),
+      radial-gradient(1.9px 1.9px at 30% 8%, rgba(255, 255, 255, 1), transparent 100%);
+    background-size: 200px 200px;
   }
 
   .fv-starfield::after {
     background-image:
-      radial-gradient(1.1px 1.1px at 6% 45%, rgba(255, 255, 255, 0.58), transparent 100%),
-      radial-gradient(1px 1px at 48% 10%, rgba(255, 255, 255, 0.48), transparent 100%),
-      radial-gradient(1.35px 1.35px at 28% 70%, rgba(255, 255, 255, 0.62), transparent 100%),
-      radial-gradient(1px 1px at 78% 40%, rgba(255, 255, 255, 0.46), transparent 100%),
-      radial-gradient(1.15px 1.15px at 92% 88%, rgba(255, 255, 255, 0.56), transparent 100%),
-      radial-gradient(1px 1px at 62% 62%, rgba(255, 255, 255, 0.44), transparent 100%),
-      radial-gradient(1.2px 1.2px at 16% 26%, rgba(255, 255, 255, 0.54), transparent 100%);
-    background-size: 165px 165px;
-    opacity: 0.8;
+      radial-gradient(1.1px 1.1px at 6% 45%, rgba(255, 255, 255, 0.62), transparent 100%),
+      radial-gradient(1px 1px at 48% 10%, rgba(255, 255, 255, 0.52), transparent 100%),
+      radial-gradient(1.35px 1.35px at 28% 70%, rgba(255, 255, 255, 0.68), transparent 100%),
+      radial-gradient(1px 1px at 78% 40%, rgba(255, 255, 255, 0.5), transparent 100%),
+      radial-gradient(1.15px 1.15px at 92% 88%, rgba(255, 255, 255, 0.6), transparent 100%),
+      radial-gradient(1px 1px at 62% 62%, rgba(255, 255, 255, 0.48), transparent 100%),
+      radial-gradient(1.2px 1.2px at 16% 26%, rgba(255, 255, 255, 0.58), transparent 100%),
+      radial-gradient(1.05px 1.05px at 40% 88%, rgba(255, 255, 255, 0.5), transparent 100%),
+      radial-gradient(1.25px 1.25px at 70% 18%, rgba(255, 255, 255, 0.62), transparent 100%);
+    background-size: 135px 135px;
+    opacity: 0.85;
   }
 
   /* Vertical rhythm matches the reference's own generous ~64px gap
@@ -803,19 +808,43 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
      outside the card, which is the "see it a little, not as clear as the
      front" the reference has.
 
-     The glass read therefore cannot come from blur. It comes from three
-     things that do not touch high-frequency detail: the translucent fill,
-     the diagonal sheen below, and a saturate/brightness backdrop filter
-     (safe, since neither redistributes a pixel's energy spatially the way a
-     Gaussian does). Contrast: effective backdrop luminance inside the card
-     measures ~9/255, so body copy at rgba(255,255,255,0.8) sits near 12:1
-     and the orange accent near 7.8:1, both clear of WCAG AA. */
+     Round 4 (2026-07-28) revises this again. Round 3 added a
+     linear-gradient(158deg) sheen on top of the fill; Antonio rejected it,
+     correctly — a diagonal sheen makes one corner read bright and the
+     opposite corner read dark, so the card looks unevenly treated rather
+     than like a single pane of glass. The sheen is gone. What replaces it is
+     deliberately boring: one flat translucent fill, one small uniform blur,
+     identical in every corner.
+
+     The fill also changed from a grey (10,10,12) to pure black. Measured off
+     Antonio's own screenshots, our card interior sat at mean luminance
+     14.6/255 while our open page background sat at 9.6 — the cards were
+     brighter than the void they float in, which is precisely the "floating"
+     and "too white inside the boxes" he described. A non-black fill tints
+     the flat areas lighter no matter how the alpha is tuned, so the fill has
+     to be black; the alpha then controls only how much starfield transmits.
+
+     Blur is 0.6px, and that number is not timidity, it is a measured cliff.
+     Star peak inside the card, out of 255, open field reads 199:
+       no blur   -> 108      0.4px -> 90      0.6px -> 90
+       0.8px     ->  75      1px   -> 39      2px  -> 22   (field erased)
+     Everything from 1px up wipes the starfield out completely, which was the
+     round-2 bug. 0.6px is the largest blur that still passes light through,
+     so it is the honest answer to "a little blurred, not too much".
+
+     Final measured, card interior vs open background (native capture):
+       interior  mean 0.20   star peak 88   star px/10k  7.2
+       open      mean 1.30   star peak 199  star px/10k 23.0
+     Interior is darker than the surrounding void (so it stops floating),
+     stars come through at ~44% brightness and ~31% density (so you see the
+     space behind it, less clearly than the open field), and it is identical
+     in all four corners. Contrast: effective backdrop is near black, so body
+     copy at rgba(255,255,255,0.8) and the orange accent both sit far above
+     WCAG AA. */
   .fv-section {
-    background:
-      linear-gradient(158deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 46%),
-      rgba(10, 10, 12, 0.42);
-    backdrop-filter: saturate(125%) brightness(0.92);
-    -webkit-backdrop-filter: saturate(125%) brightness(0.92);
+    background: rgba(0, 0, 0, 0.36);
+    backdrop-filter: blur(0.6px) saturate(120%) brightness(0.9);
+    -webkit-backdrop-filter: blur(0.6px) saturate(120%) brightness(0.9);
     border: 1px solid rgba(78, 78, 78, 0.6);
     border-radius: 22px;
     padding: 44px;
