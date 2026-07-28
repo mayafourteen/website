@@ -868,19 +868,36 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
      holding more of its own darkness — which is what keeps the interior
      reading as a solid surface with space behind it rather than a hole.
 
+     Round 7 (2026-07-28) raises the blur 0.6px -> 1.0px and the fill
+     0.30 -> 0.32, on a request for visibly more veiling. Note that the round
+     5 star enlargement moved the cliff documented above: those measurements
+     were taken against the old small stars, where 1px erased the field
+     outright. Re-measured against the current larger stars, the interior at
+     each blur reads:
+       0.6px -> peak 72, hard star px/10k 11.2, soft px/10k 34.6
+       0.9px -> peak 63, hard  7.9, soft 30.4
+       1.2px -> peak 42, hard  0.6, soft 23.8
+       1.6px -> peak 31, hard  0.0, soft 17.9
+       2.0px -> peak 22, hard  0.0, soft  6.7   (field erased, round-2 bug)
+     "Hard" counts pixels above luminance 40 (a distinct point of light),
+     "soft" counts above 18 (a visible glow). The cliff for hard points now
+     sits between 0.9 and 1.2. 1.0px is deliberately just under it: the stars
+     inside a card stop reading as sharp dots and start reading as diffuse
+     glows, which is the actual look of something seen through glass, while
+     still leaving real points rather than an empty grey pane.
+
      Final measured, card interior vs open background (native capture):
-       interior  mean 0.26   star peak  72  star px/10k 10.6
-       open      mean 1.30   star peak 135  star px/10k 22.5
+       interior  mean 0.26   star peak  48  hard px/10k 2.7   soft px/10k 26.0
+       open      mean 1.30   star peak 136  hard px/10k 22.7  soft px/10k 48.5
      Interior is darker than the surrounding void (so it stops floating),
-     stars come through at ~53% brightness and ~47% density (so you see the
-     space behind it, less clearly than the open field), and it is identical
-     in all four corners. Contrast: effective backdrop is near black, so body
-     copy at rgba(255,255,255,0.8) and the orange accent both sit far above
-     WCAG AA. */
+     the field behind it is legible but not readable (so you see the space
+     behind it, less clearly than the open field), and it is identical in all
+     four corners. Contrast: effective backdrop is near black, so body copy at
+     rgba(255,255,255,0.8) and the orange accent both sit far above WCAG AA. */
   .fv-section {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(0.6px) saturate(120%) brightness(0.9);
-    -webkit-backdrop-filter: blur(0.6px) saturate(120%) brightness(0.9);
+    background: rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(1px) saturate(120%) brightness(0.9);
+    -webkit-backdrop-filter: blur(1px) saturate(120%) brightness(0.9);
     border: 1px solid rgba(78, 78, 78, 0.6);
     border-radius: 22px;
     padding: 44px;
