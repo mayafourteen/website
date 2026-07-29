@@ -880,14 +880,20 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
        1.6px -> peak 31, hard  0.0, soft 17.9
        2.0px -> peak 22, hard  0.0, soft  6.7   (field erased, round-2 bug)
      "Hard" counts pixels above luminance 40 (a distinct point of light),
-     "soft" counts above 18 (a visible glow). The cliff for hard points now
-     sits between 0.9 and 1.2. 1.0px is deliberately just under it: the stars
-     inside a card stop reading as sharp dots and start reading as diffuse
-     glows, which is the actual look of something seen through glass, while
-     still leaving real points rather than an empty grey pane.
+     "soft" counts above 18 (a visible glow). The cliff for hard points sits
+     between 0.9 and 1.2.
+
+     Round 8 (2026-07-28) takes the requested last 20% and goes to 1.2px,
+     which is the end of the usable range and is stated as such. Hard points
+     inside a card are now effectively gone; what remains is the soft glow
+     layer, which is why the interior still reads as space rather than as a
+     flat panel. The next step up (1.6px) drops soft glow 24 -> 18 and 2.0px
+     erases the field outright, so there is no round 9 on this dial. Any
+     further "more blurred" has to come from the fill alpha instead, which
+     darkens rather than diffuses.
 
      Final measured, card interior vs open background (native capture):
-       interior  mean 0.26   star peak  48  hard px/10k 2.7   soft px/10k 26.0
+       interior  mean 0.26   star peak  42  hard px/10k 0.6   soft px/10k 23.8
        open      mean 1.30   star peak 136  hard px/10k 22.7  soft px/10k 48.5
      Interior is darker than the surrounding void (so it stops floating),
      the field behind it is legible but not readable (so you see the space
@@ -896,8 +902,8 @@ const soundcloudThumbs = await Promise.all(soundcloudTracks.map((t) => fetchSoun
      rgba(255,255,255,0.8) and the orange accent both sit far above WCAG AA. */
   .fv-section {
     background: rgba(0, 0, 0, 0.32);
-    backdrop-filter: blur(1px) saturate(120%) brightness(0.9);
-    -webkit-backdrop-filter: blur(1px) saturate(120%) brightness(0.9);
+    backdrop-filter: blur(1.2px) saturate(120%) brightness(0.9);
+    -webkit-backdrop-filter: blur(1.2px) saturate(120%) brightness(0.9);
     border: 1px solid rgba(78, 78, 78, 0.6);
     border-radius: 22px;
     padding: 44px;
